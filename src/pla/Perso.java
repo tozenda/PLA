@@ -1,5 +1,5 @@
 package pla;
 
-public abstract class Perso extends Observables {
+public abstract class Perso extends Actifs {
 
 }
