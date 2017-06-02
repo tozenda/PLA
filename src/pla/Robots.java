@@ -2,6 +2,7 @@ package pla;
 
 public class Robots extends Perso{
 
+<<<<<<< HEAD
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
@@ -32,4 +33,27 @@ public class Robots extends Perso{
 		
 	}
 
+=======
+	public String ToString(){
+		return "R";
+	}
+
+	@Override
+	public boolean isVide() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isObstacles() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isCompetences() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+>>>>>>> c20557d4bfc2efcd5dc50a4fc649138eee1224e8
 }

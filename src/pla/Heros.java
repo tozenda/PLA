@@ -11,16 +11,16 @@ public class Heros extends Perso{
 
     public Heros() {
         
-        initHeros();
+       // initHeros();
     }
     
-    private void initHeros() {
+    /*private void initHeros() {
         
         ImageIcon ii = new ImageIcon("hero.png");
         image = ii.getImage();
         x = 40;
         y = 60;        
-    }
+    }*/
 
 
     public void move(int dx, int dy) {
@@ -36,9 +36,9 @@ public class Heros extends Perso{
         return y;
     }
 
-    public Image getImage() {
+    /*public Image getImage() {
         return image;
-    }
+    }*/
 
     
 	@Override
@@ -65,4 +65,25 @@ public class Heros extends Perso{
 		
 	}
 
+	public String ToString(){
+		return "H";
+	}
+
+	@Override
+	public boolean isVide() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isObstacles() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isCompetences() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
