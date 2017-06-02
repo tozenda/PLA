@@ -86,4 +86,12 @@ public class Heros extends Perso{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
+	}
 }
