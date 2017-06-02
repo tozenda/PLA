@@ -2,10 +2,6 @@ package pla;
 
 public class Competences extends Observables {
 	
-	public String ToString(){
-		return "C";
-	}
-
 	public String toString() {
 		return "C";
 	}

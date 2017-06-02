@@ -5,10 +5,6 @@ public class Vide extends Observables {
     
 	public static final Vide VIDE = new Vide();
 	
-	public String ToString(){
-		return "V";
-	}
-
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub

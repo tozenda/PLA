@@ -1,6 +1,7 @@
 package pla;
 
 public class Base extends Actifs{
+	
 	public String toString() {
 		return "B";
 	}

@@ -65,9 +65,6 @@ public class Heros extends Perso{
 		
 	}
 
-	public String ToString(){
-		return "H";
-	}
 
 	@Override
 	public boolean isVide() {
