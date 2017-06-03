@@ -46,7 +46,8 @@ Cours sur git + chaque équipe a présenté son jeu
 Suite aux remarques, discussion sur le changement de la séquence du jeu. Soit on décide de faire la séquence suivante :
 1. Phase choix Joueur 1
 2. Phase choix Joueur 2
-3. Phase d'action (les choix des deux joueurs sont exécutés) <return>
+3. Phase d'action (les choix des deux joueurs sont exécutés) 
+<return>
 Soit, on choisit la seconde version :
 1. Phase choix Joueur 1
 2. Phase action Joueur 1
