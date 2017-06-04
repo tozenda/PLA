@@ -21,6 +21,11 @@ public class Heros extends Perso{
         x = 40;
         y = 60;        
     }*/
+    
+    public void setPos(int x, int y){
+    	this.x = x;
+    	this.y = y;
+    }
 
 
     public void move(int dx, int dy) {

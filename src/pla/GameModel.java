@@ -11,6 +11,9 @@ public class GameModel {
 
   GameModel(Game game) {
     m_game = game;
+    Map map = new Map();
+    Heros h = new Heros();
+    h.setPos(1, 1);
   }
   
   long count=0;
