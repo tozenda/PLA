@@ -6,9 +6,8 @@ public class Map {
 	private Case elements[];
 	
 	public Map(){
-		@SuppressWarnings("unused")
+		elements = new Case[width*height];
 		Vide v;
-		@SuppressWarnings("unused")
 		Case c;
 		for(int i=0;i<width;i++){
 			for(int j=0;j<height;j++){
@@ -17,7 +16,7 @@ public class Map {
 				elements[(i*width)+j] = c;
 			}
 		}
-		Heros h = new Heros();
+		Heros h = new Heros(1,1);
 		c = new Case(1,1,h);
 		this.editCase(c);
 	}
@@ -55,6 +54,12 @@ public class Map {
 	}
 	
 	public void editCase(Case c){
-		elements[]=c;
+		int w = c.getX();
+		int h = c.getY();
+		elements[w*width+h]=c;
+	}
+	
+	public Case getCase(int x, int y){
+		return elements[y*width+x];
 	}
 }

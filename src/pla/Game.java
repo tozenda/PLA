@@ -32,8 +32,9 @@ public class Game {
 	public Game() {
 		m_model = new GameModel(this);
 	    m_controller = new GameController(this, m_model);
-	    
 	    createWindow();
+	    System.out.println("Fenetre crée");
+		
 
 	    // create the main window and the periodic timer
 	    // to drive the overall clock of the simulation.

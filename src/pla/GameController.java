@@ -8,7 +8,7 @@ import java.awt.event.MouseMotionListener;
 
 public class GameController implements MouseListener, MouseMotionListener, KeyListener {
 
-  static final boolean echo = false;
+  static final boolean echo = true;
   Game m_game;
   GameModel m_model;
   char haut = 'z';
@@ -35,17 +35,8 @@ public class GameController implements MouseListener, MouseMotionListener, KeyLi
   public void keyTyped(KeyEvent e) {
     if (echo)
       System.out.println("KeyTyped: " + e);
-    if (e.getKeyChar() == haut) {
-    	//TODO
-    } 
-    else if (e.getKeyChar() == bas) {
-    	//TODO
-    } 
-    else if (e.getKeyChar() == gauche) {
-    	//TODO
-    }
-    else if (e.getKeyChar()== droite){
-    	//TODO
+    if ((e.getKeyChar() == haut)||(e.getKeyChar() == bas)||(e.getKeyChar() == gauche)||(e.getKeyChar()== droite)) {
+    	m_model.heroMove(e.getKeyChar());
     }
   }
 

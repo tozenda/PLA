@@ -8,12 +8,14 @@ package pla;
 public class GameModel {
 
   Game m_game;
+  Map map;
+  Heros heros1;
 
   GameModel(Game game) {
     m_game = game;
-    Map map = new Map();
-    Heros h = new Heros();
-    h.setPos(1, 1);
+    map = new Map();
+    heros1 = new Heros();
+    heros1.setPos(0, 0);
   }
   
   long count=0;
@@ -36,5 +38,40 @@ public class GameModel {
    */
   void step(long now) {
     overhead();
+  }
+
+  void heroMove(char mvt) {
+	  int currentX = heros1.getX();
+	  int currentY = heros1.getY();
+	  int dx = currentX;
+	  int dy = currentY;
+	  if(mvt == 'z'){
+		  if(currentY>=0){
+			  dy = currentY-1;  
+		  }
+	  }
+	  else if(mvt == 'q'){
+		  if(currentX>=0){
+			  dx = currentX -1;
+		  }
+	  }
+	  else if(mvt == 's'){
+		  if(currentY<map.getHeight()){
+			  dy = currentY-1;  
+		  }
+	  }
+	  else if(mvt == 'd'){
+		  if(currentX<map.getWidth()){
+			  dx = currentX +1;
+		  }
+	  }
+	  if(map.getCase(dx, dy).getContenu().isVide()){
+		  heros1.move(dx-currentX, dy-currentY);
+		  Case v = new Case(currentX,currentY,new Vide());
+		  Case h = new Case(dx,dy,heros1);
+		  map.editCase(v);
+		  map.editCase(h);
+	  }
+	  //TODO : cas où il y aune compétences à implémenter.
   }
 }

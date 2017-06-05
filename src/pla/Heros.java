@@ -14,6 +14,12 @@ public class Heros extends Perso{
        // initHeros();
     }
     
+    public Heros(int x, int y) {
+        this.x = x;
+        this.y = y;
+        // initHeros();
+     }
+    
     /*private void initHeros() {
         
         ImageIcon ii = new ImageIcon("hero.png");
@@ -45,10 +51,7 @@ public class Heros extends Perso{
         return image;
     }*/
 
-    
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
+   	public String toString() {
 		return "H";
 	}
 
@@ -67,25 +70,16 @@ public class Heros extends Perso{
 	@Override
 	public void ramasser() {
 		// TODO Auto-generated method stub
-		
 	}
 
-
-	@Override
 	public boolean isVide() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
 	public boolean isObstacles() {
-		// TODO Auto-generated method stub
 		return false;
 	}
-
-	@Override
 	public boolean isCompetences() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

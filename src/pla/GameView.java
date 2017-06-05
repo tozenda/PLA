@@ -26,13 +26,13 @@ public class GameView extends JPanel {
     addKeyListener(ctr);
     addMouseListener(ctr);
     addMouseMotionListener(ctr);
-
     // grab the focus on this JPanel, meaning keyboard events
     // are coming to our controller. Indeed, the focus controls
     // which part of the overall GUI receives the keyboard events.
     setFocusable(true);
     requestFocusInWindow();
     grabFocus();
+    System.out.println("GameView cree");
   }
   
   // incrémente une variable à chaque raffraichissement d'écran pour calculer les fps
@@ -51,7 +51,7 @@ public class GameView extends JPanel {
 
   //pour afficher des objets sur notre fenetre
   public void paintComponent(Graphics g) {
-	  	
+	  	System.out.println("Paint Component appel�");
 	  	computeFPS();
     
 	  	//Quadrillage de la map
