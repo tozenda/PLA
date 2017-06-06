@@ -29,9 +29,6 @@ public class Map {
 		addBase(10, 1);
 		addBase(11, 0);
 		addBase(11, 1);
-		Heros h = new Heros(3,3);
-		c = new Case(3,3,h);
-		this.editCase(c);
 	}
 	
 	public void addBase(int i, int j){

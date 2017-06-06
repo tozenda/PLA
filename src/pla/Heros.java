@@ -103,4 +103,16 @@ public class Heros extends Perso{
 	public void setInventaire(List<Competence> inventaire) {
 		this.inventaire = inventaire;
 	}
+
+	public boolean isHeros() {
+		return true;
+	}
+
+	public boolean isBase() {
+		return false;
+	}
+
+	public boolean isRobot() {
+		return false;
+	}
 }
