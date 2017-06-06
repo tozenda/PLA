@@ -46,22 +46,22 @@ public class GameModel {
 	  int dx = currentX;
 	  int dy = currentY;
 	  if(mvt == 'z'){
-		  if(currentY>=0){
+		  if(currentY>=1){
 			  dy = currentY-1;  
 		  }
 	  }
 	  else if(mvt == 'q'){
-		  if(currentX>=0){
+		  if(currentX>=1){
 			  dx = currentX -1;
 		  }
 	  }
 	  else if(mvt == 's'){
-		  if(currentY<map.getHeight()){
-			  dy = currentY-1;  
+		  if(currentY<map.getHeight()-1){
+			  dy = currentY+1;  
 		  }
 	  }
 	  else if(mvt == 'd'){
-		  if(currentX<map.getWidth()){
+		  if(currentX<map.getWidth()-1){
 			  dx = currentX +1;
 		  }
 	  }
@@ -72,6 +72,6 @@ public class GameModel {
 		  map.editCase(v);
 		  map.editCase(h);
 	  }
-	  //TODO : cas où il y aune compétences à implémenter.
+	  //TODO : cas oï¿½ il y aune compï¿½tences ï¿½ implï¿½menter.
   }
 }

@@ -8,7 +8,7 @@ import java.awt.event.MouseMotionListener;
 
 public class GameController implements MouseListener, MouseMotionListener, KeyListener {
 
-  static final boolean echo = true;
+  static final boolean echo = false;
   Game m_game;
   GameModel m_model;
   static char haut = 'z';
