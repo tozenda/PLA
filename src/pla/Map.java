@@ -13,11 +13,15 @@ public class Map {
 			for(int j=0;j<height;j++){
 				v = new Vide(); 
 				c = new Case(i,j,v);
+				if((j==2)&&(i!=0)){//j is the colomn && i is the line
+					Obstacles o = new Obstacles();
+					c = new Case(i,j,o);
+				}
 				elements[(i*width)+j] = c;
 			}
 		}
-		Heros h = new Heros(1,1);
-		c = new Case(1,1,h);
+		Heros h = new Heros(0,width-1);
+		c = new Case(0,width-1,h);
 		this.editCase(c);
 	}
 	
