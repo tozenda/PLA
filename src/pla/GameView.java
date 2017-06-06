@@ -196,6 +196,10 @@ public class GameView extends JPanel {
 			gc.gridy = 1;
 			gc.gridheight = 1;
 			Break = new _RButtonB("Have a kitkat");
+			Break.addActionListener(new java.awt.event.ActionListener(){
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+		      GameModel.breakk();
+		    }});
 		}
 		System.out.println("Break");
 		return Break;
@@ -208,8 +212,12 @@ public class GameView extends JPanel {
 			Font font2 = new Font("American Typewriter", Font.PLAIN, 12);
 			Create_Robot.setFont(font2);
 			Create_Robot.setColors(Color.BLACK, Color.white, Color.white, Color.pink.darker());
+			Create_Robot.addActionListener(new java.awt.event.ActionListener(){
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+		      GameModel.Create_Robot();
+		    }});
 		}
-		System.out.println("robot");
+		System.out.println("Break");
 		return Create_Robot;
 	}
 
@@ -220,8 +228,12 @@ public class GameView extends JPanel {
 			gc.gridy = 1;
 			Tour = new _RButtonB("Tour");
 			System.out.println("tour");
+			Tour.addActionListener(new java.awt.event.ActionListener(){
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+		      GameModel.Tour();
+		    }});
 		}
-
+		System.out.println("Break");
 		return Tour;
 	}
 
