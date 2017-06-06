@@ -40,4 +40,16 @@ public class Competences extends Observables {
 		lc.add(c);
 	}
 
+	public boolean isHeros() {
+		return false;
+	}
+
+	public boolean isBase() {
+		return false;
+	}
+
+	public boolean isRobot() {
+		return false;
+	}
+
 }

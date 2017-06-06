@@ -112,7 +112,6 @@ public class Heros extends Perso{
 		return false;
 	}
 
-
 	public boolean isRobot() {
 		return false;
 	}
