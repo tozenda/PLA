@@ -1,0 +1,113 @@
+options { 
+    DEBUG_PARSER=false; 
+    STATIC=false; 
+} 
+ 
+PARSER_BEGIN(Reader) 
+package  src.pla  ;
+
+import java.io.*;
+ 
+ 
+public class Reader { 
+  /** le support de lecture */
+  public static void main(String args []){
+   		System.out.println("Entrez votre commande robot :");
+ 	    System.out.println(read().readArbre());
+  }
+  protected static java.io.Reader in = new BufferedReader(new InputStreamReader(System.in)); 
+  /** lecture d'une S-EXPR au terminal 
+   * @return Sexpr : la Sexpr construite. 
+   * @throws LispException une erreur de syntaxe 
+   */ 
+  public static Noeud read() throws LispException{
+	  	Reader parser = new Reader(in);
+	  	Noeud n = null;
+	  	try
+ 	    {
+ 	      n = parser.BASE();
+ 	    }
+		catch (ParseException e)
+		{
+		  System.out.println(e.getMessage());
+		}
+	  	return n;
+    }
+    
+  /** lecture d'une S-EXPR à partir de la chaîne 
+   * @param s : la chaîne 
+   * @return Sexpr : la Sexpr construite. 
+   * @throws LispException une  erreur de syntaxe 
+   */ 
+  public static Noeud read(String s) throws LispException{
+    Reader parser = new Reader (in);
+	Noeud n2 = null;
+	try
+	{
+	  n2 = parser.BASE();
+    }
+    catch(ParseException e)
+    {
+      System.out.println(e.getMessage());
+	}
+	return n2;
+   }
+} 
+ 
+PARSER_END(Reader) 
+
+TOKEN :{ 
+  < PARO : "(" >
+| < PARF : ")" >
+| < ACCO : "{" >
+| < ACCF : " }" >
+| < ITERE : ":" >
+| < REPETE : "*" >
+| < PTV : ";" >
+| < HASARD  : "|" >
+| < OU  : "||" >
+| < INF  : "<" >
+| < SUP  : " >" >
+| <SYMBOL: (["a"-"z"]|["A"-"Z"]|"."|"-")+ > 
+} 
+// les règles de grammaire de ce langage 
+Noeud BASE() : 
+{Noeud n1;} 
+{ 
+  (n1=ACTION(){return n1;})*
+}
+
+Sexpr ACTION() :
+{Noued n2;}
+{
+	n2=COMPETENCE() {return n2;}
+	|<PARO> n2=LISTE() <PARF> {return n2;}
+	|<ACCO> n2=LISTE() <ACCF> {return n2;}
+	|<ACCO> n2=LISTE() <ACCF> <REPETE> {return repeat(n2);}
+}
+
+Sexpr LISTE() :
+{Noeud n2,n3;}
+{
+	n2=COMPETENCE() n3=FINLISTE() {return n2;}
+	| n2=COMPETENCE() <PTV> n3=COMPETENCE() {return n2,n3;}
+	| n2=COMPETENCE() <HASARD> n3=COMPETENCE() {return hasard(n2,n3);}
+	| n2=COMPETENCE() <OU> n3=COMPETENCE() {return ou(n2,n3);}
+	| n2=COMPETENCE() <INF> n3=COMPETENCE() {return inf(n2,n3);}
+	| n2=COMPETENCE() <SUP> n3=COMPETENCE() {return sup(n2,n3);}
+}
+	  
+    
+
+Competences COMPETENCE() :
+{Competences comp;} 
+{
+  	comp=< SYMBOL > {return ;}
+}
+
+Sexpr FINLISTE() : {Sexpr s4,s5;}
+{
+	<POINT> s4=SEXPR() {return s4;}
+	| s4=SEXPR() s5=FINLISTE() {return new Scons(s4,s5);}
+	| {return Nil.nil;}
+}

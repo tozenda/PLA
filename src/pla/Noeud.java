@@ -9,7 +9,6 @@ public class Noeud extends Robots {
 	Competences action;
 	Noeud filsGauche;
 	Noeud filsDroit;
-	Noeud Racine;
 	public ArrayList<Noeud> Liste=new ArrayList<Noeud>();
 
 	public Noeud(Competences comp){
@@ -29,5 +28,21 @@ public class Noeud extends Robots {
 		Liste.add(n);
 		this.filsGauche=n;
 	}
+	
+	public void readArbre(){
+	     if(this.filsGauche!=null){
+	    	 filsGauche.readArbre();
+	     }
+	     action.eval; //TODO eval in Competences or Competence
+	     if(this.filsDroit!=null){
+	    	 filsDroit.readArbre();
+	     }
+	   }
 
+	public void main(){
+		Noeud n = new Noeud(//Competence);
+		n.addFilsG(//Competence);
+		n.addFilsD(//Competence);
+		n.readArbre();
+	}
 }
