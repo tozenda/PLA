@@ -72,6 +72,13 @@ public class GameModel {
 		  map.editCase(v);
 		  map.editCase(h);
 	  }
-	  //TODO : cas o� il y aune comp�tences � impl�menter.
+	  else if(map.getCase(dx, dy).getContenu().isCompetences()){
+		  heros1.pickUp((Competences) map.getCase(dx, dy).getContenu());
+		  heros1.move(dx-currentX, dy-currentY);
+		  Case v = new Case(currentX,currentY,new Vide());
+		  Case h = new Case(dx,dy,heros1);
+		  map.editCase(v);
+		  map.editCase(h);
+	  }
   }
 }
