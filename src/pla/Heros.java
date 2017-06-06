@@ -9,7 +9,7 @@ public class Heros extends Perso{
     private int x;
     private int y;
     private Image image;
-    private List<Competence> inventaire = new ArrayList<Competence>();
+    //private List<Competence> inventaire = new ArrayList<Competence>();
 
     public Heros() {
         x = 0;
@@ -102,5 +102,18 @@ public class Heros extends Perso{
 
 	public void setInventaire(List<Competence> inventaire) {
 		this.inventaire = inventaire;
+	}
+
+	public boolean isHeros() {
+		return true;
+	}
+
+	public boolean isBase() {
+		return false;
+	}
+
+
+	public boolean isRobot() {
+		return false;
 	}
 }
