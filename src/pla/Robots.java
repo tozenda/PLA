@@ -34,7 +34,18 @@ public class Robots extends Perso{
 	}
 
 	public void pickUp(Competences c) {
-		// TODO Auto-generated method stub
 		
+	}
+
+	public boolean isHeros() {
+		return false;
+	}
+
+	public boolean isBase() {
+		return false;
+	}
+
+	public boolean isRobot() {
+		return true;
 	}
 }
