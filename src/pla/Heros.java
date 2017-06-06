@@ -17,16 +17,16 @@ public class Heros extends Perso{
     public Heros(int x, int y) {
         this.x = x;
         this.y = y;
-        // initHeros();
+        initHeros();
      }
     
-    /*private void initHeros() {
+    private void initHeros() {
         
-        ImageIcon ii = new ImageIcon("hero.png");
+        ImageIcon ii = new ImageIcon("../img/hero.png");
         image = ii.getImage();
         x = 40;
         y = 60;        
-    }*/
+    }
     
     public void setPos(int x, int y){
     	this.x = x;

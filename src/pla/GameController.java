@@ -11,10 +11,10 @@ public class GameController implements MouseListener, MouseMotionListener, KeyLi
   static final boolean echo = true;
   Game m_game;
   GameModel m_model;
-  char haut = 'z';
-  char bas = 's';
-  char gauche = 'q';
-  char droite = 'd';
+  static char haut = 'z';
+  static char bas = 's';
+  static char gauche = 'q';
+  static char droite = 'd';
 
   GameController(Game game, GameModel model) {
     m_game = game;

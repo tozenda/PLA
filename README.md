@@ -46,9 +46,9 @@ Cours sur git + chaque équipe a présenté son jeu
 Suite aux remarques, discussion sur le changement de la séquence du jeu. Soit on décide de faire la séquence suivante :
 1. Phase choix Joueur 1
 2. Phase choix Joueur 2
-3. Phase d'action (les choix des deux joueurs sont exécutés) 
+3. Phase d'action (les choix des deux joueurs sont exécutés)
 
-Soit, on choisit la seconde version : 
+Soit, on choisit la seconde version :
 
 1. Phase choix Joueur 1
 2. Phase action Joueur 1
@@ -72,3 +72,15 @@ Répartition pour ce jour, ainsi que pour le weekend : <return>
 * Paul : Arbre des actions pour les robots
 * Joffrey : Détection des touches pour le déplacement du Héros
 * Anouar : Tests
+
+### Jour 4 (Lundi 06/09)
+
+#### Matin
+
+- Cours sur les présentations
+- Discussion dans l'équipe sur le MVC.
+- Objectifs de la journée :
+* Avoir un héros qui apparait et qui bouge
+* Structure arbre pour les robots fonctionnels
+* Graphique qui fonctionne en coordination avec la Map
+* Implémentation des tests
