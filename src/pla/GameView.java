@@ -8,9 +8,13 @@ import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -160,9 +164,17 @@ public class GameView extends JPanel {
 			gc.gridy = 0;
 			gc.gridheight = 2;
 
-			ImageIcon background = new ImageIcon("PLA\\Resources\\Logo.png");
-			logo = new JLabel();
-			logo.setIcon(background);
+			BufferedImage img = null;
+			try {
+				// read in using ImageIO
+				img = ImageIO.read(new File("Resources/Logo.png"));
+				logo = new JLabel();
+				logo.setIcon(new ImageIcon(img));
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.exit(-1);
+			}
+
 
 			System.out.println("logo");
 		}
