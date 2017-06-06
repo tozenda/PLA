@@ -33,7 +33,7 @@ public class Game {
 		m_model = new GameModel(this);
 	    m_controller = new GameController(this, m_model);
 	    createWindow();
-	    System.out.println("Fenetre crée");
+	    System.out.println("Fenetre crï¿½e");
 		
 
 	    // create the main window and the periodic timer
@@ -47,10 +47,11 @@ public class Game {
 		// creation QUE de la fenetre
 	    m_frame = new JFrame();
 	    m_frame.setTitle("Conquerir");
-	    m_frame.setSize(1000, 600);
-	    
+	    m_frame.setSize(916, 585);
+	    m_frame.setResizable(false);
 	    // gestion de l'affichage affichage
 	    m_view = new GameView(this, m_model, m_controller);
+	    m_frame.add(m_view, BorderLayout.CENTER);
 	    m_frame.setVisible(true);
 	    
 	    
