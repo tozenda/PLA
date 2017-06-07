@@ -78,6 +78,6 @@ public class Map {
 	}
 	
 	public Case getCase(int x, int y){
-		return elements[x][y];
+		return elements[y][x];
 	}
 }
