@@ -48,27 +48,27 @@ public class GameModel {
 	  int dy = currentY;
 	  System.out.println(mvt);
 	  if(mvt == 'z'){
-		  if(currentY>=1){
-			  dy = (currentY-1)%20;  
+		  if(currentX>=1){
+			  dx = (currentX-1);  
 		  }
 	  }
 	  else if(mvt == 'q'){
-		  if(currentX>=1){
-			  dx = (currentX -1)%12;
+		  if(currentY>=1){
+			  dy = (currentY -1);
 		  }
 	  }
 	  else if(mvt == 's'){
-		  if(currentY<map.getHeight()-1){
-			  dy = (currentY+1)%20;  
+		  if(currentX<map.getHeight()-1){
+			  dx = (currentX+1);  
 		  }
 	  }
 	  else if(mvt == 'd'){
-		  if(currentX<map.getWidth()-1){
-			  dx = (currentX +1)%12;
+		  if(currentY<map.getWidth()-1){
+			  dy = (currentY +1);
 		  }
 	  }
 	  System.out.println("all ok");
-	  if(map.getCase(dx, dy).getContenu().isVide()){
+	  if(map.getCase(dy, dx).getContenu().isVide()){
 		  System.out.println("vide");
 		  heros1.move(dx-currentX, dy-currentY);
 		  Case v = new Case(currentX,currentY,new Vide());
@@ -77,7 +77,7 @@ public class GameModel {
 		  map.editCase(h);
 		  System.out.println("Je déplace en ("+dx+";"+dy+")");
 	  }
-	  else if(map.getCase(dx, dy).getContenu().isCompetences()){
+	  else if(map.getCase(dy, dx).getContenu().isCompetences()){
 		  System.out.println("else");
 		  heros1.pickUp((Competences) map.getCase(dx, dy).getContenu());
 		  heros1.move(dx-currentX, dy-currentY);

@@ -280,7 +280,6 @@ public class GameView extends JPanel {
 
 		int nbrCaseX = 20;
 		int nbrCaseY = 12;
-		System.out.println("Paint Component appelé");
 		computeFPS();
 		/*Image image;
 		ImageIcon ii = new ImageIcon("../img/hero.png");
@@ -297,7 +296,7 @@ public class GameView extends JPanel {
 
 		for (int i = 0; i < nbrCaseX; i++) {
 			for (int j = 0; j < nbrCaseY; j++) {
-				Case c = m_model.map.getCase(j, i);
+				Case c = m_model.map.getCase(i, j);
 				Observables obs = c.getContenu();
 				if (obs.isObstacles()) {
 					g.setColor(Color.BLACK);
