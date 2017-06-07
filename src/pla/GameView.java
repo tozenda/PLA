@@ -198,7 +198,7 @@ public class GameView extends JPanel {
 			Break = new _RButtonB("Have a kitkat");
 			Break.addActionListener(new java.awt.event.ActionListener(){
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-		      GameModel.breakk();
+		      //GameModel.breakk();
 		    }});
 		}
 		System.out.println("Break");
@@ -214,7 +214,7 @@ public class GameView extends JPanel {
 			Create_Robot.setColors(Color.BLACK, Color.white, Color.white, Color.pink.darker());
 			Create_Robot.addActionListener(new java.awt.event.ActionListener(){
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-		      GameModel.Create_Robot();
+		      //GameModel.Create_Robot();
 		    }});
 		}
 		System.out.println("Break");
@@ -230,7 +230,7 @@ public class GameView extends JPanel {
 			System.out.println("tour");
 			Tour.addActionListener(new java.awt.event.ActionListener(){
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-		      GameModel.Tour();
+		      //GameModel.Tour();
 		    }});
 		}
 		System.out.println("Break");

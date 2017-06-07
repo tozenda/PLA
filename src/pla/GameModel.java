@@ -42,6 +42,7 @@ public class GameModel {
   }
 
   void heroMove(char mvt) {
+	  System.out.println("heroMove : "+mvt);
 	  int currentX = heros1.getX();
 	  int currentY = heros1.getY();
 	  int dx = currentX;
@@ -72,7 +73,7 @@ public class GameModel {
 		  Case h = new Case(dx,dy,heros1);
 		  map.editCase(v);
 		  map.editCase(h);
-		  //System.out.println("Je déplace en ("+dx+";"+dy+")");
+		  //System.out.println("Je déplace de ("+(dx-currentX)+";"+(dy-currentY)+")");
 	  }
 	  else if(map.getCase(dx, dy).getContenu().isCompetences()){
 		  heros1.pickUp((Competences) map.getCase(dx, dy).getContenu());
