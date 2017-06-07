@@ -9,8 +9,7 @@ public class Robots extends Perso{
 	}
 
 	public void move(Case c) {
-		
-		Game.game.m_model.map.editCase(c);
+		Map map = Game.game.m_model.map; 
 	}
 
 	@Override

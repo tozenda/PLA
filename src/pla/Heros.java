@@ -9,7 +9,7 @@ public class Heros extends Perso{
     private int x;
     private int y;
     private Image image;
-    //private List<Competence> inventaire = new ArrayList<Competence>();
+    private List<Competence> inventaire = new ArrayList<Competence>();
 
     public Heros() {
         x = 0;
@@ -27,8 +27,6 @@ public class Heros extends Perso{
         
         ImageIcon ii = new ImageIcon("../img/hero.png");
         image = ii.getImage();
-        x = 40;
-        y = 60;        
     }
     
     public void setPos(int x, int y){
