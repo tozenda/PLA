@@ -21,7 +21,7 @@ public class Game {
 	Timer m_timer;
 	GameModel m_model;
 	GameController m_controller;
-	JLabel m_text;
+	//JLabel m_text;
 	int m_fps;
 	String m_msg;
 	long m_elapsed;
@@ -34,12 +34,12 @@ public class Game {
 	    m_controller = new GameController(this, m_model);
 	    createWindow();
 	    System.out.println("Fenetre cr�e");
-		
+	
 
 	    // create the main window and the periodic timer
 	    // to drive the overall clock of the simulation.
 	    
-//	    createTimer();
+	    createTimer();
 	}
 	
 	private void createWindow() {
@@ -94,11 +94,12 @@ public class Game {
 		        txt += " ";
 		      if (m_msg != null)
 		        txt += m_msg;
-		      m_text.setText(txt);
-		      m_text.repaint();
+		      //m_text.setText(txt);
+		      //m_text.repaint();
 		      m_view.repaint();
 		      m_lastRepaint = now;
 		    }
+		    
 		  }
 	  
 	  public void setFPS(int fps, String msg) {
