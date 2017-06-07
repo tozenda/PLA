@@ -6,6 +6,8 @@ public class Robots extends Perso{
 	
 	int i,j;
 	int di,dj;
+	int pdv = 100;
+	int pDefense = 0;
 	
 	public Robots(int i,int j){
 		this.i = i;
@@ -154,11 +156,12 @@ public class Robots extends Perso{
 				Observables obs = c.getContenu();
 				
 				if(obs.isRobot()){
+					Robots r2 = (Robots) obs;
 					//if(obs.isSameTeam()){
 						double p = Math.random();		
 						//+ obs.defend();
-						if(p > 0.05+obs.defend()){
-							obs.pdv -= 50;
+						if(p > 0.05+r2.defend()){
+							r2.pdv -= 35;
 						}
 						return 1;
 					//}
