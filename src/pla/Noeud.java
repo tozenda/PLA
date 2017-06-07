@@ -21,7 +21,7 @@ public class Noeud extends Robots {
 		Noeud n = new Noeud(comp);
 		Liste.add(n);
 		this.filsDroit=n;
-	}
+	} 
 	
 	public void addFilsG(Competences comp){
 		Noeud n = new Noeud(comp);
