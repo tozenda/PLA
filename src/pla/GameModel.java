@@ -16,12 +16,12 @@ public class GameModel {
     m_game = game;
     map = new Map();
     heros1 = new Heros(0,0);//1ere coord -> Ligne et 2nd coord 6> Colonne
-	Case c = new Case(heros1.getY(),heros1.getY(),heros1);
+	Case c = new Case(heros1.getX(),heros1.getY(),heros1);
 	map.editCase(c);
-	robot = new Robots(3,6);
-	Case r = new Case(3,6,robot);
+	robot = new Robots(3,3);
+	Case r = new Case(robot.i,robot.j,robot);
 	map.editCase(r);
-	robot.editDest(2, 2);
+	robot.editDest(18, 10);
   }
   
   long count=0;
