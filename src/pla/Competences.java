@@ -1,19 +1,19 @@
 package pla;
+import java.util.*;
 
 public class Competences extends Observables {
 	
-	private String c;
+	private List<Competence> lc = new LinkedList<Competence>();
 	
 	public Competences(){
-		setC("");
 	}
 	
-	public Competences(String c){
-		this.setC(c);
+	public Competences(Competence c){
+		lc.add(c);
 	}
 	
 	public String toString() {
-		return "C";
+		return lc.toString();
 	}
 
 	public boolean isVide() {
@@ -28,12 +28,28 @@ public class Competences extends Observables {
 		return true;
 	}
 
-	public String getC() {
-		return c;
+	public List<Competence> getLc() {
+		return lc;
 	}
 
-	public void setC(String c) {
-		this.c = c;
+	public void setC(List<Competence> c) {
+		this.lc = c;
+	}
+	
+	public void addCompetence(Competence c){
+		lc.add(c);
+	}
+
+	public boolean isHeros() {
+		return false;
+	}
+
+	public boolean isBase() {
+		return false;
+	}
+
+	public boolean isRobot() {
+		return false;
 	}
 
 }

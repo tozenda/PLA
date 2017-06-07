@@ -21,4 +21,16 @@ public class Vide extends Observables {
 	public boolean isCompetences() {
 		return false;
 	}
+
+	public boolean isHeros() {
+		return false;
+	}
+
+	public boolean isBase() {
+		return false;
+	}
+
+	public boolean isRobot() {
+		return false;
+	}
 }

@@ -84,3 +84,22 @@ Répartition pour ce jour, ainsi que pour le weekend : <return>
 * Structure arbre pour les robots fonctionnels
 * Graphique qui fonctionne en coordination avec la Map
 * Implémentation des tests
+
+#### Après Midi
+
+Point sur ce qui est fonctionnel et ce sur quoi il y a des bugs :
+* On arrive à creer une fenetre avec les boutons. Il y a un problème mineur sur l'affichage de la map dans la fenetre.
+* Dans GameModel : La structure de mémoire pour la map est fonctionelle. Concernant le déplacement du héros, il faut corriger une bug quand on bouge avec z et s.
+* La structure de l'arbre est en place, il n'y a plus qu'à implementer le parcours de l'arbre.
+
+Tâches à venir :
+* Creation de l'inventaire du héros et de la méthode pickUp pour les compétences
+* Parcours de l'arbre + implémentation des différentes actions.
+* Déplacement des robots.
+* Points de vie pour le héros et les bases.
+
+Discussion technique :
+- Comment identifier chaque compétence
+  -> Mise en place d'un énumération (Competence)
+- Nom du jeu :
+  -> Après votes : le nom sera .... Mighty Retarded Robots

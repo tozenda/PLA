@@ -18,4 +18,16 @@ public class Obstacles extends Observables{
 		return false;
 	}
 
+	public boolean isHeros() {
+		return false;
+	}
+
+	public boolean isBase() {
+		return false;
+	}
+
+	public boolean isRobot() {
+		return false;
+	}
+	
 }

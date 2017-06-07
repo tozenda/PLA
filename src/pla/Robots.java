@@ -2,12 +2,15 @@ package pla;
 
 public class Robots extends Perso{
 	
+	int i,j;
+	
 	public String toString() {
 		return "R";
 	}
 
-	@Override
-	public void move(int dx, int dy) {
+	public void move(Case c) {
+		
+		Game.game.m_model.map.editCase(c);
 	}
 
 	@Override
@@ -16,11 +19,6 @@ public class Robots extends Perso{
 
 	@Override
 	public void defend() {
-	}
-
-	@Override
-	public void ramasser() {
-		
 	}
 
 	public boolean isVide() {
@@ -33,5 +31,21 @@ public class Robots extends Perso{
 
 	public boolean isCompetences() {
 		return false;
+	}
+
+	public void pickUp(Competences c) {
+		
+	}
+
+	public boolean isHeros() {
+		return false;
+	}
+
+	public boolean isBase() {
+		return false;
+	}
+
+	public boolean isRobot() {
+		return true;
 	}
 }

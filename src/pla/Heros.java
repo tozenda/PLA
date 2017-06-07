@@ -1,6 +1,7 @@
 package pla;
 import java.awt.Image;
-import java.awt.event.KeyEvent;
+import java.util.*;
+
 import javax.swing.ImageIcon;
 
 public class Heros extends Perso{
@@ -8,10 +9,12 @@ public class Heros extends Perso{
     private int x;
     private int y;
     private Image image;
+    //private List<Competence> inventaire = new ArrayList<Competence>();
 
     public Heros() {
-        
-       // initHeros();
+        x = 0;
+        y = 0;
+        initHeros();
     }
     
     public Heros(int x, int y) {
@@ -67,9 +70,11 @@ public class Heros extends Perso{
 		
 	}
 
-	@Override
-	public void ramasser() {
-		// TODO Auto-generated method stub
+	public void pickUp(Competences c) {
+		List<Competence> l = c.getLc();
+		for (Competence tmp : l){
+			inventaire.add(tmp);
+		}
 	}
 
 	public boolean isVide() {
@@ -89,5 +94,25 @@ public class Heros extends Perso{
 
 	public void setImage(Image image) {
 		this.image = image;
+	}
+
+	public List<Competence> getInventaire() {
+		return inventaire;
+	}
+
+	public void setInventaire(List<Competence> inventaire) {
+		this.inventaire = inventaire;
+	}
+
+	public boolean isHeros() {
+		return true;
+	}
+
+	public boolean isBase() {
+		return false;
+	}
+
+	public boolean isRobot() {
+		return false;
 	}
 }

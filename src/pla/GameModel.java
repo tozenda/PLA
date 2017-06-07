@@ -14,8 +14,9 @@ public class GameModel {
   GameModel(Game game) {
     m_game = game;
     map = new Map();
-    heros1 = new Heros();
-    heros1.setPos(0, 0);
+    heros1 = new Heros(0,0);
+	Case c = new Case(0,0,heros1);
+	map.editCase(c);
   }
   
   long count=0;
@@ -71,7 +72,15 @@ public class GameModel {
 		  Case h = new Case(dx,dy,heros1);
 		  map.editCase(v);
 		  map.editCase(h);
+		  //System.out.println("Je déplace en ("+dx+";"+dy+")");
 	  }
-	  //TODO : cas o� il y aune comp�tences � impl�menter.
+	  else if(map.getCase(dx, dy).getContenu().isCompetences()){
+		  heros1.pickUp((Competences) map.getCase(dx, dy).getContenu());
+		  heros1.move(dx-currentX, dy-currentY);
+		  Case v = new Case(currentX,currentY,new Vide());
+		  Case h = new Case(dx,dy,heros1);
+		  map.editCase(v);
+		  map.editCase(h);
+	  }
   }
 }
