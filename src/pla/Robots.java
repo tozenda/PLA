@@ -15,7 +15,7 @@ public class Robots extends Perso{
 	}
 
 	public void move(Case c) {
-		System.out.println("Move Robot appelé");
+		//System.out.println("Move Robot appelé");
 		Map map = Game.game.m_model.map; 
 		//di = c.getX();
 		//dj = c.getY();
@@ -29,7 +29,27 @@ public class Robots extends Perso{
 					map.editCase(v);
 				}
 				else if(map.getCase(i, j).getContenu().isCompetences()){
-					
+					i++;
+					Case nr = new Case(i,j,this);
+					Case v = new Case(i-1,j,new Vide());
+					map.editCase(nr);
+					map.editCase(v);
+				}
+				else{
+					if(i>=(map.getWidth()/2)){
+						j--;
+						Case nr = new Case(i,j,this);
+						Case v = new Case(i,j+1,new Vide());
+						map.editCase(nr);
+						map.editCase(v);
+					}
+					else{
+						j++;
+						Case nr = new Case(i,j,this);
+						Case v = new Case(i,j-1,new Vide());
+						map.editCase(nr);
+						map.editCase(v);
+					}
 				}
 			}
 			else{
@@ -43,6 +63,22 @@ public class Robots extends Perso{
 				}
 				else if(map.getCase(i, j).getContenu().isCompetences()){
 					
+				}
+				else{
+					if(i>=(map.getWidth()/2)){
+						j++;
+						Case nr = new Case(i,j,this);
+						Case v = new Case(i,j-1,new Vide());
+						map.editCase(nr);
+						map.editCase(v);
+					}
+					else{
+						j--;
+						Case nr = new Case(i,j,this);
+						Case v = new Case(i,j+1,new Vide());
+						map.editCase(nr);
+						map.editCase(v);
+					}
 				}
 			}
 		}
@@ -58,6 +94,22 @@ public class Robots extends Perso{
 				else if(map.getCase(i, j).getContenu().isCompetences()){
 					
 				}
+				else{
+					if(i>=(map.getHeight()/2)){
+						i--;
+						Case nr = new Case(i,j,this);
+						Case v = new Case(i+1,j,new Vide());
+						map.editCase(nr);
+						map.editCase(v);
+					}
+					else{
+						i++;
+						Case nr = new Case(i,j,this);
+						Case v = new Case(i-1,j,new Vide());
+						map.editCase(nr);
+						map.editCase(v);
+					}
+				}
 			}
 			else{
 				if(map.getCase(i, j-1).getContenu().isVide()){
@@ -70,9 +122,25 @@ public class Robots extends Perso{
 				else if(map.getCase(i, j).getContenu().isCompetences()){
 					
 				}
+				else{
+					if(i>=(map.getHeight()/2)){
+						i--;
+						Case nr = new Case(i,j,this);
+						Case v = new Case(i+1,j,new Vide());
+						map.editCase(nr);
+						map.editCase(v);
+					}
+					else{
+						i++;
+						Case nr = new Case(i,j,this);
+						Case v = new Case(i-1,j,new Vide());
+						map.editCase(nr);
+						map.editCase(v);
+					}
+				}
 			}
 		}
-		System.out.println("Les nouvelles coordonnées sont : ("+i+";"+j+")");
+		//System.out.println("Les nouvelles coordonnées sont : ("+i+";"+j+")");
 	}
 
 	@Override
@@ -112,7 +180,10 @@ public class Robots extends Perso{
 	}
 	
 	public void editDest(int di, int dj){
-		this.di = di;
-		this.dj = dj;
+		//Map map = Game.game.m_model.map; 
+		//if(((di>=0)&&(di<map.getHeight()))||((dj>=0)&&(dj<map.getWidth()))){
+			this.di = di;
+			this.dj = dj;
+		//}
 	}
 }

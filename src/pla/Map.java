@@ -14,11 +14,15 @@ public class Map {
 //				System.out.println("ligne : "+i+" colonnes : "+j);
 				v = new Vide(); 
 				c = new Case(i,j,v);
-				if((j==5)&&(i<4)){//j is the colomn && i is the line
+				if((j==5)&&(i<6)){//j is the colomn && i is the line
 					Obstacles o = new Obstacles();
 					c = new Case(j,i,o);
 				}
 				elements[i][j] = c;
+				elements[6][19] = new Case(6,19,new Obstacles());
+				elements[6][18] = new Case(6,18,new Obstacles());
+				elements[6][17] = new Case(6,17,new Obstacles());
+				elements[6][16] = new Case(6,16,new Obstacles());
 			}
 		}
 		addBase(19, 0);
