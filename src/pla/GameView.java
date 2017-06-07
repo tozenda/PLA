@@ -7,6 +7,7 @@ import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.io.IOException;
 import java.io.InputStream;
@@ -196,10 +197,11 @@ public class GameView extends JPanel {
 			gc.gridy = 1;
 			gc.gridheight = 1;
 			Break = new _RButtonB("Have a kitkat");
-			Break.addActionListener(new java.awt.event.ActionListener(){
+			Break.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-		      //GameModel.breakk();
-		    }});
+					GameModel.breakk();
+				}
+			});
 		}
 		System.out.println("Break");
 		return Break;
@@ -212,12 +214,12 @@ public class GameView extends JPanel {
 			Font font2 = new Font("American Typewriter", Font.PLAIN, 12);
 			Create_Robot.setFont(font2);
 			Create_Robot.setColors(Color.BLACK, Color.white, Color.white, Color.pink.darker());
-			Create_Robot.addActionListener(new java.awt.event.ActionListener(){
+			Create_Robot.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-		      //GameModel.Create_Robot();
-		    }});
+					GameModel.Create_Robot();
+				}
+			});
 		}
-		System.out.println("Break");
 		return Create_Robot;
 	}
 
@@ -228,10 +230,11 @@ public class GameView extends JPanel {
 			gc.gridy = 1;
 			Tour = new _RButtonB("Tour");
 			System.out.println("tour");
-			Tour.addActionListener(new java.awt.event.ActionListener(){
+			Tour.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-		      //GameModel.Tour();
-		    }});
+					GameModel.Tour();
+				}
+			});
 		}
 		System.out.println("Break");
 		return Tour;
@@ -274,12 +277,15 @@ public class GameView extends JPanel {
 
 	// pour afficher des objets sur notre fenetre
 	public void paintComponent(Graphics g) {
-		
+
 		int nbrCaseX = 20;
 		int nbrCaseY = 12;
-		System.out.println("Paint Component appel�");
+		System.out.println("Paint Component appelé");
 		computeFPS();
-
+		/*Image image;
+		ImageIcon ii = new ImageIcon("../img/hero.png");
+		//image = ii.getImage();
+		g.drawImage(image, 0, 0, null);*/
 		// Quadrillage de la map
 		g.setColor(Color.BLACK);
 		for (int i = 0; i <= 21; i++) {
@@ -289,38 +295,51 @@ public class GameView extends JPanel {
 			g.drawLine(0, i * tailleCase, 800, i * tailleCase);
 		}
 
-		for(int i = 0 ; i < nbrCaseX; i++){
-			for(int j = 0 ; j < nbrCaseY; j++){
+		for (int i = 0; i < nbrCaseX; i++) {
+			for (int j = 0; j < nbrCaseY; j++) {
 				Case c = m_model.map.getCase(j, i);
 				Observables obs = c.getContenu();
-				if(obs.isObstacles()){
+				if (obs.isObstacles()) {
 					g.setColor(Color.BLACK);
-					g.fillRect(i*tailleCase+1, j*tailleCase+1, tailleCase-1, tailleCase-1);
+					g.fillRect(i * tailleCase + 1, j * tailleCase + 1, tailleCase - 1, tailleCase - 1);
 				}
-				if(obs.isHeros()){
+				else if (obs.isHeros()) {
 					g.setColor(Color.RED);
-					g.fillRect(i*tailleCase+1, j*tailleCase+1, tailleCase-1, tailleCase-1);
+					g.fillRect(i * tailleCase + 1, j * tailleCase + 1, tailleCase - 1, tailleCase - 1);
 				}
-				if(obs.isBase()){
+				else if (obs.isBase()) {
 					g.setColor(Color.ORANGE);
-					g.fillRect(i*tailleCase+1, j*tailleCase+1, tailleCase-1, tailleCase-1);
+					g.fillRect(i * tailleCase + 1, j * tailleCase + 1, tailleCase - 1, tailleCase - 1);
+				}
+				else {
+					g.setColor(Color.white);
+					g.fillRect(i * tailleCase + 1, j * tailleCase + 1, tailleCase - 1, tailleCase - 1);
 				}
 			}
 		}
-		
-//		// Base des 2 joueurs
-//		g.setColor(Color.RED);
-//		g.fillRect(0, 10 * tailleCase, 2 * tailleCase, 2 * tailleCase);
-//		g.setColor(Color.BLUE);
-//		g.fillRect(18 * tailleCase, 0, 2 * tailleCase, 2 * tailleCase);
-//
-//		// Quelques obstacles
-//		g.setColor(Color.BLACK);
-//		g.fillRect(4 * tailleCase, 3 * tailleCase, 1 * tailleCase, 3 * tailleCase);
-//		g.fillRect(5 * tailleCase, 3 * tailleCase, 2 * tailleCase, 1 * tailleCase);
-//		g.fillRect(13 * tailleCase, 8 * tailleCase, 3 * tailleCase, 1 * tailleCase);
-//		g.fillRect(15 * tailleCase, 6 * tailleCase, 1 * tailleCase, 2 * tailleCase);
-//		g.fillRect(9 * tailleCase, 5 * tailleCase, 2 * tailleCase, 2 * tailleCase);
-				
+
+		// // Base des 2 joueurs
+		// g.setColor(Color.RED);
+		// g.fillRect(0, 10 * tailleCase, 2 * tailleCase, 2 * tailleCase);
+		// g.setColor(Color.BLUE);
+		// g.fillRect(18 * tailleCase, 0, 2 * tailleCase, 2 * tailleCase);
+		//
+		// // Quelques obstacles
+		// g.setColor(Color.BLACK);
+		// g.fillRect(4 * tailleCase, 3 * tailleCase, 1 * tailleCase, 3 *
+		// tailleCase);
+		// g.fillRect(5 * tailleCase, 3 * tailleCase, 2 * tailleCase, 1 *
+		// tailleCase);
+		// g.fillRect(13 * tailleCase, 8 * tailleCase, 3 * tailleCase, 1 *
+		// tailleCase);
+		// g.fillRect(15 * tailleCase, 6 * tailleCase, 1 * tailleCase, 2 *
+		// tailleCase);
+		// g.fillRect(9 * tailleCase, 5 * tailleCase, 2 * tailleCase, 2 *
+		// tailleCase);
+
 	}
+	/*public static void Please(){
+		revalidate();
+		repaint();
+	}*/
 }
