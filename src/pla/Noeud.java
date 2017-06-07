@@ -53,10 +53,44 @@ public class Noeud extends Robots {
 	     return "noeud = "+this.numero+"  action= "+this.action;
 	}
 	
-	public void Affiche(){
-	     if(this.filsGauche!=null) filsGauche.Affiche();
+	public void affiche(){
+	     if(this.filsGauche!=null) filsGauche.affiche();
 	     System.out.println(this.toString());
-	     if(this.filsDroit!=null) filsDroit.Affiche();
+	     if(this.filsDroit!=null) filsDroit.affiche();
+	}
+	
+	public void eval(Noeud n){
+		Competence a = n.action;
+		switch(a){
+			case Hit:
+				Robots.attack();
+				n = n.filsDroit;
+				break;
+			case Protect:
+				Robots.defend();
+				n = n.filsDroit;
+				break;
+			case MoveRamasse:
+				Robots.moveRamasse;
+				n = n.filsDroit;
+				break;
+			case MoveAttack:
+				Robots.moveAttack;
+				n = n.filsDroit;
+				break;
+			case MoveDef:
+				Robots.moveDef;
+				n = n.filsDroit;
+				break;
+			case Sup:
+				if (eval(n.filsGauche) == -1){ //TODO créer cas impossible pour chaque fonction
+					eval(n.filsDroit);
+				}
+				else{
+					eval(n.filsGauche);
+				}
+				break;
+		}
 	}
 
 	public static void main(String[] args){
@@ -65,6 +99,6 @@ public class Noeud extends Robots {
 		n.addFilsD(Competence.Escape);
 		n.addFilsD(Competence.AugPA);
 		//n.readArbre();
-		n.Affiche();
+		n.affiche();
 	}
 }
