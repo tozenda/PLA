@@ -7,11 +7,13 @@ import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Image;
 import java.awt.Insets;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -21,7 +23,6 @@ import javax.swing.JTextField;
 public class GameView extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-
 	Game m_game;
 	GameModel m_model;
 	Color m_background = Color.RED;
@@ -40,6 +41,11 @@ public class GameView extends JPanel {
 	private JProgressBar EBase_HealthBar = null;
 	private JLabel logo = null;
 	private JLabel joueur1 = null;
+	private BufferedImage iHero = null;
+	private BufferedImage iObstacle = null;
+	private BufferedImage iTree = null;
+	private BufferedImage iBase = null;
+	private BufferedImage iSkill = null;
 
 	GridBagConstraints gc = new GridBagConstraints();
 	GridBagConstraints sideg = new GridBagConstraints();
@@ -160,11 +166,20 @@ public class GameView extends JPanel {
 			gc.gridx = 0;
 			gc.gridy = 0;
 			gc.gridheight = 2;
+			BufferedImage iLogo = null;
+			try{
+				iLogo=ImageIO.read(new File("C:\\Users\\Najwa\\Git_Clean\\PLA\\src\\pla\\logo.png"));
+				
+				logo = new JLabel();
+				
+				logo.setIcon(new ImageIcon(new ImageIcon(iLogo).getImage().getScaledInstance(160,50, java.awt.Image.SCALE_SMOOTH)));
 
-			ImageIcon background = new ImageIcon("PLA\\Resources\\Logo.png");
-			logo = new JLabel();
-			logo.setIcon(background);
-
+			}
+			catch (Exception e){
+				e.printStackTrace();
+			}
+			ImageIcon background = new ImageIcon("PLA\\src\\pla\\logo.png");
+			
 			System.out.println("logo");
 		}
 		return logo;
@@ -299,12 +314,28 @@ public class GameView extends JPanel {
 				Case c = m_model.map.getCase(i, j);
 				Observables obs = c.getContenu();
 				if (obs.isObstacles()) {
-					g.setColor(Color.BLACK);
-					g.fillRect(i * tailleCase + 1, j * tailleCase + 1, tailleCase - 1, tailleCase - 1);
+					
+					try {
+					    iObstacle = ImageIO.read(new File("C:\\Users\\Najwa\\Git_Clean\\PLA\\src\\pla\\obstacl.png"));
+					    g.drawImage(iObstacle, i * tailleCase + 1, j * tailleCase + 1, this);
+					} catch (IOException e) {
+					    // TODO Auto-generated catch block
+					    e.printStackTrace();
+					}
+					//g.setColor(Color.BLACK);
+					//g.fillRect(i * tailleCase + 1, j * tailleCase + 1, tailleCase - 1, tailleCase - 1);
 				}
 				else if (obs.isHeros()) {
-					g.setColor(Color.RED);
-					g.fillRect(i * tailleCase + 1, j * tailleCase + 1, tailleCase - 1, tailleCase - 1);
+					try {
+					    iHero = ImageIO.read(new File("C:\\Users\\Najwa\\Git_Clean\\PLA\\src\\pla\\hero.png"));
+					    g.drawImage(iHero, i * tailleCase + 1, j * tailleCase + 1, 39,39, this);
+					    //g.drawImage(iHero, i * tailleCase + 1, j * tailleCase + 1, this);
+					} catch (IOException e) {
+					    // TODO Auto-generated catch block
+					    e.printStackTrace();
+					}
+					//g.setColor(Color.RED);
+					//g.fillRect(i * tailleCase + 1, j * tailleCase + 1, tailleCase - 1, tailleCase - 1);
 				}
 				else if (obs.isBase()) {
 					g.setColor(Color.ORANGE);
