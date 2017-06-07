@@ -28,6 +28,7 @@ public class Game {
 	long m_lastRepaint;
 	long m_lastTick;
 	int m_nTicks;
+	int cmpt=0;
 	
 	public Game() {
 		m_model = new GameModel(this);
@@ -81,6 +82,10 @@ public class Game {
 		    m_controller.step(now);
 		    long elapsed = now - m_lastRepaint;
 		    if (elapsed > REPAINT_DELAY) {
+		    	if(cmpt == 10){
+		    		m_model.robot.move(null);
+		    		cmpt=0;
+		    	}
 		      double tick = (double) m_elapsed / (double) m_nTicks;
 		      long tmp = (long) (tick * 10.0);
 		      tick = tmp / 10.0;
@@ -98,6 +103,7 @@ public class Game {
 		      //m_text.repaint();
 		      m_view.repaint();
 		      m_lastRepaint = now;
+		      cmpt++;
 		    }
 		    
 		  }

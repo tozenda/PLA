@@ -10,13 +10,18 @@ public class GameModel {
   Game m_game;
   Map map;
   Heros heros1;
+  Robots robot;
 
   GameModel(Game game) {
     m_game = game;
     map = new Map();
-    heros1 = new Heros(0,0);
-	Case c = new Case(0,0,heros1);
+    heros1 = new Heros(0,0);//1ere coord -> Ligne et 2nd coord 6> Colonne
+	Case c = new Case(heros1.getY(),heros1.getY(),heros1);
 	map.editCase(c);
+	robot = new Robots(3,6);
+	Case r = new Case(3,6,robot);
+	map.editCase(r);
+	robot.editDest(2, 2);
   }
   
   long count=0;
@@ -48,27 +53,27 @@ public class GameModel {
 	  int dy = currentY;
 	  System.out.println(mvt);
 	  if(mvt == 'z'){
-		  if(currentX>=1){
-			  dx = (currentX-1);  
+		  if(currentY>=1){
+			  dy = (currentY-1);  
 		  }
 	  }
 	  else if(mvt == 'q'){
-		  if(currentY>=1){
-			  dy = (currentY -1);
+		  if(currentX>=1){
+			  dx = (currentX -1);
 		  }
 	  }
 	  else if(mvt == 's'){
-		  if(currentX<map.getHeight()-1){
-			  dx = (currentX+1);  
+		  if(currentY<map.getHeight()-1){
+			  dy = (currentY+1);  
 		  }
 	  }
 	  else if(mvt == 'd'){
-		  if(currentY<map.getWidth()-1){
-			  dy = (currentY +1);
+		  if(currentX<map.getWidth()-1){
+			  dx = (currentX +1);
 		  }
 	  }
 	  System.out.println("all ok");
-	  if(map.getCase(dy, dx).getContenu().isVide()){
+	  if(map.getCase(dx, dy).getContenu().isVide()){
 		  System.out.println("vide");
 		  heros1.move(dx-currentX, dy-currentY);
 		  Case v = new Case(currentX,currentY,new Vide());
@@ -77,7 +82,7 @@ public class GameModel {
 		  map.editCase(h);
 		  System.out.println("Je déplace en ("+dx+";"+dy+")");
 	  }
-	  else if(map.getCase(dy, dx).getContenu().isCompetences()){
+	  else if(map.getCase(dx, dy).getContenu().isCompetences()){
 		  System.out.println("else");
 		  heros1.pickUp((Competences) map.getCase(dx, dy).getContenu());
 		  heros1.move(dx-currentX, dy-currentY);

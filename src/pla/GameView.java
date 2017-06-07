@@ -310,6 +310,10 @@ public class GameView extends JPanel {
 					g.setColor(Color.ORANGE);
 					g.fillRect(i * tailleCase + 1, j * tailleCase + 1, tailleCase - 1, tailleCase - 1);
 				}
+				else if (obs.isRobot()) {
+					g.setColor(Color.cyan);
+					g.fillRect(i * tailleCase + 1, j * tailleCase + 1, tailleCase - 1, tailleCase - 1);
+				}
 				else {
 					g.setColor(Color.white);
 					g.fillRect(i * tailleCase + 1, j * tailleCase + 1, tailleCase - 1, tailleCase - 1);

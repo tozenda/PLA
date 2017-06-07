@@ -16,25 +16,25 @@ public class Map {
 				c = new Case(i,j,v);
 				if((j==5)&&(i<4)){//j is the colomn && i is the line
 					Obstacles o = new Obstacles();
-					c = new Case(i,j,o);
+					c = new Case(j,i,o);
 				}
 				elements[i][j] = c;
 			}
 		}
-		addBase(0, 19);
-		addBase(0, 18);
-		addBase(1, 19);
-		addBase(1, 18);
-		addBase(10, 0);
-		addBase(10, 1);
-		addBase(11, 0);
-		addBase(11, 1);
+		addBase(19, 0);
+		addBase(18, 0);
+		addBase(19, 1);
+		addBase(18, 1);
+		addBase(0, 10);
+		addBase(1, 11);
+		addBase(0, 11);
+		addBase(1, 10);
 	}
 	
 	public void addBase(int i, int j){
 		Base base = new Base(i, j);
 		Case c = new Case(i, j, base);
-		elements[i][j] = c;
+		elements[j][i] = c;
 	}
 	
 	public int getWidth() {
@@ -65,7 +65,7 @@ public class Map {
 		String tmp[] = new String[width*height];
 		for(int i=0;i<height;i++){
 			for(int j = 0 ; j < width ; j++){
-				tmp[i*width+j] = elements[i][j].toString();
+				tmp[i*width+j] = elements[j][i].toString();
 			}
 		}
 		return tmp;
@@ -74,7 +74,7 @@ public class Map {
 	public void editCase(Case c){
 		int w = c.getX();
 		int h = c.getY();
-		elements[w][h]=c;
+		elements[h][w]=c;
 	}
 	
 	public Case getCase(int x, int y){
