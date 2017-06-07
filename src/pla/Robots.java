@@ -1,5 +1,7 @@
 package pla;
 
+import java.util.List;
+
 public class Robots extends Perso{
 	
 	int i,j;
@@ -75,14 +77,127 @@ public class Robots extends Perso{
 		System.out.println("Les nouvelles coordonnées sont : ("+i+";"+j+")");
 	}
 
-	@Override
-	public void attack() {
+	public int attack(){
+		Map map = Game.game.m_model.map;
+		
+		for(int k = i-1; k<= i++; k++){
+			for(int l = j-1; l<=j++; l++){
+				Case c = map.getCase(k, l);
+				Observables obs = c.getContenu();
+				
+				if(obs.isRobot()){
+					//if(obs.isSameTeam()){
+						double p = Math.random();		
+						//+ obs.defend();
+						if(p > 0.05+obs.defend){
+							obs.pdv -= 50;
+						}
+						return 1;
+					//}
+				}
+			}
+		}
+		return 0;
 	}
 
-	@Override
-	public void defend() {
+	//defend renvoie un double ça serait bien, renvoie 0.20 au maximum
+	public double defend() {
+		double p = 0.0;
+		for(int k = 0 ; k<pDefense ; k++){
+			p += (0.2-p)/3;
+		}
+		return p;
+	}
+	
+	public int moveRamasse(){
+		int min = 30;
+		int min_i = 0, min_j = 0;
+		int tmp = 0;
+		Map map = Game.game.m_model.map;
+		
+		for(int k = 0; k<map.getHeight(); k++){
+			for(int l = 0; l<map.getWidth(); l++){
+				
+				Case c = map.getCase(k, l);
+				Observables obs = c.getContenu();
+				
+				if(obs.isCompetences()){
+					tmp = Math.abs(k-i)+Math.abs(l-j);
+					if(tmp<min){
+						min = tmp;
+						min_i = k;
+						min_j = l;
+					}
+				}
+			}
+		}
+		Case c = map.getCase(min_i, min_j);
+		move(c);
+		return 1;
+	}
+	
+	public int moveAttack(){
+		int min = 30;
+		int min_i = 0, min_j = 0;
+		int tmp = 0;
+		Map map = Game.game.m_model.map;
+		
+		for(int k = 0; k<map.getHeight(); k++){
+			for(int l = 0; l<map.getWidth(); l++){
+				
+				Case c = map.getCase(k, l);
+				Observables obs = c.getContenu();
+				
+				if(obs.isRobot()){
+					//if(obs.isSameTeam()){ regarder si robot equipe adverse
+						tmp = Math.abs(k-i)+Math.abs(l-j);
+						if(tmp<min){
+							min = tmp;
+							min_i = k;
+							min_j = l;
+						}
+					//}
+				}
+			}
+		}
+		if(min==30){
+			//attaquer base ennemie
+		}
+		Case c = map.getCase(min_i, min_j);
+		move(c);
+		return 1;
 	}
 
+	public int moveDef(){
+		int min = 30;
+		int min_i = 0, min_j = 0;
+		int tmp = 0;
+		Map map = Game.game.m_model.map;
+		
+		for(int k = 0; k<map.getHeight(); k++){
+			for(int l = 0; l<map.getWidth(); l++){
+				
+				Case c = map.getCase(k, l);
+				Observables obs = c.getContenu();
+				
+				if(obs.isBase()){
+					//if(obs.isSameTeam()){
+						tmp = Math.abs(k-i)+Math.abs(l-j);
+						if(tmp<min){
+							min = tmp;
+							min_i = k;
+							min_j = l;
+						}
+					//}
+				}
+			}
+		}
+		Case c = map.getCase(min_i, min_j);
+		move(c);
+		return 1;
+	}
+	
+	
 	public boolean isVide() {
 		return false;
 	}
