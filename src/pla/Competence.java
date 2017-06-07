@@ -2,13 +2,14 @@ package pla;
 
 public enum Competence {
 	
+		
 		Hit,          //La cible perd des pv
 		Protect,      //Resister, la cible subit moins de degats que prevu
 		Contrer,      //L'attaquant subit sa propre attaque
 		Escape,       //Fuire, le robot se deplace vers une case 
 		Esquiver,     //Pas de degats subit
-		/*Ramasser,     //Ramasser objet
-		Deposer,      //Deposer objet*/
+		Ramasser,     //Ramasser objet
+		/*Deposer,      //Deposer objet*/
 		Soin,         //Gain de PV
 		Kamikaze,     //Le robot perd tout ses pdv et le perso se trouvant a proximité perd le meme nb de pv
 		Ralentir,     //Retrait de PA a la cible
@@ -25,5 +26,8 @@ public enum Competence {
 		Boost,        //Augmenter degats Hit 
 		Piege,        //Deposer un piege sur une case
 		Repere,       //Reperage de piege
+		
+		/* les opérateurs :  */
+		Sup,			// a > b va effectuer a en priorité
 		
 }
