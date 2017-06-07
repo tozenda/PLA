@@ -157,7 +157,7 @@ public class Robots extends Perso{
 					//if(obs.isSameTeam()){
 						double p = Math.random();		
 						//+ obs.defend();
-						if(p > 0.05+obs.defend){
+						if(p > 0.05+obs.defend()){
 							obs.pdv -= 50;
 						}
 						return 1;

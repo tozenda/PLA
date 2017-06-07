@@ -56,16 +56,12 @@ public class Heros extends Perso{
 		return "H";
 	}
 
-	@Override
-	public void attack() {
-		// TODO Auto-generated method stub
-		
+	public int attack() {
+		return 1;
 	}
 
-	@Override
-	public void defend() {
-		// TODO Auto-generated method stub
-		
+	public double defend() {
+		return 0.0;
 	}
 
 	public void pickUp(Competences c) {

@@ -34,8 +34,8 @@ public class Reader {
 	  	return n;
     }
     
-  /** lecture d'une S-EXPR à partir de la chaîne 
-   * @param s : la chaîne 
+  /** lecture d'une S-EXPR ï¿½ partir de la chaï¿½ne 
+   * @param s : la chaï¿½ne 
    * @return Sexpr : la Sexpr construite. 
    * @throws LispException une  erreur de syntaxe 
    */ 
@@ -70,7 +70,7 @@ TOKEN :{
 | < SUP  : " >" >
 | <SYMBOL: (["a"-"z"]|["A"-"Z"]|"."|"-")+ > 
 } 
-// les règles de grammaire de ce langage 
+// les rï¿½gles de grammaire de ce langage 
 Noeud BASE() : 
 {Noeud n1;} 
 { 
@@ -78,7 +78,7 @@ Noeud BASE() :
 }
 
 Sexpr ACTION() :
-{Noued n2;}
+{Noeud n2;}
 {
 	n2=COMPETENCE() {return n2;}
 	|<PARO> n2=LISTE() <PARF> {return n2;}
@@ -90,7 +90,10 @@ Sexpr LISTE() :
 {Noeud n2,n3;}
 {
 	n2=COMPETENCE() n3=FINLISTE() {return n2;}
-	| n2=COMPETENCE() <PTV> n3=COMPETENCE() {return n2,n3;}
+	| n2=COMPETENCE() <PTV> n3=COMPETENCE() {
+		
+	  	return n2,n3;
+	}
 	| n2=COMPETENCE() <HASARD> n3=COMPETENCE() {return hasard(n2,n3);}
 	| n2=COMPETENCE() <OU> n3=COMPETENCE() {return ou(n2,n3);}
 	| n2=COMPETENCE() <INF> n3=COMPETENCE() {return inf(n2,n3);}
