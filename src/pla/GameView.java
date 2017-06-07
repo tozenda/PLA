@@ -30,7 +30,7 @@ public class GameView extends JPanel {
 	int m_npaints;
 	int m_fps;
 	int tailleCase = 40;
-	private JPanel jp = null;
+	private _RPanel jp = null;
 	private JPanel side = null;
 	private _RButtonB Create_Robot = null;
 	private _RButtonB Break = null;
@@ -46,6 +46,8 @@ public class GameView extends JPanel {
 	private BufferedImage iTree = null;
 	private BufferedImage iBase = null;
 	private BufferedImage iSkill = null;
+	BufferedImage iRobot_settings= null;
+	Color Gold = new Color(229,186,27);
 
 	GridBagConstraints gc = new GridBagConstraints();
 	GridBagConstraints sideg = new GridBagConstraints();
@@ -78,10 +80,10 @@ public class GameView extends JPanel {
 
 	}
 
-	private JPanel setPanel() {
+	private _RPanel setPanel() {
 		if (jp == null) {
 			System.out.println("panel");
-			jp = new JPanel();
+			jp = new _RPanel();
 			jp.setLayout(new GridBagLayout());
 			jp.setBackground(Color.white);
 			gc.ipady = gc.anchor = GridBagConstraints.CENTER;
@@ -122,7 +124,7 @@ public class GameView extends JPanel {
 			Hero_HealthBar.setStringPainted(true);
 			Hero_HealthBar.setValue(500);
 			Hero_HealthBar.setMaximum(1000);
-			Hero_HealthBar.setBackground(Color.red);
+			Hero_HealthBar.setBackground(new Color(216,40,82));
 		}
 		return Hero_HealthBar;
 	}
@@ -185,24 +187,31 @@ public class GameView extends JPanel {
 		return logo;
 	}
 
-	public JLabel setPlayer() {
+	public Font setFont(float size){
 		InputStream is = GameView.class.getResourceAsStream("Supersonic.ttf");
-		Font font;
+		Font font = null;
 		try {
 			font = Font.createFont(Font.TRUETYPE_FONT, is);
-			joueur1 = new JLabel("Joueur 1");
-			Font sizedFont = font.deriveFont(18f);
-			joueur1.setFont(sizedFont);
+			Font sizedFont = font.deriveFont(size);
+			//joueur1 = new JLabel("Joueur 1");
+			return sizedFont;
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		
+		return font;
+	}
+	
+	public JLabel setPlayer() {
+			joueur1 = new JLabel("Joueur1");
+			joueur1.setFont(setFont(18f));
+			joueur1.setForeground(Color.white);
 			gc.gridheight = 1;
 			gc.gridx = 1;
 			gc.gridy = 0;
 			System.out.println("Player");
 			// j.add(joueur1, gc);
-		} catch (FontFormatException | IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println("ldklfgnbldjfno");
-			e.printStackTrace();
-		}
 		return joueur1;
 	}
 
@@ -225,10 +234,18 @@ public class GameView extends JPanel {
 	public _RButtonB setCreate_Robot() {
 		if (Create_Robot == null) {
 			Create_Robot = new _RButtonB("Create Robot");
-			Create_Robot.setForeground(Color.RED);
-			Font font2 = new Font("American Typewriter", Font.PLAIN, 12);
-			Create_Robot.setFont(font2);
-			Create_Robot.setColors(Color.BLACK, Color.white, Color.white, Color.pink.darker());
+			Create_Robot.setForeground(Color.WHITE);
+			//Font font2 = new Font("American Typewriter", Font.PLAIN, 12);
+			Create_Robot.setFont(setFont(16f));
+			Create_Robot.setColors(new Color(2,27,47),Gold);
+			try {
+				iRobot_settings=ImageIO.read(new File("C:\\Users\\Najwa\\Git_Clean\\PLA\\src\\pla\\robot_settings.png"));
+				Create_Robot.setIcon(new ImageIcon(new ImageIcon(iRobot_settings).getImage().getScaledInstance(30,20, java.awt.Image.SCALE_SMOOTH)));
+				
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			Create_Robot.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					GameModel.Create_Robot();
@@ -301,6 +318,15 @@ public class GameView extends JPanel {
 		//image = ii.getImage();
 		g.drawImage(image, 0, 0, null);*/
 		// Quadrillage de la map
+		BufferedImage iBande;
+		try {
+			iBande = ImageIO.read(new File("C:\\Users\\Najwa\\Git_Clean\\PLA\\src\\pla\\Bande.png"));
+			g.drawImage(iBande,0,0,this);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		g.setColor(Color.BLACK);
 		for (int i = 0; i <= 21; i++) {
 			g.drawLine(i * tailleCase, 0, i * tailleCase, 480);
@@ -347,7 +373,7 @@ public class GameView extends JPanel {
 				}
 				else {
 					g.setColor(Color.white);
-					g.fillRect(i * tailleCase + 1, j * tailleCase + 1, tailleCase - 1, tailleCase - 1);
+					//g.fillRect(i * tailleCase + 1, j * tailleCase + 1, tailleCase - 1, tailleCase - 1);
 				}
 			}
 		}
