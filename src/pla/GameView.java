@@ -53,10 +53,10 @@ public class GameView extends JPanel {
 	String Thomas=null;
 	String Najwa ="Resources/";
 	String Anouar = null;
-	String Jo = null;
+	String Jo = "/home/ferreira/Bureau/POO/PLA/Resources/";
 	String Paul= null;
 	String Shoo=null;
-	String Path = Najwa;
+	String Path = Jo;
 
 	GridBagConstraints gc = new GridBagConstraints();
 	GridBagConstraints sideg = new GridBagConstraints();
@@ -193,7 +193,7 @@ public class GameView extends JPanel {
 			BufferedImage iLogo = null;
 			try{
 				//iLogo=ImageIO.read(new File("C:\\Users\\Najwa\\Git_Clean\\PLA\\src\\pla\\logo.png"));
-				iLogo=ImageIO.read(new File(Path+"Logo.png"));
+				iLogo=ImageIO.read(new File(Path+"logo.png"));
 				
 				logo = new JLabel();
 				

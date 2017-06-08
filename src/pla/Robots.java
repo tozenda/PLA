@@ -343,6 +343,11 @@ public class Robots extends Perso{
 		}
 	}
 	
+	
+	/*Méthode permettant de vérifier si un arbre est réalisable à partir du noeud racine
+	 * Regarde les valeurs retournés par les méthodes d'actions de robot,
+	 * si l'un d'elle renvoie 0, alors on peut pas réaliser cette arbre
+	 */
 	private int isPossible(Noeud n) {
 		Competence c = n.action;
 		switch(c){
@@ -387,7 +392,7 @@ public class Robots extends Perso{
 			default:
 				return 1;
 		}
-		return 0;
+		return 1;
 	}
 	
 }

@@ -16,10 +16,10 @@ public class _RPanel extends JPanel {
 	String Thomas=null;
 	String Najwa ="Resources/";
 	String Anouar = null;
-	String Jo = null;
+	String Jo = "/home/ferreira/Bureau/POO/PLA/Resources/";
 	String Paul= null;
 	String Shoo=null;
-	String Path = Najwa;
+	String Path = Jo;
 	
 	/**
 	 * 
