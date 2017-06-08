@@ -50,6 +50,13 @@ public class GameView extends JPanel {
 	private BufferedImage iSkill = null;
 	BufferedImage iRobot_settings= null;
 	Color Gold = new Color(229,186,27);
+	String Thomas=null;
+	String Najwa ="Resources/";
+	String Anouar = null;
+	String Jo = null;
+	String Paul= null;
+	String Shoo=null;
+	String Path = Najwa;
 
 	GridBagConstraints gc = new GridBagConstraints();
 	GridBagConstraints sideg = new GridBagConstraints();
@@ -186,7 +193,7 @@ public class GameView extends JPanel {
 			BufferedImage iLogo = null;
 			try{
 				//iLogo=ImageIO.read(new File("C:\\Users\\Najwa\\Git_Clean\\PLA\\src\\pla\\logo.png"));
-				iLogo=ImageIO.read(new File("Resources/Logo.png"));
+				iLogo=ImageIO.read(new File(Path+"Logo.png"));
 				
 				logo = new JLabel();
 				
@@ -196,7 +203,6 @@ public class GameView extends JPanel {
 			catch (Exception e){
 				e.printStackTrace();
 			}
-			ImageIcon background = new ImageIcon("PLA\\src\\pla\\logo.png");
 			
 			System.out.println("logo");
 		}
@@ -255,7 +261,7 @@ public class GameView extends JPanel {
 			Create_Robot.setFont(setFont(16f));
 			Create_Robot.setColors(new Color(2,27,47),Gold);
 			try {
-				iRobot_settings=ImageIO.read(new File("Resources/robot_settings.png"));
+				iRobot_settings=ImageIO.read(new File(Path+"robot_settings.png"));
 				Create_Robot.setIcon(new ImageIcon(new ImageIcon(iRobot_settings).getImage().getScaledInstance(30,20, java.awt.Image.SCALE_SMOOTH)));
 				
 			} catch (IOException e1) {
@@ -336,7 +342,7 @@ public class GameView extends JPanel {
 		// Quadrillage de la map
 		BufferedImage iBande;
 		try {
-			iBande = ImageIO.read(new File("Resources/Bande.png"));
+			iBande = ImageIO.read(new File(Path+"Bande.png"));
 			g.drawImage(iBande,0,0,this);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
@@ -358,7 +364,7 @@ public class GameView extends JPanel {
 				if (obs.isObstacles()) {
 					
 					try {
-					    iObstacle = ImageIO.read(new File("Resources/obstacl.png"));
+					    iObstacle = ImageIO.read(new File(Path+"obstacl.png"));
 					    g.drawImage(iObstacle, i * tailleCase + 1, j * tailleCase + 1, this);
 					} catch (IOException e) {
 					    // TODO Auto-generated catch block
@@ -369,7 +375,7 @@ public class GameView extends JPanel {
 				}
 				else if (obs.isHeros()) {
 					try {
-					    iHero = ImageIO.read(new File("Resources/hero.png"));
+					    iHero = ImageIO.read(new File(Path+"hero.png"));
 					    g.drawImage(iHero, i * tailleCase + 1, j * tailleCase + 1, 39,39, this);
 					    //g.drawImage(iHero, i * tailleCase + 1, j * tailleCase + 1, this);
 					} catch (IOException e) {

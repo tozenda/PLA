@@ -48,7 +48,7 @@ public class Game {
 		// creation QUE de la fenetre
 	    m_frame = new JFrame();
 	    m_frame.setTitle("Mighty Retarded Robot");
-	    m_frame.setSize(980, 585);
+	    m_frame.setSize(980, 590);
 	    m_frame.setResizable(false);
 	    // gestion de l'affichage affichage
 	    m_view = new GameView(this, m_model, m_controller);
