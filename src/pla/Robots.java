@@ -10,10 +10,10 @@ public class Robots extends Perso{
 	int pDefense = 0;
 	Noeud a;
 	
-	public Robots(int i,int j, Noeud a){
+	public Robots(int i,int j){
 		this.i = i;
 		this.j = j;
-		this.a=a;
+//		this.a=a;
 	}
 	
 	public String toString() {
