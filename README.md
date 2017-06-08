@@ -73,7 +73,7 @@ Répartition pour ce jour, ainsi que pour le weekend : <return>
 * Joffrey : Détection des touches pour le déplacement du Héros
 * Anouar : Tests
 
-### Jour 4 (Lundi 06/09)
+### Jour 4 (Mardi 06/06)
 
 #### Matin
 
@@ -103,3 +103,31 @@ Discussion technique :
   -> Mise en place d'un énumération (Competence)
 - Nom du jeu :
   -> Après votes : le nom sera .... Mighty Retarded Robots
+
+### Jour 5 (Mercredi 07/06)
+
+Travail sur les différents composants du projet : graphique, map et arbre pour les robots
+
+Discussion sur l'organisation des combats entre robots :
+* Décision que les combats se feront tour à tour. Tout robot est capable de se défendre même si ce n'est pas son tour.
+* Décision de mise en place de niveaux de vie pour les robots. On compte les points d'attaque, puis des points de défense puis on enlève la différence au niveau de vie du robot.
+* Comme pour la défense, dès que le robot passe sur une compètence, il la ramasse. Ainsi, il sera défini trois méthodes pour soit se diriger vers la plus proche compétence, soit  vers le plus proche ennemi ou le plus proche membre de l'équipe.
+* Dès le départ du jeu, on donnera au robot la capacité de se déplacer vers la plus poche compétence.
+
+Répartition :
+
+* Thomas & Anouar : Map + déplacement du robot
+* Paul & Joffrey : Arbre du robot et Parser
+* Fathin Syuhada & Najwa : Graphisme.
+
+### Jour 6 (Jeudi 08/06)
+
+Journée de partiel ALM
+
+#### Matin
+
+Travail sur les mêmes sujets que la veille + travail sur l'agrandissement de la carte (Najwa).
+
+#### Après-midi
+
+Partiel d'ALM
