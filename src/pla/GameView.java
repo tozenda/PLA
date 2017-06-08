@@ -18,6 +18,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class GameView extends JPanel {
@@ -76,6 +78,7 @@ public class GameView extends JPanel {
 		}
 		setPanelE().add(setCreate_Robot(), sideg);
 		setPanelE().add(setTextField(), sideg);
+		setPanelE().add(setInventory(),sideg);
 		return setPanelE();
 
 	}
@@ -128,6 +131,18 @@ public class GameView extends JPanel {
 		}
 		return Hero_HealthBar;
 	}
+	
+	public JScrollPane setInventory(){
+		sideg.gridx=0;
+		sideg.gridy=2;
+		sideg.gridheight=2;
+		JTextArea textArea = new JTextArea(5, 5);
+		JScrollPane scrollableTextArea = new JScrollPane(textArea);
+
+		scrollableTextArea.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollableTextArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		return scrollableTextArea;
+	}
 
 	public JProgressBar setBarBase() {
 		if (Base_HealthBar == null) {
@@ -170,7 +185,8 @@ public class GameView extends JPanel {
 			gc.gridheight = 2;
 			BufferedImage iLogo = null;
 			try{
-				iLogo=ImageIO.read(new File("C:\\Users\\Najwa\\Git_Clean\\PLA\\src\\pla\\logo.png"));
+				//iLogo=ImageIO.read(new File("C:\\Users\\Najwa\\Git_Clean\\PLA\\src\\pla\\logo.png"));
+				iLogo=ImageIO.read(new File("Resources/Logo.png"));
 				
 				logo = new JLabel();
 				
@@ -239,7 +255,7 @@ public class GameView extends JPanel {
 			Create_Robot.setFont(setFont(16f));
 			Create_Robot.setColors(new Color(2,27,47),Gold);
 			try {
-				iRobot_settings=ImageIO.read(new File("C:\\Users\\Najwa\\Git_Clean\\PLA\\src\\pla\\robot_settings.png"));
+				iRobot_settings=ImageIO.read(new File("Resources/robot_settings.png"));
 				Create_Robot.setIcon(new ImageIcon(new ImageIcon(iRobot_settings).getImage().getScaledInstance(30,20, java.awt.Image.SCALE_SMOOTH)));
 				
 			} catch (IOException e1) {
@@ -320,7 +336,7 @@ public class GameView extends JPanel {
 		// Quadrillage de la map
 		BufferedImage iBande;
 		try {
-			iBande = ImageIO.read(new File("C:\\Users\\Najwa\\Git_Clean\\PLA\\src\\pla\\Bande.png"));
+			iBande = ImageIO.read(new File("Resources/Bande.png"));
 			g.drawImage(iBande,0,0,this);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
@@ -342,7 +358,7 @@ public class GameView extends JPanel {
 				if (obs.isObstacles()) {
 					
 					try {
-					    iObstacle = ImageIO.read(new File("C:\\Users\\Najwa\\Git_Clean\\PLA\\src\\pla\\obstacl.png"));
+					    iObstacle = ImageIO.read(new File("Resources/obstacl.png"));
 					    g.drawImage(iObstacle, i * tailleCase + 1, j * tailleCase + 1, this);
 					} catch (IOException e) {
 					    // TODO Auto-generated catch block
@@ -353,7 +369,7 @@ public class GameView extends JPanel {
 				}
 				else if (obs.isHeros()) {
 					try {
-					    iHero = ImageIO.read(new File("C:\\Users\\Najwa\\Git_Clean\\PLA\\src\\pla\\hero.png"));
+					    iHero = ImageIO.read(new File("Resources/hero.png"));
 					    g.drawImage(iHero, i * tailleCase + 1, j * tailleCase + 1, 39,39, this);
 					    //g.drawImage(iHero, i * tailleCase + 1, j * tailleCase + 1, this);
 					} catch (IOException e) {

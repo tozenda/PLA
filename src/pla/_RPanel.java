@@ -20,7 +20,7 @@ public class _RPanel extends JPanel {
 		super.paintComponents(g);
 		BufferedImage iBande;
 		try {
-			iBande = ImageIO.read(new File("C:\\Users\\Najwa\\Git_Clean\\PLA\\src\\pla\\Bande.png"));
+			iBande = ImageIO.read(new File("Resources/Bande.png"));
 			g.drawImage(iBande,0,0,this);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
