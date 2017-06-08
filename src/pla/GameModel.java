@@ -53,24 +53,46 @@ public class GameModel {
 	  int dy = currentY;
 	  System.out.println(mvt);
 	  if(mvt == 'z'){
-		  if(currentY>=1){
-			  dy = (currentY-1);  
+		  if(currentY%map.getHeight()==0&&currentY!=0){
+			  map.decLocation();
+			  map.decLocation();
+			  dy = (currentY-1); 
+			  System.out.println("Location " + map.getLocation());
 		  }
+		  else if(currentY!=0){
+			  dy = (currentY-1); 
+		  }
+		  
 	  }
 	  else if(mvt == 'q'){
-		  if(currentX>=1){
+		  if(currentX%map.getWidth()==0&&currentX!=0){
+			  map.decLocation();
 			  dx = (currentX -1);
+			  System.out.println("Location " + map.getLocation());
+		  }
+		  else if (currentX!=0){
+			  dx = (currentX -1); 
 		  }
 	  }
 	  else if(mvt == 's'){
-		  if(currentY<map.getHeight()-1){
-			  dy = (currentY+1);  
+		  if(currentY%map.getHeight()==map.getHeight()-1){
+			  map.incLocation();
+			  map.incLocation();
 		  }
+		  if(currentY<map.getHeight()-1){
+			 // dy = (currentY+1);  
+		  }
+		  dy = (currentY+1);
 	  }
 	  else if(mvt == 'd'){
+		  if(currentX%map.getWidth()==19){
+			  map.incLocation();
+			  
+		  /*}
 		  if(currentX<map.getWidth()-1){
-			  dx = (currentX +1);
+			  dx = (currentX +1);*/
 		  }
+dx = (currentX +1);
 	  }
 	  System.out.println("all ok");
 	  if(map.getCase(dx, dy).getContenu().isVide()){
