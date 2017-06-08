@@ -149,6 +149,11 @@ public class Robots extends Perso{
 		//System.out.println("Les nouvelles coordonnées sont : ("+i+";"+j+")");
 	}
 
+	/*Action d'attaque d'un robot
+	 *	regarde si y a un robot à 1 case de lui :
+	 *	si oui, il regarde si il est d'une équipe différente, si le robot esquive l'attaque et attaque
+	 *	sinon on renvoie 0 pour indiquer que le robot ne peut attaquer personne
+	 */
 	public int attack(){
 		Map map = Game.game.m_model.map;
 		
@@ -156,6 +161,8 @@ public class Robots extends Perso{
 			for(int l = j-1; l<=j++; l++){
 				Case c = map.getCase(k, l);
 				Observables obs = c.getContenu();
+				
+				// TODO : est ce qu un robot peut attaquer un héros ? 
 				
 				if(obs.isRobot()){
 					Robots r2 = (Robots) obs;
@@ -173,7 +180,7 @@ public class Robots extends Perso{
 		return 0;
 	}
 
-	//defend renvoie un double ça serait bien, renvoie 0.20 au maximum
+	//defend renvoie un double d'un valeur de 0.20 maximum, augmente avec le nbr de pDefense
 	public double defend() {
 		double p = 0.0;
 		for(int k = 0 ; k<pDefense ; k++){
@@ -182,6 +189,10 @@ public class Robots extends Perso{
 		return p;
 	}
 	
+	/* se dirige vers la compétence la plus proche :
+	 * Il regarde toute la map et cherche la compétence avec la distance la plus petite de lui
+	 * On apelle move vers cette case
+	 */
 	public int moveRamasse(){
 		int min = 30;
 		int min_i = 0, min_j = 0;
@@ -209,12 +220,17 @@ public class Robots extends Perso{
 		return 1;
 	}
 	
+	/* se dirige vers l'ennemie ou la base la plus proche :
+	 * Il regarde toute la map et cherche l'ennemie avec la distance la plus petite de lui
+	 * Si il trouve pas l'ennemie il attaque la base adverse
+	 */
 	public int moveAttack(){
 		int min = 30;
 		int min_i = 0, min_j = 0;
 		int tmp = 0;
 		Map map = Game.game.m_model.map;
 		
+		//recherche d'ennemie
 		for(int k = 0; k<map.getHeight(); k++){
 			for(int l = 0; l<map.getWidth(); l++){
 				
@@ -233,6 +249,8 @@ public class Robots extends Perso{
 				}
 			}
 		}
+		
+		//Cas ou il trouve pas d'ennemie il attaque la base
 		if(min==30){
 			//attaquer base ennemie
 		}
@@ -241,6 +259,10 @@ public class Robots extends Perso{
 		return 1;
 	}
 
+	/* se dirige vers la base :
+	 * Il regarde toute la map et cherche la case libre la plus proche de la base
+	 * On apelle move vers cette case
+	 */
 	public int moveDef(){
 		int min = 30;
 		int min_i = 0, min_j = 0;
@@ -270,7 +292,9 @@ public class Robots extends Perso{
 		return 1;
 	}
 	
-	
+	/*
+	 * Toutes les méthoodes booléennes utilisé dans les if
+	 */
 	public boolean isVide() {
 		return false;
 	}
@@ -281,10 +305,6 @@ public class Robots extends Perso{
 
 	public boolean isCompetences() {
 		return false;
-	}
-
-	public void pickUp(Competences c) {
-		
 	}
 
 	public boolean isHeros() {
@@ -299,6 +319,10 @@ public class Robots extends Perso{
 		return true;
 	}
 	
+	public void pickUp(Competences c) {
+		
+	}
+	
 	public void editDest(int di, int dj){
 		//Map map = Game.game.m_model.map; 
 		//if(((di>=0)&&(di<map.getHeight()))||((dj>=0)&&(dj<map.getWidth()))){
@@ -307,6 +331,10 @@ public class Robots extends Perso{
 		//}
 	}
 	
+	
+	/*Méthode évaluant l'arbre
+	 * Il parcourt l'arbre noeud par noeud et éxécute l'action de chaque noeud
+	 */
 	public void eval(Noeud n){
 		Competence c = n.action;
 		switch(c){
