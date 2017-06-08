@@ -13,13 +13,13 @@ import javax.swing.JPanel;
 
 
 public class _RPanel extends JPanel {
-	String Thomas=null;
+	String Thomas="/home/tozenda/COURS/RICM3/S6/PLA/PLA/Resources/";
 	String Najwa ="Resources/";
-	String Anouar = null;
+	String Anouar = "Resources/";
 	String Jo = "/home/ferreira/Bureau/POO/PLA/Resources/";
-	String Paul= null;
+	String Paul= "home/doublean/git/PLA/Resources/";
 	String Shoo=null;
-	String Path = Jo;
+	String Path = ;
 	
 	/**
 	 * 
