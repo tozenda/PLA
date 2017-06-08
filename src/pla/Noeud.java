@@ -2,7 +2,7 @@ package pla;
 
 import java.util.*;
 
-public class Noeud extends Robots {
+public class Noeud {
 	
 	int numero;
 	Competence action;
@@ -43,7 +43,7 @@ public class Noeud extends Robots {
 	     if(this.filsGauche!=null){
 	    	 filsGauche.readArbre();
 	     }
-	     action.eval; //TODO eval in Competences or Competence
+	     // action.eval; //TODO eval in Competences or Competence
 	     if(this.filsDroit!=null){
 	    	 filsDroit.readArbre();
 	     }
@@ -57,40 +57,6 @@ public class Noeud extends Robots {
 	     if(this.filsGauche!=null) filsGauche.affiche();
 	     System.out.println(this.toString());
 	     if(this.filsDroit!=null) filsDroit.affiche();
-	}
-	
-	public void eval(Noeud n){
-		Competence a = n.action;
-		switch(a){
-			case Hit:
-				Robots.attack();
-				n = n.filsDroit;
-				break;
-			case Protect:
-				Robots.defend();
-				n = n.filsDroit;
-				break;
-			case MoveRamasse:
-				Robots.moveRamasse;
-				n = n.filsDroit;
-				break;
-			case MoveAttack:
-				Robots.moveAttack;
-				n = n.filsDroit;
-				break;
-			case MoveDef:
-				Robots.moveDef;
-				n = n.filsDroit;
-				break;
-			case Sup:
-				if (eval(n.filsGauche) == -1){ //TODO créer cas impossible pour chaque fonction
-					eval(n.filsDroit);
-				}
-				else{
-					eval(n.filsGauche);
-				}
-				break;
-		}
 	}
 
 	public static void main(String[] args){

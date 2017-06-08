@@ -8,10 +8,12 @@ public class Robots extends Perso{
 	int di,dj;
 	int pdv = 100;
 	int pDefense = 0;
+	Noeud a;
 	
-	public Robots(int i,int j){
+	public Robots(int i,int j, Noeud a){
 		this.i = i;
 		this.j = j;
+		this.a=a;
 	}
 	
 	public String toString() {
@@ -304,4 +306,88 @@ public class Robots extends Perso{
 			this.dj = dj;
 		//}
 	}
+	
+	public void eval(Noeud n){
+		Competence c = n.action;
+		switch(c){
+			case Hit:
+				this.attack();
+				this.eval(n.filsDroit);
+				break;
+			case Protect:
+//				this.protect();
+				this.eval(n.filsDroit);
+				break;
+			case MoveRamasse:
+				this.moveRamasse();
+				this.eval(n.filsDroit);
+				break;
+			case MoveAttack:
+				this.moveAttack();
+				this.eval(n.filsDroit);
+				break;
+			case MoveDef:
+				this.moveDef();
+				this.eval(n.filsDroit);
+				break;
+			case Sup:
+				if (isPossible(n.filsGauche) == -1){ //TODO cr�er cas impossible pour chaque fonction
+					this.eval(n.filsDroit);
+				}
+				else{
+					this.eval(n.filsGauche);
+				}
+				break;
+		default:
+			break;
+		}
+	}
+	
+	private int isPossible(Noeud n) {
+		Competence c = n.action;
+		switch(c){
+			case Hit:
+				if(this.attack()==1){
+					isPossible(n.filsDroit);
+				}
+				else{return 0;}
+				break;
+			case Protect:
+//				if(this.protect()==1){
+				isPossible(n.filsDroit);
+//				}
+//				else{
+					return 0;
+//				}
+			case MoveRamasse:
+				if(this.moveRamasse()==1){
+					isPossible(n.filsDroit);
+				}
+				else{return 0;}
+			case MoveAttack:
+				if(this.moveAttack()==1){
+					isPossible(n.filsDroit);
+				}
+				else{return 0;}
+			case MoveDef:
+				if(this.moveDef()==1){
+					isPossible(n.filsDroit);
+				}
+				else{return 0;}
+			case Sup:
+				if(isPossible(n.filsGauche)==1){
+					return 1;
+				}
+				if (isPossible(n.filsDroit) == 1){ //TODO cr�er cas impossible pour chaque fonction
+					return 1;
+				}
+				else{
+					return 0;
+				}
+			default:
+				return 1;
+		}
+		return 0;
+	}
+	
 }
