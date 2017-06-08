@@ -130,4 +130,4 @@ Travail sur les mêmes sujets que la veille + travail sur l'agrandissement de la
 
 #### Après-midi
 
-Partiel d'ALM
+Partiel d'ALM + Préparation de la soutenance de mi projet
