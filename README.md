@@ -124,7 +124,7 @@ Répartition :
 
 Journée de partiel ALM
 
-#### Matin
+#### Matin
 
 Travail sur les mêmes sujets que la veille + travail sur l'agrandissement de la carte (Najwa).
 
