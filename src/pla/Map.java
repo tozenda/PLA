@@ -32,18 +32,18 @@ public class Map {
 				elements[6][16] = new Case(6, 16, new Obstacles());
 			}
 		}
-		addBase(19, 0);
-		addBase(18, 0);
-		addBase(19, 1);
-		addBase(18, 1);
-		addBase(0, 10);
-		addBase(1, 11);
-		addBase(0, 11);
-		addBase(1, 10);
+		addBase(19, 0, 2);
+		addBase(18, 0, 2);
+		addBase(19, 1, 2);
+		addBase(18, 1, 2);
+		addBase(0, 10, 1);
+		addBase(1, 11, 1);
+		addBase(0, 11, 1);
+		addBase(1, 10, 1);
 	}
 
-	public void addBase(int i, int j) {
-		Base base = new Base(i, j);
+	public void addBase(int i, int j, int equipe) {
+		Base base = new Base(i, j, equipe);
 		Case c = new Case(i, j, base);
 		elements[j][i] = c;
 	}
