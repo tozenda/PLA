@@ -170,9 +170,14 @@ public class Robots extends Perso{
 					Robots r2 = (Robots) obs;
 					if(r2.equipe != this.equipe){
 						double p = Math.random();		
-						//+ obs.defend();
 						if(p > 0.05+r2.defend()){
+							//Si non esquive du robot adverse
 							r2.pdv -= 35;
+							if(r2.pdv<=0){
+								// si pdv < 0 destruction du robot adverse
+								Case v = new Case(i,j,new Vide());
+								c = v;
+							}
 						}
 						return 1;
 					}
@@ -208,8 +213,10 @@ public class Robots extends Perso{
 				Observables obs = c.getContenu();
 				
 				if(obs.isCompetences()){
+					//le robot trouve une compétence sur la map
 					tmp = Math.abs(k-i)+Math.abs(l-j);
 					if(tmp<min){
+						// si elle est plus provhe que la case sauvegardé
 						min = tmp;
 						min_i = k;
 						min_j = l;
@@ -217,9 +224,15 @@ public class Robots extends Perso{
 				}
 			}
 		}
-		Case c = map.getCase(min_i, min_j);
-		move(c);
-		return 1;
+		if(min!=30){
+			Case c = map.getCase(min_i, min_j);
+			move(c);
+			// le robot se rend sur la derniere case sauvegard
+			return 1;
+		}
+		else{
+			return 0;
+		}	
 	}
 	
 	/* se dirige vers l'ennemie ou la base la plus proche :
