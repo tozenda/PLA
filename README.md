@@ -124,10 +124,10 @@ Répartition :
 
 Journée de partiel ALM
 
-#### Matin
+#### Matin
 
 Travail sur les mêmes sujets que la veille + travail sur l'agrandissement de la carte (Najwa).
 
 #### Après-midi
 
-Partiel d'ALM
+Partiel d'ALM + Préparation de la soutenance de mi projet

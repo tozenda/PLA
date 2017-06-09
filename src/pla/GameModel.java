@@ -7,7 +7,7 @@ package pla;
 //classe permettant d'interagir entre l'affichage et notre structure de données
 public class GameModel {
 
-  Game m_game;
+  static Game m_game;
   Map map;
   Heros heros1;
   Robots robot;
@@ -15,10 +15,10 @@ public class GameModel {
   GameModel(Game game) {
     m_game = game;
     map = new Map();
-    heros1 = new Heros(0,0);//1ere coord -> Ligne et 2nd coord 6> Colonne
+    heros1 = new Heros(0,0,1);//1ere coord -> Ligne et 2nd coord 6> Colonne de l equipe 1
 	Case c = new Case(heros1.getX(),heros1.getY(),heros1);
 	map.editCase(c);
-	robot = new Robots(3,3);
+	robot = new Robots(3,3,1);	// robot en 3,3 de l equipe 1
 	Case r = new Case(robot.i,robot.j,robot);
 	map.editCase(r);
 	robot.editDest(18, 10);
@@ -53,24 +53,46 @@ public class GameModel {
 	  int dy = currentY;
 	  System.out.println(mvt);
 	  if(mvt == 'z'){
-		  if(currentY>=1){
-			  dy = (currentY-1);  
+		  if(currentY%map.getHeight()==0&&currentY!=0){
+			  map.decLocation();
+			  map.decLocation();
+			  dy = (currentY-1); 
+			  System.out.println("Location " + map.getLocation());
 		  }
+		  else if(currentY!=0){
+			  dy = (currentY-1); 
+		  }
+		  
 	  }
 	  else if(mvt == 'q'){
-		  if(currentX>=1){
+		  if(currentX%map.getWidth()==0&&currentX!=0){
+			  map.decLocation();
 			  dx = (currentX -1);
+			  System.out.println("Location " + map.getLocation());
+		  }
+		  else if (currentX!=0){
+			  dx = (currentX -1); 
 		  }
 	  }
 	  else if(mvt == 's'){
-		  if(currentY<map.getHeight()-1){
-			  dy = (currentY+1);  
+		  if(currentY%map.getHeight()==map.getHeight()-1){
+			  map.incLocation();
+			  map.incLocation();
 		  }
+		  if(currentY<map.getHeight()-1){
+			 // dy = (currentY+1);  
+		  }
+		  dy = (currentY+1);
 	  }
 	  else if(mvt == 'd'){
+		  if(currentX%map.getWidth()==19){
+			  map.incLocation();
+			  
+		  /*}
 		  if(currentX<map.getWidth()-1){
-			  dx = (currentX +1);
+			  dx = (currentX +1);*/
 		  }
+dx = (currentX +1);
 	  }
 	  System.out.println("all ok");
 	  if(map.getCase(dx, dy).getContenu().isVide()){
@@ -95,12 +117,15 @@ public class GameModel {
   }
   public static void Tour(){
 	  System.out.println("Tour");
+	  m_game.returnFocus();
   }
   public static void breakk(){
 	  System.out.println("Break");
+	  m_game.returnFocus();
   }
   public static void Create_Robot(){
 	  System.out.println("Create Robot");
+	  m_game.returnFocus();
   }
   
 }

@@ -1,22 +1,29 @@
 package pla;
 
 public class Map {
-	private int width=20;
-	private int height=12;
+	private int width = 20;
+	private int height = 12;
+	private int total_width = 40;
+	private int total_height = 24;
+	private static int location = 1;
 	private Case elements[][];
-	
-	public Map(){
-		elements = new Case[height][width];
+
+	public Map() {
+		elements = new Case[total_height][total_width];
 		Vide v;
 		Case c;
-		for(int i=0; i < height;i++){
-			for(int j=0;j<width;j++){
-//				System.out.println("ligne : "+i+" colonnes : "+j);
-				v = new Vide(); 
-				c = new Case(i,j,v);
-				if((j==5)&&(i<6)){//j is the colomn && i is the line
+		for (int i = 0; i < total_height; i++) {
+			for (int j = 0; j < total_width; j++) {
+				// System.out.println("ligne : "+i+" colonnes : "+j);
+				v = new Vide();
+
+				c = new Case(i, j, v);
+				if ((j == 2) && (i < 6) || (j == 30) && (i < 2)) {// j is the
+																	// colomn &&
+																	// i is the
+																	// line
 					Obstacles o = new Obstacles();
-					c = new Case(j,i,o);
+					c = new Case(j, i, o);
 				}
 				elements[i][j] = c;
 			}
@@ -39,25 +46,26 @@ public class Map {
 		addBase(0, 11);
 		addBase(1, 10);
 	}
-	
-	public void addBase(int i, int j){
-		Base base = new Base(i, j);
+
+
+	public void addBase(int i, int j, int equipe) {
+		Base base = new Base(i, j, equipe);
 		Case c = new Case(i, j, base);
 		elements[j][i] = c;
 	}
-	
+
 	public int getWidth() {
 		return width;
 	}
-	
+
 	public int getHeight() {
 		return height;
 	}
-	
+
 	public Case[][] getElems() {
 		return elements;
 	}
-	
+
 	public void setWidth(int width) {
 		this.width = width;
 	}
@@ -69,24 +77,44 @@ public class Map {
 	public void setElems(Case elems[][]) {
 		elements = elems;
 	}
-	
-	public String[] toStringElements(){
-		String tmp[] = new String[width*height];
-		for(int i=0;i<height;i++){
-			for(int j = 0 ; j < width ; j++){
-				tmp[i*width+j] = elements[j][i].toString();
+
+	public String[] toStringElements() {
+		String tmp[] = new String[width * height];
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				tmp[i * width + j] = elements[j][i].toString();
 			}
 		}
 		return tmp;
 	}
-	
-	public void editCase(Case c){
+
+	public int getLocation() {
+		return location;
+	}
+
+	public void incLocation() {
+		location++;
+	}
+	public void decLocation() {
+		location--;
+	}
+
+	public void resetLocation() {
+		location = 1;
+	}
+
+	public void setLocation(int a) {
+		location = a;
+
+	}
+
+	public void editCase(Case c) {
 		int w = c.getX();
 		int h = c.getY();
-		elements[h][w]=c;
+		elements[h][w] = c;
 	}
-	
-	public Case getCase(int x, int y){
+
+	public Case getCase(int x, int y) {
 		return elements[y][x];
 	}
 }

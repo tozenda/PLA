@@ -10,6 +10,7 @@ public class Heros extends Perso{
     private int y;
     private Image image;
     private List<Competence> inventaire = new ArrayList<Competence>();
+    int equipe;
 
     public Heros() {
         x = 0;
@@ -17,10 +18,11 @@ public class Heros extends Perso{
         initHeros();
     }
     
-    public Heros(int x, int y) {
+    public Heros(int x, int y, int equipe) {
         this.x = x;
         this.y = y;
         initHeros();
+      this.equipe = equipe;
      }
     
     private void initHeros() {

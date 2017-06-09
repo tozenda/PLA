@@ -48,15 +48,17 @@ public class GameView extends JPanel {
 	private BufferedImage iTree = null;
 	private BufferedImage iBase = null;
 	private BufferedImage iSkill = null;
-	BufferedImage iRobot_settings= null;
-	Color Gold = new Color(229,186,27);
-	String Thomas="/home/tozenda/COURS/RICM3/S6/PLA/PLA/Resources/";
-	String Najwa ="Resources/";
+	private int Factx = 1;
+	private int Facty = 1;
+	BufferedImage iRobot_settings = null;
+	Color Gold = new Color(229, 186, 27);
+	String Thomas = "/home/tozenda/COURS/RICM3/S6/PLA/PLA/Resources/";
+	String Najwa = "Resources/";
 	String Anouar = "Resources/";
 	String Jo = "/home/ferreira/Bureau/POO/PLA/Resources/";
-	String Paul= "home/doublean/git/PLA/Resources/";
-	String Shoo=null;
-	String Path = ;
+	String Paul = "home/doublean/git/PLA/Resources/";
+	String Shoo = null;
+	String Path = Najwa;
 
 	GridBagConstraints gc = new GridBagConstraints();
 	GridBagConstraints sideg = new GridBagConstraints();
@@ -85,7 +87,7 @@ public class GameView extends JPanel {
 		}
 		setPanelE().add(setCreate_Robot(), sideg);
 		setPanelE().add(setTextField(), sideg);
-		setPanelE().add(setInventory(),sideg);
+		setPanelE().add(setInventory(), sideg);
 		return setPanelE();
 
 	}
@@ -134,19 +136,19 @@ public class GameView extends JPanel {
 			Hero_HealthBar.setStringPainted(true);
 			Hero_HealthBar.setValue(500);
 			Hero_HealthBar.setMaximum(1000);
-			Hero_HealthBar.setBackground(new Color(216,40,82));
+			Hero_HealthBar.setBackground(new Color(216, 40, 82));
 		}
 		return Hero_HealthBar;
 	}
-	
-	public JScrollPane setInventory(){
-		sideg.gridx=0;
-		sideg.gridy=2;
-		sideg.gridheight=2;
+
+	public JScrollPane setInventory() {
+		sideg.gridx = 0;
+		sideg.gridy = 2;
+		sideg.gridheight = 2;
 		JTextArea textArea = new JTextArea(5, 5);
 		JScrollPane scrollableTextArea = new JScrollPane(textArea);
 
-		scrollableTextArea.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		//scrollableTextArea.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollableTextArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		return scrollableTextArea;
 	}
@@ -191,49 +193,49 @@ public class GameView extends JPanel {
 			gc.gridy = 0;
 			gc.gridheight = 2;
 			BufferedImage iLogo = null;
-			try{
-				//iLogo=ImageIO.read(new File("C:\\Users\\Najwa\\Git_Clean\\PLA\\src\\pla\\logo.png"));
-				iLogo=ImageIO.read(new File(Path+"logo.png"));
-				
-				logo = new JLabel();
-				
-				logo.setIcon(new ImageIcon(new ImageIcon(iLogo).getImage().getScaledInstance(160,50, java.awt.Image.SCALE_SMOOTH)));
+			try {
+				// iLogo=ImageIO.read(new
+				// File("C:\\Users\\Najwa\\Git_Clean\\PLA\\src\\pla\\logo.png"));
+				iLogo = ImageIO.read(new File(Path + "logo.png"));
 
-			}
-			catch (Exception e){
+				logo = new JLabel();
+
+				logo.setIcon(new ImageIcon(
+						new ImageIcon(iLogo).getImage().getScaledInstance(160, 50, java.awt.Image.SCALE_SMOOTH)));
+
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+
 			System.out.println("logo");
 		}
 		return logo;
 	}
 
-	public Font setFont(float size){
+	public Font setFont(float size) {
 		InputStream is = GameView.class.getResourceAsStream("Supersonic.ttf");
 		Font font = null;
 		try {
 			font = Font.createFont(Font.TRUETYPE_FONT, is);
 			Font sizedFont = font.deriveFont(size);
-			//joueur1 = new JLabel("Joueur 1");
+			// joueur1 = new JLabel("Joueur 1");
 			return sizedFont;
-		}
-		catch (Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return font;
 	}
-	
+
 	public JLabel setPlayer() {
-			joueur1 = new JLabel("Joueur1");
-			joueur1.setFont(setFont(18f));
-			joueur1.setForeground(Color.white);
-			gc.gridheight = 1;
-			gc.gridx = 1;
-			gc.gridy = 0;
-			System.out.println("Player");
-			// j.add(joueur1, gc);
+		joueur1 = new JLabel("Joueur1");
+		joueur1.setFont(setFont(18f));
+		joueur1.setForeground(Color.white);
+		gc.gridheight = 1;
+		gc.gridx = 1;
+		gc.gridy = 0;
+		System.out.println("Player");
+		// j.add(joueur1, gc);
 		return joueur1;
 	}
 
@@ -257,13 +259,14 @@ public class GameView extends JPanel {
 		if (Create_Robot == null) {
 			Create_Robot = new _RButtonB("Create Robot");
 			Create_Robot.setForeground(Color.WHITE);
-			//Font font2 = new Font("American Typewriter", Font.PLAIN, 12);
+			// Font font2 = new Font("American Typewriter", Font.PLAIN, 12);
 			Create_Robot.setFont(setFont(16f));
-			Create_Robot.setColors(new Color(2,27,47),Gold);
+			Create_Robot.setColors(new Color(2, 27, 47), Gold);
 			try {
-				iRobot_settings=ImageIO.read(new File(Path+"robot_settings.png"));
-				Create_Robot.setIcon(new ImageIcon(new ImageIcon(iRobot_settings).getImage().getScaledInstance(30,20, java.awt.Image.SCALE_SMOOTH)));
-				
+				iRobot_settings = ImageIO.read(new File(Path + "robot_settings.png"));
+				Create_Robot.setIcon(new ImageIcon(new ImageIcon(iRobot_settings).getImage().getScaledInstance(30, 20,
+						java.awt.Image.SCALE_SMOOTH)));
+
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -271,6 +274,7 @@ public class GameView extends JPanel {
 			Create_Robot.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					GameModel.Create_Robot();
+					
 				}
 			});
 		}
@@ -301,6 +305,7 @@ public class GameView extends JPanel {
 		this.setLayout(new BorderLayout());
 		this.add(build(), java.awt.BorderLayout.SOUTH);
 		this.add(build(), java.awt.BorderLayout.EAST);
+		this.requestFocus();
 
 		// permet de récupérer les événements clavier et souris
 		addKeyListener(ctr);
@@ -329,73 +334,99 @@ public class GameView extends JPanel {
 		m_npaints++;
 	}
 
+	private void setFactXY() {
+
+		/*
+		 * Factx=m_model.map.getLocation()%2;
+		 * Facty=(m_model.map.getLocation()/2)+1;
+		 */
+		switch (m_model.map.getLocation()) {
+		case (2): 	Factx = 2;	Facty = 1;	break;
+		case (3):	Factx = 1;	Facty = 2;	break;
+		case (4):	Factx = 2;	Facty = 2;	break;
+		default:	Factx = 1;	Facty = 1;	break;
+
+		}
+	}
+
 	// pour afficher des objets sur notre fenetre
 	public void paintComponent(Graphics g) {
 
 		int nbrCaseX = 20;
 		int nbrCaseY = 12;
 		computeFPS();
-		/*Image image;
-		ImageIcon ii = new ImageIcon("../img/hero.png");
-		//image = ii.getImage();
-		g.drawImage(image, 0, 0, null);*/
+		/*
+		 * Image image; ImageIcon ii = new ImageIcon("../img/hero.png"); //image
+		 * = ii.getImage(); g.drawImage(image, 0, 0, null);
+		 */
 		// Quadrillage de la map
 		BufferedImage iBande;
 		try {
-			iBande = ImageIO.read(new File(Path+"Bande.png"));
-			g.drawImage(iBande,0,0,this);
+			iBande = ImageIO.read(new File(Path + "Bande.png"));
+			g.drawImage(iBande, 0, 0, this);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+
 		g.setColor(Color.BLACK);
-		for (int i = 0; i <= 21; i++) {
-			g.drawLine(i * tailleCase, 0, i * tailleCase, 480);
+		// Vertical
+		for (int i = (m_model.map.getLocation() - 1) * nbrCaseX; i <= m_model.map.getLocation()
+				* m_model.map.getWidth(); i++) {
+			g.drawLine((i % m_model.map.getWidth() + 1) * tailleCase, 0, (i % m_model.map.getWidth() + 1) * tailleCase,
+					480);
 		}
-		for (int i = 0; i <= 12; i++) {
-			g.drawLine(0, i * tailleCase, 800, i * tailleCase);
+		// Horizontal
+		for (int i = (m_model.map.getLocation() - 1) * nbrCaseY; i <= m_model.map.getLocation()
+				* m_model.map.getHeight(); i++) {
+			g.drawLine(0, (i % m_model.map.getHeight() + 1) * tailleCase, 800,
+					(i % m_model.map.getHeight() + 1) * tailleCase);
 		}
 
 		for (int i = 0; i < nbrCaseX; i++) {
 			for (int j = 0; j < nbrCaseY; j++) {
-				Case c = m_model.map.getCase(i, j);
+				setFactXY();
+				Case c = m_model.map.getCase(((Factx - 1) * nbrCaseX) + i, (Facty - 1) * nbrCaseY + j);
 				Observables obs = c.getContenu();
 				if (obs.isObstacles()) {
-					
+
 					try {
-					    iObstacle = ImageIO.read(new File(Path+"obstacl.png"));
-					    g.drawImage(iObstacle, i * tailleCase + 1, j * tailleCase + 1, this);
+						iObstacle = ImageIO.read(new File(Path + "obstacl.png"));
+						g.drawImage(iObstacle, (i % m_model.map.getWidth()) * tailleCase + 1,
+								(j % m_model.map.getHeight()) * tailleCase + 1, this);
 					} catch (IOException e) {
-					    // TODO Auto-generated catch block
-					    e.printStackTrace();
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
-					//g.setColor(Color.BLACK);
-					//g.fillRect(i * tailleCase + 1, j * tailleCase + 1, tailleCase - 1, tailleCase - 1);
-				}
-				else if (obs.isHeros()) {
+					// g.setColor(Color.BLACK);
+					// g.fillRect(i * tailleCase + 1, j * tailleCase + 1,
+					// tailleCase - 1, tailleCase - 1);
+				} else if (obs.isHeros()) {
 					try {
-					    iHero = ImageIO.read(new File(Path+"hero.png"));
-					    g.drawImage(iHero, i * tailleCase + 1, j * tailleCase + 1, 39,39, this);
-					    //g.drawImage(iHero, i * tailleCase + 1, j * tailleCase + 1, this);
+						iHero = ImageIO.read(new File(Path + "hero.png"));
+						g.drawImage(iHero, (i % m_model.map.getWidth()) * tailleCase + 1,
+								(j % m_model.map.getHeight()) * tailleCase + 1, 39, 39, this);
+						// g.drawImage(iHero, i * tailleCase + 1, j * tailleCase
+						// + 1, this);
 					} catch (IOException e) {
-					    // TODO Auto-generated catch block
-					    e.printStackTrace();
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
-					//g.setColor(Color.RED);
-					//g.fillRect(i * tailleCase + 1, j * tailleCase + 1, tailleCase - 1, tailleCase - 1);
-				}
-				else if (obs.isBase()) {
+					// g.setColor(Color.RED);
+					// g.fillRect(i * tailleCase + 1, j * tailleCase + 1,
+					// tailleCase - 1, tailleCase - 1);
+				} else if (obs.isBase()) {
 					g.setColor(Color.ORANGE);
-					g.fillRect(i * tailleCase + 1, j * tailleCase + 1, tailleCase - 1, tailleCase - 1);
-				}
-				else if (obs.isRobot()) {
+					g.fillRect((i % m_model.map.getWidth()) * tailleCase + 1,
+							(j % m_model.map.getHeight()) * tailleCase + 1, tailleCase - 1, tailleCase - 1);
+				} else if (obs.isRobot()) {
 					g.setColor(Color.cyan);
-					g.fillRect(i * tailleCase + 1, j * tailleCase + 1, tailleCase - 1, tailleCase - 1);
-				}
-				else {
+					g.fillRect((i % m_model.map.getWidth()) * tailleCase + 1,
+							(j % m_model.map.getHeight()) * tailleCase + 1, tailleCase - 1, tailleCase - 1);
+				} else {
 					g.setColor(Color.white);
-					//g.fillRect(i * tailleCase + 1, j * tailleCase + 1, tailleCase - 1, tailleCase - 1);
+					// g.fillRect(i * tailleCase + 1, j * tailleCase + 1,
+					// tailleCase - 1, tailleCase - 1);
 				}
 			}
 		}
@@ -420,8 +451,7 @@ public class GameView extends JPanel {
 		// tailleCase);
 
 	}
-	/*public static void Please(){
-		revalidate();
-		repaint();
-	}*/
+	/*
+	 * public static void Please(){ revalidate(); repaint(); }
+	 */
 }

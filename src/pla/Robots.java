@@ -9,11 +9,13 @@ public class Robots extends Perso{
 	int pdv = 100;
 	int pDefense = 0;
 	Noeud a;
+	int equipe;
 	
-	public Robots(int i,int j){
+	public Robots(int i,int j, int equipe){
 		this.i = i;
 		this.j = j;
 //		this.a=a;
+		this.equipe = equipe;
 	}
 	
 	public String toString() {
@@ -226,14 +228,19 @@ public class Robots extends Perso{
 				
 				if(obs.isRobot()){
 					Robots r2 = (Robots) obs;
-					//if(obs.isSameTeam()){
+					if(r2.equipe != this.equipe){
 						double p = Math.random();		
-						//+ obs.defend();
 						if(p > 0.05+r2.defend()){
+							//Si non esquive du robot adverse
 							r2.pdv -= 35;
+							if(r2.pdv<=0){
+								// si pdv < 0 destruction du robot adverse
+								Case v = new Case(i,j,new Vide());
+								c = v;
+							}
 						}
 						return 1;
-					//}
+					}
 				}
 			}
 		}
@@ -266,8 +273,10 @@ public class Robots extends Perso{
 				Observables obs = c.getContenu();
 				
 				if(obs.isCompetences()){
+					//le robot trouve une compétence sur la map
 					tmp = Math.abs(k-i)+Math.abs(l-j);
 					if(tmp<min){
+						// si elle est plus provhe que la case sauvegardé
 						min = tmp;
 						min_i = k;
 						min_j = l;
@@ -275,9 +284,15 @@ public class Robots extends Perso{
 				}
 			}
 		}
-		Case c = map.getCase(min_i, min_j);
-		move(c);
-		return 1;
+		if(min!=30){
+			Case c = map.getCase(min_i, min_j);
+			move(c);
+			// le robot se rend sur la derniere case sauvegard
+			return 1;
+		}
+		else{
+			return 0;
+		}	
 	}
 	
 	/* se dirige vers l'ennemie ou la base la plus proche :
@@ -298,14 +313,15 @@ public class Robots extends Perso{
 				Observables obs = c.getContenu();
 				
 				if(obs.isRobot()){
-					//if(obs.isSameTeam()){ regarder si robot equipe adverse
+					Robots r2 = (Robots) obs;
+					if(this.equipe != r2.equipe){
 						tmp = Math.abs(k-i)+Math.abs(l-j);
 						if(tmp<min){
 							min = tmp;
 							min_i = k;
 							min_j = l;
 						}
-					//}
+					}
 				}
 			}
 		}
@@ -336,14 +352,15 @@ public class Robots extends Perso{
 				Observables obs = c.getContenu();
 				
 				if(obs.isBase()){
-					//if(obs.isSameTeam()){
+					Base b = (Base) obs;
+					if(b.equipe == this.equipe){
 						tmp = Math.abs(k-i)+Math.abs(l-j);
 						if(tmp<min){
 							min = tmp;
 							min_i = k;
 							min_j = l;
 						}
-					//}
+					}
 				}
 			}
 		}
