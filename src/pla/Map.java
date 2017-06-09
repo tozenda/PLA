@@ -19,12 +19,17 @@ public class Map {
 					c = new Case(j,i,o);
 				}
 				elements[i][j] = c;
-				elements[6][19] = new Case(6,19,new Obstacles());
-				elements[6][18] = new Case(6,18,new Obstacles());
-				elements[6][17] = new Case(6,17,new Obstacles());
-				elements[6][16] = new Case(6,16,new Obstacles());
 			}
 		}
+		elements[9][19] = new Case(9,19,new Obstacles());
+		elements[9][18] = new Case(9,18,new Obstacles());
+		elements[9][17] = new Case(9,17,new Obstacles());
+		elements[9][16] = new Case(9,16,new Obstacles());
+		
+		elements[9][10] = new Case(9,10,new Obstacles());
+		elements[10][10] = new Case(10,10,new Obstacles());
+		elements[11][10] = new Case(11,10,new Obstacles());
+		
 		addBase(19, 0);
 		addBase(18, 0);
 		addBase(19, 1);

@@ -19,10 +19,70 @@ public class Robots extends Perso{
 	public String toString() {
 		return "R";
 	}
+	
+	boolean[][] wasHere;
+	boolean [][] correctPath; // The solution to the maze
+	int startX, startY; // Starting X and Y values of maze
+	int endX, endY;     // Ending X and Y values of maze
+
+	public void solveMaze(Map map) {
+		wasHere = new boolean[map.getHeight()][map.getWidth()];
+		correctPath = new boolean [map.getHeight()][map.getWidth()];
+	    for (int row = 0; row < map.getHeight(); row++)  
+	        // Sets boolean Arrays to default values
+	        for (int col = 0; col < map.getWidth(); col++){
+	            wasHere[row][col] = false;
+	            correctPath[row][col] = false;
+	        }
+	    boolean b = recursiveSolve(map,startX, startY);
+	    // Will leave you with a boolean array (correctPath) 
+	    // with the path indicated by true values.
+	    // If b is false, there is no solution to the maze
+	}
+	public boolean recursiveSolve(Map map, int x, int y) {
+	    if (x == endX && y == endY) return true; // If you reached the end
+	    if (map.getCase(x, y).getContenu().isObstacles() || wasHere[y][x]) return false;  
+	    // If you are on a wall or already were here
+	    wasHere[x][y] = true;
+	    if (x != 0) // Checks if not on left edge
+	        if (recursiveSolve(map,x-1, y)) { // Recalls method one to the left
+	            correctPath[x][y] = true; // Sets that path value to true;
+	            return true;
+	        }
+	    if (x != map.getWidth() - 1) // Checks if not on right edge
+	        if (recursiveSolve(map,x+1, y)) { // Recalls method one to the right
+	            correctPath[x][y] = true;
+	            return true;
+	        }
+	    if (y != 0)  // Checks if not on top edge
+	        if (recursiveSolve(map,x, y-1)) { // Recalls method one up
+	            correctPath[x][y] = true;
+	            return true;
+	        }
+	    if (y != map.getHeight()- 1) // Checks if not on bottom edge
+	        if (recursiveSolve(map,x, y+1)) { // Recalls method one down
+	            correctPath[x][y] = true;
+	            return true;
+	        }
+	    return false;
+	}
+
 
 	public void move(Case c) {
 		//System.out.println("Move Robot appelé");
-		Map map = Game.game.m_model.map; 
+		Map map = Game.game.m_model.map;
+		/*startX = i;
+		startY = j;
+		endX = this.di;
+		endY = this.dj;
+		solveMaze(map);
+		for(int i=0;i<map.getWidth();i++){
+			System.out.println("");
+			for(int j=0;j<map.getHeight();j++){
+				System.out.print(" "+correctPath[i][j]+ " ");
+			}
+		}
+		System.out.println("");*/
 		//di = c.getX();
 		//dj = c.getY();
 		if(i!=di){
@@ -146,7 +206,7 @@ public class Robots extends Perso{
 				}
 			}
 		}
-		//System.out.println("Les nouvelles coordonnées sont : ("+i+";"+j+")");
+		//System.out.println("Les nouvelles coordonnées sont : ("+i+";"+j+")");*/
 	}
 
 	/*Action d'attaque d'un robot
