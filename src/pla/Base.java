@@ -8,11 +8,13 @@ public class Base extends Actifs{
     private int y;
     private Image image;
     private int pdv;
+    int equipe;
     
-	public Base(int x, int y){
+	public Base(int x, int y, int equipe){
 		this.x = x;
 		this.y = y;
 		pdv = 50;
+		this.equipe = equipe;
 	}
 	
 	public String toString() {
