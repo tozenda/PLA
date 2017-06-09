@@ -15,7 +15,10 @@ public class Noeud {
 		this.numero=num;
 	}
 	
+	/* Ajoute un fils droit au noeud existant, 
+	 * @param Competence du noeud à ajouter*/
 	public void addFilsD(Competence comp){
+		//si ce noeud possède déjà un fils droit, ajoute la Competence au fils droit du noeud
 		if(this.filsDroit==null){
 			int num = this.numero+1;
 			Noeud n = new Noeud(comp, num);
@@ -27,7 +30,10 @@ public class Noeud {
 		}
 	} 
 	
+	/* Ajoute un fils gauche au noeud existant, 
+	 * @param Competence du noeud à ajouter*/
 	public void addFilsG(Competence comp){
+		//si ce noeud possède déjà un fils gauche, ajoute la Competence au fils gauche du noeud
 		if(this.filsDroit==null){
 			int num = this.numero+1;
 			Noeud n = new Noeud(comp, num);
@@ -39,26 +45,19 @@ public class Noeud {
 		}
 	}
 	
-	public void readArbre(){
-	     if(this.filsGauche!=null){
-	    	 filsGauche.readArbre();
-	     }
-	     // action.eval; //TODO eval in Competences or Competence
-	     if(this.filsDroit!=null){
-	    	 filsDroit.readArbre();
-	     }
-	}
-	
+	/* Fonction toString qui renvoie le numéro du noeud et sa Competence*/
 	public String toString(){
 	     return "noeud = "+this.numero+"  action= "+this.action;
 	}
 	
+	/* Permet d'afficher l'arbre avec les numéros des noeuds*/
 	public void affiche(){
 	     if(this.filsGauche!=null) filsGauche.affiche();
 	     System.out.println(this.toString());
 	     if(this.filsDroit!=null) filsDroit.affiche();
 	}
 
+	/* on construit un arbre de test*/
 	public static void main(String[] args){
 		Noeud n = new Noeud(Competence.Hit, 1);
 		n.addFilsG(Competence.Boost);
