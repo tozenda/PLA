@@ -52,12 +52,12 @@ public class GameView extends JPanel {
 	private int Facty = 1;
 	BufferedImage iRobot_settings = null;
 	Color Gold = new Color(229, 186, 27);
-	String Thomas="/home/tozenda/COURS/RICM3/S6/PLA/PLA/Resources/";
-	String Najwa ="Resources/";
+	String Thomas = "/home/tozenda/COURS/RICM3/S6/PLA/PLA/Resources/";
+	String Najwa = "Resources/";
 	String Anouar = "Resources/";
 	String Jo = "/home/ferreira/Bureau/POO/PLA/Resources/";
-	String Paul= "home/doublean/git/PLA/Resources/";
-	String Shoo=null;
+	String Paul = "home/doublean/git/PLA/Resources/";
+	String Shoo = null;
 	String Path = Najwa;
 
 	GridBagConstraints gc = new GridBagConstraints();
@@ -148,7 +148,7 @@ public class GameView extends JPanel {
 		JTextArea textArea = new JTextArea(5, 5);
 		JScrollPane scrollableTextArea = new JScrollPane(textArea);
 
-		scrollableTextArea.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		//scrollableTextArea.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollableTextArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		return scrollableTextArea;
 	}
@@ -274,6 +274,7 @@ public class GameView extends JPanel {
 			Create_Robot.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					GameModel.Create_Robot();
+					
 				}
 			});
 		}
@@ -304,6 +305,7 @@ public class GameView extends JPanel {
 		this.setLayout(new BorderLayout());
 		this.add(build(), java.awt.BorderLayout.SOUTH);
 		this.add(build(), java.awt.BorderLayout.EAST);
+		this.requestFocus();
 
 		// permet de récupérer les événements clavier et souris
 		addKeyListener(ctr);
@@ -333,26 +335,16 @@ public class GameView extends JPanel {
 	}
 
 	private void setFactXY() {
-		
-		/*Factx=m_model.map.getLocation()%2;
-		Facty=(m_model.map.getLocation()/2)+1;*/
+
+		/*
+		 * Factx=m_model.map.getLocation()%2;
+		 * Facty=(m_model.map.getLocation()/2)+1;
+		 */
 		switch (m_model.map.getLocation()) {
-		case (2):
-			Factx = 2;
-			Facty = 1;
-			break;
-		case (3):
-			Factx = 1;
-			Facty = 2;
-			break;
-		case (4):
-			Factx = 2;
-			Facty = 2;
-			break;
-		default:
-			Factx = 1;
-			Facty = 1;
-			break;
+		case (2): 	Factx = 2;	Facty = 1;	break;
+		case (3):	Factx = 1;	Facty = 2;	break;
+		case (4):	Factx = 2;	Facty = 2;	break;
+		default:	Factx = 1;	Facty = 1;	break;
 
 		}
 	}

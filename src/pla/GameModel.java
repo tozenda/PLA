@@ -7,7 +7,7 @@ package pla;
 //classe permettant d'interagir entre l'affichage et notre structure de données
 public class GameModel {
 
-  Game m_game;
+  static Game m_game;
   Map map;
   Heros heros1;
   Robots robot;
@@ -117,12 +117,15 @@ dx = (currentX +1);
   }
   public static void Tour(){
 	  System.out.println("Tour");
+	  m_game.returnFocus();
   }
   public static void breakk(){
 	  System.out.println("Break");
+	  m_game.returnFocus();
   }
   public static void Create_Robot(){
 	  System.out.println("Create Robot");
+	  m_game.returnFocus();
   }
   
 }
