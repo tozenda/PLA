@@ -37,14 +37,14 @@ public class Map {
 		elements[10][10] = new Case(10,10,new Obstacles());
 		elements[11][10] = new Case(11,10,new Obstacles());
 		
-		addBase(19, 0);
-		addBase(18, 0);
-		addBase(19, 1);
-		addBase(18, 1);
-		addBase(0, 10);
-		addBase(1, 11);
-		addBase(0, 11);
-		addBase(1, 10);
+		addBase(19, 0, 2);
+		addBase(18, 0, 2);
+		addBase(19, 1, 2);
+		addBase(18, 1, 2);
+		addBase(0, 10, 2);
+		addBase(1, 11, 2);
+		addBase(0, 11, 2);
+		addBase(1, 10, 2);
 	}
 
 
