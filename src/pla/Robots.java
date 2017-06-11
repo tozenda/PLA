@@ -76,7 +76,12 @@ public class Robots extends Perso{
 			}
 			else{
 				if((map.getCase(i+1, j).getContenu().isVide())||(map.getCase(i+1, j).getContenu().isCompetences())){
-					NSEW(map,"E");
+					if(i<map.getWidth()/2){
+						NSEW(map,"W");
+					}
+					else{
+						NSEW(map,"E");
+					}
 				}
 			}
 		}
@@ -87,8 +92,12 @@ public class Robots extends Perso{
 			}
 			else{
 				if((map.getCase(i+1, j).getContenu().isVide())||(map.getCase(i+1, j).getContenu().isCompetences())){
-					NSEW(map,"E");
-				}
+					if(i<map.getWidth()/2){
+						NSEW(map,"W");
+					}
+					else{
+						NSEW(map,"E");
+					}				}
 			}
 		}
 		else if( dir == "E"){
@@ -98,8 +107,12 @@ public class Robots extends Perso{
 			}
 			else{
 				if((map.getCase(i, j+1).getContenu().isVide())||(map.getCase(i, j+1).getContenu().isCompetences())){
-					NSEW(map,"S");
-				}
+					if(j<map.getHeight()/2){
+						NSEW(map,"S");
+					}
+					else{
+						NSEW(map,"N");
+					}				}
 			}
 		}
 		else if(dir == "W"){
@@ -109,8 +122,12 @@ public class Robots extends Perso{
 			}
 			else{
 				if((map.getCase(i, j+1).getContenu().isVide())||(map.getCase(i, j+1).getContenu().isCompetences())){
-					NSEW(map,"S");
-				}
+					if(j<map.getHeight()/2){
+						NSEW(map,"S");
+					}
+					else{
+						NSEW(map,"N");
+					}						}
 			}
 		}
 	}

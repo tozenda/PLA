@@ -86,8 +86,8 @@ public class Game {
 		    m_controller.step(now);
 		    long elapsed = now - m_lastRepaint;
 		    if (elapsed > REPAINT_DELAY) {
-		    	if(cmpt == 10){
-		    		m_model.robot.move(null);
+		    	if(cmpt == 3){
+		    		m_model.robot.move();
 		    		cmpt=0;
 		    	}
 		      double tick = (double) m_elapsed / (double) m_nTicks;
