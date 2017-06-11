@@ -8,90 +8,93 @@ import java.awt.event.MouseMotionListener;
 
 public class GameController implements MouseListener, MouseMotionListener, KeyListener {
 
-  static final boolean echo = false;
-  Game m_game;
-  GameModel m_model;
-  static char haut = 'z';
-  static char bas = 's';
-  static char gauche = 'q';
-  static char droite = 'd';
+	static final boolean echo = false;
+	Game m_game;
+	GameModel m_model;
+	static int haut = 'z';
+	static int bas = 's';
+	static int gauche = 'q';
+	static int droite = 'd';
+	static int up = KeyEvent.VK_UP;
+	static int down = KeyEvent.VK_DOWN;
+	static int left = KeyEvent.VK_LEFT;
+	static int right = KeyEvent.VK_RIGHT;
 
-  GameController(Game game, GameModel model) {
-    m_game = game;
-    m_model = model;
-  }
+	GameController(Game game, GameModel model) {
+		m_game = game;
+		m_model = model;
+	}
 
-  /**
-   * Simulation step. Warning: the model has already executed its step.
-   * 
-   * @param 1ms
-   *          
-   */
-  void step(long now) {
-  }
+	/**
+	 * Simulation step. Warning: the model has already executed its step.
+	 * 
+	 * @param 1ms
+	 * 
+	 */
+	void step(long now) {
+	}
 
-//  private static final long NOPS=1000000L;
-  
-  public void keyTyped(KeyEvent e) {
-    if (echo)
-      System.out.println("KeyTyped: " + e);
-    if ((e.getKeyChar() == haut)||(e.getKeyChar() == bas)||(e.getKeyChar() == gauche)||(e.getKeyChar()== droite)) {
-    	m_model.heroMove(e.getKeyChar());
-    }
-  }
+	// private static final long NOPS=1000000L;
 
-  
-  public void keyPressed(KeyEvent e) {
-    if (echo)
-      System.out.println("KeyPressed: " + e);
-  }
+	public void keyTyped(KeyEvent e) {
+		if (echo)
+			System.out.println("KeyTyped: " + e);
+		int memGetkeychar = e.getKeyChar();
+		if ((memGetkeychar == haut) || (memGetkeychar == bas) || (memGetkeychar == gauche)
+				|| (memGetkeychar == droite)) {
+			m_model.heroMove(memGetkeychar);
+		}
+	}
 
-  
-  public void keyReleased(KeyEvent e) {
-    if (echo)
-      System.out.println("KeyReleased: " + e);
-  }
+	public void keyPressed(KeyEvent e) {
+		if (echo)
+			System.out.println("KeyPressed: " + e);
+	}
 
-  
-  public void mouseClicked(MouseEvent e) {
-    if (echo)
-      System.out.println("MouseClicked: " + e);
-  }
+	public void keyReleased(KeyEvent e) {
+		if (echo)
+			System.out.println("KeyReleased: " + e);
+		int memGetkeychar = e.getKeyCode();
+		if((memGetkeychar == up) || (memGetkeychar == down) || (memGetkeychar == left)
+				|| (memGetkeychar == right)){
+			System.out.println("KeyReleased: " + e.getKeyChar());
+			m_model.heroMove(memGetkeychar);
+		}
+	}
 
-  
-  public void mousePressed(MouseEvent e) {
-    if (echo)
-      System.out.println("MousePressed: " + e);
-  }
+	public void mouseClicked(MouseEvent e) {
+		if (echo)
+			System.out.println("MouseClicked: " + e);
+	}
 
-  
-  public void mouseReleased(MouseEvent e) {
-    if (echo)
-      System.out.println("MouseReleasedt: " + e);
-  }
+	public void mousePressed(MouseEvent e) {
+		if (echo)
+			System.out.println("MousePressed: " + e);
+	}
 
-  
-  public void mouseEntered(MouseEvent e) {
-    if (echo)
-      System.out.println("MouseEntered: " + e);
-  }
+	public void mouseReleased(MouseEvent e) {
+		if (echo)
+			System.out.println("MouseReleasedt: " + e);
+	}
 
-  
-  public void mouseExited(MouseEvent e) {
-    if (echo)
-      System.out.println("MouseEvent: " + e);
-  }
+	public void mouseEntered(MouseEvent e) {
+		if (echo)
+			System.out.println("MouseEntered: " + e);
+	}
 
-  
-  public void mouseDragged(MouseEvent e) {
-    if (echo)
-      System.out.println("MouseDragged: " + e);
-  }
+	public void mouseExited(MouseEvent e) {
+		if (echo)
+			System.out.println("MouseEvent: " + e);
+	}
 
+	public void mouseDragged(MouseEvent e) {
+		if (echo)
+			System.out.println("MouseDragged: " + e);
+	}
 
-  public void mouseMoved(MouseEvent e) {
-    if (echo)
-      System.out.println("MouseMoved: " + e);
-  }
+	public void mouseMoved(MouseEvent e) {
+		if (echo)
+			System.out.println("MouseMoved: " + e);
+	}
 
 }

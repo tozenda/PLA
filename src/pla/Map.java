@@ -28,15 +28,15 @@ public class Map {
 				elements[i][j] = c;
 			}
 		}
-		elements[9][19] = new Case(9,19,new Obstacles());
-		elements[9][18] = new Case(9,18,new Obstacles());
-		elements[9][17] = new Case(9,17,new Obstacles());
-		elements[9][16] = new Case(9,16,new Obstacles());
-		
-		elements[9][10] = new Case(9,10,new Obstacles());
-		elements[10][10] = new Case(10,10,new Obstacles());
-		elements[11][10] = new Case(11,10,new Obstacles());
-		
+		elements[9][19] = new Case(9, 19, new Obstacles());
+		elements[9][18] = new Case(9, 18, new Obstacles());
+		elements[9][17] = new Case(9, 17, new Obstacles());
+		elements[9][16] = new Case(9, 16, new Obstacles());
+
+		elements[9][10] = new Case(9, 10, new Obstacles());
+		elements[10][10] = new Case(10, 10, new Obstacles());
+		elements[11][10] = new Case(11, 10, new Obstacles());
+
 		addBase(19, 0, 2);
 		addBase(18, 0, 2);
 		addBase(19, 1, 2);
@@ -46,7 +46,6 @@ public class Map {
 		addBase(0, 11, 2);
 		addBase(1, 10, 2);
 	}
-
 
 	public void addBase(int i, int j, int equipe) {
 		Base base = new Base(i, j, equipe);
@@ -93,10 +92,14 @@ public class Map {
 	}
 
 	public void incLocation() {
-		location++;
+		if (location < 4) {
+			location++;
+		}
 	}
+
 	public void decLocation() {
-		location--;
+		if (location > 1)
+			location--;
 	}
 
 	public void resetLocation() {
@@ -107,6 +110,20 @@ public class Map {
 		location = a;
 
 	}
+
+	public int getHeroLocation(int x, int y) {
+		if (x > 19) {
+			if (y < 12) {
+				return 2;
+			}
+			return 4;
+		}
+			if (y < 12) {
+				return 1;
+			}
+			return 3;
+		}
+	
 
 	public void editCase(Case c) {
 		int w = c.getX();
