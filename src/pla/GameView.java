@@ -60,7 +60,7 @@ public class GameView extends JPanel {
 	String Jo = "/home/ferreira/Bureau/POO/PLA/Resources/";
 	String Paul = "home/doublean/git/PLA/Resources/";
 	String Shoo = null;
-	String Path = Najwa;
+	String Path = Jo;
 
 	GridBagConstraints gc = new GridBagConstraints();
 	GridBagConstraints sideg = new GridBagConstraints();
