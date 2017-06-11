@@ -58,19 +58,21 @@ public class GameModel {
 		int dx = currentX;
 		int dy = currentY;
 		System.out.println(mvt);
+		int currentLocation = map.getHeroLocation(currentX, currentY);
+		System.out.println("Map actuelle : "+ currentLocation);
 		// remplacer par switch
-		if (mvt == KeyEvent.VK_LEFT) {
+		if (mvt == KeyEvent.VK_LEFT && map.getLocation() != 3) {
 			map.decLocation();
 		}
-		if (mvt == KeyEvent.VK_UP) {
+		if (mvt == KeyEvent.VK_UP&&map.getLocation()!=2) {
 			map.decLocation();
 			map.decLocation();
 		}
-		if (mvt == KeyEvent.VK_DOWN) {
+		if (mvt == KeyEvent.VK_DOWN&&map.getLocation()!=4&&map.getLocation()!=3) {
 			map.incLocation();
 			map.incLocation();
 		}
-		if (mvt == KeyEvent.VK_RIGHT) {
+		if (mvt == KeyEvent.VK_RIGHT && map.getLocation() != 4 && map.getLocation() != 2) {
 			map.incLocation();
 		}
 		if (mvt == 'z') {
@@ -98,25 +100,27 @@ public class GameModel {
 		} else if (mvt == 's') {
 			map.setLocation(map.getHeroLocation(currentX, currentY));
 
-			if (currentY % map.getHeight() == map.getHeight() - 1) {
+			if ((currentY % map.getHeight() == map.getHeight() - 1)&&currentY!=23) {
 				map.incLocation();
 				map.incLocation();
 			}
-			if (currentY < map.getHeight() - 1) {
-				// dy = (currentY+1);
+			
+			if (currentY!=23){
+				dy = (currentY + 1);
 			}
-			dy = (currentY + 1);
 		} else if (mvt == 'd') {
 			map.setLocation(map.getHeroLocation(currentX, currentY));
 
-			if (currentX % map.getWidth() == 19) {
+			if (currentX % map.getWidth() == 19&&currentX!=39) {
 				map.incLocation();
 
 				/*
 				 * } if(currentX<map.getWidth()-1){ dx = (currentX +1);
 				 */
 			}
-			dx = (currentX + 1);
+			 if (currentX!=39){
+				dx = (currentX + 1);
+			}
 		}
 		System.out.println("all ok");
 		if (map.getCase(dx, dy).getContenu().isVide()) {
