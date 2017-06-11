@@ -41,8 +41,10 @@ public class GameView extends JPanel {
 	private JProgressBar Hero_HealthBar = null;
 	private _RProgressBar Base_HealthBar = null;
 	private JProgressBar EBase_HealthBar = null;
+	private JProgressBar PointAction = null;
 	private JLabel logo = null;
 	private JLabel joueur1 = null;
+	private JLabel NPointAction = null;
 	private BufferedImage iHero = null;
 	private BufferedImage iObstacle = null;
 	private BufferedImage iTree = null;
@@ -81,6 +83,8 @@ public class GameView extends JPanel {
 			setPanel().add(setBarHero(), gc);
 			setPanel().add(setBarBase(), gc);
 			setPanel().add(setEBarBase(), gc);
+			setPanel().add(setNPointAction(), gc);
+			setPanel().add(setPointAction(), gc);
 			setPanel().add(setBreak(), gc);
 			setPanel().add(setTour(), gc);
 			return setPanel();
@@ -244,7 +248,7 @@ public class GameView extends JPanel {
 
 	public _RButtonB setBreak() {
 		if (Break == null) {
-			gc.gridx = 3;
+			gc.gridx = 4;
 			gc.gridy = 1;
 			gc.gridheight = 1;
 			Break = new _RButtonB("Have a kitkat");
@@ -287,7 +291,7 @@ public class GameView extends JPanel {
 		if (Tour == null) {
 			gc.gridheight = 1;
 			gc.gridx = 4;
-			gc.gridy = 1;
+			gc.gridy = 0;
 			Tour = new _RButtonB("Tour");
 			System.out.println("tour");
 			Tour.addActionListener(new java.awt.event.ActionListener() {
@@ -298,6 +302,29 @@ public class GameView extends JPanel {
 		}
 		System.out.println("Break");
 		return Tour;
+	}
+
+	public JLabel setNPointAction() {
+		if (NPointAction == null) {
+			NPointAction = new JLabel("Points d'action");
+			gc.gridx = 3;
+			gc.gridy = 0;
+		}
+		return NPointAction;
+	}
+
+	public JProgressBar setPointAction() {
+		if (PointAction == null) {
+			PointAction = new JProgressBar();
+			PointAction.setString("0/1000");
+			PointAction.setStringPainted(true);
+			PointAction.setValue(500);
+			PointAction.setMaximum(1000);
+			PointAction.setBackground(Color.ORANGE);
+			gc.gridx = 3;
+			gc.gridy = 1;
+		}
+		return PointAction;
 	}
 
 	GameView(Game game, GameModel model, GameController ctr) {
