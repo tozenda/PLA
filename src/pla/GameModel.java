@@ -18,10 +18,10 @@ public class GameModel {
     heros1 = new Heros(0,0,1);//1ere coord -> Ligne et 2nd coord 6> Colonne de l equipe 1
 	Case c = new Case(heros1.getX(),heros1.getY(),heros1);
 	map.editCase(c);
-	robot = new Robots(3,3,1);	// robot en 3,3 de l equipe 1
+	robot = new Robots(11,10,1);	// robot en 3,3 de l equipe 1
 	Case r = new Case(robot.i,robot.j,robot);
 	map.editCase(r);
-	robot.editDest(18, 10);
+	robot.editDest(6, 4);
   }
   
   long count=0;
