@@ -44,7 +44,6 @@ public class Game {
 	}
 	public void returnFocus(){
 		m_view.requestFocus();
-		System.out.println(m_frame.getFocusOwner());
 	}
 	
 	private void createWindow() {
@@ -78,7 +77,7 @@ public class Game {
 	  
 	  // affichage des ticks de raffraichissement + fps
 	  private void tick() {
-		  System.out.println(m_frame.getFocusOwner());
+		 // System.out.println(m_frame.getFocusOwner());
 		    long now = System.currentTimeMillis();
 		    m_elapsed += (now - m_lastTick);
 		    m_lastTick = now;

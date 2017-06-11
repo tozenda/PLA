@@ -39,7 +39,7 @@ public class GameView extends JPanel {
 	private _RButtonB Tour = null;
 	private JTextField jtf = null;
 	private JProgressBar Hero_HealthBar = null;
-	private JProgressBar Base_HealthBar = null;
+	private _RProgressBar Base_HealthBar = null;
 	private JProgressBar EBase_HealthBar = null;
 	private JLabel logo = null;
 	private JLabel joueur1 = null;
@@ -88,6 +88,9 @@ public class GameView extends JPanel {
 		setPanelE().add(setCreate_Robot(), sideg);
 		setPanelE().add(setTextField(), sideg);
 		setPanelE().add(setInventory(), sideg);
+		sideg.gridx = 0;
+		sideg.gridy = 6;
+		setPanelE().add(new JLabel("Hey"), sideg);
 		return setPanelE();
 
 	}
@@ -148,18 +151,18 @@ public class GameView extends JPanel {
 		JTextArea textArea = new JTextArea(5, 5);
 		JScrollPane scrollableTextArea = new JScrollPane(textArea);
 
-		//scrollableTextArea.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		// scrollableTextArea.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollableTextArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		return scrollableTextArea;
 	}
 
-	public JProgressBar setBarBase() {
+	public _RProgressBar setBarBase() {
 		if (Base_HealthBar == null) {
 			gc.gridx = 2;
 			gc.gridy = 0;
 			gc.gridheight = 1;
 			System.out.println("bar base");
-			Base_HealthBar = new JProgressBar();
+			Base_HealthBar = new _RProgressBar();
 			Base_HealthBar.setString("0/1000");
 			Base_HealthBar.setStringPainted(true);
 			Base_HealthBar.setValue(700);
@@ -268,13 +271,12 @@ public class GameView extends JPanel {
 						java.awt.Image.SCALE_SMOOTH)));
 
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			Create_Robot.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					GameModel.Create_Robot();
-					
+
 				}
 			});
 		}
@@ -341,10 +343,22 @@ public class GameView extends JPanel {
 		 * Facty=(m_model.map.getLocation()/2)+1;
 		 */
 		switch (m_model.map.getLocation()) {
-		case (2): 	Factx = 2;	Facty = 1;	break;
-		case (3):	Factx = 1;	Facty = 2;	break;
-		case (4):	Factx = 2;	Facty = 2;	break;
-		default:	Factx = 1;	Facty = 1;	break;
+		case (2):
+			Factx = 2;
+			Facty = 1;
+			break;
+		case (3):
+			Factx = 1;
+			Facty = 2;
+			break;
+		case (4):
+			Factx = 2;
+			Facty = 2;
+			break;
+		default:
+			Factx = 1;
+			Facty = 1;
+			break;
 
 		}
 	}
