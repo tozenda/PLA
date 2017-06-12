@@ -93,7 +93,7 @@ public class Robots extends Perso{
 	
 	public void moveObs(Map map){
 		 Random rnd = new Random();
-		 rnd.setSeed(0);
+		 rnd.setSeed(System.currentTimeMillis());
 		 boolean r = false;
 		if(dir == "N"){
 			if((contenu("N").isVide())||(contenu("N").isCompetences())){
@@ -125,7 +125,7 @@ public class Robots extends Perso{
 							}
 							NSEW(map,"E");
 						}
-						else if((contenu("E").isVide())||(contenu("E").isCompetences())){
+						else if((contenu("W").isVide())||(contenu("W").isCompetences())){
 							if(contenu("W").isCompetences()){
 								pickUp( (Competences) contenu("W"));
 							}
@@ -145,13 +145,13 @@ public class Robots extends Perso{
 			}
 			else{
 				if((contenu("E").isVide())||(contenu("E").isCompetences())||(contenu("W").isVide())||(contenu("W").isCompetences())){
-					if(i<7){
+					if((i<5)&&(contenu("E").isCompetences()||contenu("E").isVide())){
 						if(contenu("E").isCompetences()){
 							pickUp( (Competences) contenu("E"));
 						}
 						NSEW(map,"E");
 					}
-					else if(i>map.getWidth()-7){
+					else if((i>map.getWidth()-5)&&(contenu("W").isCompetences()||contenu("W").isVide())){
 						if(contenu("W").isCompetences()){
 							pickUp( (Competences) contenu("W"));
 						}
@@ -159,13 +159,13 @@ public class Robots extends Perso{
 					}
 					else{
 						r = rnd.nextBoolean();
-						if(r){
+						if((r)&&(contenu("E").isCompetences()||contenu("E").isVide())){
 							if(contenu("E").isCompetences()){
 								pickUp( (Competences) contenu("E"));
 							}
 							NSEW(map,"E");
 						}
-						else{
+						else if(contenu("W").isCompetences()||contenu("W").isVide()){
 							if(contenu("W").isCompetences()){
 								pickUp( (Competences) contenu("W"));
 							}
@@ -185,13 +185,13 @@ public class Robots extends Perso{
 			}
 			else{
 				if((contenu("S").isVide())||(contenu("S").isCompetences())||((contenu("N").isVide())||(contenu("N").isCompetences()))){
-					if(j<7){
+					if((j<5)&&(contenu("S").isCompetences()||contenu("S").isVide())){
 						if(contenu("S").isCompetences()){
 							pickUp( (Competences) contenu("S"));
 						}
 						NSEW(map,"S");
 					}
-					else if(j>map.getWidth()-7){
+					else if((j>map.getWidth()-5)&&(contenu("N").isCompetences()||contenu("N").isVide())){
 						if(contenu("N").isCompetences()){
 							pickUp( (Competences) contenu("N"));
 						}
@@ -199,13 +199,13 @@ public class Robots extends Perso{
 					}
 					else{
 						r = rnd.nextBoolean();
-						if(r){
+						if((r)&&(contenu("S").isCompetences()||contenu("S").isVide())){
 							if(contenu("S").isCompetences()){
 								pickUp( (Competences) contenu("S"));
 							}
 							NSEW(map,"S");
 						}
-						else{
+						else if(contenu("N").isCompetences()||contenu("N").isVide()){
 							if(contenu("N").isCompetences()){
 								pickUp( (Competences) contenu("N"));
 							}
@@ -225,13 +225,13 @@ public class Robots extends Perso{
 			}
 			else{
 				if((contenu("S").isVide())||(contenu("S").isCompetences())||(contenu("N").isVide())||(contenu("N").isCompetences())){
-					if(j<7){
+					if((j<5)&&(contenu("S").isCompetences()||contenu("S").isVide())){
 						if(contenu("S").isCompetences()){
 							pickUp( (Competences) contenu("S"));
 						}
 						NSEW(map,"S");
 					}
-					else if(j>map.getWidth()-7){
+					else if((j>map.getWidth()-5)&&(contenu("N").isCompetences()||contenu("N").isVide())){
 						if(contenu("N").isCompetences()){
 							pickUp( (Competences) contenu("N"));
 						}
@@ -239,13 +239,13 @@ public class Robots extends Perso{
 					}
 					else{
 						r = rnd.nextBoolean();
-						if(r){
+						if((r)&&(contenu("S").isCompetences()||contenu("S").isVide())){
 							if(contenu("S").isCompetences()){
 								pickUp( (Competences) contenu("S"));
 							}
 							NSEW(map,"S");
 						}
-						else{
+						else if(contenu("S").isCompetences()||contenu("S").isVide()){
 							if(contenu("N").isCompetences()){
 								pickUp( (Competences) contenu("N"));
 							}
