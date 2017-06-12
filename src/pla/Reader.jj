@@ -84,40 +84,33 @@ Noeud EXPR() :
 {Noeud n2;}
 {
 	n2= < SYMBOL > {return Symb_to_Comp(n2.toString());}
+	/*|n2=EXPR() <REPETE> {
+	  Noeud n;
+	  n.action=Etoile;
+	  n.addFilsD(n2);
+	  return n;}*/
 	|<PARO> n2=LISTE() <PARF> {return n2;}
 	|<ACCO> n2=LISTE() <ACCF> {return n2;}
-	|<ACCO> n2=LISTE() <ACCF> <REPETE> {
-	  Noeud n;
-	  n.action=Etoile;
-	  n.addFilsD(n2);
-	  return n;}
-	|<PARO> n2=LISTE() <PARF> <REPETE> {
-	  Noeud n;
-	  n.action=Etoile;
-	  n.addFilsD(n2);
-	  return n;}
-}
 }
 
 Noeud LISTE() :
 {Noeud n2,n3;}
 {
-	| n2= < SYMBOL > <PTV> n3=LISTE() {
+	n2=< SYMBOL > <PTV> n3=LISTE() {
 	  Noeud n;
 	  n.action = Symb_to_Comp(n2.toString());
 	  n.addFilsD(n3);
 	  return n;}
-
-	| n2= LISTE() <OU> n3=LISTE() {
+	| n2=LISTE() <OU> n3=LISTE() {
 	  Noeud n;
 	  n.action = Ou;
 	  n.addFilsG(n2);
 	  n.addFilsD(n3);
-	  return n;}
-	| n2= LISTE() <SUP> n3=LISTE() {
+	  return n;}/*
+	| n2=LISTE() <SUP> n3=LISTE() {
 	  Noeud n;
 	  n.action = Sup;
 	  n.addFilsG(n2);
 	  n.addFilsD(n3);
-	  return n;}
+	  return n;}*/
 }
