@@ -2,8 +2,8 @@ package pla;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -21,6 +21,9 @@ import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
 
 public class GameView extends JPanel {
 
@@ -198,8 +201,6 @@ public class GameView extends JPanel {
 		return EBase_HealthBar;
 	}
 
-	
-
 	public JLabel setLogo() {
 		if (logo == null) {
 			gc.gridx = 0;
@@ -295,9 +296,14 @@ public class GameView extends JPanel {
 
 	public JLabel setInfo() {
 		if (info == null) {
-			info = new JLabel("<html>Right click on <br/>the map for</html> ");
+			info = new JLabel("<html>Right click on <br/>the map to discover what you have to deal with</html> ");
+			Border border = info.getBorder();
+			Border margin = new EmptyBorder(10,10,10,10);
+			info.setBorder(new CompoundBorder(border, margin));
+			info.setFont(setFont(12f));
 			sideg.gridx = 0;
 			sideg.gridy = 4;
+			info.setPreferredSize(new Dimension(160,250));
 			// String s = "Line1 Line2 <br/> Line3";
 
 			// jLabel1.setText (sText);
@@ -305,11 +311,39 @@ public class GameView extends JPanel {
 
 		}
 		if (m_model.getCurrentCase() != null) {
-			String s = "<html> Type : " + m_model.getCurrentCase().toString() + " <br/>Points de vie: <br/></html>"
+			String s = "<html>" + m_model.getCurrentCase().toString() + " <br/>PDV: "
 					+ m_model.getCurrentCase().getContenu().getPointdeVie();
-			info.setText(s);
-		}
+			
+			
+			switch (m_model.getCurrentCase().getContenu().toString()) {
 
+			case ("H"):
+				info.setIcon(new ImageIcon(new ImageIcon(Path + "hero.png").getImage().getScaledInstance(50, 50,
+						java.awt.Image.SCALE_SMOOTH)));
+			s = s + "<br/>This is you...<br/>Ever considered <br/>plastic surgery? <br/>How sad.</html>";
+				break;
+			case("O"):
+				info.setIcon(new ImageIcon(new ImageIcon(Path + "barrier.png").getImage().getScaledInstance(50, 50,
+						java.awt.Image.SCALE_SMOOTH)));
+			s = s + "<br/><br/><br/><br/>Oh, no...<br/>there's something <br/>on your way... <br/><br/>How sad.</html>";
+			
+			break;
+			case("B") :
+				info.setIcon(new ImageIcon(new ImageIcon(Path + "base.png").getImage().getScaledInstance(50, 50,
+						java.awt.Image.SCALE_SMOOTH)));
+			s = s + "<br/>No princess, but you <br/> still have to protect it...</html>";
+			break;
+			default :
+				info.setIcon(new ImageIcon(new ImageIcon(Path + "base.png").getImage().getScaledInstance(1, 1,
+						java.awt.Image.SCALE_SMOOTH)));
+			s = s + "<br/>Nah, there's nothing<br/> here <br/> Drugs I guess?</html>";
+			break;
+				
+			}
+			info.setText(s);
+			info.setFont(setFont(12f));
+			
+		}
 		return info;
 	}
 

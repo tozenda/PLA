@@ -13,6 +13,8 @@ public class Noeud {
 	public Noeud(Competence comp, int num){
 		this.action=comp;
 		this.numero=num;
+		this.filsGauche = null;
+		this.filsDroit = null;
 	}
 	
 	/* Ajoute un fils droit au noeud existant, 

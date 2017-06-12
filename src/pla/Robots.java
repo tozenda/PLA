@@ -892,12 +892,17 @@ public class Robots extends Perso{
 					this.eval(n.filsDroit);
 					break;
 				case Sup:
-					if (isPossible(n.filsGauche) == -1){ //TODO cr�er cas impossible pour chaque fonction
+					if (isPossible(n.filsGauche) == 0){ //TODO cr�er cas impossible pour chaque fonction
 						this.eval(n.filsDroit);
 					}
 					else{
 						this.eval(n.filsGauche);
 					}
+					break;
+				case Etoile:
+//					while(tour==this.equipe){
+						eval(n.filsDroit);
+//					}
 					break;
 			default:
 				break;
@@ -1002,6 +1007,8 @@ public class Robots extends Perso{
 				else{
 					return 0;
 				}
+			case Etoile:
+				return 1;
 			default:
 				return 1;
 		}
