@@ -65,6 +65,14 @@ public class Map {
 	public int getWidth() {
 		return width;
 	}
+	
+	public int getTotalWidth(){
+		return total_width;
+	}
+	
+	public int getTotalHeight(){
+		return total_height;
+	}
 
 	public int getHeight() {
 		return height;
