@@ -27,7 +27,7 @@ public class Robots extends Perso{
 		contre = false;
 		poison = 0;
 		stun = false;
-		boostDegat = 0;
+		boostDegat = false;
 	}
 	
 	public String toString() {
@@ -132,7 +132,7 @@ public class Robots extends Perso{
 		}
 	}
 
-	public void move() {
+	public void move(Case c) {
 		
 		//System.out.println("Move Robot appelé");
 		Map map = Game.game.m_model.map;
@@ -437,6 +437,7 @@ public class Robots extends Perso{
 		else{
 			return 0;
 		}
+		return 0;
 	}
 	
 	/*
@@ -469,6 +470,7 @@ public class Robots extends Perso{
 		else{
 			return 0;
 		}
+		return 0;
 	}
 	
 	/*
@@ -735,6 +737,7 @@ public class Robots extends Perso{
 				}
 			}
 		}
+		return 0;
 	}
 	
 	/*
