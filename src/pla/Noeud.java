@@ -13,12 +13,14 @@ public class Noeud {
 	public Noeud(Competence comp, int num){
 		this.action=comp;
 		this.numero=num;
+		this.filsGauche = null;
+		this.filsDroit = null;
 	}
 	
 	/* Ajoute un fils droit au noeud existant, 
-	 * @param Competence du noeud à ajouter*/
+	 * @param Competence du noeud ï¿½ ajouter*/
 	public void addFilsD(Competence comp){
-		//si ce noeud possède déjà un fils droit, ajoute la Competence au fils droit du noeud
+		//si ce noeud possï¿½de dï¿½jï¿½ un fils droit, ajoute la Competence au fils droit du noeud
 		if(this.filsDroit==null){
 			int num = this.numero+1;
 			Noeud n = new Noeud(comp, num);
@@ -31,9 +33,9 @@ public class Noeud {
 	} 
 	
 	/* Ajoute un fils gauche au noeud existant, 
-	 * @param Competence du noeud à ajouter*/
+	 * @param Competence du noeud ï¿½ ajouter*/
 	public void addFilsG(Competence comp){
-		//si ce noeud possède déjà un fils gauche, ajoute la Competence au fils gauche du noeud
+		//si ce noeud possï¿½de dï¿½jï¿½ un fils gauche, ajoute la Competence au fils gauche du noeud
 		if(this.filsDroit==null){
 			int num = this.numero+1;
 			Noeud n = new Noeud(comp, num);
@@ -45,12 +47,12 @@ public class Noeud {
 		}
 	}
 	
-	/* Fonction toString qui renvoie le numéro du noeud et sa Competence*/
+	/* Fonction toString qui renvoie le numï¿½ro du noeud et sa Competence*/
 	public String toString(){
 	     return "noeud = "+this.numero+"  action= "+this.action;
 	}
 	
-	/* Permet d'afficher l'arbre avec les numéros des noeuds*/
+	/* Permet d'afficher l'arbre avec les numï¿½ros des noeuds*/
 	public void affiche(){
 	     if(this.filsGauche!=null) filsGauche.affiche();
 	     System.out.println(this.toString());
