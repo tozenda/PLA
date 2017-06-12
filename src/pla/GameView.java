@@ -198,8 +198,6 @@ public class GameView extends JPanel {
 		return EBase_HealthBar;
 	}
 
-	
-
 	public JLabel setLogo() {
 		if (logo == null) {
 			gc.gridx = 0;
@@ -305,11 +303,37 @@ public class GameView extends JPanel {
 
 		}
 		if (m_model.getCurrentCase() != null) {
-			String s = "<html> Type : " + m_model.getCurrentCase().toString() + " <br/>Points de vie: <br/></html>"
+			String s = "<html>" + m_model.getCurrentCase().toString() + " <br/>PDV: "
 					+ m_model.getCurrentCase().getContenu().getPointdeVie();
+			
+			
+			switch (m_model.getCurrentCase().getContenu().toString()) {
+
+			case ("H"):
+				info.setIcon(new ImageIcon(new ImageIcon(Path + "hero.png").getImage().getScaledInstance(50, 50,
+						java.awt.Image.SCALE_SMOOTH)));
+			s = s + "<br/>This is you...<br/>Ever considered <br/>plastic surgery? <br/>How sad.</html>";
+				break;
+			case("O"):
+				info.setIcon(new ImageIcon(new ImageIcon(Path + "barrier.png").getImage().getScaledInstance(50, 50,
+						java.awt.Image.SCALE_SMOOTH)));
+			s = s + "<br/>Oh <br/>there's something <br/>on your way... <br/><br/>How sad.</html>";
+			
+			break;
+			case("B") :
+				info.setIcon(new ImageIcon(new ImageIcon(Path + "base.png").getImage().getScaledInstance(50, 50,
+						java.awt.Image.SCALE_SMOOTH)));
+			s = s + "<br/>No princess, but you <br/> still have to protect it...</html>";
+			break;
+			default :
+				info.setIcon(new ImageIcon(new ImageIcon(Path + "base.png").getImage().getScaledInstance(1, 1,
+						java.awt.Image.SCALE_SMOOTH)));
+			s = s + "<br/>Nah, there's nothing<br/> here <br/> Drugs I guess?</html>";
+			break;
+				
+			}
 			info.setText(s);
 		}
-
 		return info;
 	}
 
