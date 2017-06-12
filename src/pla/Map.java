@@ -6,7 +6,7 @@ public class Map {
 	private int total_width = 40;
 	private int total_height = 24;
 	private static int location = 1;
-	private Case elements[][];
+	static private Case elements[][];
 
 	public Map() {
 		elements = new Case[total_height][total_width];

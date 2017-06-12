@@ -99,6 +99,20 @@ public class GameView extends JPanel {
 		setPanelE().add(setTextField(), sideg);
 		setPanelE().add(setInventory(), sideg);
 		setPanelE().add(setInfo(), sideg);
+		sideg.gridx = 0;
+		sideg.gridy = 4;
+		sideg.gridwidth = 1;
+		// sideg.fill=sideg.anchor=GridBagConstraints.
+		sideg.fill = GridBagConstraints.BOTH;
+
+		MiniMap minimap = new MiniMap("Heyxkjcnvfkj");
+		Border border = minimap.getBorder();
+		Border margin = new EmptyBorder(10, 10, 10, 10);
+		minimap.setPreferredSize(new Dimension(140, 150));
+		minimap.setBorder(new CompoundBorder(border, margin));
+
+		minimap.setBackground(Color.RED);
+		setPanelE().add(minimap, sideg);
 		/*
 		 * sideg.gridx = 0; sideg.gridy = 6; setPanelE().add(new JLabel("Hey"),
 		 * sideg);
@@ -158,8 +172,9 @@ public class GameView extends JPanel {
 
 	public JScrollPane setInventory() {
 		sideg.gridx = 0;
-		sideg.gridy = 2;
+		sideg.gridy = 1;
 		sideg.gridheight = 2;
+		
 		JTextArea textArea = new JTextArea(5, 5);
 		JScrollPane scrollableTextArea = new JScrollPane(textArea);
 
@@ -272,6 +287,9 @@ public class GameView extends JPanel {
 
 	public _RButtonB setCreate_Robot() {
 		if (Create_Robot == null) {
+			sideg.gridx = 0;
+			sideg.gridy = 0;
+
 			Create_Robot = new _RButtonB("Create Robot");
 			Create_Robot.setForeground(Color.WHITE);
 			// Font font2 = new Font("American Typewriter", Font.PLAIN, 12);
@@ -297,16 +315,18 @@ public class GameView extends JPanel {
 
 	public JLabel setInfo() {
 		if (info == null) {
-			info = new JLabel("<html>Right click on the <font color='rgb(128, 128, 0)'><br/>map </font> to discover what you have to deal with</html> ");
-			info.setIcon(new ImageIcon(new ImageIcon(Path + "map.png").getImage().getScaledInstance(50, 50,
-					java.awt.Image.SCALE_SMOOTH)));
+			info = new JLabel(
+					"<html>Right click on the <font color='rgb(128, 128, 0)'><br/>map </font> to discover what you have to deal with</html> ");
+			info.setIcon(new ImageIcon(
+					new ImageIcon(Path + "map.png").getImage().getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH)));
 			Border border = info.getBorder();
 			Border margin = new EmptyBorder(10, 10, 10, 10);
 			info.setBorder(new CompoundBorder(border, margin));
 			info.setFont(setFont(12f));
 			sideg.gridx = 0;
-			sideg.gridy = 4;
-			info.setPreferredSize(new Dimension(160, 250));
+			sideg.gridy = 3;
+			sideg.gridheight = 1;
+			info.setPreferredSize(new Dimension(140, 150));
 			// String s = "Line1 Line2 <br/> Line3";
 
 			// jLabel1.setText (sText);
@@ -322,19 +342,22 @@ public class GameView extends JPanel {
 			case ("H"):
 				info.setIcon(new ImageIcon(new ImageIcon(Path + "hero.png").getImage().getScaledInstance(50, 50,
 						java.awt.Image.SCALE_SMOOTH)));
-				s = "<html><font size ='5'><font color='rgb(229, 186, 27)'>Hero</font></font><br/>" +s + "<br/>This is you...<br/>Ever considered plastic surgery? <br/>How sad.</html>";
+				s = "<html><font size ='5'><font color='rgb(229, 186, 27)'>Hero</font></font><br/>" + s
+						+ "<br/>This is you...<br/>Ever considered plastic surgery? <br/>How sad.</html>";
 				break;
 			case ("O"):
 				info.setIcon(new ImageIcon(new ImageIcon(Path + "barrier.png").getImage().getScaledInstance(50, 50,
 						java.awt.Image.SCALE_SMOOTH)));
-				s ="<html><font color='rgb(31, 178, 163)'>Obstacle</font>" + s + "<br/><br/>Oh, no...<br/>there's something <br/>on your way... <br/><br/><font color='rgb(185, 90, 148)'>How sad</font></html>";
+				s = "<html><font color='rgb(31, 178, 163)'>Obstacle</font>" + s
+						+ "<br/><br/>Oh, no...<br/>there's something <br/>on your way... <br/><br/><font color='rgb(185, 90, 148)'>How sad</font></html>";
 
 				break;
 
 			case ("B"):
 				info.setIcon(new ImageIcon(new ImageIcon(Path + "base.png").getImage().getScaledInstance(50, 50,
 						java.awt.Image.SCALE_SMOOTH)));
-				s = "<html><font color='rgb(31, 178, 163)'>Base</font>" +s + "<br/>No <font color='rgb(216, 40, 82)'>princess</font>, but you <br/> still have to protect it...</html>";
+				s = "<html><font color='rgb(31, 178, 163)'>Base</font>" + s
+						+ "<br/>No <font color='rgb(216, 40, 82)'>princess</font>, but you <br/> still have to protect it...</html>";
 				break;
 			case ("R"):
 				info.setIcon(new ImageIcon(new ImageIcon(Path + "robot.png").getImage().getScaledInstance(50, 50,
@@ -343,10 +366,11 @@ public class GameView extends JPanel {
 						+ "<br/>This is a robot <br/>A stupid one.</html>";
 				break;
 			case ("C"):
-				//TODO
+				// TODO
 				info.setIcon(new ImageIcon(new ImageIcon(Path + "hero.png").getImage().getScaledInstance(50, 50,
 						java.awt.Image.SCALE_SMOOTH)));
-				s = "<html><font color='rgb(31, 178, 163)'>Skill</font>" +s + "<br/>This is you...<br/>Ever considered <br/>plastic surgery? <br/>How sad.</html>";
+				s = "<html><font color='rgb(31, 178, 163)'>Skill</font>" + s
+						+ "<br/>This is you...<br/>Ever considered <br/>plastic surgery? <br/>How sad.</html>";
 				break;
 			// <span style\"color: red\">" + message + "</span>
 
