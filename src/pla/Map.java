@@ -16,7 +16,6 @@ public class Map {
 			for (int j = 0; j < total_width; j++) {
 				// System.out.println("ligne : "+i+" colonnes : "+j);
 				v = new Vide();
-
 				c = new Case(i, j, v);
 				if ((j == 2) && (i < 6) || (j == 30) && (i < 2)) {// j is the
 																	// colomn &&
@@ -53,7 +52,7 @@ public class Map {
 		elements[7][7] = new Case(7,7,new Obstacles());
 		elements[8][7] = new Case(7,8,new Obstacles());
 		elements[9][7] = new Case(7,9,new Obstacles());
-		
+		elements[0][0] = new Case(0,0,new Heros());
 		
 		addBase(19, 0,2);
 		addBase(18, 0,2);

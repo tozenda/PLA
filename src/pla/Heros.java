@@ -9,7 +9,7 @@ public class Heros extends Perso{
     private int x;
     private int y;
     private Image image;
-    private List<Competence> inventaire = new ArrayList<Competence>();
+    List<Competence> inventaire = new ArrayList<Competence>();
     int equipe;
 
     public Heros() {

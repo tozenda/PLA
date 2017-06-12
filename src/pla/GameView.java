@@ -74,9 +74,10 @@ public class GameView extends JPanel {
 		if (jtf == null) {
 			jtf = new JTextField();
 			sideg.gridx = 0;
-			sideg.gridy = 6;
+			sideg.gridy = 7;
 
 			sideg.gridheight = 1;
+			sideg.anchor=GridBagConstraints.PAGE_END;
 			sideg.fill = GridBagConstraints.HORIZONTAL;
 		}
 		return jtf;
@@ -102,13 +103,14 @@ public class GameView extends JPanel {
 		sideg.gridx = 0;
 		sideg.gridy = 4;
 		sideg.gridwidth = 1;
+		sideg.anchor= GridBagConstraints.CENTER;
 		// sideg.fill=sideg.anchor=GridBagConstraints.
 		sideg.fill = GridBagConstraints.BOTH;
 
 		MiniMap minimap = new MiniMap("Heyxkjcnvfkj");
 		Border border = minimap.getBorder();
 		Border margin = new EmptyBorder(10, 10, 10, 10);
-		minimap.setPreferredSize(new Dimension(140, 150));
+		minimap.setPreferredSize(new Dimension(140, 250));
 		minimap.setBorder(new CompoundBorder(border, margin));
 
 		minimap.setBackground(Color.RED);
@@ -148,7 +150,7 @@ public class GameView extends JPanel {
 			/* weightx définit le nombre de cases en abscisse */
 			sideg.weightx = 2;
 			/* weightx définit le nombre de cases en ordonnée */
-			sideg.weighty = 5;
+			sideg.weighty = 8;
 
 		}
 		return side;
@@ -326,6 +328,7 @@ public class GameView extends JPanel {
 			sideg.gridx = 0;
 			sideg.gridy = 3;
 			sideg.gridheight = 1;
+			sideg.fill = GridBagConstraints.BOTH;
 			info.setPreferredSize(new Dimension(140, 150));
 			// String s = "Line1 Line2 <br/> Line3";
 

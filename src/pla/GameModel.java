@@ -48,6 +48,7 @@ public class GameModel {
 
 	long count = 0;
 	long sum = 0;
+	public Object heros2;
 
 	private long op(long i) {
 		return i + i * i;

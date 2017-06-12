@@ -27,7 +27,7 @@ public class MiniMap extends JLabel {
 
 	public void paintComponent(Graphics g) {
 		super.paintComponents(g);
-		int tailleCase = 5;
+		int tailleCase = 4;
 
 		// Vertical
 		for (int i = 0; i < 24; i++) {
