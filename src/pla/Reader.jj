@@ -8,39 +8,7 @@ package  src.pla  ;
 
 import java.io.*;
  
-public Competence Symb_to_Comp(String s) {
-  switch(s){
-    case "H":
-    	return Hit;
-    case "S":
-    	return Soin;
-    case "K":
-    	return Kamikaze;
-    case "A":
-    	return AutoDestruction;
-    case "V":
-    	return Volvie;
-    case "St":
-    	return Stun;
-    case "Ad":
-    	return AugDef;
-    case "D":
-    	return DimDef;
-    case "C":
-    	return Contrer;
-    case "P":
-    	return Poison;
-    case "B":
-    	return Boost;
-    case "Mr":
-    	return MoveRamasse;
-    case "Ma":
-    	return MoveAttack;
-    case "Md":
-    	return MoveDef;
-    default:
-        return MoveRamasse;
- }
+
  
 public class Reader { 
   /** le support de lecture */
@@ -104,7 +72,7 @@ TOKEN :{
 | <SYMBOL: (["a"-"z"]|["A"-"Z"])+ > 
 }
 
-// les règles de grammaire de ce langage
+// les rï¿½gles de grammaire de ce langage
 
 Noeud BASE() : 
 {Noeud n1;} 

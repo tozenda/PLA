@@ -58,12 +58,47 @@ public class Noeud {
 	     System.out.println(this.toString());
 	     if(this.filsDroit!=null) filsDroit.affiche();
 	}
+	
+	public static Competence Symb_to_Comp(String s) {
+		  switch(s){
+		    case "H":
+		    	return Competence.Hit;
+		    case "S":
+		    	return Competence.Soin;
+		    case "K":
+		    	return Competence.Kamikaze;
+		    case "A":
+		    	return Competence.AutoDestruction;
+		    case "V":
+		    	return Competence.Volvie;
+		    case "St":
+		    	return Competence.Stun;
+		    case "Ad":
+		    	return Competence.AugDef;
+		    case "D":
+		    	return Competence.DimDef;
+		    case "C":
+		    	return Competence.Contrer;
+		    case "P":
+		    	return Competence.Poison;
+		    case "B":
+		    	return Competence.Boost;
+		    case "Mr":
+		    	return Competence.MoveRamasse;
+		    case "Ma":
+		    	return Competence.MoveAttack;
+		    case "Md":
+		    	return Competence.MoveDef;
+		    default:
+		        return Competence.MoveRamasse;
+		  }
+	}
 
 	/* on construit un arbre de test*/
 	public static void main(String[] args){
 		Noeud n = new Noeud(Competence.Hit, 1);
 		n.addFilsG(Competence.Boost);
-		n.addFilsD(Competence.Escape);
+//		n.addFilsD(Competence.Escape);
 		n.addFilsD(Competence.AugDef);
 		//n.readArbre();
 		n.affiche();
