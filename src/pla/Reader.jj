@@ -8,6 +8,39 @@ package  src.pla  ;
 
 import java.io.*;
  
+public Competence Symb_to_Comp(String s) {
+  switch(s){
+    case "H":
+    	return Hit;
+    case "S":
+    	return Soin;
+    case "K":
+    	return Kamikaze;
+    case "A":
+    	return AutoDestruction;
+    case "V":
+    	return Volvie;
+    case "St":
+    	return Stun;
+    case "Ad":
+    	return AugDef;
+    case "D":
+    	return DimDef;
+    case "C":
+    	return Contrer;
+    case "P":
+    	return Poison;
+    case "B":
+    	return Boost;
+    case "Mr":
+    	return MoveRamasse;
+    case "Ma":
+    	return MoveAttack;
+    case "Md":
+    	return MoveDef;
+    default:
+        return MoveRamasse;
+ }
  
 public class Reader { 
   /** le support de lecture */
@@ -68,49 +101,55 @@ TOKEN :{
 | < OU  : "||" >
 | < INF  : "<" >
 | < SUP  : " >" >
-| <SYMBOL: (["a"-"z"]|["A"-"Z"]|"."|"-")+ > 
-} 
-// les rï¿½gles de grammaire de ce langage 
+| <SYMBOL: (["a"-"z"]|["A"-"Z"])+ > 
+}
+
+// les règles de grammaire de ce langage
+
 Noeud BASE() : 
 {Noeud n1;} 
 { 
-  (n1=ACTION(){return n1;})*
+  (n1=EXPR(){return n1;})*
 }
 
-Sexpr ACTION() :
+Noeud EXPR() :
 {Noeud n2;}
 {
-	n2=COMPETENCE() {return n2;}
+	n2= < SYMBOL > {return Symb_to_Comp(n2.toString());}
 	|<PARO> n2=LISTE() <PARF> {return n2;}
 	|<ACCO> n2=LISTE() <ACCF> {return n2;}
-	|<ACCO> n2=LISTE() <ACCF> <REPETE> {return repeat(n2);}
+	|<ACCO> n2=LISTE() <ACCF> <REPETE> {
+	  Noeud n;
+	  n.action=Etoile;
+	  n.addFilsD(n2);
+	  return n;}
+	|<PARO> n2=LISTE() <PARF> <REPETE> {
+	  Noeud n;
+	  n.action=Etoile;
+	  n.addFilsD(n2);
+	  return n;}
+}
 }
 
-Sexpr LISTE() :
+Noeud LISTE() :
 {Noeud n2,n3;}
 {
-	n2=COMPETENCE() n3=FINLISTE() {return n2;}
-	| n2=COMPETENCE() <PTV> n3=COMPETENCE() {
-		
-	  	return n2,n3;
-	}
-	| n2=COMPETENCE() <HASARD> n3=COMPETENCE() {return hasard(n2,n3);}
-	| n2=COMPETENCE() <OU> n3=COMPETENCE() {return ou(n2,n3);}
-	| n2=COMPETENCE() <INF> n3=COMPETENCE() {return inf(n2,n3);}
-	| n2=COMPETENCE() <SUP> n3=COMPETENCE() {return sup(n2,n3);}
-}
-	  
-    
+	| n2= < SYMBOL > <PTV> n3=LISTE() {
+	  Noeud n;
+	  n.action = Symb_to_Comp(n2.toString());
+	  n.addFilsD(n3);
+	  return n;}
 
-Competences COMPETENCE() :
-{Competences comp;} 
-{
-  	comp=< SYMBOL > {return ;}
-}
-
-Sexpr FINLISTE() : {Sexpr s4,s5;}
-{
-	<POINT> s4=SEXPR() {return s4;}
-	| s4=SEXPR() s5=FINLISTE() {return new Scons(s4,s5);}
-	| {return Nil.nil;}
+	| n2= LISTE() <OU> n3=LISTE() {
+	  Noeud n;
+	  n.action = Ou;
+	  n.addFilsG(n2);
+	  n.addFilsD(n3);
+	  return n;}
+	| n2= LISTE() <SUP> n3=LISTE() {
+	  Noeud n;
+	  n.action = Sup;
+	  n.addFilsG(n2);
+	  n.addFilsD(n3);
+	  return n;}
 }

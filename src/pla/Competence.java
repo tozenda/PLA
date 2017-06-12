@@ -18,20 +18,11 @@ public enum Competence {
 		Poison,		  // Permet d'empoisonner un adversaire (DoT sur 3 tours)
 		Boost,        //Augmenter degats Hit 
 		
-		Sacrif,       //Prendre les degats de l'allié ciblé
-		Piege,        //Deposer un piege sur une case
-		Repere,       //Reperage de piege
-		DeposerR,     //Deposer robot sur une case
-		Escape,       //Fuire, le robot se deplace vers une case 
-		Esquiver,     //Pas de degats subit
-		Porter,       //Porter robot
-		Ralentir,     //Retrait de PA a la cible
-		Invisibilite, //Disparait de la map durant un certain temps de jeu
-		Teleporter,   //Teleportation sur une certaine case 
-		
 		/* les opérateurs :  */
 		Sup,			// a > b va effectuer a en priorité
+		Etoile,			// pendant tout le tour on va eval l'arbre du robot
+		
 		Ou,				// a | b va faire a ou b (random ou alternance ?)
-		Etoile			// pendant tout le tour on va eval l'arbre du robot 
+		 
 		
 }
