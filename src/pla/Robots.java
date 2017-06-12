@@ -68,52 +68,6 @@ public class Robots extends Perso{
 		}
 	}
 	
-	boolean[][] wasHere;
-	boolean[][] correctPath;
-	int endX, endY;     // Ending X and Y values of maze
-
-	public void solveMaze(Map map) {
-		wasHere = new boolean[map.getWidth()][map.getHeight()];
-		correctPath = new boolean[map.getWidth()][map.getHeight()];
-		for(int i=0;i<map.getWidth();i++){
-			for(int j=0;j<map.getHeight();j++){
-				wasHere[i][j] = false;
-				correctPath[i][j] = false;
-			}
-		}
-	    boolean b = recursiveSolve(map,i,j);
-	    // Will leave you with a boolean array (correctPath) 
-	    // with the path indicated by true values.
-	    // If b is false, there is no solution to the maze
-	}
-	public boolean recursiveSolve(Map map, int x, int y) {
-	    if (x == di && y == dj) return true; // If you reached the end
-	    if ((map.getCase(x, y).getContenu().isCompetences())&&(map.getCase(x, y).getContenu().isVide()) || wasHere[x][y]) return false;
-	    // If you are on a wall or already were here
-	    wasHere[x][y] = true;
-	    if (x != 0) // Checks if not on left edge
-	        if (recursiveSolve(map,x-1, y)) { // Recalls method one to the left
-	            correctPath[x][y] = true; // Sets that path value to true;
-	            return true;
-	        }
-	    if (x != map.getWidth() - 1) // Checks if not on right edge
-	        if (recursiveSolve(map,x+1, y)) { // Recalls method one to the right
-	            correctPath[x][y] = true;
-	            return true;
-	        }
-	    if (y != 0)  // Checks if not on top edge
-	        if (recursiveSolve(map,x, y-1)) { // Recalls method one up
-	            correctPath[x][y] = true;
-	            return true;
-	        }
-	    if (y != map.getHeight()- 1) // Checks if not on bottom edge
-	        if (recursiveSolve(map,x, y+1)) { // Recalls method one down
-	            correctPath[x][y] = true;
-	            return true;
-	        }
-	    return false;
-	}
-	
 	private boolean faceALaMerde = false;
 	private String dir = "S";
 	
@@ -127,7 +81,7 @@ public class Robots extends Perso{
 				NSEW(map,"N");
 			}
 			else{
-				if((map.getCase(i+1, j).getContenu().isVide())||(map.getCase(i+1, j).getContenu().isCompetences())){
+				if((map.getCase(i+1, j).getContenu().isVide())||(map.getCase(i+1, j).getContenu().isCompetences())||(map.getCase(i-1, j).getContenu().isVide())||(map.getCase(i-1, j).getContenu().isCompetences())){
 					if(i<7){
 						NSEW(map,"E");
 					}
@@ -152,7 +106,7 @@ public class Robots extends Perso{
 				NSEW(map,"S");
 			}
 			else{
-				if((map.getCase(i+1, j).getContenu().isVide())||(map.getCase(i+1, j).getContenu().isCompetences())){
+				if((map.getCase(i+1, j).getContenu().isVide())||(map.getCase(i+1, j).getContenu().isCompetences())||(map.getCase(i-1, j).getContenu().isVide())||(map.getCase(i-1, j).getContenu().isCompetences())){
 					if(i<7){
 						NSEW(map,"E");
 					}
@@ -176,7 +130,7 @@ public class Robots extends Perso{
 				NSEW(map,"E");
 			}
 			else{
-				if((map.getCase(i, j+1).getContenu().isVide())||(map.getCase(i, j+1).getContenu().isCompetences())){
+				if((map.getCase(i, j+1).getContenu().isVide())||(map.getCase(i, j+1).getContenu().isCompetences())||((map.getCase(i, j-1).getContenu().isVide())||(map.getCase(i, j-1).getContenu().isCompetences()))){
 					if(j<7){
 						NSEW(map,"S");
 					}
@@ -201,7 +155,7 @@ public class Robots extends Perso{
 				NSEW(map,"W");
 			}
 			else{
-				if((map.getCase(i, j+1).getContenu().isVide())||(map.getCase(i, j+1).getContenu().isCompetences())){
+				if((map.getCase(i, j+1).getContenu().isVide())||(map.getCase(i, j+1).getContenu().isCompetences())||(map.getCase(i, j-1).getContenu().isVide())||(map.getCase(i, j-1).getContenu().isCompetences())){
 					if(j<7){
 						NSEW(map,"S");
 					}
@@ -224,15 +178,8 @@ public class Robots extends Perso{
 
 	public void move(Case c) {
 		
-		//System.out.println("Move Robot appelé");
+
 		Map map = Game.game.m_model.map;
-		//solveMaze(map);
-		/*for(int i=0;i<map.getWidth();i++){
-			for(int j=0;j<map.getHeight();j++){
-				System.out.print(correctPath[i][j]+";");
-			}
-			System.out.print("\n");
-		}*/
 		
 		int resX = (int) Math.sqrt(Math.pow(di-i, 2));
 		int resY = (int) Math.sqrt(Math.pow(dj-j, 2));
@@ -741,7 +688,15 @@ public class Robots extends Perso{
 	}
 	
 	public void pickUp(Competences c) {
-		
+		List<Competence> l = c.getLc();
+		for (Competence tmp : l){
+			if(this.equipe == 1){
+				Game.game.m_model.heros1.inventaire.add(tmp);
+			}
+			else if(this.equipe == 2){
+				Game.game.m_model.heros2.inventaire.add(tmp);
+			}
+		}
 	}
 	
 	public void editDest(int di, int dj){
@@ -854,6 +809,7 @@ public class Robots extends Perso{
 			stun = false;
 		}
 	}
+
 	
 	
 	/*Méthode permettant de vérifier si un arbre est réalisable à partir du noeud racine
