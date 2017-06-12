@@ -49,7 +49,11 @@ public class Map {
 		elements[5][6] = new Case(3,5,new Obstacles());
 		elements[5][7] = new Case(3,5,new Obstacles());
 		
-				
+		elements[6][7] = new Case(7,6,new Obstacles());
+		elements[7][7] = new Case(7,7,new Obstacles());
+		elements[8][7] = new Case(7,8,new Obstacles());
+		elements[9][7] = new Case(7,9,new Obstacles());
+		
 		
 		addBase(19, 0,2);
 		addBase(18, 0,2);
