@@ -69,6 +69,25 @@ public class Robots extends Perso{
 		}
 	}
 	
+	private Observables contenu(String dir){
+		if(dir == "N"){
+			return Game.game.m_model.map.getCase(i, j-1).getContenu();
+		}
+		else if(dir == "S"){
+			return Game.game.m_model.map.getCase(i, j+1).getContenu();
+
+		}
+		else if(dir == "E"){
+			return Game.game.m_model.map.getCase(i+1, j).getContenu();
+		}
+		else if(dir == "W"){
+			return Game.game.m_model.map.getCase(i-1,j).getContenu();
+		}
+		else{
+			return null;
+		}
+	}
+	
 	private boolean faceALaMerde = false;
 	private String dir = "S";
 	
@@ -77,24 +96,39 @@ public class Robots extends Perso{
 		 rnd.setSeed(0);
 		 boolean r = false;
 		if(dir == "N"){
-			if((map.getCase(i, j-1).getContenu().isVide())||(map.getCase(i, j-1).getContenu().isCompetences())){
+			if((contenu("N").isVide())||(contenu("N").isCompetences())){
 				faceALaMerde = false;
+				if(contenu("N").isCompetences()){
+					pickUp( (Competences) contenu("N"));
+				}
 				NSEW(map,"N");
 			}
 			else{
-				if((map.getCase(i+1, j).getContenu().isVide())||(map.getCase(i+1, j).getContenu().isCompetences())||(map.getCase(i-1, j).getContenu().isVide())||(map.getCase(i-1, j).getContenu().isCompetences())){
-					if(i<7){
+				if((contenu("E").isVide())||(contenu("E").isCompetences())||(contenu("W").isVide())||(contenu("W").isCompetences())){
+					if((i<5)&&((contenu("E").isVide())||(contenu("E").isCompetences()))){
+						if(contenu("E").isCompetences()){
+							pickUp( (Competences) contenu("E"));
+						}
 						NSEW(map,"E");
 					}
-					else if(i>map.getWidth()-7){
+					else if((i>map.getWidth()-5)&&((contenu("W").isVide())||(contenu("W").isCompetences()))){
+						if(contenu("W").isCompetences()){
+							pickUp( (Competences) contenu("W"));
+						}
 						NSEW(map,"W");
 					}
 					else{
 						r = rnd.nextBoolean();
-						if(r){
+						if((r)&&((contenu("E").isVide())||(contenu("E").isCompetences()))){
+							if(contenu("E").isCompetences()){
+								pickUp( (Competences) contenu("E"));
+							}
 							NSEW(map,"E");
 						}
-						else{
+						else if((contenu("E").isVide())||(contenu("E").isCompetences())){
+							if(contenu("W").isCompetences()){
+								pickUp( (Competences) contenu("W"));
+							}
 							NSEW(map,"W");
 						}					
 						}
@@ -102,48 +136,79 @@ public class Robots extends Perso{
 			}
 		}
 		else if(dir == "S"){
-			if((map.getCase(i, j+1).getContenu().isVide())||(map.getCase(i, j+1).getContenu().isCompetences())){
+			if((contenu("S").isVide())||(contenu("S").isCompetences())){
 				faceALaMerde = false;
+				if(contenu("S").isCompetences()){
+					pickUp( (Competences) contenu("S"));
+				}
 				NSEW(map,"S");
 			}
 			else{
-				if((map.getCase(i+1, j).getContenu().isVide())||(map.getCase(i+1, j).getContenu().isCompetences())||(map.getCase(i-1, j).getContenu().isVide())||(map.getCase(i-1, j).getContenu().isCompetences())){
+				if((contenu("E").isVide())||(contenu("E").isCompetences())||(contenu("W").isVide())||(contenu("W").isCompetences())){
 					if(i<7){
+						if(contenu("E").isCompetences()){
+							pickUp( (Competences) contenu("E"));
+						}
 						NSEW(map,"E");
 					}
 					else if(i>map.getWidth()-7){
+						if(contenu("W").isCompetences()){
+							pickUp( (Competences) contenu("W"));
+						}
 						NSEW(map,"W");
 					}
-					else
+					else{
 						r = rnd.nextBoolean();
 						if(r){
+							if(contenu("E").isCompetences()){
+								pickUp( (Competences) contenu("E"));
+							}
 							NSEW(map,"E");
 						}
 						else{
+							if(contenu("W").isCompetences()){
+								pickUp( (Competences) contenu("W"));
+							}
 							NSEW(map,"W");
 						}					
 					}	
 				}
 			}
+		}
 		else if( dir == "E"){
-			if((map.getCase(i+1, j).getContenu().isVide())||(map.getCase(i+1, j).getContenu().isCompetences())){
+			if((contenu("E").isVide())||(contenu("E").isCompetences())){
+				if(contenu("E").isCompetences()){
+					pickUp( (Competences) contenu("E"));
+				}
 				faceALaMerde = false;
 				NSEW(map,"E");
 			}
 			else{
-				if((map.getCase(i, j+1).getContenu().isVide())||(map.getCase(i, j+1).getContenu().isCompetences())||((map.getCase(i, j-1).getContenu().isVide())||(map.getCase(i, j-1).getContenu().isCompetences()))){
+				if((contenu("S").isVide())||(contenu("S").isCompetences())||((contenu("N").isVide())||(contenu("N").isCompetences()))){
 					if(j<7){
+						if(contenu("S").isCompetences()){
+							pickUp( (Competences) contenu("S"));
+						}
 						NSEW(map,"S");
 					}
 					else if(j>map.getWidth()-7){
+						if(contenu("N").isCompetences()){
+							pickUp( (Competences) contenu("N"));
+						}
 						NSEW(map,"N");
 					}
 					else{
 						r = rnd.nextBoolean();
 						if(r){
+							if(contenu("S").isCompetences()){
+								pickUp( (Competences) contenu("S"));
+							}
 							NSEW(map,"S");
 						}
 						else{
+							if(contenu("N").isCompetences()){
+								pickUp( (Competences) contenu("N"));
+							}
 							NSEW(map,"N");
 						}
 					}
@@ -151,24 +216,39 @@ public class Robots extends Perso{
 			}
 		}
 		else if(dir == "W"){
-			if((map.getCase(i-1, j).getContenu().isVide())||(map.getCase(i-1, j).getContenu().isCompetences())){
+			if((contenu("W").isVide())||(contenu("W").isCompetences())){
+				if(contenu("W").isCompetences()){
+					pickUp( (Competences) contenu("W"));
+				}
 				faceALaMerde = false;
 				NSEW(map,"W");
 			}
 			else{
-				if((map.getCase(i, j+1).getContenu().isVide())||(map.getCase(i, j+1).getContenu().isCompetences())||(map.getCase(i, j-1).getContenu().isVide())||(map.getCase(i, j-1).getContenu().isCompetences())){
+				if((contenu("S").isVide())||(contenu("S").isCompetences())||(contenu("N").isVide())||(contenu("N").isCompetences())){
 					if(j<7){
+						if(contenu("S").isCompetences()){
+							pickUp( (Competences) contenu("S"));
+						}
 						NSEW(map,"S");
 					}
 					else if(j>map.getWidth()-7){
+						if(contenu("N").isCompetences()){
+							pickUp( (Competences) contenu("N"));
+						}
 						NSEW(map,"N");
 					}
 					else{
 						r = rnd.nextBoolean();
 						if(r){
+							if(contenu("S").isCompetences()){
+								pickUp( (Competences) contenu("S"));
+							}
 							NSEW(map,"S");
 						}
 						else{
+							if(contenu("N").isCompetences()){
+								pickUp( (Competences) contenu("N"));
+							}
 							NSEW(map,"N");
 						}
 					}
@@ -187,7 +267,10 @@ public class Robots extends Perso{
 		if(((i!=di)||(j!=dj))&&(!faceALaMerde)){
 			if(resX>resY){
 				if(i-di>0){
-					if((map.getCase(i-1, j).getContenu().isVide())||(map.getCase(i-1, j).getContenu().isCompetences())){
+					if((contenu("W").isVide())||(contenu("W").isCompetences())){
+						if(contenu("W").isCompetences()){
+							pickUp( (Competences) contenu("W"));
+						}
 						NSEW(map,"W");
 					}
 					else{
@@ -197,7 +280,10 @@ public class Robots extends Perso{
 					}
 				}
 				else{
-					if((map.getCase(i+1, j).getContenu().isVide())||(map.getCase(i+1, j).getContenu().isCompetences())){
+					if((contenu("E").isVide())||(contenu("E").isCompetences())){
+						if(contenu("E").isCompetences()){
+							pickUp( (Competences) contenu("E"));
+						}
 						NSEW(map,"E");
 					}
 					else{
@@ -208,7 +294,10 @@ public class Robots extends Perso{
 			}
 			else{
 				if(j-dj>0){
-					if((map.getCase(i, j-1).getContenu().isVide())||(map.getCase(i, j-1).getContenu().isCompetences())){
+					if((contenu("N").isVide())||(contenu("N").isCompetences())){
+						if(contenu("N").isCompetences()){
+							pickUp( (Competences) contenu("N"));
+						}
 						NSEW(map,"N");
 					}
 					else{
@@ -217,7 +306,10 @@ public class Robots extends Perso{
 						moveObs(map);					}
 					}
 				else{
-					if((map.getCase(i, j+1).getContenu().isVide())||(map.getCase(i, j+1).getContenu().isCompetences())){
+					if((contenu("S").isVide())||(contenu("S").isCompetences())){
+						if(contenu("S").isCompetences()){
+							pickUp( (Competences) contenu("S"));
+						}
 						NSEW(map,"S");
 					}
 					else{
@@ -698,6 +790,7 @@ public class Robots extends Perso{
 				Game.game.m_model.heros2.inventaire.add(tmp);
 			}
 		}
+		c.getLc().clear();
 	}
 	
 	public void editDest(int di, int dj){
