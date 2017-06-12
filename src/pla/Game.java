@@ -87,7 +87,7 @@ public class Game {
 		    long elapsed = now - m_lastRepaint;
 		    if (elapsed > REPAINT_DELAY) {
 		    	if(cmpt == 3){
-		    		m_model.robot.move();
+		    		m_model.robot.move(new Case());
 		    		cmpt=0;
 		    	}
 		      double tick = (double) m_elapsed / (double) m_nTicks;

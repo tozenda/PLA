@@ -10,14 +10,25 @@ public class Robots extends Perso{
 	int di,dj;
 	int pdv = 100;
 	int pDefense = 0;
+	int pAttaque;
 	Noeud a;
 	int equipe;
+	boolean stun;
+	boolean protection;
+	boolean contre;
+	int poison;
+	boolean boostDegat;
 	
 	public Robots(int i,int j, int equipe){
 		this.i = i;
 		this.j = j;
 //		this.a=a;
 		this.equipe = equipe;
+		protection = false;
+		contre = false;
+		poison = 0;
+		stun = false;
+		boostDegat = false;
 	}
 	
 	public String toString() {
@@ -150,7 +161,7 @@ public class Robots extends Perso{
 		}
 	}
 
-	public void move() {
+	public void move(Case c) {
 		
 		//System.out.println("Move Robot appelé");
 		Map map = Game.game.m_model.map;
@@ -339,27 +350,32 @@ public class Robots extends Perso{
 	public int attack(){
 		Map map = Game.game.m_model.map;
 		
-		for(int k = i-1; k<= i++; k++){
-			for(int l = j-1; l<=j++; l++){
-				Case c = map.getCase(k, l);
-				Observables obs = c.getContenu();
-				
-				// TODO : est ce qu un robot peut attaquer un héros ? 
-				
-				if(obs.isRobot()){
-					Robots r2 = (Robots) obs;
-					if(r2.equipe != this.equipe){
-						double p = Math.random();		
-						if(p > 0.05+r2.defend()){
-							//Si non esquive du robot adverse
-							r2.pdv -= 35;
-							if(r2.pdv<=0){
-								// si pdv < 0 destruction du robot adverse
-								Case v = new Case(i,j,new Vide());
-								c = v;
+		for(int k = i-1; k<= i+1; k++){
+			for(int l = j-1; l<=j+1; l++){
+				if(0<=k && k<20 && 0<=l&& l<12){
+					Case c = map.getCase(k, l);
+					Observables obs = c.getContenu();
+					
+					// TODO : est ce qu un robot peut attaquer un héros ? 
+					
+					if(obs.isRobot()){
+						Robots r2 = (Robots) obs;
+						if(r2.equipe != this.equipe){
+							if(r2.contre){
+								pdv -= 15;
 							}
+							double p = Math.random();		
+							if(p > 0.05+r2.defend() && r2.protection){
+								//Si non esquive du robot adverse
+								if(boostDegat){
+									r2.pdv -= 10;
+									boostDegat = false;
+								}
+								r2.pdv -= 35;
+								r2.destructionRobot();
+							}
+							return 1;
 						}
-						return 1;
 					}
 				}
 			}
@@ -374,6 +390,244 @@ public class Robots extends Perso{
 			p += (0.2-p)/3;
 		}
 		return p;
+	}
+	
+	//inflige 30 degats, recupere 10 pdv
+	public int voleVie(){
+		Map map = Game.game.m_model.map;
+		
+		for(int k = i-1; k<= i+1; k++){
+			for(int l = j-1; l<=j+1; l++){
+				if(0<=k && k<20 && 0<=l&& l<12){
+					Case c = map.getCase(k, l);
+					Observables obs = c.getContenu();
+					
+					// TODO : est ce qu un robot peut attaquer un héros ? 
+					
+					if(obs.isRobot()){
+						Robots r2 = (Robots) obs;
+						if(r2.equipe != this.equipe){
+							double p = Math.random();		
+							if(p > 0.05+r2.defend()){
+								//Si non esquive du robot adverse
+								r2.pdv -= 30;
+								this.soin();
+								destructionRobot();
+							}
+							return 1;
+						}
+					}
+				}
+			}
+		}
+		return 0;
+	}
+	
+	//recupere 10 pv si inférieur à 90
+	public int soin(){
+		if(this.pdv <= 90){
+			this.pdv +=10;
+			return 1;
+		}
+		else{
+			return 0;
+		}
+	}
+	
+	/*
+	 * Le robot s'autodétruit et inflige 25 dégats sur les 8 cases autour de lui
+	 */
+	public int autoDestruction(){
+		Map map = Game.game.m_model.map;
+		int res = 0;
+		if(this.pdv < 35){
+			for(int k = i-1; k<= i+1; k++){
+				for(int l = j-1; l<=j+1; l++){
+					if(0<=k && k<20 && 0<=l&& l<12){
+					
+						Case c = map.getCase(k, l);
+						Observables obs = c.getContenu();
+						
+						if(obs.isRobot()){
+							Robots r2 = (Robots) obs;
+							if(this.equipe != r2.equipe){
+								r2.pdv -=25;
+								r2.destructionRobot();
+								res++;
+							}
+						}
+					}
+				}
+			}
+			if(res>1){
+				return 1;
+			}
+		}
+		else{
+			return 0;
+		}
+		return 0;
+	}
+	
+	/*
+	 * 
+	 */
+	public int kamikaze(){
+		Map map = Game.game.m_model.map;
+		
+		if(this.pdv < 35){
+			for(int k = i-1; k<= i+1; k++){
+				for(int l = j-1; l<=j+1; l++){
+					if(0<=k && k<20 && 0<=l&& l<12){
+					
+						Case c = map.getCase(k, l);
+						Observables obs = c.getContenu();
+						
+						if(obs.isRobot()){
+							Robots r2 = (Robots) obs;
+							if(this.equipe != r2.equipe){
+								r2.pdv -=this.pdv;
+								destructionRobot();
+								r2.destructionRobot();
+								return 1;
+							}
+						}
+					}
+				}
+			}
+		}
+		else{
+			return 0;
+		}
+		return 0;
+	}
+	
+	/*
+	 * Immobilise un adversaire au tour suivant, 40% de chance de réussite de base
+	 */
+	public int stun(){
+		Map map = Game.game.m_model.map;
+		
+		for(int k = i-1; k<= i+1; k++){
+			for(int l = j-1; l<=j+1; l++){
+				if(0<=k && k<20 && 0<=l&& l<12){
+					Case c = map.getCase(k, l);
+					Observables obs = c.getContenu();
+					
+					if(obs.isRobot()){
+						Robots r2 = (Robots) obs;
+						if(r2.equipe != this.equipe){
+							double p = Math.random();		
+							if(p > 0.6+r2.defend()){
+								//Si non esquive du robot adverse, le stun
+								r2.stun = true;
+							}
+							return 1;
+						}
+					}
+				}
+			}
+		}
+		return 0;
+	}
+	
+	// augmente les pDefense du robot
+	public int augDef(){
+		this.pDefense += 1;
+		return 1;
+	}
+	
+	/*
+	 * Diminue pDefense du robot adverse le plus proche, 50% de réussite de base
+	 */
+	public int dimDef(){
+		Map map = Game.game.m_model.map;
+		
+		for(int k = i-1; k<= i+1; k++){
+			for(int l = j-1; l<=j+1; l++){
+				if(0<=k && k<20 && 0<=l&& l<12){
+					Case c = map.getCase(k, l);
+					Observables obs = c.getContenu();
+					
+					if(obs.isRobot()){
+						Robots r2 = (Robots) obs;
+						if(r2.equipe != this.equipe){
+							double p = Math.random();		
+							if(p > 0.5+r2.defend()){
+								//Si non esquive du robot adverse, pdefense -=1
+								r2.pDefense -= 1;
+							}
+							return 1;
+						}
+					}
+				}
+			}
+		}
+		return 0;
+	}
+	
+	/*
+	 * Le robot ne prend aucun dégats au tour suivant, 15% de chances de réussites de bases
+	 */
+	public int protection(){
+		double p = Math.random();		
+		if(p > 0.85-this.defend()){
+			protection = true;
+		}
+		return 1;
+	}
+	
+	/*
+	 * Le robot renverra une partie des dégats qu'il subira au tour suivant,  15% de chances de réussites de bases
+	 */
+	public int contre(){
+		double p = Math.random();		
+		if(p > 0.85-this.defend()){
+			contre = true;
+		}
+		return 1;
+	}
+	
+	/*
+	 * Augmente les dégats du robot 
+	 */
+	public int boostAttack(){
+		this.boostDegat=true;
+		return 1;
+	}
+	
+	/*
+	 * Tente d'empoisonner le robot le plus proche, 60% de chance de réussir
+	 */
+	public int poison(){
+		Map map = Game.game.m_model.map;
+		
+		if(this.pdv < 35){
+			for(int k = i-1; k<= i+1; k++){
+				for(int l = j-1; l<=j+1; l++){
+					if(0<=k && k<20 && 0<=l&& l<12){
+					
+						Case c = map.getCase(k, l);
+						Observables obs = c.getContenu();
+						
+						if(obs.isRobot()){
+							Robots r2 = (Robots) obs;
+							if(this.equipe != r2.equipe){
+								double p = Math.random();		
+								if(p > 0.4){
+									r2.poison += 3;
+								}
+							}
+						}
+					}
+				}
+			}
+			return 1;
+			
+		}
+		else{
+			return 0;
+		}
 	}
 	
 	/* se dirige vers la compétence la plus proche :
@@ -414,6 +668,7 @@ public class Robots extends Perso{
 			return 0;
 		}	
 	}
+	
 	
 	/* se dirige vers l'ennemie ou la base la plus proche :
 	 * Il regarde toute la map et cherche l'ennemie avec la distance la plus petite de lui
@@ -490,6 +745,31 @@ public class Robots extends Perso{
 	}
 	
 	/*
+	 * Parcourt notre structure de donnée pour trouver le héros de son équipe
+	 * Des qu'il le trouve se déplace vers celui ci
+	 */
+	public int moveHeros(){
+		Map map = Game.game.m_model.map;
+		
+		for(int k = 0; k<map.getHeight(); k++){
+			for(int l = 0; l<map.getWidth(); l++){
+				
+				Case c = map.getCase(k, l);
+				Observables obs = c.getContenu();
+				
+				if(obs.isHeros()){
+					Heros h = (Heros) obs;
+					if(h.equipe == this.equipe){
+						move(c);
+						return 1;
+					}
+				}
+			}
+		}
+		return 0;
+	}
+	
+	/*
 	 * Toutes les méthoodes booléennes utilisé dans les if
 	 */
 	public boolean isVide() {
@@ -528,43 +808,101 @@ public class Robots extends Perso{
 		//}
 	}
 	
-	
+	/*
+	 * regarde se le robot est tué, si oui le supprime TODO
+	 */
+	public void destructionRobot(){
+		if(pdv<=0){
+			Map map = Game.game.m_model.map;
+			Case c = new Case(i, j, new Vide());
+			map.editCase(c);
+		}
+	}
 	/*Méthode évaluant l'arbre
 	 * Il parcourt l'arbre noeud par noeud et éxécute l'action de chaque noeud
+	 * Remet à 0 l invulnérabilité, et le contre
+	 * Désimobilise si stun mais n exécute pas l arbre
+	 * Tick de poison
 	 */
 	public void eval(Noeud n){
-		Competence c = n.action;
-		switch(c){
-			case Hit:
-				this.attack();
-				this.eval(n.filsDroit);
-				break;
-			case Protect:
-//				this.protect();
-				this.eval(n.filsDroit);
-				break;
-			case MoveRamasse:
-				this.moveRamasse();
-				this.eval(n.filsDroit);
-				break;
-			case MoveAttack:
-				this.moveAttack();
-				this.eval(n.filsDroit);
-				break;
-			case MoveDef:
-				this.moveDef();
-				this.eval(n.filsDroit);
-				break;
-			case Sup:
-				if (isPossible(n.filsGauche) == -1){ //TODO cr�er cas impossible pour chaque fonction
+		protection = false;
+		contre = false;
+		if(poison>0){
+			pdv -= 10;
+			poison--;
+			destructionRobot();
+		}
+		if(!stun){
+			Competence c = n.action;
+			switch(c){
+				case Hit:
+					this.attack();
 					this.eval(n.filsDroit);
-				}
-				else{
-					this.eval(n.filsGauche);
-				}
+					break;
+				case Protect:
+					this.protection();
+					this.eval(n.filsDroit);
+					break;
+				case Soin:
+					this.soin();
+					this.eval(n.filsDroit);
+					break;
+				case Kamikaze:
+					this.kamikaze();
+					this.eval(n.filsDroit);
+					break;
+				case Volvie:
+					this.voleVie();
+					this.eval(n.filsDroit);
+					break;
+				case Stun:
+					this.stun();
+					this.eval(n.filsDroit);
+					break;
+				case AugDef:
+					this.augDef();
+					this.eval(n.filsDroit);
+					break;
+				case DimDef:
+					this.dimDef();
+					this.eval(n.filsDroit);
+					break;
+				case Contrer:
+					this.contre();
+					this.eval(n.filsDroit);
+					break;
+				case Poison:
+					this.poison();
+					this.eval(n.filsDroit);
+					break;
+				case Boost:
+					this.boostAttack();
+					this.eval(n.filsDroit);
+					break;
+				case MoveRamasse:
+					this.moveRamasse();
+					this.eval(n.filsDroit);
+					break;
+				case MoveAttack:
+					this.moveAttack();
+					this.eval(n.filsDroit);
+					break;
+				case MoveDef:
+					this.moveDef();
+					this.eval(n.filsDroit);
+					break;
+				case Sup:
+					if (isPossible(n.filsGauche) == -1){ //TODO cr�er cas impossible pour chaque fonction
+						this.eval(n.filsDroit);
+					}
+					else{
+						this.eval(n.filsGauche);
+					}
+					break;
+			default:
 				break;
-		default:
-			break;
+			}
+			stun = false;
 		}
 	}
 	
@@ -583,12 +921,62 @@ public class Robots extends Perso{
 				else{return 0;}
 				break;
 			case Protect:
-//				if(this.protect()==1){
+				if(this.protection()==1){
 				isPossible(n.filsDroit);
-//				}
-//				else{
+				}
+				else{
 					return 0;
-//				}
+				}
+			case Kamikaze:
+				if(this.kamikaze()==1){
+				isPossible(n.filsDroit);
+				}
+				else{
+					return 0;
+				}
+			case AutoDestruction:
+				if(this.autoDestruction()==1){
+				isPossible(n.filsDroit);
+				}
+				else{
+					return 0;
+				}
+			case Contrer:
+				if(this.contre()==1){
+				isPossible(n.filsDroit);
+				}
+				else{
+					return 0;
+				}
+			case AugDef:
+				isPossible(n.filsDroit);
+			case DimDef:
+				isPossible(n.filsDroit);
+			case Boost:
+				isPossible(n.filsDroit);
+			case Soin:
+				isPossible(n.filsDroit);
+			case Poison:
+				if(this.poison()==1){
+				isPossible(n.filsDroit);
+				}
+				else{
+					return 0;
+				}
+			case Stun:
+				if(this.stun()==1){
+				isPossible(n.filsDroit);
+				}
+				else{
+					return 0;
+				}
+			case Volvie:
+				if(this.voleVie()==1){
+				isPossible(n.filsDroit);
+				}
+				else{
+					return 0;
+				}
 			case MoveRamasse:
 				if(this.moveRamasse()==1){
 					isPossible(n.filsDroit);

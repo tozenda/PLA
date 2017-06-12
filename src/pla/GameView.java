@@ -45,6 +45,7 @@ public class GameView extends JPanel {
 	private JLabel logo = null;
 	private JLabel joueur1 = null;
 	private JLabel NPointAction = null;
+	private JLabel info = null;
 	private BufferedImage iHero = null;
 	private BufferedImage iObstacle = null;
 	private BufferedImage iTree = null;
@@ -69,7 +70,8 @@ public class GameView extends JPanel {
 		if (jtf == null) {
 			jtf = new JTextField();
 			sideg.gridx = 0;
-			sideg.gridy = 4;
+			sideg.gridy = 6;
+
 			sideg.gridheight = 1;
 			sideg.fill = GridBagConstraints.HORIZONTAL;
 		}
@@ -92,9 +94,11 @@ public class GameView extends JPanel {
 		setPanelE().add(setCreate_Robot(), sideg);
 		setPanelE().add(setTextField(), sideg);
 		setPanelE().add(setInventory(), sideg);
-		sideg.gridx = 0;
-		sideg.gridy = 6;
-		setPanelE().add(new JLabel("Hey"), sideg);
+		setPanelE().add(setInfo(), sideg);
+		/*
+		 * sideg.gridx = 0; sideg.gridy = 6; setPanelE().add(new JLabel("Hey"),
+		 * sideg);
+		 */
 		return setPanelE();
 
 	}
@@ -194,6 +198,8 @@ public class GameView extends JPanel {
 		return EBase_HealthBar;
 	}
 
+	
+
 	public JLabel setLogo() {
 		if (logo == null) {
 			gc.gridx = 0;
@@ -285,6 +291,26 @@ public class GameView extends JPanel {
 			});
 		}
 		return Create_Robot;
+	}
+
+	public JLabel setInfo() {
+		if (info == null) {
+			info = new JLabel("<html>Right click on <br/>the map for</html> ");
+			sideg.gridx = 0;
+			sideg.gridy = 4;
+			// String s = "Line1 Line2 <br/> Line3";
+
+			// jLabel1.setText (sText);
+			// info = new JLabel(s);
+
+		}
+		if (m_model.getCurrentCase() != null) {
+			String s = "<html> Type : " + m_model.getCurrentCase().toString() + " <br/>Points de vie: <br/></html>"
+					+ m_model.getCurrentCase().getContenu().getPointdeVie();
+			info.setText(s);
+		}
+
+		return info;
 	}
 
 	public _RButtonB setTour() {
@@ -392,7 +418,10 @@ public class GameView extends JPanel {
 
 	// pour afficher des objets sur notre fenetre
 	public void paintComponent(Graphics g) {
-
+		if (m_model.getLabelmodified()) {
+			setInfo();
+			m_model.setLabelmodified(false);
+		}
 		int nbrCaseX = 20;
 		int nbrCaseY = 12;
 		computeFPS();

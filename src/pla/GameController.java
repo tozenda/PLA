@@ -6,6 +6,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import javax.swing.SwingUtilities;
+
 public class GameController implements MouseListener, MouseMotionListener, KeyListener {
 
 	static final boolean echo = false;
@@ -65,7 +67,11 @@ public class GameController implements MouseListener, MouseMotionListener, KeyLi
 	public void mouseClicked(MouseEvent e) {
 		if (echo)
 			System.out.println("MouseClicked: " + e);
+		 if(SwingUtilities.isRightMouseButton(e)){
+			 m_model.Info(0,0);
+		 }
 	}
+
 
 	public void mousePressed(MouseEvent e) {
 		if (echo)
