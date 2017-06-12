@@ -1,6 +1,7 @@
 package pla;
 
 import java.util.List;
+import java.util.Random;
 import java.math.*;
 
 public class Robots extends Perso{
@@ -58,6 +59,9 @@ public class Robots extends Perso{
 	private String dir = "S";
 	
 	public void moveObs(Map map){
+		 Random rnd = new Random();
+		 rnd.setSeed(0);
+		 boolean r = false;
 		if(dir == "N"){
 			if((map.getCase(i, j-1).getContenu().isVide())||(map.getCase(i, j-1).getContenu().isCompetences())){
 				faceALaMerde = false;
@@ -65,12 +69,17 @@ public class Robots extends Perso{
 			}
 			else{
 				if((map.getCase(i+1, j).getContenu().isVide())||(map.getCase(i+1, j).getContenu().isCompetences())){
-					if(i<map.getWidth()/2){
+					if((i>map.getWidth()-7)||(i<7)){
 						NSEW(map,"W");
 					}
 					else{
-						NSEW(map,"E");
-					}
+						r = rnd.nextBoolean();
+						if(r){
+							NSEW(map,"E");
+						}
+						else{
+							NSEW(map,"W");
+						}					}
 				}
 			}
 		}
@@ -81,14 +90,20 @@ public class Robots extends Perso{
 			}
 			else{
 				if((map.getCase(i+1, j).getContenu().isVide())||(map.getCase(i+1, j).getContenu().isCompetences())){
-					if(i<map.getWidth()/2){
+					if((i>map.getWidth()-7)||(i<7)){
 						NSEW(map,"W");
 					}
-					else{
-						NSEW(map,"E");
-					}				}
+					else
+						r = rnd.nextBoolean();
+						if(r){
+							NSEW(map,"E");
+						}
+						else{
+							NSEW(map,"W");
+						}					
+					}	
+				}
 			}
-		}
 		else if( dir == "E"){
 			if((map.getCase(i+1, j).getContenu().isVide())||(map.getCase(i+1, j).getContenu().isCompetences())){
 				faceALaMerde = false;
@@ -96,12 +111,19 @@ public class Robots extends Perso{
 			}
 			else{
 				if((map.getCase(i, j+1).getContenu().isVide())||(map.getCase(i, j+1).getContenu().isCompetences())){
-					if(j<map.getHeight()/2){
+					if((j>map.getHeight()-7)||(j<7)){
 						NSEW(map,"S");
 					}
 					else{
-						NSEW(map,"N");
-					}				}
+						r = rnd.nextBoolean();
+						if(r){
+							NSEW(map,"S");
+						}
+						else{
+							NSEW(map,"N");
+						}
+					}
+				}
 			}
 		}
 		else if(dir == "W"){
@@ -111,12 +133,19 @@ public class Robots extends Perso{
 			}
 			else{
 				if((map.getCase(i, j+1).getContenu().isVide())||(map.getCase(i, j+1).getContenu().isCompetences())){
-					if(j<map.getHeight()/2){
+					if((j>map.getHeight()-7)||(j<7)){
 						NSEW(map,"S");
 					}
 					else{
-						NSEW(map,"N");
-					}						}
+						r = rnd.nextBoolean();
+						if(r){
+							NSEW(map,"S");
+						}
+						else{
+							NSEW(map,"N");
+						}
+					}
+				}
 			}
 		}
 	}
