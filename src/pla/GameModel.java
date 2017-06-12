@@ -13,6 +13,7 @@ public class GameModel {
 	Map map;
 	Heros heros1;
 	Robots robot;
+	Case currentCase = null;
 
 	GameModel(Game game) {
 		m_game = game;
@@ -21,10 +22,28 @@ public class GameModel {
 									// Colonne de l equipe 1
 		Case c = new Case(heros1.getX(), heros1.getY(), heros1);
 		map.editCase(c);
-		robot = new Robots(18, 7, 1); // robot en 3,3 de l equipe 1
+		robot = new Robots(1, 6, 1); // robot en 3,3 de l equipe 1
 		Case r = new Case(robot.i, robot.j, robot);
 		map.editCase(r);
-		robot.editDest(39, 22);
+		robot.editDest(5, 2);
+	}
+	private boolean Labelmodified = false;
+
+	public boolean getLabelmodified(){
+		return Labelmodified;
+	}
+	public void setLabelmodified(boolean a) {
+		Labelmodified = a;
+	}
+	
+	void Info(int x, int y) {
+		System.out.println("info called");
+		currentCase = map.getCase(x, y);
+		setLabelmodified(true);
+	}
+
+	Case getCurrentCase() {
+		return currentCase;
 	}
 
 	long count = 0;

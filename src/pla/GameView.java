@@ -2,8 +2,8 @@ package pla;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -21,6 +21,9 @@ import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
 
 public class GameView extends JPanel {
 
@@ -45,6 +48,7 @@ public class GameView extends JPanel {
 	private JLabel logo = null;
 	private JLabel joueur1 = null;
 	private JLabel NPointAction = null;
+	private JLabel info = null;
 	private BufferedImage iHero = null;
 	private BufferedImage iObstacle = null;
 	private BufferedImage iTree = null;
@@ -60,7 +64,7 @@ public class GameView extends JPanel {
 	String Jo = "/home/ferreira/Bureau/POO/PLA/Resources/";
 	String Paul = "home/doublean/git/PLA/Resources/";
 	String Shoo = null;
-	String Path = Jo;
+	String Path = Najwa;
 
 	GridBagConstraints gc = new GridBagConstraints();
 	GridBagConstraints sideg = new GridBagConstraints();
@@ -69,7 +73,8 @@ public class GameView extends JPanel {
 		if (jtf == null) {
 			jtf = new JTextField();
 			sideg.gridx = 0;
-			sideg.gridy = 4;
+			sideg.gridy = 6;
+
 			sideg.gridheight = 1;
 			sideg.fill = GridBagConstraints.HORIZONTAL;
 		}
@@ -92,9 +97,11 @@ public class GameView extends JPanel {
 		setPanelE().add(setCreate_Robot(), sideg);
 		setPanelE().add(setTextField(), sideg);
 		setPanelE().add(setInventory(), sideg);
-		sideg.gridx = 0;
-		sideg.gridy = 6;
-		setPanelE().add(new JLabel("Hey"), sideg);
+		setPanelE().add(setInfo(), sideg);
+		/*
+		 * sideg.gridx = 0; sideg.gridy = 6; setPanelE().add(new JLabel("Hey"),
+		 * sideg);
+		 */
 		return setPanelE();
 
 	}
@@ -287,6 +294,59 @@ public class GameView extends JPanel {
 		return Create_Robot;
 	}
 
+	public JLabel setInfo() {
+		if (info == null) {
+			info = new JLabel("<html>Right click on <br/>the map to discover what you have to deal with</html> ");
+			Border border = info.getBorder();
+			Border margin = new EmptyBorder(10,10,10,10);
+			info.setBorder(new CompoundBorder(border, margin));
+			info.setFont(setFont(12f));
+			sideg.gridx = 0;
+			sideg.gridy = 4;
+			info.setPreferredSize(new Dimension(160,250));
+			// String s = "Line1 Line2 <br/> Line3";
+
+			// jLabel1.setText (sText);
+			// info = new JLabel(s);
+
+		}
+		if (m_model.getCurrentCase() != null) {
+			String s = "<html>" + m_model.getCurrentCase().toString() + " <br/>PDV: "
+					+ m_model.getCurrentCase().getContenu().getPointdeVie();
+			
+			
+			switch (m_model.getCurrentCase().getContenu().toString()) {
+
+			case ("H"):
+				info.setIcon(new ImageIcon(new ImageIcon(Path + "hero.png").getImage().getScaledInstance(50, 50,
+						java.awt.Image.SCALE_SMOOTH)));
+			s = s + "<br/>This is you...<br/>Ever considered <br/>plastic surgery? <br/>How sad.</html>";
+				break;
+			case("O"):
+				info.setIcon(new ImageIcon(new ImageIcon(Path + "barrier.png").getImage().getScaledInstance(50, 50,
+						java.awt.Image.SCALE_SMOOTH)));
+			s = s + "<br/><br/><br/><br/>Oh, no...<br/>there's something <br/>on your way... <br/><br/>How sad.</html>";
+			
+			break;
+			case("B") :
+				info.setIcon(new ImageIcon(new ImageIcon(Path + "base.png").getImage().getScaledInstance(50, 50,
+						java.awt.Image.SCALE_SMOOTH)));
+			s = s + "<br/>No princess, but you <br/> still have to protect it...</html>";
+			break;
+			default :
+				info.setIcon(new ImageIcon(new ImageIcon(Path + "base.png").getImage().getScaledInstance(1, 1,
+						java.awt.Image.SCALE_SMOOTH)));
+			s = s + "<br/>Nah, there's nothing<br/> here <br/> Drugs I guess?</html>";
+			break;
+				
+			}
+			info.setText(s);
+			info.setFont(setFont(12f));
+			
+		}
+		return info;
+	}
+
 	public _RButtonB setTour() {
 		if (Tour == null) {
 			gc.gridheight = 1;
@@ -392,7 +452,10 @@ public class GameView extends JPanel {
 
 	// pour afficher des objets sur notre fenetre
 	public void paintComponent(Graphics g) {
-
+		if (m_model.getLabelmodified()) {
+			setInfo();
+			m_model.setLabelmodified(false);
+		}
 		int nbrCaseX = 20;
 		int nbrCaseY = 12;
 		computeFPS();

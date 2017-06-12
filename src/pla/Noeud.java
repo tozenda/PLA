@@ -64,7 +64,7 @@ public class Noeud {
 		Noeud n = new Noeud(Competence.Hit, 1);
 		n.addFilsG(Competence.Boost);
 		n.addFilsD(Competence.Escape);
-		n.addFilsD(Competence.AugPA);
+		n.addFilsD(Competence.AugDef);
 		//n.readArbre();
 		n.affiche();
 	}
