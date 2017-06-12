@@ -131,3 +131,77 @@ Travail sur les mêmes sujets que la veille + travail sur l'agrandissement de la
 #### Après-midi
 
 Partiel d'ALM + Préparation de la soutenance de mi projet
+
+### Jour 7 (Vendredi 09/06)
+
+Journée de soutenance mi-projet
+
+Il a été définit le contrat suivant :
+
+* Groupe 7 (OG,PB) : Mighty Retarded Robots
+
+** Jeu : 2 bases, 2 joueurs, Se joue tour à tour
+
+- But: destruction de la base de l'adversaire
+
+- une phase stratégie, une phase d'actions.
+
+-  Phase de stratégie:
+       codage des robots. déplacement du joueur
+       joueur limité dans son tour par des points de jeu,
+       qui se décomptent lorsqu'il se déplace ou code des robots.
+-  Phase d'actions
+       les robots déroulent leur programme.
+       phase limitée en temps
+       combat corps a corps. (case adjacente)
+       point d'attaques/défenses.
+       points de vie.
+
+** Carte : map + grande que l'écran, avec un fenêtre de vue qui l'on peut déplacer
+
+** Compétences sur la map : actions et opérateurs.
+ - ils peuvent être ramasser par les robots et le joueur
+ - besace globale des compétences collectées (par les robots et le joueur).
+
+*** les operateurs du sujet
+
+            A>B (priorité)
+
+            A&B  A|B
+
+            A;B
+
+*** les actions:
+
+          recherche: compétence, ennemi, ami, base
+
+          attaque, kamikaze
+
+**  Javacc / parser
+
+** Contrat
+- le jeu décrit ci-dessus
+
+*** Extensions
+ 1. mini-map de visualization de l'ensemble du terrain (petit insert sur l'écran)
+ 2. audio/musique
+ 3. path finding sur l'operateur de recherche pour les robots, aujourd'hui, un déplacement super simple.
+
+ Objectifs du week-end :
+
+ * Thomas : Déplacement du robot
+ * Paul & Joffrey : Arbre du robot et Parser
+ * Fathin Syuhada & Najwa : Graphisme
+ * Anouar : Tests
+
+### Jour 8 (Lundi 12/06)
+
+#### Matin
+
+Résultat du codage du week end : le déplacement des robots est amélioré mais toujours quelques problème, particulièrement sur le choix de la direction à prendre face à un obstacle. Concernant les actions du robot, elles sont codées, à tester. Coté graphisme, de plus en plus de bugs sont corrigés.
+
+Définition des Objectifs de la journée :
+* Mise en place du Parser (Urgence+++)
+* Spawn des compétences
+* Ramassage des C par les robots
+* Mise en place de le mécanique de jeu (alternance des phases et tour) (cet objectif peut être ajusté à demain)
