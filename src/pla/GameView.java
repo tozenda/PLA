@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -296,14 +297,16 @@ public class GameView extends JPanel {
 
 	public JLabel setInfo() {
 		if (info == null) {
-			info = new JLabel("<html>Right click on <br/>the map to discover what you have to deal with</html> ");
+			info = new JLabel("<html>Right click on the <font color='rgb(128, 128, 0)'><br/>map </font> to discover what you have to deal with</html> ");
+			info.setIcon(new ImageIcon(new ImageIcon(Path + "map.png").getImage().getScaledInstance(50, 50,
+					java.awt.Image.SCALE_SMOOTH)));
 			Border border = info.getBorder();
-			Border margin = new EmptyBorder(10,10,10,10);
+			Border margin = new EmptyBorder(10, 10, 10, 10);
 			info.setBorder(new CompoundBorder(border, margin));
 			info.setFont(setFont(12f));
 			sideg.gridx = 0;
 			sideg.gridy = 4;
-			info.setPreferredSize(new Dimension(160,250));
+			info.setPreferredSize(new Dimension(160, 250));
 			// String s = "Line1 Line2 <br/> Line3";
 
 			// jLabel1.setText (sText);
@@ -311,38 +314,55 @@ public class GameView extends JPanel {
 
 		}
 		if (m_model.getCurrentCase() != null) {
-			String s = "<html>" + m_model.getCurrentCase().toString() + " <br/>PDV: "
+			String s = "<html> <font color='rgb(255, 0, 0)'><br/>PDV: </font>"
 					+ m_model.getCurrentCase().getContenu().getPointdeVie();
-			
-			
+
 			switch (m_model.getCurrentCase().getContenu().toString()) {
 
 			case ("H"):
 				info.setIcon(new ImageIcon(new ImageIcon(Path + "hero.png").getImage().getScaledInstance(50, 50,
 						java.awt.Image.SCALE_SMOOTH)));
-			s = s + "<br/>This is you...<br/>Ever considered <br/>plastic surgery? <br/>How sad.</html>";
+				s = "<html><font size ='5'><font color='rgb(229, 186, 27)'>Hero</font></font><br/>" +s + "<br/>This is you...<br/>Ever considered plastic surgery? <br/>How sad.</html>";
 				break;
-			case("O"):
+			case ("O"):
 				info.setIcon(new ImageIcon(new ImageIcon(Path + "barrier.png").getImage().getScaledInstance(50, 50,
 						java.awt.Image.SCALE_SMOOTH)));
-			s = s + "<br/><br/><br/><br/>Oh, no...<br/>there's something <br/>on your way... <br/><br/>How sad.</html>";
-			
-			break;
-			case("B") :
+				s ="<html><font color='rgb(31, 178, 163)'>Obstacle</font>" + s + "<br/><br/>Oh, no...<br/>there's something <br/>on your way... <br/><br/><font color='rgb(185, 90, 148)'>How sad</font></html>";
+
+				break;
+
+			case ("B"):
 				info.setIcon(new ImageIcon(new ImageIcon(Path + "base.png").getImage().getScaledInstance(50, 50,
 						java.awt.Image.SCALE_SMOOTH)));
-			s = s + "<br/>No princess, but you <br/> still have to protect it...</html>";
-			break;
-			default :
+				s = "<html><font color='rgb(31, 178, 163)'>Base</font>" +s + "<br/>No <font color='rgb(216, 40, 82)'>princess</font>, but you <br/> still have to protect it...</html>";
+				break;
+			case ("R"):
+				info.setIcon(new ImageIcon(new ImageIcon(Path + "robot.png").getImage().getScaledInstance(50, 50,
+						java.awt.Image.SCALE_SMOOTH)));
+				s = "<html><font color='rgb(31, 178, 163)'>Robot</font>" + s
+						+ "<br/>This is a robot <br/>A stupid one.</html>";
+				break;
+			case ("C"):
+				//TODO
+				info.setIcon(new ImageIcon(new ImageIcon(Path + "hero.png").getImage().getScaledInstance(50, 50,
+						java.awt.Image.SCALE_SMOOTH)));
+				s = "<html><font color='rgb(31, 178, 163)'>Skill</font>" +s + "<br/>This is you...<br/>Ever considered <br/>plastic surgery? <br/>How sad.</html>";
+				break;
+			// <span style\"color: red\">" + message + "</span>
+
+			default:
 				info.setIcon(new ImageIcon(new ImageIcon(Path + "base.png").getImage().getScaledInstance(1, 1,
 						java.awt.Image.SCALE_SMOOTH)));
-			s = s + "<br/>Nah, there's nothing<br/> here <br/> Drugs I guess?</html>";
-			break;
-				
+				s = "<html><font color='rgb(213, 178, 94)'>Emptiness</font>" + s
+						+ "<br/>Nah, there's nothing<br/> here <br/> Drugs I guess?</html>";
+				break;
+
 			}
 			info.setText(s);
+			// info.setForeground(fg);
+
 			info.setFont(setFont(12f));
-			
+
 		}
 		return info;
 	}

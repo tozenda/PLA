@@ -37,6 +37,7 @@ public class Robots extends Perso{
 		return "R";
 	}
 	
+	
 	public void NSEW(Map map,String dir){
 		if(dir == "N"){
 			j--;
