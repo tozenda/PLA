@@ -42,18 +42,9 @@ public class Map {
 		elements[20][37] = new Case(37,20,new Obstacles());
 		elements[19][37] = new Case(37,19,new Obstacles());
 		
-		elements[5][3] = new Case(3,5,new Obstacles());
-		elements[5][4] = new Case(3,5,new Obstacles());
-		elements[5][5] = new Case(3,5,new Obstacles());
-		elements[5][6] = new Case(3,5,new Obstacles());
-		elements[5][7] = new Case(3,5,new Obstacles());
-		
-		elements[6][7] = new Case(7,6,new Obstacles());
-		elements[7][7] = new Case(7,7,new Obstacles());
-		elements[8][7] = new Case(7,8,new Obstacles());
-		elements[9][7] = new Case(7,9,new Obstacles());
+		elements[18][28] = new Case(37,19,new Obstacles());
+				
 		elements[0][0] = new Case(0,0,new Heros());
-		
 		addBase(19, 0,2);
 		addBase(18, 0,2);
 		addBase(19, 1,2);
