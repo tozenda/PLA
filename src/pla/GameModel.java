@@ -21,10 +21,10 @@ public class GameModel {
 									// Colonne de l equipe 1
 		Case c = new Case(heros1.getX(), heros1.getY(), heros1);
 		map.editCase(c);
-		robot = new Robots(18, 7, 1); // robot en 3,3 de l equipe 1
+		robot = new Robots(1, 1, 1); // robot en 3,3 de l equipe 1
 		Case r = new Case(robot.i, robot.j, robot);
 		map.editCase(r);
-		robot.editDest(39, 22);
+		robot.editDest(11, 11);
 	}
 
 	long count = 0;
