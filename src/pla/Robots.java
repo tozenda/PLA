@@ -1,9 +1,11 @@
 package pla;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.math.*;
 
+@SuppressWarnings("unused")
 public class Robots extends Perso{
 	
 	int i,j;
@@ -66,6 +68,52 @@ public class Robots extends Perso{
 		}
 	}
 	
+	boolean[][] wasHere;
+	boolean[][] correctPath;
+	int endX, endY;     // Ending X and Y values of maze
+
+	public void solveMaze(Map map) {
+		wasHere = new boolean[map.getWidth()][map.getHeight()];
+		correctPath = new boolean[map.getWidth()][map.getHeight()];
+		for(int i=0;i<map.getWidth();i++){
+			for(int j=0;j<map.getHeight();j++){
+				wasHere[i][j] = false;
+				correctPath[i][j] = false;
+			}
+		}
+	    boolean b = recursiveSolve(map,i,j);
+	    // Will leave you with a boolean array (correctPath) 
+	    // with the path indicated by true values.
+	    // If b is false, there is no solution to the maze
+	}
+	public boolean recursiveSolve(Map map, int x, int y) {
+	    if (x == di && y == dj) return true; // If you reached the end
+	    if ((map.getCase(x, y).getContenu().isCompetences())&&(map.getCase(x, y).getContenu().isVide()) || wasHere[x][y]) return false;
+	    // If you are on a wall or already were here
+	    wasHere[x][y] = true;
+	    if (x != 0) // Checks if not on left edge
+	        if (recursiveSolve(map,x-1, y)) { // Recalls method one to the left
+	            correctPath[x][y] = true; // Sets that path value to true;
+	            return true;
+	        }
+	    if (x != map.getWidth() - 1) // Checks if not on right edge
+	        if (recursiveSolve(map,x+1, y)) { // Recalls method one to the right
+	            correctPath[x][y] = true;
+	            return true;
+	        }
+	    if (y != 0)  // Checks if not on top edge
+	        if (recursiveSolve(map,x, y-1)) { // Recalls method one up
+	            correctPath[x][y] = true;
+	            return true;
+	        }
+	    if (y != map.getHeight()- 1) // Checks if not on bottom edge
+	        if (recursiveSolve(map,x, y+1)) { // Recalls method one down
+	            correctPath[x][y] = true;
+	            return true;
+	        }
+	    return false;
+	}
+	
 	private boolean faceALaMerde = false;
 	private String dir = "S";
 	
@@ -80,7 +128,10 @@ public class Robots extends Perso{
 			}
 			else{
 				if((map.getCase(i+1, j).getContenu().isVide())||(map.getCase(i+1, j).getContenu().isCompetences())){
-					if((i>map.getWidth()-7)||(i<7)){
+					if(i<7){
+						NSEW(map,"E");
+					}
+					else if(i>map.getWidth()-7){
 						NSEW(map,"W");
 					}
 					else{
@@ -90,7 +141,8 @@ public class Robots extends Perso{
 						}
 						else{
 							NSEW(map,"W");
-						}					}
+						}					
+						}
 				}
 			}
 		}
@@ -101,7 +153,10 @@ public class Robots extends Perso{
 			}
 			else{
 				if((map.getCase(i+1, j).getContenu().isVide())||(map.getCase(i+1, j).getContenu().isCompetences())){
-					if((i>map.getWidth()-7)||(i<7)){
+					if(i<7){
+						NSEW(map,"E");
+					}
+					else if(i>map.getWidth()-7){
 						NSEW(map,"W");
 					}
 					else
@@ -122,8 +177,11 @@ public class Robots extends Perso{
 			}
 			else{
 				if((map.getCase(i, j+1).getContenu().isVide())||(map.getCase(i, j+1).getContenu().isCompetences())){
-					if((j>map.getHeight()-7)||(j<7)){
+					if(j<7){
 						NSEW(map,"S");
+					}
+					else if(j>map.getWidth()-7){
+						NSEW(map,"N");
 					}
 					else{
 						r = rnd.nextBoolean();
@@ -144,8 +202,11 @@ public class Robots extends Perso{
 			}
 			else{
 				if((map.getCase(i, j+1).getContenu().isVide())||(map.getCase(i, j+1).getContenu().isCompetences())){
-					if((j>map.getHeight()-7)||(j<7)){
+					if(j<7){
 						NSEW(map,"S");
+					}
+					else if(j>map.getWidth()-7){
+						NSEW(map,"N");
 					}
 					else{
 						r = rnd.nextBoolean();
@@ -165,6 +226,14 @@ public class Robots extends Perso{
 		
 		//System.out.println("Move Robot appelé");
 		Map map = Game.game.m_model.map;
+		//solveMaze(map);
+		/*for(int i=0;i<map.getWidth();i++){
+			for(int j=0;j<map.getHeight();j++){
+				System.out.print(correctPath[i][j]+";");
+			}
+			System.out.print("\n");
+		}*/
+		
 		int resX = (int) Math.sqrt(Math.pow(di-i, 2));
 		int resY = (int) Math.sqrt(Math.pow(dj-j, 2));
 		if(((i!=di)||(j!=dj))&&(!faceALaMerde)){
@@ -215,131 +284,6 @@ public class Robots extends Perso{
 				moveObs(map);
 			}
 		}
-		
-		//di = c.getX();
-		//dj = c.getY();
-		/*if(i!=di){
-			if(i<di){
-				if(map.getCase(i+1, j).getContenu().isVide()){
-					i++;
-					Case nr = new Case(i,j,this);
-					Case v = new Case(i-1,j,new Vide());
-					map.editCase(nr);
-					map.editCase(v);
-				}
-				else if(map.getCase(i, j).getContenu().isCompetences()){
-					i++;
-					Case nr = new Case(i,j,this);
-					Case v = new Case(i-1,j,new Vide());
-					map.editCase(nr);
-					map.editCase(v);
-				}
-				else{
-					if(i>=(map.getWidth()/2)){
-						j--;
-						Case nr = new Case(i,j,this);
-						Case v = new Case(i,j+1,new Vide());
-						map.editCase(nr);
-						map.editCase(v);
-					}
-					else{
-						j++;
-						Case nr = new Case(i,j,this);
-						Case v = new Case(i,j-1,new Vide());
-						map.editCase(nr);
-						map.editCase(v);
-					}
-				}
-			}
-			else{
-				Case cas = map.getCase(i-1, j);
-				if(map.getCase(i-1, j).getContenu().isVide()){
-					i--;
-					Case nr = new Case(i,j,this);
-					Case v = new Case(i+1,j,new Vide());
-					map.editCase(nr);
-					map.editCase(v);
-				}
-				else if(map.getCase(i, j).getContenu().isCompetences()){
-					
-				}
-				else{
-					if(i>=(map.getWidth()/2)){
-						j++;
-						Case nr = new Case(i,j,this);
-						Case v = new Case(i,j-1,new Vide());
-						map.editCase(nr);
-						map.editCase(v);
-					}
-					else{
-						j--;
-						Case nr = new Case(i,j,this);
-						Case v = new Case(i,j+1,new Vide());
-						map.editCase(nr);
-						map.editCase(v);
-					}
-				}
-			}
-		}
-		else if(j!=dj){
-			if(j<dj){
-				if(map.getCase(i, j+1).getContenu().isVide()){
-					j++;
-					Case nr = new Case(i,j,this);
-					Case v = new Case(i,j-1,new Vide());
-					map.editCase(nr);
-					map.editCase(v);
-				}
-				else if(map.getCase(i, j).getContenu().isCompetences()){
-					
-				}
-				else{
-					if(i>=(map.getHeight()/2)){
-						i--;
-						Case nr = new Case(i,j,this);
-						Case v = new Case(i+1,j,new Vide());
-						map.editCase(nr);
-						map.editCase(v);
-					}
-					else{
-						i++;
-						Case nr = new Case(i,j,this);
-						Case v = new Case(i-1,j,new Vide());
-						map.editCase(nr);
-						map.editCase(v);
-					}
-				}
-			}
-			else{
-				if(map.getCase(i, j-1).getContenu().isVide()){
-					j--;
-					Case nr = new Case(i,j,this);
-					Case v = new Case(i,j+1,new Vide());
-					map.editCase(nr);
-					map.editCase(v);
-				}
-				else if(map.getCase(i, j).getContenu().isCompetences()){
-					
-				}
-				else{
-					if(i>=(map.getHeight()/2)){
-						i--;
-						Case nr = new Case(i,j,this);
-						Case v = new Case(i+1,j,new Vide());
-						map.editCase(nr);
-						map.editCase(v);
-					}
-					else{
-						i++;
-						Case nr = new Case(i,j,this);
-						Case v = new Case(i-1,j,new Vide());
-						map.editCase(nr);
-						map.editCase(v);
-					}
-				}
-			}
-		}
-		//System.out.println("Les nouvelles coordonnées sont : ("+i+";"+j+")");*/
 	}
 
 	/*Action d'attaque d'un robot
