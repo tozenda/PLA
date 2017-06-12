@@ -9,7 +9,13 @@ public class Noeud {
 	Noeud filsGauche;
 	Noeud filsDroit;
 	public ArrayList<Noeud> Liste=new ArrayList<Noeud>();
-
+	
+	public Noeud(){
+		this.action = null;
+		this.filsGauche = null;
+		this.filsDroit = null;
+		this.numero = 0;
+	}
 	public Noeud(Competence comp, int num){
 		this.action=comp;
 		this.numero=num;

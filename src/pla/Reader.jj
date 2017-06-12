@@ -4,7 +4,7 @@ options {
 } 
  
 PARSER_BEGIN(Reader) 
-package  src.pla  ;
+package  pla  ;
 
 import java.io.*;
  
@@ -14,14 +14,14 @@ public class Reader {
   /** le support de lecture */
   public static void main(String args []){
    		System.out.println("Entrez votre commande robot :");
- 	    System.out.println(read().readArbre());
+ 	    // System.out.println(read().readArbre());
   }
   protected static java.io.Reader in = new BufferedReader(new InputStreamReader(System.in)); 
   /** lecture d'une S-EXPR au terminal 
    * @return Sexpr : la Sexpr construite. 
    * @throws LispException une erreur de syntaxe 
    */ 
-  public static Noeud read() throws LispException{
+  public static Noeud read(){
 	  	Reader parser = new Reader(in);
 	  	Noeud n = null;
 	  	try
@@ -40,12 +40,12 @@ public class Reader {
    * @return Sexpr : la Sexpr construite. 
    * @throws LispException une  erreur de syntaxe 
    */ 
-  public static Noeud read(String s) throws LispException{
+  public static Noeud read(String s){
     Reader parser = new Reader (in);
 	Noeud n2 = null;
 	try
 	{
-	  n2 = parser.BASE();
+	  n2 = parser.EXPR();
     }
     catch(ParseException e)
     {
@@ -74,43 +74,51 @@ TOKEN :{
 
 // les r�gles de grammaire de ce langage
 
-Noeud BASE() : 
-{Noeud n1;} 
-{ 
-  (n1=EXPR(){return n1;})*
+Noeud BASE() :
+{Noeud n, n1; }
+{    < ACCO > n=EXPR() < ACCF >
+  (
+   < REPETE >{
+      n1 = new Noeud();
+	  n1.action=Competence.Etoile;
+	  n1.filsDroit=n;
+	  return n1;}
+  | { return n; }
+  )
 }
 
 Noeud EXPR() :
-{Noeud n2;}
-{
-	n2= < SYMBOL > {return Symb_to_Comp(n2.toString());}
-	/*|n2=EXPR() <REPETE> {
-	  Noeud n;
-	  n.action=Etoile;
-	  n.addFilsD(n2);
-	  return n;}*/
-	|<PARO> n2=LISTE() <PARF> {return n2;}
-	|<ACCO> n2=LISTE() <ACCF> {return n2;}
+{Noeud n2, n1; Token t ; Noeud n = new Noeud();}{	  <ACCO> n1=EXPR() <ACCF>
+	(	  < OU > <ACCO> n2=EXPR() <ACCF> {
+	  n.action = Competence.Ou;
+	  n.filsGauche = n1;
+	  n.filsDroit = n2;
+	  return n;
+	  }
+	|< SUP > <ACCO> n2=EXPR() <ACCF> {
+	  // Noeud n = new Noeud();
+	  n.action = Competence.Sup;
+	  n.filsGauche= n1;
+	  n.filsDroit = n2;
+	  return n;
+	  }
+	)
+	| n1=LISTE() {
+	  return n1;
+	  }
 }
 
 Noeud LISTE() :
-{Noeud n2,n3;}
-{
-	n2=< SYMBOL > <PTV> n3=LISTE() {
-	  Noeud n;
-	  n.action = Symb_to_Comp(n2.toString());
-	  n.addFilsD(n3);
+{Noeud n1; Token t;Noeud n=new Noeud() ;}
+{	t = < SYMBOL >
+	(	  <PTV> n1=LISTE() {
+	  n1.action = Noeud.Symb_to_Comp(t.toString());
+	  n.filsDroit = n1;
 	  return n;}
-	| n2=LISTE() <OU> n3=LISTE() {
-	  Noeud n;
-	  n.action = Ou;
-	  n.addFilsG(n2);
-	  n.addFilsD(n3);
-	  return n;}/*
-	| n2=LISTE() <SUP> n3=LISTE() {
-	  Noeud n;
-	  n.action = Sup;
-	  n.addFilsG(n2);
-	  n.addFilsD(n3);
-	  return n;}*/
+	| {
+	  n.action = Noeud.Symb_to_Comp(t.toString());
+	  return n;
+	  }
+	)
+	
 }
