@@ -10,7 +10,7 @@ import java.math.*;
 
 @SuppressWarnings("unused")
 public class Robots extends Perso{
-	
+
 	int i,j;
 	int di,dj;
 	int pdv = 100;
@@ -24,7 +24,7 @@ public class Robots extends Perso{
 	int poison;
 	boolean boostDegat;
 	boolean choixOu;
-	
+
 	public Robots(int i,int j, int equipe){
 		this.i = i;
 		this.j = j;
@@ -37,7 +37,7 @@ public class Robots extends Perso{
 		boostDegat = false;
 		choixOu = true;
 	}
-	
+
 	public Robots(int i,int j, int equipe, String s){
 		this.i = i;
 		this.j = j;
@@ -57,12 +57,12 @@ public class Robots extends Perso{
 		boostDegat = false;
 		choixOu = true;
 	}
-	
+
 	public String toString() {
 		return "R";
 	}
-	
-	
+
+
 	public void NSEW(Map map,String dir){
 		if(dir == "N"){
 			j--;
@@ -93,28 +93,28 @@ public class Robots extends Perso{
 			map.editCase(v);
 		}
 	}
-	
+
 	private Observables contenu(String dir){
-		if(dir == "N"){
+		if(dir == "N" && i<GameModel.map.getTotalWidth() && j<GameModel.map.getTotalHeight()){
 			return GameModel.map.getCase(i, j-1).getContenu();
 		}
-		else if(dir == "S"){
+		else if(dir == "S" && i<GameModel.map.getTotalWidth() && j<GameModel.map.getTotalHeight()){
 			return GameModel.map.getCase(i, j+1).getContenu();
 		}
-		else if(dir == "E"){
+		else if(dir == "E" && i<GameModel.map.getTotalWidth() && j<GameModel.map.getTotalHeight()){
 			return GameModel.map.getCase(i+1, j).getContenu();
 		}
-		else if(dir == "W"){
+		else if(dir == "W" && i<GameModel.map.getTotalWidth() && j<GameModel.map.getTotalHeight()){
 			return GameModel.map.getCase(i-1,j).getContenu();
 		}
 		else{
 			return null;
 		}
 	}
-	
+
 	private boolean faceALaMerde = false;
 	private String dir = "S";
-	
+
 	public void moveObs(Map map){
 		 Random rnd = new Random();
 		 rnd.setSeed(System.currentTimeMillis());
@@ -154,7 +154,7 @@ public class Robots extends Perso{
 								pickUp( (Competences) contenu("W"));
 							}
 							NSEW(map,"W");
-						}					
+						}
 						}
 				}
 			}
@@ -194,8 +194,8 @@ public class Robots extends Perso{
 								pickUp( (Competences) contenu("W"));
 							}
 							NSEW(map,"W");
-						}					
-					}	
+						}
+					}
 				}
 			}
 		}
@@ -349,7 +349,7 @@ public class Robots extends Perso{
 				}
 			}
 		}
-		
+
 	}
 
 	/*Action d'attaque d'un robot
@@ -359,17 +359,17 @@ public class Robots extends Perso{
 	 */
 	public int attack(){
 		Map map = GameModel.map;
-		
+
 		for(int k = i-1; k<= i+1; k++){
 			for(int l = j-1; l<=j+1; l++){
-				if(0<=k && k<20 && 0<=l&& l<12){
+				if(0<=k && k<map.getWidth() && 0<=l&& l<map.getHeight()){
 					Case c = map.getCase(k, l);
 					Observables obs = c.getContenu();
-					
+
 					if(obs.isHeros()){
 						Heros h = (Heros) obs;
 						if(h.equipe != this.equipe){
-							double p = Math.random();		
+							double p = Math.random();
 							if(p > 0.07+h.defend()){
 								h.pdv -= 35;
 								h.destructionHeros();
@@ -382,8 +382,8 @@ public class Robots extends Perso{
 							if(r2.contre){
 								pdv -= 15;
 							}
-							double p = Math.random();		
-							if(p > 0.05+r2.defend() && r2.protection){
+							double p = Math.random();
+							if(p > 0.05+r2.defend() && !r2.protection){
 								//Si non esquive du robot adverse
 								if(boostDegat){
 									r2.pdv -= 10;
@@ -409,21 +409,21 @@ public class Robots extends Perso{
 		}
 		return p;
 	}
-	
+
 	//inflige 30 degats, recupere 10 pdv
 	public int voleVie(){
 		Map map = GameModel.map;
-		
+
 		for(int k = i-1; k<= i+1; k++){
 			for(int l = j-1; l<=j+1; l++){
-				if(0<=k && k<20 && 0<=l&& l<12){
+				if(0<=k && k<40 && 0<=l&& l<24){
 					Case c = map.getCase(k, l);
 					Observables obs = c.getContenu();
-					
+
 					if(obs.isHeros()){
 						Heros h = (Heros) obs;
 						if(h.equipe != this.equipe){
-							double p = Math.random();		
+							double p = Math.random();
 							if(p > 0.07+h.defend()){
 								h.pdv -= 30;
 								this.soin();
@@ -434,12 +434,12 @@ public class Robots extends Perso{
 					if(obs.isRobot()){
 						Robots r2 = (Robots) obs;
 						if(r2.equipe != this.equipe){
-							double p = Math.random();		
-							if(p > 0.05+r2.defend()){
+							double p = Math.random();
+							if(p > 0.05+r2.defend() && !r2.protection){
 								//Si non esquive du robot adverse
 								r2.pdv -= 30;
 								this.soin();
-								destructionRobot();
+								r2.destructionRobot();
 							}
 							return 1;
 						}
@@ -449,7 +449,7 @@ public class Robots extends Perso{
 		}
 		return 0;
 	}
-	
+
 	//recupere 10 pv si inférieur à 90
 	public int soin(){
 		if(this.pdv <= 90){
@@ -460,7 +460,7 @@ public class Robots extends Perso{
 			return 0;
 		}
 	}
-	
+
 	/*
 	 * Le robot s'autodétruit et inflige 25 dégats sur les 8 cases autour de lui
 	 */
@@ -470,11 +470,11 @@ public class Robots extends Perso{
 		if(this.pdv < 35){
 			for(int k = i-1; k<= i+1; k++){
 				for(int l = j-1; l<=j+1; l++){
-					if(0<=k && k<20 && 0<=l&& l<12){
-					
+					if(0<=k && k<map.getWidth() && 0<=l&& l<map.getHeight()){
+
 						Case c = map.getCase(k, l);
 						Observables obs = c.getContenu();
-						
+
 						if(obs.isRobot()){
 							Robots r2 = (Robots) obs;
 							if(this.equipe != r2.equipe){
@@ -487,6 +487,8 @@ public class Robots extends Perso{
 				}
 			}
 			if(res>1){
+				this.pdv=0;
+				this.destructionRobot();
 				return 1;
 			}
 		}
@@ -495,25 +497,26 @@ public class Robots extends Perso{
 		}
 		return 0;
 	}
-	
+
 	/*
-	 * 
+	 *
 	 */
 	public int kamikaze(){
 		Map map = GameModel.map;
-		
+
 		if(this.pdv < 35){
 			for(int k = i-1; k<= i+1; k++){
 				for(int l = j-1; l<=j+1; l++){
-					if(0<=k && k<20 && 0<=l&& l<12){
-					
+					if(0<=k && k<map.getWidth() && 0<=l&& l<map.getHeight()){
+
 						Case c = map.getCase(k, l);
 						Observables obs = c.getContenu();
-						
+
 						if(obs.isRobot()){
 							Robots r2 = (Robots) obs;
 							if(this.equipe != r2.equipe){
 								r2.pdv -=this.pdv;
+								this.pdv = 0;
 								destructionRobot();
 								r2.destructionRobot();
 								return 1;
@@ -528,24 +531,24 @@ public class Robots extends Perso{
 		}
 		return 0;
 	}
-	
+
 	/*
 	 * Immobilise un adversaire au tour suivant, 40% de chance de réussite de base
 	 */
 	public int stun(){
 		Map map = GameModel.map;
-		
+
 		for(int k = i-1; k<= i+1; k++){
 			for(int l = j-1; l<=j+1; l++){
-				if(0<=k && k<20 && 0<=l&& l<12){
+				if(0<=k && k<map.getWidth() && 0<=l&& l<map.getHeight() && k+l<i+j+2){
 					Case c = map.getCase(k, l);
 					Observables obs = c.getContenu();
-					
+
 					if(obs.isRobot()){
 						Robots r2 = (Robots) obs;
 						if(r2.equipe != this.equipe){
-							double p = Math.random();		
-							if(p > 0.6+r2.defend()){
+							double p = Math.random();
+							if(p > 0.8+r2.defend()){
 								//Si non esquive du robot adverse, le stun
 								r2.stun = true;
 							}
@@ -557,29 +560,29 @@ public class Robots extends Perso{
 		}
 		return 0;
 	}
-	
+
 	// augmente les pDefense du robot
 	public int augDef(){
 		this.pDefense += 1;
 		return 1;
 	}
-	
+
 	/*
 	 * Diminue pDefense du robot adverse le plus proche, 50% de réussite de base
 	 */
 	public int dimDef(){
 		Map map = GameModel.map;
-		
+
 		for(int k = i-1; k<= i+1; k++){
 			for(int l = j-1; l<=j+1; l++){
-				if(0<=k && k<20 && 0<=l&& l<12){
+				if(0<=k && k<40 && 0<=l&& l<24){
 					Case c = map.getCase(k, l);
 					Observables obs = c.getContenu();
-					
+
 					if(obs.isRobot()){
 						Robots r2 = (Robots) obs;
 						if(r2.equipe != this.equipe){
-							double p = Math.random();		
+							double p = Math.random();
 							if(p > 0.5+r2.defend()){
 								//Si non esquive du robot adverse, pdefense -=1
 								r2.pDefense -= 1;
@@ -592,87 +595,83 @@ public class Robots extends Perso{
 		}
 		return 0;
 	}
-	
+
 	/*
 	 * Le robot ne prend aucun dégats au tour suivant, 15% de chances de réussites de bases
 	 */
 	public int protection(){
-		double p = Math.random();		
-		if(p > 0.85-this.defend()){
+		double p = Math.random();
+		if(p > 0.0-this.defend()){
 			protection = true;
 		}
 		return 1;
 	}
-	
+
 	/*
 	 * Le robot renverra une partie des dégats qu'il subira au tour suivant,  15% de chances de réussites de bases
 	 */
 	public int contre(){
-		double p = Math.random();		
+		double p = Math.random();
 		if(p > 0.85-this.defend()){
 			contre = true;
 		}
 		return 1;
 	}
-	
+
 	/*
-	 * Augmente les dégats du robot 
+	 * Augmente les dégats du robot
 	 */
 	public int boostAttack(){
 		this.boostDegat=true;
 		return 1;
 	}
-	
+
 	/*
 	 * Tente d'empoisonner le robot le plus proche, 60% de chance de réussir
 	 */
 	public int poison(){
 		Map map = GameModel.map;
-		
-		if(this.pdv < 35){
-			for(int k = i-1; k<= i+1; k++){
-				for(int l = j-1; l<=j+1; l++){
-					if(0<=k && k<20 && 0<=l&& l<12){
-					
-						Case c = map.getCase(k, l);
-						Observables obs = c.getContenu();
-						
-						if(obs.isRobot()){
-							Robots r2 = (Robots) obs;
-							if(this.equipe != r2.equipe){
-								double p = Math.random();		
-								if(p > 0.4){
-									r2.poison += 3;
-								}
+
+		for(int k = i-1; k<= i+1; k++){
+			for(int l = j-1; l<=j+1; l++){
+				if(0<=k && k<40 && 0<=l&& l<24){
+
+					Case c = map.getCase(k, l);
+					Observables obs = c.getContenu();
+
+					if(obs.isRobot()){
+						Robots r2 = (Robots) obs;
+						if(this.equipe != r2.equipe){
+							double p = Math.random();
+							if(p > 0.0){
+								r2.poison += 3;
+								return 1;
 							}
 						}
 					}
 				}
 			}
-			return 1;
-			
 		}
-		else{
-			return 0;
-		}
+		return 0;
 	}
-	
+
 	/* se dirige vers la compétence la plus proche :
 	 * Il regarde toute la map et cherche la compétence avec la distance la plus petite de lui
 	 * On apelle move vers cette case
 	 */
 	public int moveRamasse(){
-		int min = 30;
+		Map map = GameModel.map;
+		int min = map.getHeight()+map.getWidth();
 		int min_i = 0, min_j = 0;
 		int tmp = 0;
-		Map map = GameModel.map;
-		
-		for(int k = 0; k<map.getHeight(); k++){
-			for(int l = 0; l<map.getWidth(); l++){
-				
+
+
+		for(int k = 0; k<map.getTotalWidth(); k++){
+			for(int l = 0; l<map.getTotalHeight(); l++){
+
 				Case c = map.getCase(k, l);
 				Observables obs = c.getContenu();
-				
+
 				if(obs.isCompetences()){
 					//le robot trouve une compétence sur la map
 					tmp = Math.abs(k-i)+Math.abs(l-j);
@@ -693,27 +692,27 @@ public class Robots extends Perso{
 		}
 		else{
 			return 0;
-		}	
+		}
 	}
-	
-	
+
+
 	/* se dirige vers l'ennemie ou la base la plus proche :
 	 * Il regarde toute la map et cherche l'ennemie avec la distance la plus petite de lui
 	 * Si il trouve pas l'ennemie il attaque la base adverse
 	 */
 	public int moveAttack(){
-		int min = 30;
+		Map map = GameModel.map;
+		int min = map.getTotalHeight()+map.getTotalWidth();
 		int min_i = 0, min_j = 0;
 		int tmp = 0;
-		Map map = GameModel.map;
-		
+
 		//recherche d'ennemie
-		for(int k = 0; k<map.getHeight(); k++){
-			for(int l = 0; l<map.getWidth(); l++){
-				
+		for(int k = 0; k<map.getTotalWidth(); k++){
+			for(int l = 0; l<map.getTotalHeight(); l++){
+
 				Case c = map.getCase(k, l);
 				Observables obs = c.getContenu();
-				
+
 				if(obs.isRobot()){
 					Robots r2 = (Robots) obs;
 					if(this.equipe != r2.equipe){
@@ -727,7 +726,7 @@ public class Robots extends Perso{
 				}
 			}
 		}
-		
+
 		//Cas ou il trouve pas d'ennemie il attaque la base
 		if(min==30){
 			//attaquer base ennemie
@@ -742,17 +741,17 @@ public class Robots extends Perso{
 	 * On apelle move vers cette case
 	 */
 	public int moveDef(){
-		int min = 30;
+		Map map = GameModel.map;
+		int min = map.getTotalHeight()+map.getTotalWidth();
 		int min_i = 0, min_j = 0;
 		int tmp = 0;
-		Map map = GameModel.map;
-		
-		for(int k = 0; k<map.getHeight(); k++){
-			for(int l = 0; l<map.getWidth(); l++){
-				
+
+		for(int k = 0; k<map.getTotalWidth(); k++){
+			for(int l = 0; l<map.getTotalHeight(); l++){
+
 				Case c = map.getCase(k, l);
 				Observables obs = c.getContenu();
-				
+
 				if(obs.isBase()){
 					Base b = (Base) obs;
 					if(b.equipe == this.equipe){
@@ -770,20 +769,20 @@ public class Robots extends Perso{
 		move(c);
 		return 1;
 	}
-	
+
 	/*
 	 * Parcourt notre structure de donnée pour trouver le héros de son équipe
 	 * Des qu'il le trouve se déplace vers celui ci
 	 */
 	public int moveHeros(){
 		Map map = GameModel.map;
-		
-		for(int k = 0; k<map.getHeight(); k++){
-			for(int l = 0; l<map.getWidth(); l++){
-				
+
+		for(int k = 0; k<map.getTotalWidth(); k++){
+			for(int l = 0; l<map.getTotalHeight(); l++){
+
 				Case c = map.getCase(k, l);
 				Observables obs = c.getContenu();
-				
+
 				if(obs.isHeros()){
 					Heros h = (Heros) obs;
 					if(h.equipe == this.equipe){
@@ -795,7 +794,7 @@ public class Robots extends Perso{
 		}
 		return 0;
 	}
-	
+
 	/*
 	 * Toutes les méthoodes booléennes utilisé dans les if
 	 */
@@ -822,7 +821,7 @@ public class Robots extends Perso{
 	public boolean isRobot() {
 		return true;
 	}
-	
+
 	public void pickUp(Competences c) {
 		List<Competence> l = c.getLc();
 		for (Competence tmp : l){
@@ -839,28 +838,28 @@ public class Robots extends Perso{
 			System.out.println(l1.toString());
 		}
 	}
-	
+
 	public void editDest(int di, int dj){
-		//Map map = Game.game.m_model.map; 
+		//Map map = Game.game.m_model.map;
 		//if(((di>=0)&&(di<map.getHeight()))||((dj>=0)&&(dj<map.getWidth()))){
 			this.di = di;
 			this.dj = dj;
 		//}
 	}
-	
+
 	/*
 	 * regarde se le robot est tué, si oui le supprime
 	 */
 	public void destructionRobot(){
 		if(pdv<=0){
 			Map map = GameModel.map;
-			Competences listC = null;
+			Competences listC = new Competences();
 			listC.recupListCompetence(this.a);
 			Case c = new Case(i, j, listC);
 			map.editCase(c);
 		}
 	}
-	
+
 
 	/*Méthode évaluant l'arbre
 	 * Il parcourt l'arbre noeud par noeud et éxécute l'action de chaque noeud
@@ -869,102 +868,106 @@ public class Robots extends Perso{
 	 * Tick de poison
 	 */
 	public void eval(Noeud n){
-		protection = false;
-		contre = false;
+		if((GameModel.situation==1&&this.equipe==1) || (GameModel.situation==3&&this.equipe==2)){
+			protection = false;
+			contre = false;
+		}
 		if(poison>0){
-			pdv -= 10;
+			pdv -= 15;
 			poison--;
 			destructionRobot();
 		}
-		if(!stun){
-			Competence c = n.action;
-			switch(c){
-				case Hit:
-					this.attack();
-					this.eval(n.filsDroit);
-					break;
-				case Protect:
-					this.protection();
-					this.eval(n.filsDroit);
-					break;
-				case Soin:
-					this.soin();
-					this.eval(n.filsDroit);
-					break;
-				case Kamikaze:
-					this.kamikaze();
-					this.eval(n.filsDroit);
-					break;
-				case Volvie:
-					this.voleVie();
-					this.eval(n.filsDroit);
-					break;
-				case Stun:
-					this.stun();
-					this.eval(n.filsDroit);
-					break;
-				case AugDef:
-					this.augDef();
-					this.eval(n.filsDroit);
-					break;
-				case DimDef:
-					this.dimDef();
-					this.eval(n.filsDroit);
-					break;
-				case Contrer:
-					this.contre();
-					this.eval(n.filsDroit);
-					break;
-				case Poison:
-					this.poison();
-					this.eval(n.filsDroit);
-					break;
-				case Boost:
-					this.boostAttack();
-					this.eval(n.filsDroit);
-					break;
-				case MoveRamasse:
-					this.moveRamasse();
-					this.eval(n.filsDroit);
-					break;
-				case MoveAttack:
-					this.moveAttack();
-					this.eval(n.filsDroit);
-					break;
-				case MoveDef:
-					this.moveDef();
-					this.eval(n.filsDroit);
-					break;
-				case Sup:
-					if (isPossible(n.filsGauche) == 0){
+		if(n!=null){
+			if(!stun){
+				Competence c = n.action;
+				switch(c){
+					case Hit:
+						this.attack();
 						this.eval(n.filsDroit);
-					}
-					else{
-						this.eval(n.filsGauche);
-					}
+						break;
+					case Protect:
+						this.protection();
+						this.eval(n.filsDroit);
+						break;
+					case Soin:
+						this.soin();
+						this.eval(n.filsDroit);
+						break;
+					case Kamikaze:
+						this.kamikaze();
+						this.eval(n.filsDroit);
+						break;
+					case Volvie:
+						this.voleVie();
+						this.eval(n.filsDroit);
+						break;
+					case Stun:
+						this.stun();
+						this.eval(n.filsDroit);
+						break;
+					case AugDef:
+						this.augDef();
+						this.eval(n.filsDroit);
+						break;
+					case DimDef:
+						this.dimDef();
+						this.eval(n.filsDroit);
+						break;
+					case Contrer:
+						this.contre();
+						this.eval(n.filsDroit);
+						break;
+					case Poison:
+						this.poison();
+						this.eval(n.filsDroit);
+						break;
+					case Boost:
+						this.boostAttack();
+						this.eval(n.filsDroit);
+						break;
+					case MoveRamasse:
+						this.moveRamasse();
+						this.eval(n.filsDroit);
+						break;
+					case MoveAttack:
+						this.moveAttack();
+						this.eval(n.filsDroit);
+						break;
+					case MoveDef:
+						this.moveDef();
+						this.eval(n.filsDroit);
+						break;
+					case Sup:
+						if (isPossible(n.filsGauche) == 0){
+							this.eval(n.filsDroit);
+						}
+						else{
+							this.eval(n.filsGauche);
+						}
+						break;
+					case Etoile:
+	//					while(tour==this.equipe){
+							eval(n.filsDroit);
+	//					}
+						break;
+					case Ou:
+						if(choixOu){
+							eval(n.filsGauche);
+						}
+						else{
+							eval(n.filsDroit);
+						}
+						break;
+				default:
 					break;
-				case Etoile:
-//					while(tour==this.equipe){
-						eval(n.filsDroit);
-//					}
-					break;
-				case Ou:
-					if(choixOu){
-						eval(n.filsGauche);
-					}
-					else{
-						eval(n.filsDroit);
-					}
-					break;
-			default:
-				break;
+				}
+				stun = false;
 			}
-			stun = false;
 		}
 	}
 
-	
-	
+
+
 	/*Méthode permettant de vérifier si un arbre est réalisable à partir du noeud racine
 	 * Regarde les valeurs retournés par les méthodes d'actions de robot,
 	 * si l'un d'elle renvoie 0, alors on peut pas réaliser cette arbre
@@ -1081,7 +1084,7 @@ public class Robots extends Perso{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	/*supprime les comp�tences utilis�es pour cr�er un robot de l'inventaire*/
 	public void supCompInventaire(Heros h){
 		List<Competence> inventaire = new ArrayList<Competence>();
@@ -1099,9 +1102,19 @@ public class Robots extends Perso{
 					break;
 				}
 			}
-			
+
 		}
-		
+
 	}
-	
+	public static void main(String[] args) {
+		Robots r1 = new Robots(3, 3, 1, "(H)");
+		Robots r2 = new Robots(3, 4, 1, "(S)");
+		r2.pdv = 70;
+		r1.pdv = 30;
+		r1.attack();
+		System.out.println(r2.pdv);
+		r1.eval(r1.a);
+		System.out.println(r2.pdv);
+	}
+
 }

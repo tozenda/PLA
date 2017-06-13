@@ -19,12 +19,51 @@ public class GameModel {
 	Robots robot;
 	Case currentCase = null;
 	public static int situation = 1;
-	/* 1 = Choix1 
+	/* 1 = Choix1
 	 * 2 = Action1
 	 * 3 = Choix2
 	 * 4 = Action2
 	 */
+	private int Factx = 1;
+	private int Facty = 1;
 
+	public int getFactx(){
+		return Factx;
+	}
+
+
+	public int getFacty(){
+		return Facty;
+	}
+
+
+	void setFactXY() {
+
+		/*
+		 * Factx=m_model.map.getLocation()%2;
+		 * Facty=(m_model.map.getLocation()/2)+1;
+		 */
+		switch (this.map.getLocation()) {
+
+		case (2):
+			Factx = 2;
+			Facty = 1;
+			break;
+		case (3):
+			Factx = 1;
+			Facty = 2;
+			break;
+		case (4):
+			Factx = 2;
+			Facty = 2;
+			break;
+		default:
+			Factx = 1;
+			Facty = 1;
+			break;
+
+		}
+	}
 
 	GameModel(Game game) {
 		m_game = game;
@@ -48,7 +87,7 @@ public class GameModel {
 	public void setLabelmodified(boolean a) {
 		Labelmodified = a;
 	}
-	
+
 	void Info(int x, int y) {
 		System.out.println("info called");
 		currentCase = map.getCase(x, y);
@@ -77,14 +116,14 @@ public class GameModel {
 
 	/**
 	 * Simulation step.
-	 * 
+	 *
 	 * @param 1ms
 	 */
 	void step(long now) {
 		overhead();
 	}
 
-	void heroMove(int mvt){ 
+	void heroMove(int mvt){
 		int currentX = 0;
 		int currentY = 0;
 		int dx = 0;
@@ -101,7 +140,7 @@ public class GameModel {
 			dx = currentX;
 			dy = currentY;
 		}
-		
+
 		//System.out.println(mvt);
 		int currentLocation = map.getHeroLocation(currentX, currentY);
 		//System.out.println("Map actuelle : "+ currentLocation);
@@ -150,7 +189,7 @@ public class GameModel {
 					map.incLocation();
 					map.incLocation();
 				}
-				
+
 				if (currentY!=23){
 					dy = (currentY + 1);
 				}
@@ -189,7 +228,7 @@ public class GameModel {
 					map.editCase(v);
 					map.editCase(h);
 				}
-				
+
 				//System.out.println("Je déplace en (" + dx + ";" + dy + ")");
 			} else if (map.getCase(dx, dy).getContenu().isCompetences()) {
 				//System.out.println("else");
@@ -209,7 +248,7 @@ public class GameModel {
 			}
 		}
 	}
-	
+
 	public static void Tour() {
 		System.out.println("Tour");
 		if(situation == 1){
@@ -272,7 +311,7 @@ public class GameModel {
 				this.robot_list.add(new Robots(heros2.getX()-1,heros2.getY()-1,2,com));
 			}
 			else{
-				
+				//TODO
 			}
 		}
 		m_game.returnFocus();
