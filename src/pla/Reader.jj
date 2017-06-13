@@ -1,6 +1,6 @@
 options { 
     DEBUG_PARSER=false; 
-    STATIC=false; 
+    STATIC=true; 
 } 
  
 PARSER_BEGIN(Reader) 
@@ -12,63 +12,73 @@ import java.io.*;
  
 public class Reader { 
   /** le support de lecture */
-  public static void main(String args []){
-   		System.out.println("Entrez votre commande robot :");
- 	    // System.out.println(read().readArbre());
-  }
-  protected static java.io.Reader in = new BufferedReader(new InputStreamReader(System.in)); 
+	public static void main(String[] args){
+	  	Noeud n=null;
+		Reader parser = new Reader(System.in);
+		try {
+			n=parser.read("(H;P;Rm)");
+			System.out.println(n.action);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		System.out.println(n.action);
+	}
+
+  protected static java.io.Reader in = new BufferedReader(new InputStreamReader(System.in));
   /** lecture d'une S-EXPR au terminal 
    * @return Sexpr : la Sexpr construite. 
    * @throws LispException une erreur de syntaxe 
-   */ 
-  public static Noeud read(){
-	  	Reader parser = new Reader(in);
-	  	Noeud n = null;
-	  	try
- 	    {
- 	      n = parser.BASE();
- 	    }
-		catch (ParseException e)
-		{
-		  System.out.println(e.getMessage());
-		}
-	  	return n;
-    }
-    
-  /** lecture d'une S-EXPR � partir de la cha�ne 
-   * @param s : la cha�ne 
-   * @return Sexpr : la Sexpr construite. 
-   * @throws LispException une  erreur de syntaxe 
-   */ 
-  public static Noeud read(String s){
-    Reader parser = new Reader (in);
-	Noeud n2 = null;
-	try
-	{
-	  n2 = parser.EXPR();
-    }
-    catch(ParseException e)
-    {
-      System.out.println(e.getMessage());
+   */
+  
+ public Noeud read() throws ParseException{
+		ReInit(this.in);
+		return BASE();
 	}
-	return n2;
-   }
+	
+	/** lecture d'une S-EXPR à partir de la chaîne
+	* @param s : la chaîne
+	* @return Sexpr : la Sexpr construite.
+	* @throws LispException une erreur de syntaxe
+	*/
+	
+	public Noeud read(String s) throws ParseException{
+			ReInit(new ByteArrayInputStream(s.getBytes()));
+			return BASE();
+		}
 } 
  
 PARSER_END(Reader) 
+SKIP :
+{
+" " | "\t" | "\r"| "\n"| "/h"
 
+// attention élimine la notion de fin de ligne
+| "\u0000" | "\u0001" | "\u0002" | "\u0003" | "\u0004" | "\u0005" | "\u0006" | "\u0007"
+| "\u0008" | "\u000B" | "\u000C" | "\u000E" | "\u000F" | "\u0010" | "\u0011" | "\u0012"
+| "\u0013" | "\u0014" | "\u0015" | "\u0016" | "\u0017" | "\u0018" | "\u0019" | "\u001A"
+| "\u001B" | "\u001C" | "\u001D" | "\u001E" | "\u001F" | "\u007F"
+}
+MORE :
+{
+"//" : IN_SL_COMMENT
+| "/*" : IN_ML_COMMENT
+}
+<IN_SL_COMMENT> SPECIAL_TOKEN :{<SL_COMMENT: "\n" | "\r" | "\r\n"> : DEFAULT}
+<IN_ML_COMMENT> SPECIAL_TOKEN :{<ML_COMMENT: "*/" > : DEFAULT}
+<IN_SL_COMMENT,IN_ML_COMMENT> SKIP :{< ~[] >}// les lexèmes du langage
+//Le type de l’information
 TOKEN :{ 
   < PARO : "(" >
 | < PARF : ")" >
 | < ACCO : "{" >
-| < ACCF : " }" >
+| < ACCF : "}" >
 | < ITERE : ":" >
 | < REPETE : "*" >
 | < PTV : ";" >
 | < HASARD  : "|" >
 | < OU  : "||" >
 | < INF  : "<" >
-| < SUP  : " >" >
+| < SUP  : ">" >
 | <SYMBOL: (["a"-"z"]|["A"-"Z"])+ > 
 }
 
@@ -76,7 +86,7 @@ TOKEN :{
 
 Noeud BASE() :
 {Noeud n, n1; }
-{    < ACCO > n=EXPR() < ACCF >
+{    < PARO > n=EXPR() < PARF >
   (
    < REPETE >{
       n1 = new Noeud();
@@ -88,26 +98,35 @@ Noeud BASE() :
 }
 
 Noeud EXPR() :
-{Noeud n2, n1; Token t ; Noeud n = new Noeud();}{	  <ACCO> n1=EXPR() <ACCF>
-	(	  < OU > <ACCO> n2=EXPR() <ACCF> {
+{Noeud n2, n1; Token t ; Noeud n = new Noeud();}{	  <PARO> n1=EXPR() <PARF>
+	(	  < OU > <PARO> n2=EXPR() <PARF> {
 	  n.action = Competence.Ou;
 	  n.filsGauche = n1;
 	  n.filsDroit = n2;
 	  return n;
 	  }
-	|< SUP > <ACCO> n2=EXPR() <ACCF> {
+	|< SUP > <PARO> n2=EXPR() <PARF> {
 	  // Noeud n = new Noeud();
 	  n.action = Competence.Sup;
 	  n.filsGauche= n1;
 	  n.filsDroit = n2;
 	  return n;
 	  }
+	| { return n1; }
 	)
-	| n1=LISTE() {
-	  return n1;
+	| t = < SYMBOL >
+	(
+	  <PTV> n1=EXPR() {
+	  n.action = Noeud.Symb_to_Comp(t.toString());
+	  n.filsDroit = n1;
+	  return n;}
+	| {
+	  n.action = Noeud.Symb_to_Comp(t.toString());
+	  return n;
 	  }
+	) 
 }
-
+/*
 Noeud LISTE() :
 {Noeud n1; Token t;Noeud n=new Noeud() ;}
 {	t = < SYMBOL >
@@ -120,5 +139,5 @@ Noeud LISTE() :
 	  return n;
 	  }
 	)
-	
 }
+*/
