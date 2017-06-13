@@ -43,7 +43,7 @@ public class GameModel {
 		 * Factx=m_model.map.getLocation()%2;
 		 * Facty=(m_model.map.getLocation()/2)+1;
 		 */
-		switch (this.map.getLocation()) {
+		switch (GameModel.map.getLocation()) {
 
 		case (2):
 			Factx = 2;
@@ -207,7 +207,7 @@ public class GameModel {
 					dx = (currentX + 1);
 				}
 			}
-			System.out.println("all ok");
+			//System.out.println("all ok");
 			if (map.getCase(dx, dy).getContenu().isVide()) {
 				System.out.println("vide");
 				if((Game.game.tourDe1)&&(!Game.game.PhaseAction)){
@@ -248,10 +248,17 @@ public class GameModel {
 			}
 		}
 	}
+	
+	/* 1 = Choix1
+	 * 2 = Action1
+	 * 3 = Choix2
+	 * 4 = Action2
+	 */
 
 	public static void Tour() {
 		System.out.println("Tour");
 		if(situation == 1){
+			Game.game.compteurActionBegin();
 			Game.game.tourDe1 = true;
 			Game.game.PhaseAction = true;
 		}
@@ -260,6 +267,7 @@ public class GameModel {
 			Game.game.PhaseAction = false;
 		}
 		else if(situation == 3){
+			Game.game.compteurActionBegin();
 			Game.game.tourDe1 = false;
 			Game.game.PhaseAction = true;
 		}

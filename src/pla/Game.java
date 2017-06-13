@@ -30,6 +30,9 @@ public class Game {
 	int m_nTicks;
 	int cmpt=0;
 	int cmpt2=0;
+	long debutPhaseAction;
+	long DureePhaseAction = 10000;
+	long tempsEcoulePhaseAction;
 	public boolean tourDe1 = true;
 	public boolean PhaseAction=false;
 	
@@ -77,25 +80,48 @@ public class Game {
 	    m_timer.start();
 	  }
 	  
+	  public void compteurActionBegin(){
+		  tempsEcoulePhaseAction = 0;
+		  debutPhaseAction = System.currentTimeMillis();
+	  }
+	  
 	  static final int REPAINT_DELAY = (int) (1000.0 / 24.0);
+	  
+	  private void majRobot(){
+		  if(PhaseAction){
+	    		for(Robots r : GameModel.robot_list){
+	    			if(tourDe1){
+	    				if(r.equipe==1){
+	    					r.eval(r.a);
+	    				}
+	    			}
+	    			else if(!tourDe1){
+	    				if(r.equipe!=1){
+	    					r.eval(r.a);
+	    				}
+	    			}
+	    		}
+	    	}
+	  }
 	  
 	  // affichage des ticks de raffraichissement + fps
 	  private void tick() {
 		 // System.out.println(m_frame.getFocusOwner());
 		    long now = System.currentTimeMillis();
 		    m_elapsed += (now - m_lastTick);
+		    tempsEcoulePhaseAction += (now - m_lastTick);
+		    if((PhaseAction)&&(tempsEcoulePhaseAction>DureePhaseAction)){
+		    	GameModel.Tour();
+		    }
 		    m_lastTick = now;
 		    m_nTicks++;
 		    m_model.step(now);
 		    m_controller.step(now);
 		    long elapsed = now - m_lastRepaint;
 		    if (elapsed > REPAINT_DELAY) {
-		    	if(cmpt == 3){
-		    		m_model.robot.move(new Case(29,18,new Vide()));
-		    		cmpt=0;
-		    	}
+		    	majRobot();
 		    	if(cmpt2 == 20){
-		    		m_model.map.popCompetence();
+		    		GameModel.map.popCompetence();
 		    		cmpt2 = 0;
 		    	}
 		      double tick = (double) m_elapsed / (double) m_nTicks;
