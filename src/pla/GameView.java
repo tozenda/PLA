@@ -367,23 +367,21 @@ public class GameView extends JPanel {
 						+ "<br/>This is a robot <br/>A stupid one.</html>";
 				break;
 			case ("V"):
-				
+
 				info.setIcon(new ImageIcon(new ImageIcon(Path + "base.png").getImage().getScaledInstance(1, 1,
 						java.awt.Image.SCALE_SMOOTH)));
 				s = "<html><font color='rgb(213, 178, 94)'>Emptiness</font>" + s
 						+ "<br/>Nah, there's nothing<br/> here <br/> Drugs I guess?</html>";
 				// TODO
-				
-				
-			// <span style\"color: red\">" + message + "</span>
+
+				// <span style\"color: red\">" + message + "</span>
 
 			default:
-				info.setIcon(new ImageIcon(new ImageIcon(Path +m_model.getCurrentCase().getContenu().getPic()).getImage().getScaledInstance(50, 50,
-						java.awt.Image.SCALE_SMOOTH)));
-				
-				s = "<html><font color='rgb(31, 178, 163)'>"+m_model.getCurrentCase().getContenu().toString()+"</font>" 
-						 + "<br/>"
-						+ m_model.getCurrentCase().getContenu().getDescription();
+				info.setIcon(new ImageIcon(new ImageIcon(Path + m_model.getCurrentCase().getContenu().getPic())
+						.getImage().getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH)));
+
+				s = "<html><font color='rgb(31, 178, 163)'>" + m_model.getCurrentCase().getContenu().toString()
+						+ "</font>" + "<br/>" + m_model.getCurrentCase().getContenu().getDescription();
 				break;
 
 			}
@@ -503,15 +501,14 @@ public class GameView extends JPanel {
 	 * Dessine une image en x,y. S est le nom de l'image. L'image doit être dans
 	 * le fichier "resources"
 	 */
-	private void draw(Graphics g, String s, int x, int y, int resizedX,int resizedY) {
+	private void draw(Graphics g, String s, int x, int y, int resizedX, int resizedY) {
 		BufferedImage iPic;
 		try {
 			iPic = ImageIO.read(new File(Path + s));
-			if (resizedX==0||resizedY==0){
+			if (resizedX == 0 || resizedY == 0) {
 				g.drawImage(iPic, x, y, this);
-			}
-			else{
-				g.drawImage(iPic, x, y,resizedX,resizedY, this);
+			} else {
+				g.drawImage(iPic, x, y, resizedX, resizedY, this);
 			}
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
@@ -519,12 +516,11 @@ public class GameView extends JPanel {
 		}
 
 	}
-/*public String getSkillPic(Competences skill){
-	switch(this){
-		case():
-			return "hey";
-}
-}*/
+
+	/*
+	 * public String getSkillPic(Competences skill){ switch(this){ case():
+	 * return "hey"; } }
+	 */
 	// pour afficher des objets sur notre fenetre
 	public void paintComponent(Graphics g) {
 		/*
@@ -543,7 +539,7 @@ public class GameView extends JPanel {
 		 * = ii.getImage(); g.drawImage(image, 0, 0, null);
 		 */
 		// Quadrillage de la map
-		draw(g, "Bande.png", 0, 0,0,0);
+		draw(g, "Bande.png", 0, 0, 0, 0);
 		g.setColor(Color.BLACK);
 		// Vertical
 		for (int i = (m_model.map.getLocation() - 1) * nbrCaseX; i <= m_model.map.getLocation()
@@ -568,7 +564,7 @@ public class GameView extends JPanel {
 					try {
 						iObstacle = ImageIO.read(new File(Path + "obstacl.png"));
 						g.drawImage(iObstacle, (i % m_model.map.getWidth()) * tailleCase + 1,
-								(j % m_model.map.getHeight()) * tailleCase + 1, this);
+								(j % m_model.map.getHeight()) * tailleCase + 1,45,45, this);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -583,14 +579,19 @@ public class GameView extends JPanel {
 						e.printStackTrace();
 					}
 				} else if (obs.isBase()) {
-					g.setColor(Color.ORANGE);
-					g.fillRect((i % m_model.map.getWidth()) * tailleCase + 1,
-							(j % m_model.map.getHeight()) * tailleCase + 1, tailleCase - 1, tailleCase - 1);
+					try {
+						iBase = ImageIO.read(new File(Path + obs.getPic()));
+						g.drawImage(iBase, (i % m_model.map.getWidth()) * tailleCase + 1,
+								(j % m_model.map.getHeight()) * tailleCase + 1, 50, 50, this);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				} else if (obs.isRobot()) {
 					g.setColor(Color.cyan);
 					g.fillRect((i % m_model.map.getWidth()) * tailleCase + 1,
 							(j % m_model.map.getHeight()) * tailleCase + 1, tailleCase - 1, tailleCase - 1);
-				} else if(obs.isCompetences()){
+				} else if (obs.isCompetences()) {
 					try {
 						iSkill = ImageIO.read(new File(Path + obs.getPic()));
 						g.drawImage(iSkill, (i % m_model.map.getWidth()) * tailleCase + 1,
@@ -599,15 +600,13 @@ public class GameView extends JPanel {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					
-				}
-					else {
-				
+
+				} else {
+
 					g.setColor(Color.white);
 				}
 			}
 		}
-
 
 	}
 }

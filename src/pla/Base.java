@@ -20,7 +20,9 @@ public class Base extends Actifs{
 	public String toString() {
 		return "B";
 	}
-
+public int getEquipe(){
+	return this.equipe;
+}
 	public boolean isVide() {
 		return false;
 	}
@@ -47,8 +49,10 @@ public class Base extends Actifs{
 
 	@Override
 	public String getPic() {
-		// TODO Auto-generated method stub
-		return null;
+		if (getEquipe()==1){
+			return "Base1.png";
+		}
+		return "Base2.png";
 	}
 
 	@Override
