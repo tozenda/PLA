@@ -183,7 +183,7 @@ public class Competences extends Observables {
 		case Soin:
 			return "Gain de PV x";
 		case Stun:
-			return "permet d'immobiliser la cible";
+			return "Immobiliser la cible";
 		case Sup:
 			return "a > b va effectuer a en priorité";
 		case Volvie:

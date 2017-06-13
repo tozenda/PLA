@@ -10,7 +10,7 @@ public class Vide extends Observables {
 	}
 	
 	public String toString() {
-		return "V";
+		return "Vide";
 	}
 	public boolean isVide() {
 		return true;
@@ -42,7 +42,7 @@ public class Vide extends Observables {
 
 	@Override
 	public String getDescription() {
+		return "<html><font color='rgb(213, 178, 94)'>Emptiness</font><br/>Nah, there's nothing<br/> here <br/> Drugs I guess?</html>";
 		// TODO Auto-generated method stub
-		return null;
 	}
 }
