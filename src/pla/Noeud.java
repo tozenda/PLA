@@ -16,6 +16,7 @@ public class Noeud {
 		this.filsDroit = null;
 		this.numero = 0;
 	}
+
 	public Noeud(Competence comp, int num){
 		this.action=comp;
 		this.numero=num;
@@ -103,10 +104,6 @@ public class Noeud {
 	/* on construit un arbre de test*/
 	public static void main(String[] args){
 		Noeud n = new Noeud(Competence.Hit, 1);
-		n.addFilsG(Competence.Boost);
-//		n.addFilsD(Competence.Escape);
-		n.addFilsD(Competence.AugDef);
-		//n.readArbre();
-		n.affiche();
+		Competence c = Symb_to_Comp("H");
 	}
 }

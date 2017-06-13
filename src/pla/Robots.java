@@ -20,6 +20,7 @@ public class Robots extends Perso{
 	boolean contre;
 	int poison;
 	boolean boostDegat;
+	boolean choixOu;
 	
 	public Robots(int i,int j, int equipe){
 		this.i = i;
@@ -31,6 +32,7 @@ public class Robots extends Perso{
 		poison = 0;
 		stun = false;
 		boostDegat = false;
+		choixOu = true;
 	}
 	
 	public String toString() {
@@ -901,6 +903,14 @@ public class Robots extends Perso{
 						eval(n.filsDroit);
 //					}
 					break;
+				case Ou:
+					if(choixOu){
+						eval(n.filsGauche);
+					}
+					else{
+						eval(n.filsDroit);
+					}
+					break;
 			default:
 				break;
 			}
@@ -1006,6 +1016,8 @@ public class Robots extends Perso{
 					return 0;
 				}
 			case Etoile:
+				return 1;
+			case Ou:
 				return 1;
 			default:
 				return 1;
