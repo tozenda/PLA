@@ -1066,4 +1066,26 @@ public class Robots extends Perso{
 		return 1;
 	}
 	
+	/*supprime les compétences utilisées pour créer un robot de l'inventaire*/
+	public void supCompInventaire(Heros h){
+		List<Competence> inventaire = new ArrayList<Competence>();
+		inventaire = h.inventaire;
+		Competences aSuppr = new Competences();
+		aSuppr.recupListCompetence(this.a);
+		for(Competence c : aSuppr.getLc()){
+			/*test si la competence est présente dans l'inventaire et est différente d'un constructeur*/
+			if (!((c==Competence.Ou)||(c==Competence.Sup)||(c==Competence.Etoile))){
+				if (inventaire.contains(c)){
+					inventaire.remove(c);
+				}
+				else{
+					System.out.println("Nice try but NOPE !!");
+					break;
+				}
+			}
+			
+		}
+		
+	}
+	
 }
