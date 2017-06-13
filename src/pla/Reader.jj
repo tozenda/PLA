@@ -86,7 +86,8 @@ TOKEN :{
 
 Noeud BASE() :
 {Noeud n, n1; }
-{    < PARO > n=EXPR() < PARF >
+{
+    < PARO > n=EXPR() < PARF >
   (
    < REPETE >{
       n1 = new Noeud();
@@ -98,8 +99,10 @@ Noeud BASE() :
 }
 
 Noeud EXPR() :
-{Noeud n2, n1; Token t ; Noeud n = new Noeud();}{	  <PARO> n1=EXPR() <PARF>
-	(	  < OU > <PARO> n2=EXPR() <PARF> {
+{Noeud n2, n1; Token t ; Noeud n = new Noeud();}{
+	  <PARO> n1=EXPR() <PARF>
+	(
+	  < OU > <PARO> n2=EXPR() <PARF> {
 	  n.action = Competence.Ou;
 	  n.filsGauche = n1;
 	  n.filsDroit = n2;
@@ -129,8 +132,10 @@ Noeud EXPR() :
 /*
 Noeud LISTE() :
 {Noeud n1; Token t;Noeud n=new Noeud() ;}
-{	t = < SYMBOL >
-	(	  <PTV> n1=LISTE() {
+{
+	t = < SYMBOL >
+	(
+	  <PTV> n1=LISTE() {
 	  n1.action = Noeud.Symb_to_Comp(t.toString());
 	  n.filsDroit = n1;
 	  return n;}

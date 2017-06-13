@@ -46,9 +46,10 @@ public class Robots extends Perso{
         Reader parser = new Reader(System.in);
         try {
                this.a=parser.read(s);
-        } catch (ParseException e) {
-                e.printStackTrace();
-        }
+        } catch (pla.ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.equipe = equipe;
 		protection = false;
 		contre = false;
@@ -853,7 +854,7 @@ public class Robots extends Perso{
 	public void destructionRobot(){
 		if(pdv<=0){
 			Map map = GameModel.map;
-			Competences listC = null;
+			Competences listC = new Competences();
 			listC.recupListCompetence(this.a);
 			Case c = new Case(i, j, listC);
 			map.editCase(c);
@@ -875,90 +876,92 @@ public class Robots extends Perso{
 			poison--;
 			destructionRobot();
 		}
-		if(!stun){
-			Competence c = n.action;
-			switch(c){
-				case Hit:
-					this.attack();
-					this.eval(n.filsDroit);
-					break;
-				case Protect:
-					this.protection();
-					this.eval(n.filsDroit);
-					break;
-				case Soin:
-					this.soin();
-					this.eval(n.filsDroit);
-					break;
-				case Kamikaze:
-					this.kamikaze();
-					this.eval(n.filsDroit);
-					break;
-				case Volvie:
-					this.voleVie();
-					this.eval(n.filsDroit);
-					break;
-				case Stun:
-					this.stun();
-					this.eval(n.filsDroit);
-					break;
-				case AugDef:
-					this.augDef();
-					this.eval(n.filsDroit);
-					break;
-				case DimDef:
-					this.dimDef();
-					this.eval(n.filsDroit);
-					break;
-				case Contrer:
-					this.contre();
-					this.eval(n.filsDroit);
-					break;
-				case Poison:
-					this.poison();
-					this.eval(n.filsDroit);
-					break;
-				case Boost:
-					this.boostAttack();
-					this.eval(n.filsDroit);
-					break;
-				case MoveRamasse:
-					this.moveRamasse();
-					this.eval(n.filsDroit);
-					break;
-				case MoveAttack:
-					this.moveAttack();
-					this.eval(n.filsDroit);
-					break;
-				case MoveDef:
-					this.moveDef();
-					this.eval(n.filsDroit);
-					break;
-				case Sup:
-					if (isPossible(n.filsGauche) == 0){
+		if(n!=null){
+			if(!stun){
+				Competence c = n.action;
+				switch(c){
+					case Hit:
+						this.attack();
 						this.eval(n.filsDroit);
-					}
-					else{
-						this.eval(n.filsGauche);
-					}
+						break;
+					case Protect:
+						this.protection();
+						this.eval(n.filsDroit);
+						break;
+					case Soin:
+						this.soin();
+						this.eval(n.filsDroit);
+						break;
+					case Kamikaze:
+						this.kamikaze();
+						this.eval(n.filsDroit);
+						break;
+					case Volvie:
+						this.voleVie();
+						this.eval(n.filsDroit);
+						break;
+					case Stun:
+						this.stun();
+						this.eval(n.filsDroit);
+						break;
+					case AugDef:
+						this.augDef();
+						this.eval(n.filsDroit);
+						break;
+					case DimDef:
+						this.dimDef();
+						this.eval(n.filsDroit);
+						break;
+					case Contrer:
+						this.contre();
+						this.eval(n.filsDroit);
+						break;
+					case Poison:
+						this.poison();
+						this.eval(n.filsDroit);
+						break;
+					case Boost:
+						this.boostAttack();
+						this.eval(n.filsDroit);
+						break;
+					case MoveRamasse:
+						this.moveRamasse();
+						this.eval(n.filsDroit);
+						break;
+					case MoveAttack:
+						this.moveAttack();
+						this.eval(n.filsDroit);
+						break;
+					case MoveDef:
+						this.moveDef();
+						this.eval(n.filsDroit);
+						break;
+					case Sup:
+						if (isPossible(n.filsGauche) == 0){
+							this.eval(n.filsDroit);
+						}
+						else{
+							this.eval(n.filsGauche);
+						}
+						break;
+					case Etoile:
+	//					while(tour==this.equipe){
+							eval(n.filsDroit);
+	//					}
+						break;
+					case Ou:
+						if(choixOu){
+							eval(n.filsGauche);
+						}
+						else{
+							eval(n.filsDroit);
+						}
+						break;
+				default:
 					break;
-				case Etoile:
-//					while(tour==this.equipe){
-						eval(n.filsDroit);
-//					}
-					break;
-				case Ou:
-					if(choixOu){
-						eval(n.filsGauche);
-					}
-					else{
-						eval(n.filsDroit);
-					}
-					break;
-			default:
-				break;
+				}
+				stun = false;
 			}
-			stun = false;
 		}
 	}
 
@@ -1101,6 +1104,14 @@ public class Robots extends Perso{
 			
 		}
 		
+	}
+	public static void main(String[] args) {
+		Robots r1 = new Robots(3, 3, 1, "(S)");
+		r1.pdv = 30;
+		r1.soin();
+		System.out.println(r1.pdv);
+		r1.eval(r1.a);
+		System.out.println(r1.pdv);
 	}
 	
 }
