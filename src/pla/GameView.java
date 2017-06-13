@@ -308,7 +308,7 @@ public class GameView extends JPanel {
 			}
 			Create_Robot.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					//GameModel.Create_Robot();
+					GameModel.Create_Robot();
 
 				}
 			});

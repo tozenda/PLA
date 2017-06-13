@@ -13,9 +13,9 @@ public class GameModel {
 
 	static Game m_game;
 	static Map map;
-	Heros heros1;
-	Heros heros2;
-	List <Robots> robot_list = new LinkedList<Robots>();
+	static Heros heros1;
+	static Heros heros2;
+	static List <Robots> robot_list = new LinkedList<Robots>();
 	Robots robot;
 	Case currentCase = null;
 	public static int situation = 1;
@@ -277,41 +277,67 @@ public class GameModel {
 		m_game.returnFocus();
 	}
 
-	public void Create_Robot() {
+	public static void Create_Robot() {
 		System.out.println("Create Robot");
 		String com = "";
 		if((Game.game.tourDe1)&&(!Game.game.PhaseAction)){
 			com = m_game.m_view.getTextField();
-			this.robot_list.add(new Robots(heros1.getX(),heros1.getY(),1,com));
+			if(GameModel.map.getCase(heros1.getX()+1,heros1.getY()).getContenu().isVide()){
+				robot_list.add(new Robots(heros1.getX()+1,heros1.getY(),1,com));
+			}
+			else if(GameModel.map.getCase(heros1.getX(),heros1.getY()+1).getContenu().isVide()){
+				robot_list.add(new Robots(heros1.getX(),heros1.getY()+1,1,com));
+			}
+			else if(GameModel.map.getCase(heros1.getX()-1,heros1.getY()).getContenu().isVide()){
+				robot_list.add(new Robots(heros1.getX()-1,heros1.getY(),1,com));
+			}
+			else if(GameModel.map.getCase(heros1.getX(),heros1.getY()-1).getContenu().isVide()){
+				robot_list.add(new Robots(heros1.getX(),heros1.getY()-1,1,com));
+			}
+			else if(GameModel.map.getCase(heros1.getX()+1,heros1.getY()+1).getContenu().isVide()){
+				robot_list.add(new Robots(heros1.getX()+1,heros1.getY()+1,1,com));
+			}
+			else if(GameModel.map.getCase(heros1.getX()+1,heros1.getY()-1).getContenu().isVide()){
+				robot_list.add(new Robots(heros1.getX()+1,heros1.getY()-1,1,com));
+			}
+			else if(GameModel.map.getCase(heros1.getX()-1,heros1.getY()+1).getContenu().isVide()){
+				robot_list.add(new Robots(heros1.getX()-1,heros1.getY()+1,1,com));
+			}
+			else if(GameModel.map.getCase(heros1.getX()-1,heros1.getY()-1).getContenu().isVide()){
+				robot_list.add(new Robots(heros1.getX()-1,heros1.getY()-1,1,com));
+			}
+			else{
+				//TODO : Faire une popup qui indique que le robot ne peut être généré faute de place...
+			}
 		}
 		else if((!Game.game.tourDe1)&&(!Game.game.PhaseAction)){
 			com = m_game.m_view.getTextField();
 			if(GameModel.map.getCase(heros2.getX()+1,heros2.getY()).getContenu().isVide()){
-				this.robot_list.add(new Robots(heros2.getX()+1,heros2.getY(),2,com));
+				robot_list.add(new Robots(heros2.getX()+1,heros2.getY(),2,com));
 			}
 			else if(GameModel.map.getCase(heros2.getX(),heros2.getY()+1).getContenu().isVide()){
-				this.robot_list.add(new Robots(heros2.getX(),heros2.getY()+1,2,com));
+				robot_list.add(new Robots(heros2.getX(),heros2.getY()+1,2,com));
 			}
 			else if(GameModel.map.getCase(heros2.getX()-1,heros2.getY()).getContenu().isVide()){
-				this.robot_list.add(new Robots(heros2.getX()-1,heros2.getY(),2,com));
+				robot_list.add(new Robots(heros2.getX()-1,heros2.getY(),2,com));
 			}
 			else if(GameModel.map.getCase(heros2.getX(),heros2.getY()-1).getContenu().isVide()){
-				this.robot_list.add(new Robots(heros2.getX(),heros2.getY()-1,2,com));
+				robot_list.add(new Robots(heros2.getX(),heros2.getY()-1,2,com));
 			}
 			else if(GameModel.map.getCase(heros2.getX()+1,heros2.getY()+1).getContenu().isVide()){
-				this.robot_list.add(new Robots(heros2.getX()+1,heros2.getY()+1,2,com));
+				robot_list.add(new Robots(heros2.getX()+1,heros2.getY()+1,2,com));
 			}
 			else if(GameModel.map.getCase(heros2.getX()+1,heros2.getY()-1).getContenu().isVide()){
-				this.robot_list.add(new Robots(heros2.getX()+1,heros2.getY()-1,2,com));
+				robot_list.add(new Robots(heros2.getX()+1,heros2.getY()-1,2,com));
 			}
 			else if(GameModel.map.getCase(heros2.getX()-1,heros2.getY()+1).getContenu().isVide()){
-				this.robot_list.add(new Robots(heros2.getX()-1,heros2.getY()+1,2,com));
+				robot_list.add(new Robots(heros2.getX()-1,heros2.getY()+1,2,com));
 			}
 			else if(GameModel.map.getCase(heros2.getX()-1,heros2.getY()-1).getContenu().isVide()){
-				this.robot_list.add(new Robots(heros2.getX()-1,heros2.getY()-1,2,com));
+				robot_list.add(new Robots(heros2.getX()-1,heros2.getY()-1,2,com));
 			}
 			else{
-				//TODO
+				//TODO : Faire une popup qui indique que le robot ne peut être généré faute de place...
 			}
 		}
 		m_game.returnFocus();
