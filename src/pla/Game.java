@@ -32,6 +32,7 @@ public class Game {
 	int cmpt2=0;
 	
 	public Game() {
+		Sound.bgmusic.loop();
 		m_model = new GameModel(this);
 	    m_controller = new GameController(this, m_model);
 	    createWindow();

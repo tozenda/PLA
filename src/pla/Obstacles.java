@@ -35,5 +35,11 @@ public class Obstacles extends Observables{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public String getDescription() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

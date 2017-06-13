@@ -355,7 +355,7 @@ public class GameView extends JPanel {
 				break;
 
 			case ("B"):
-				info.setIcon(new ImageIcon(new ImageIcon(Path + "base.png").getImage().getScaledInstance(50, 50,
+				info.setIcon(new ImageIcon(new ImageIcon(Path + "Base1.png").getImage().getScaledInstance(50, 50,
 						java.awt.Image.SCALE_SMOOTH)));
 				s = "<html><font color='rgb(31, 178, 163)'>Base</font>" + s
 						+ "<br/>No <font color='rgb(216, 40, 82)'>princess</font>, but you <br/> still have to protect it...</html>";
@@ -366,20 +366,24 @@ public class GameView extends JPanel {
 				s = "<html><font color='rgb(31, 178, 163)'>Robot</font>" + s
 						+ "<br/>This is a robot <br/>A stupid one.</html>";
 				break;
-			case ("C"):
-				// TODO
-				info.setIcon(new ImageIcon(new ImageIcon(Path + "hero.png").getImage().getScaledInstance(50, 50,
-						java.awt.Image.SCALE_SMOOTH)));
-				s = "<html><font color='rgb(31, 178, 163)'>Skill</font>" + s
-						+ "<br/>This is you...<br/>Ever considered <br/>plastic surgery? <br/>How sad.</html>";
-				break;
-			// <span style\"color: red\">" + message + "</span>
-
-			default:
+			case ("V"):
+				
 				info.setIcon(new ImageIcon(new ImageIcon(Path + "base.png").getImage().getScaledInstance(1, 1,
 						java.awt.Image.SCALE_SMOOTH)));
 				s = "<html><font color='rgb(213, 178, 94)'>Emptiness</font>" + s
 						+ "<br/>Nah, there's nothing<br/> here <br/> Drugs I guess?</html>";
+				// TODO
+				
+				
+			// <span style\"color: red\">" + message + "</span>
+
+			default:
+				info.setIcon(new ImageIcon(new ImageIcon(Path +m_model.getCurrentCase().getContenu().getPic()).getImage().getScaledInstance(50, 50,
+						java.awt.Image.SCALE_SMOOTH)));
+				
+				s = "<html><font color='rgb(31, 178, 163)'>"+m_model.getCurrentCase().getContenu().toString()+"</font>" 
+						 + "<br/>"
+						+ m_model.getCurrentCase().getContenu().getDescription();
 				break;
 
 			}

@@ -1075,5 +1075,11 @@ public class Robots extends Perso{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public String getDescription() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

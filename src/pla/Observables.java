@@ -13,6 +13,7 @@ public abstract class Observables {
 		return 0;
 	}
 	public abstract String getPic();
+	public abstract String getDescription();
 
 	
 
