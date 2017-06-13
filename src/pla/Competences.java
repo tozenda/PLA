@@ -54,13 +54,13 @@ public class Competences extends Observables {
 	
 	public void recupListCompetence(Noeud n) {
 		if(n!=null){
+			this.addCompetence(n.action);
 			if(n.filsDroit!=null){
 				this.recupListCompetence(n.filsDroit);
 			}
 			if(n.filsGauche!=null){
 				this.recupListCompetence(n.filsGauche);
 			}
-			this.addCompetence(n.action);
 		}
 	}
 
