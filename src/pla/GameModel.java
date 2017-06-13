@@ -24,7 +24,46 @@ public class GameModel {
 	 * 3 = Choix2
 	 * 4 = Action2
 	 */
+	private int Factx = 1;
+	private int Facty = 1;
+	
+	public int getFactx(){
+		return Factx;
+	}
 
+	
+	public int getFacty(){
+		return Facty;
+	}
+
+	
+	void setFactXY() {
+
+		/*
+		 * Factx=m_model.map.getLocation()%2;
+		 * Facty=(m_model.map.getLocation()/2)+1;
+		 */
+		switch (this.map.getLocation()) {
+		
+		case (2):
+			Factx = 2;
+			Facty = 1;
+			break;
+		case (3):
+			Factx = 1;
+			Facty = 2;
+			break;
+		case (4):
+			Factx = 2;
+			Facty = 2;
+			break;
+		default:
+			Factx = 1;
+			Facty = 1;
+			break;
+
+		}
+	}
 
 	GameModel(Game game) {
 		m_game = game;

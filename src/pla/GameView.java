@@ -55,8 +55,7 @@ public class GameView extends JPanel {
 	private BufferedImage iTree = null;
 	private BufferedImage iBase = null;
 	private BufferedImage iSkill = null;
-	private int Factx = 1;
-	private int Facty = 1;
+
 	BufferedImage iRobot_settings = null;
 	Color Gold = new Color(229, 186, 27);
 	String Thomas = "/home/tozenda/COURS/RICM3/S6/PLA/PLA/Resources/";
@@ -355,7 +354,7 @@ public class GameView extends JPanel {
 				break;
 
 			case ("B"):
-				info.setIcon(new ImageIcon(new ImageIcon(Path + "Base1.png").getImage().getScaledInstance(50, 50,
+				info.setIcon(new ImageIcon(new ImageIcon(Path + "base.png").getImage().getScaledInstance(50, 50,
 						java.awt.Image.SCALE_SMOOTH)));
 				s = "<html><font color='rgb(31, 178, 163)'>Base</font>" + s
 						+ "<br/>No <font color='rgb(216, 40, 82)'>princess</font>, but you <br/> still have to protect it...</html>";
@@ -366,12 +365,13 @@ public class GameView extends JPanel {
 				s = "<html><font color='rgb(31, 178, 163)'>Robot</font>" + s
 						+ "<br/>This is a robot <br/>A stupid one.</html>";
 				break;
-			case ("V"):
+			case ("Vide"):
 
 				info.setIcon(new ImageIcon(new ImageIcon(Path + "base.png").getImage().getScaledInstance(1, 1,
 						java.awt.Image.SCALE_SMOOTH)));
 				s = "<html><font color='rgb(213, 178, 94)'>Emptiness</font>" + s
 						+ "<br/>Nah, there's nothing<br/> here <br/> Drugs I guess?</html>";
+				break;
 				// TODO
 
 				// <span style\"color: red\">" + message + "</span>
@@ -470,33 +470,7 @@ public class GameView extends JPanel {
 		m_npaints++;
 	}
 
-	private void setFactXY() {
-
-		/*
-		 * Factx=m_model.map.getLocation()%2;
-		 * Facty=(m_model.map.getLocation()/2)+1;
-		 */
-		switch (m_model.map.getLocation()) {
-		case (2):
-			Factx = 2;
-			Facty = 1;
-			break;
-		case (3):
-			Factx = 1;
-			Facty = 2;
-			break;
-		case (4):
-			Factx = 2;
-			Facty = 2;
-			break;
-		default:
-			Factx = 1;
-			Facty = 1;
-			break;
-
-		}
-	}
-
+	
 	/*
 	 * Dessine une image en x,y. S est le nom de l'image. L'image doit être dans
 	 * le fichier "resources"
@@ -517,11 +491,7 @@ public class GameView extends JPanel {
 
 	}
 
-	/*
-	 * public String getSkillPic(Competences skill){ switch(this){ case():
-	 * return "hey"; } }
-	 */
-	// pour afficher des objets sur notre fenetre
+	// pour afficher des objets sur notre fenêtre
 	public void paintComponent(Graphics g) {
 		/*
 		 * On réaffiche le JLabel info (right click) après modification
@@ -534,10 +504,7 @@ public class GameView extends JPanel {
 		int nbrCaseX = 20;
 		int nbrCaseY = 12;
 		computeFPS();
-		/*
-		 * Image image; ImageIcon ii = new ImageIcon("../img/hero.png"); //image
-		 * = ii.getImage(); g.drawImage(image, 0, 0, null);
-		 */
+		
 		// Quadrillage de la map
 		draw(g, "Bande.png", 0, 0, 0, 0);
 		g.setColor(Color.BLACK);
@@ -556,7 +523,9 @@ public class GameView extends JPanel {
 
 		for (int i = 0; i < nbrCaseX; i++) {
 			for (int j = 0; j < nbrCaseY; j++) {
-				setFactXY();
+				m_model.setFactXY();
+				int Factx = m_model.getFactx();
+				int Facty = m_model.getFacty();
 				Case c = m_model.map.getCase(((Factx - 1) * nbrCaseX) + i, (Facty - 1) * nbrCaseY + j);
 				Observables obs = c.getContenu();
 				if (obs.isObstacles()) {

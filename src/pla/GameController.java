@@ -21,6 +21,7 @@ public class GameController implements MouseListener, MouseMotionListener, KeyLi
 	static int down = KeyEvent.VK_DOWN;
 	static int left = KeyEvent.VK_LEFT;
 	static int right = KeyEvent.VK_RIGHT;
+	
 
 	GameController(Game game, GameModel model) {
 		m_game = game;
@@ -57,8 +58,7 @@ public class GameController implements MouseListener, MouseMotionListener, KeyLi
 		if (echo)
 			System.out.println("KeyReleased: " + e);
 		int memGetkeychar = e.getKeyCode();
-		if((memGetkeychar == up) || (memGetkeychar == down) || (memGetkeychar == left)
-				|| (memGetkeychar == right)){
+		if ((memGetkeychar == up) || (memGetkeychar == down) || (memGetkeychar == left) || (memGetkeychar == right)) {
 			System.out.println("KeyReleased: " + e.getKeyChar());
 			m_model.heroMove(memGetkeychar);
 		}
@@ -67,12 +67,15 @@ public class GameController implements MouseListener, MouseMotionListener, KeyLi
 	public void mouseClicked(MouseEvent e) {
 		if (echo)
 			System.out.println("MouseClicked: " + e);
-		System.out.println("X is : " + e.getX()/40+" Y is : " + e.getY()/40);
-		 if(SwingUtilities.isRightMouseButton(e)){
-			 m_model.Info(e.getX()/40,e.getY()/40);
-		 }
+		System.out.println("X is : " + e.getX() / 40 + " Y is : " + e.getY() / 40);
+		if (SwingUtilities.isRightMouseButton(e)) {
+			m_model.setFactXY();
+			int Factx = m_model.getFactx();
+			int Facty = m_model.getFacty();
+			System.out.println("First" + ((Factx-1)* 20 +  (e.getX()/ 40)) + "Second :" + (((Facty-1)*12)+(e.getY() / 40)));
+			m_model.Info(((Factx-1)* 20 +  (e.getX()/ 40)), (((Facty-1)*12)+(e.getY() / 40)));
+		}
 	}
-
 
 	public void mousePressed(MouseEvent e) {
 		if (echo)
