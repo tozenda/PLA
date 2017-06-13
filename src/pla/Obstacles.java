@@ -29,5 +29,11 @@ public class Obstacles extends Observables{
 	public boolean isRobot() {
 		return false;
 	}
+
+	@Override
+	public String getPic() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

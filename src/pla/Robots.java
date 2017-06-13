@@ -3,6 +3,10 @@ package pla;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
+
+import java.io.Reader;
 import java.math.*;
 
 @SuppressWarnings("unused")
@@ -40,9 +44,9 @@ public class Robots extends Perso{
 		this.j = j;
 		// this.a = Reader.read(s);
 		this.a = null;
-        Reader parser = new Reader(System.in);
+       // Reader parser = new Reader(System.in);
         try {
-                this.a=parser.read(s);
+                //this.a=parser.read(s);
         } catch (ParseException e) {
                 e.printStackTrace();
         }
@@ -1064,6 +1068,12 @@ public class Robots extends Perso{
 				return 1;
 		}
 		return 1;
+	}
+
+	@Override
+	public String getPic() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	/*supprime les compétences utilisées pour créer un robot de l'inventaire*/

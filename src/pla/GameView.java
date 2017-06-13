@@ -75,12 +75,29 @@ public class GameView extends JPanel {
 			jtf = new JTextField();
 			sideg.gridx = 0;
 			sideg.gridy = 7;
-
 			sideg.gridheight = 1;
-			sideg.anchor=GridBagConstraints.PAGE_END;
+			sideg.anchor = GridBagConstraints.PAGE_END;
 			sideg.fill = GridBagConstraints.HORIZONTAL;
 		}
 		return jtf;
+	}
+
+	private MiniMap setMinimap() {
+		sideg.gridx = 0;
+		sideg.gridy = 4;
+		sideg.gridwidth = 1;
+		sideg.anchor = GridBagConstraints.CENTER;
+		// sideg.fill=sideg.anchor=GridBagConstraints.
+		sideg.fill = GridBagConstraints.BOTH;
+
+		MiniMap minimap = new MiniMap("Heyxkjcnvfkj");
+		Border border = minimap.getBorder();
+		Border margin = new EmptyBorder(10, 10, 10, 10);
+		minimap.setPreferredSize(new Dimension(140, 250));
+		minimap.setBorder(new CompoundBorder(border, margin));
+
+		minimap.setBackground(Color.RED);
+		return minimap;
 	}
 
 	private JPanel build() {
@@ -100,25 +117,7 @@ public class GameView extends JPanel {
 		setPanelE().add(setTextField(), sideg);
 		setPanelE().add(setInventory(), sideg);
 		setPanelE().add(setInfo(), sideg);
-		sideg.gridx = 0;
-		sideg.gridy = 4;
-		sideg.gridwidth = 1;
-		sideg.anchor= GridBagConstraints.CENTER;
-		// sideg.fill=sideg.anchor=GridBagConstraints.
-		sideg.fill = GridBagConstraints.BOTH;
-
-		MiniMap minimap = new MiniMap("Heyxkjcnvfkj");
-		Border border = minimap.getBorder();
-		Border margin = new EmptyBorder(10, 10, 10, 10);
-		minimap.setPreferredSize(new Dimension(140, 250));
-		minimap.setBorder(new CompoundBorder(border, margin));
-
-		minimap.setBackground(Color.RED);
-		setPanelE().add(minimap, sideg);
-		/*
-		 * sideg.gridx = 0; sideg.gridy = 6; setPanelE().add(new JLabel("Hey"),
-		 * sideg);
-		 */
+		setPanelE().add(setMinimap(), sideg);
 		return setPanelE();
 
 	}
@@ -176,11 +175,10 @@ public class GameView extends JPanel {
 		sideg.gridx = 0;
 		sideg.gridy = 1;
 		sideg.gridheight = 2;
-		
+
 		JTextArea textArea = new JTextArea(5, 5);
 		JScrollPane scrollableTextArea = new JScrollPane(textArea);
 
-		// scrollableTextArea.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollableTextArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		return scrollableTextArea;
 	}
@@ -497,8 +495,38 @@ public class GameView extends JPanel {
 		}
 	}
 
+	/*
+	 * Dessine une image en x,y. S est le nom de l'image. L'image doit être dans
+	 * le fichier "resources"
+	 */
+	private void draw(Graphics g, String s, int x, int y, int resizedX,int resizedY) {
+		BufferedImage iPic;
+		try {
+			iPic = ImageIO.read(new File(Path + s));
+			if (resizedX==0||resizedY==0){
+				g.drawImage(iPic, x, y, this);
+			}
+			else{
+				g.drawImage(iPic, x, y,resizedX,resizedY, this);
+			}
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+	}
+/*public String getSkillPic(Competences skill){
+	switch(this){
+		case():
+			return "hey";
+}
+}*/
 	// pour afficher des objets sur notre fenetre
 	public void paintComponent(Graphics g) {
+		/*
+		 * On réaffiche le JLabel info (right click) après modification
+		 * 
+		 */
 		if (m_model.getLabelmodified()) {
 			setInfo();
 			m_model.setLabelmodified(false);
@@ -511,15 +539,7 @@ public class GameView extends JPanel {
 		 * = ii.getImage(); g.drawImage(image, 0, 0, null);
 		 */
 		// Quadrillage de la map
-		BufferedImage iBande;
-		try {
-			iBande = ImageIO.read(new File(Path + "Bande.png"));
-			g.drawImage(iBande, 0, 0, this);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
+		draw(g, "Bande.png", 0, 0,0,0);
 		g.setColor(Color.BLACK);
 		// Vertical
 		for (int i = (m_model.map.getLocation() - 1) * nbrCaseX; i <= m_model.map.getLocation()
@@ -549,23 +569,15 @@ public class GameView extends JPanel {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					// g.setColor(Color.BLACK);
-					// g.fillRect(i * tailleCase + 1, j * tailleCase + 1,
-					// tailleCase - 1, tailleCase - 1);
 				} else if (obs.isHeros()) {
 					try {
 						iHero = ImageIO.read(new File(Path + "hero.png"));
 						g.drawImage(iHero, (i % m_model.map.getWidth()) * tailleCase + 1,
 								(j % m_model.map.getHeight()) * tailleCase + 1, 39, 39, this);
-						// g.drawImage(iHero, i * tailleCase + 1, j * tailleCase
-						// + 1, this);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					// g.setColor(Color.RED);
-					// g.fillRect(i * tailleCase + 1, j * tailleCase + 1,
-					// tailleCase - 1, tailleCase - 1);
 				} else if (obs.isBase()) {
 					g.setColor(Color.ORANGE);
 					g.fillRect((i % m_model.map.getWidth()) * tailleCase + 1,
@@ -574,35 +586,24 @@ public class GameView extends JPanel {
 					g.setColor(Color.cyan);
 					g.fillRect((i % m_model.map.getWidth()) * tailleCase + 1,
 							(j % m_model.map.getHeight()) * tailleCase + 1, tailleCase - 1, tailleCase - 1);
-				} else {
+				} else if(obs.isCompetences()){
+					try {
+						iSkill = ImageIO.read(new File(Path + obs.getPic()));
+						g.drawImage(iSkill, (i % m_model.map.getWidth()) * tailleCase + 1,
+								(j % m_model.map.getHeight()) * tailleCase + 1, 39, 39, this);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				}
+					else {
+				
 					g.setColor(Color.white);
-					// g.fillRect(i * tailleCase + 1, j * tailleCase + 1,
-					// tailleCase - 1, tailleCase - 1);
 				}
 			}
 		}
 
-		// // Base des 2 joueurs
-		// g.setColor(Color.RED);
-		// g.fillRect(0, 10 * tailleCase, 2 * tailleCase, 2 * tailleCase);
-		// g.setColor(Color.BLUE);
-		// g.fillRect(18 * tailleCase, 0, 2 * tailleCase, 2 * tailleCase);
-		//
-		// // Quelques obstacles
-		// g.setColor(Color.BLACK);
-		// g.fillRect(4 * tailleCase, 3 * tailleCase, 1 * tailleCase, 3 *
-		// tailleCase);
-		// g.fillRect(5 * tailleCase, 3 * tailleCase, 2 * tailleCase, 1 *
-		// tailleCase);
-		// g.fillRect(13 * tailleCase, 8 * tailleCase, 3 * tailleCase, 1 *
-		// tailleCase);
-		// g.fillRect(15 * tailleCase, 6 * tailleCase, 1 * tailleCase, 2 *
-		// tailleCase);
-		// g.fillRect(9 * tailleCase, 5 * tailleCase, 2 * tailleCase, 2 *
-		// tailleCase);
 
 	}
-	/*
-	 * public static void Please(){ revalidate(); repaint(); }
-	 */
 }

@@ -125,4 +125,10 @@ public class Heros extends Perso{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public String getPic() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
