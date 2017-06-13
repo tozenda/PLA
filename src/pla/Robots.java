@@ -96,17 +96,17 @@ public class Robots extends Perso{
 	}
 	
 	private Observables contenu(String dir){
-		if(dir == "N"){
+		if(dir == "N" && i<GameModel.map.getTotalWidth() && j<GameModel.map.getTotalHeight()){
 			return GameModel.map.getCase(i, j-1).getContenu();
 		}
-		else if(dir == "S"){
+		else if(dir == "S" && i<GameModel.map.getTotalWidth() && j<GameModel.map.getTotalHeight()){
 			return GameModel.map.getCase(i, j+1).getContenu();
 
 		}
-		else if(dir == "E"){
+		else if(dir == "E" && i<GameModel.map.getTotalWidth() && j<GameModel.map.getTotalHeight()){
 			return GameModel.map.getCase(i+1, j).getContenu();
 		}
-		else if(dir == "W"){
+		else if(dir == "W" && i<GameModel.map.getTotalWidth() && j<GameModel.map.getTotalHeight()){
 			return GameModel.map.getCase(i-1,j).getContenu();
 		}
 		else{
@@ -285,7 +285,8 @@ public class Robots extends Perso{
 
 	public void move(Case c) {
 		
-
+		di = c.getX();
+		dj = c.getY();
 		Map map = GameModel.map;
 		
 		int resX = (int) Math.sqrt(Math.pow(di-i, 2));
@@ -362,7 +363,7 @@ public class Robots extends Perso{
 		
 		for(int k = i-1; k<= i+1; k++){
 			for(int l = j-1; l<=j+1; l++){
-				if(0<=k && k<20 && 0<=l&& l<12){
+				if(0<=k && k<map.getWidth() && 0<=l&& l<map.getHeight()){
 					Case c = map.getCase(k, l);
 					Observables obs = c.getContenu();
 					
@@ -383,7 +384,7 @@ public class Robots extends Perso{
 								pdv -= 15;
 							}
 							double p = Math.random();		
-							if(p > 0.05+r2.defend() && r2.protection){
+							if(p > 0.05+r2.defend() && !r2.protection){
 								//Si non esquive du robot adverse
 								if(boostDegat){
 									r2.pdv -= 10;
@@ -416,7 +417,7 @@ public class Robots extends Perso{
 		
 		for(int k = i-1; k<= i+1; k++){
 			for(int l = j-1; l<=j+1; l++){
-				if(0<=k && k<20 && 0<=l&& l<12){
+				if(0<=k && k<40 && 0<=l&& l<24){
 					Case c = map.getCase(k, l);
 					Observables obs = c.getContenu();
 					
@@ -435,11 +436,11 @@ public class Robots extends Perso{
 						Robots r2 = (Robots) obs;
 						if(r2.equipe != this.equipe){
 							double p = Math.random();		
-							if(p > 0.05+r2.defend()){
+							if(p > 0.05+r2.defend() && !r2.protection){
 								//Si non esquive du robot adverse
 								r2.pdv -= 30;
 								this.soin();
-								destructionRobot();
+								r2.destructionRobot();
 							}
 							return 1;
 						}
@@ -470,7 +471,7 @@ public class Robots extends Perso{
 		if(this.pdv < 35){
 			for(int k = i-1; k<= i+1; k++){
 				for(int l = j-1; l<=j+1; l++){
-					if(0<=k && k<20 && 0<=l&& l<12){
+					if(0<=k && k<map.getWidth() && 0<=l&& l<map.getHeight()){
 					
 						Case c = map.getCase(k, l);
 						Observables obs = c.getContenu();
@@ -487,6 +488,8 @@ public class Robots extends Perso{
 				}
 			}
 			if(res>1){
+				this.pdv=0;
+				this.destructionRobot();
 				return 1;
 			}
 		}
@@ -505,7 +508,7 @@ public class Robots extends Perso{
 		if(this.pdv < 35){
 			for(int k = i-1; k<= i+1; k++){
 				for(int l = j-1; l<=j+1; l++){
-					if(0<=k && k<20 && 0<=l&& l<12){
+					if(0<=k && k<map.getWidth() && 0<=l&& l<map.getHeight()){
 					
 						Case c = map.getCase(k, l);
 						Observables obs = c.getContenu();
@@ -514,6 +517,7 @@ public class Robots extends Perso{
 							Robots r2 = (Robots) obs;
 							if(this.equipe != r2.equipe){
 								r2.pdv -=this.pdv;
+								this.pdv = 0;
 								destructionRobot();
 								r2.destructionRobot();
 								return 1;
@@ -537,7 +541,7 @@ public class Robots extends Perso{
 		
 		for(int k = i-1; k<= i+1; k++){
 			for(int l = j-1; l<=j+1; l++){
-				if(0<=k && k<20 && 0<=l&& l<12){
+				if(0<=k && k<map.getWidth() && 0<=l&& l<map.getHeight() && k+l<i+j+2){
 					Case c = map.getCase(k, l);
 					Observables obs = c.getContenu();
 					
@@ -545,7 +549,7 @@ public class Robots extends Perso{
 						Robots r2 = (Robots) obs;
 						if(r2.equipe != this.equipe){
 							double p = Math.random();		
-							if(p > 0.6+r2.defend()){
+							if(p > 0.8+r2.defend()){
 								//Si non esquive du robot adverse, le stun
 								r2.stun = true;
 							}
@@ -572,7 +576,7 @@ public class Robots extends Perso{
 		
 		for(int k = i-1; k<= i+1; k++){
 			for(int l = j-1; l<=j+1; l++){
-				if(0<=k && k<20 && 0<=l&& l<12){
+				if(0<=k && k<40 && 0<=l&& l<24){
 					Case c = map.getCase(k, l);
 					Observables obs = c.getContenu();
 					
@@ -598,7 +602,7 @@ public class Robots extends Perso{
 	 */
 	public int protection(){
 		double p = Math.random();		
-		if(p > 0.85-this.defend()){
+		if(p > 0.0-this.defend()){
 			protection = true;
 		}
 		return 1;
@@ -629,32 +633,27 @@ public class Robots extends Perso{
 	public int poison(){
 		Map map = GameModel.map;
 		
-		if(this.pdv < 35){
-			for(int k = i-1; k<= i+1; k++){
-				for(int l = j-1; l<=j+1; l++){
-					if(0<=k && k<20 && 0<=l&& l<12){
+		for(int k = i-1; k<= i+1; k++){
+			for(int l = j-1; l<=j+1; l++){
+				if(0<=k && k<40 && 0<=l&& l<24){
 					
-						Case c = map.getCase(k, l);
-						Observables obs = c.getContenu();
+					Case c = map.getCase(k, l);
+					Observables obs = c.getContenu();
 						
-						if(obs.isRobot()){
-							Robots r2 = (Robots) obs;
-							if(this.equipe != r2.equipe){
-								double p = Math.random();		
-								if(p > 0.4){
-									r2.poison += 3;
-								}
+					if(obs.isRobot()){
+						Robots r2 = (Robots) obs;
+						if(this.equipe != r2.equipe){
+							double p = Math.random();		
+							if(p > 0.0){
+								r2.poison += 3;
+								return 1;
 							}
 						}
 					}
 				}
 			}
-			return 1;
-			
 		}
-		else{
-			return 0;
-		}
+		return 0;
 	}
 	
 	/* se dirige vers la compétence la plus proche :
@@ -662,13 +661,14 @@ public class Robots extends Perso{
 	 * On apelle move vers cette case
 	 */
 	public int moveRamasse(){
-		int min = 30;
+		Map map = GameModel.map;
+		int min = map.getHeight()+map.getWidth();
 		int min_i = 0, min_j = 0;
 		int tmp = 0;
-		Map map = GameModel.map;
 		
-		for(int k = 0; k<map.getHeight(); k++){
-			for(int l = 0; l<map.getWidth(); l++){
+		
+		for(int k = 0; k<map.getTotalWidth(); k++){
+			for(int l = 0; l<map.getTotalHeight(); l++){
 				
 				Case c = map.getCase(k, l);
 				Observables obs = c.getContenu();
@@ -702,14 +702,14 @@ public class Robots extends Perso{
 	 * Si il trouve pas l'ennemie il attaque la base adverse
 	 */
 	public int moveAttack(){
-		int min = 30;
+		Map map = GameModel.map;
+		int min = map.getTotalHeight()+map.getTotalWidth();
 		int min_i = 0, min_j = 0;
 		int tmp = 0;
-		Map map = GameModel.map;
 		
 		//recherche d'ennemie
-		for(int k = 0; k<map.getHeight(); k++){
-			for(int l = 0; l<map.getWidth(); l++){
+		for(int k = 0; k<map.getTotalWidth(); k++){
+			for(int l = 0; l<map.getTotalHeight(); l++){
 				
 				Case c = map.getCase(k, l);
 				Observables obs = c.getContenu();
@@ -742,13 +742,13 @@ public class Robots extends Perso{
 	 * On apelle move vers cette case
 	 */
 	public int moveDef(){
-		int min = 30;
+		Map map = GameModel.map;
+		int min = map.getTotalHeight()+map.getTotalWidth();
 		int min_i = 0, min_j = 0;
 		int tmp = 0;
-		Map map = GameModel.map;
 		
-		for(int k = 0; k<map.getHeight(); k++){
-			for(int l = 0; l<map.getWidth(); l++){
+		for(int k = 0; k<map.getTotalWidth(); k++){
+			for(int l = 0; l<map.getTotalHeight(); l++){
 				
 				Case c = map.getCase(k, l);
 				Observables obs = c.getContenu();
@@ -778,8 +778,8 @@ public class Robots extends Perso{
 	public int moveHeros(){
 		Map map = GameModel.map;
 		
-		for(int k = 0; k<map.getHeight(); k++){
-			for(int l = 0; l<map.getWidth(); l++){
+		for(int k = 0; k<map.getTotalWidth(); k++){
+			for(int l = 0; l<map.getTotalHeight(); l++){
 				
 				Case c = map.getCase(k, l);
 				Observables obs = c.getContenu();
@@ -869,10 +869,12 @@ public class Robots extends Perso{
 	 * Tick de poison
 	 */
 	public void eval(Noeud n){
-		protection = false;
-		contre = false;
+		if((GameModel.situation==1&&this.equipe==1) || (GameModel.situation==3&&this.equipe==2)){
+			protection = false;
+			contre = false;
+		}
 		if(poison>0){
-			pdv -= 10;
+			pdv -= 15;
 			poison--;
 			destructionRobot();
 		}
@@ -1106,12 +1108,14 @@ public class Robots extends Perso{
 		
 	}
 	public static void main(String[] args) {
-		Robots r1 = new Robots(3, 3, 1, "(S)");
+		Robots r1 = new Robots(3, 3, 1, "(H)");
+		Robots r2 = new Robots(3, 4, 1, "(S)");
+		r2.pdv = 70;
 		r1.pdv = 30;
-		r1.soin();
-		System.out.println(r1.pdv);
+		r1.attack();
+		System.out.println(r2.pdv);
 		r1.eval(r1.a);
-		System.out.println(r1.pdv);
+		System.out.println(r2.pdv);
 	}
 	
 }

@@ -88,6 +88,8 @@ public class Noeud {
 		    	return Competence.Contrer;
 		    case "P":
 		    	return Competence.Poison;
+		    case "Pr":
+		    	return Competence.Protect;
 		    case "B":
 		    	return Competence.Boost;
 		    case "Mr":
