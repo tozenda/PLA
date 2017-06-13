@@ -789,7 +789,7 @@ public class Robots extends Perso{
 				Game.game.m_model.heros1.inventaire.add(tmp);
 			}
 			else if(this.equipe == 2){
-				//Game.game.m_model.heros2.inventaire.add(tmp);
+				Game.game.m_model.heros2.inventaire.add(tmp);
 			}
 		}
 		c.getLc().clear();
