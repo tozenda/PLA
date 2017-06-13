@@ -16,7 +16,7 @@ public class Reader {
 	  	Noeud n=null;
 		Reader parser = new Reader(System.in);
 		try {
-			n=parser.read("(H;P;Rm)");
+			n=parser.read("(((H)>(Mr))>((P)||(Ma;S)))");
 			System.out.println(n.action);
 		} catch (ParseException e) {
 			e.printStackTrace();
