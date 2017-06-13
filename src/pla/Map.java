@@ -1,5 +1,10 @@
 package pla;
 
+import java.util.LinkedList;
+import java.util.Random;
+
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
+
 public class Map {
 	private int width = 20;
 	private int height = 12;
@@ -45,6 +50,28 @@ public class Map {
 		elements[18][28] = new Case(37,19,new Obstacles());
 				
 		elements[0][0] = new Case(0,0,new Heros());
+		
+		Competences c1 = new Competences();
+		
+		LinkedList<Competence> lc = new LinkedList <Competence>();
+		
+		lc.add(Competence.MoveRamasse);
+		
+		c1.setC(lc);
+		
+		elements[4][9] = new Case(9,4,c1);
+		
+		Competences c2 = new Competences();
+
+		LinkedList<Competence> lc2 = new LinkedList <Competence>();
+		
+		lc2.add(Competence.Kamikaze);
+		lc2.add(Competence.Hit);
+		
+		c2.setC(lc2);
+		
+		elements[6][17] = new Case(17,6,c2);
+		
 		addBase(19, 0,2);
 		addBase(18, 0,2);
 		addBase(19, 1,2);
@@ -80,6 +107,112 @@ public class Map {
 
 	public Case[][] getElems() {
 		return elements;
+	}
+	
+	private Competence choixC(int c){
+		if(c<12){
+			return Competence.MoveRamasse;
+		}
+		else if ((c>=12)&&(c<24)){
+			return Competence.MoveAttack;
+		}
+		else if ((c>=24)&&(c<35)){
+			return Competence.MoveDef;
+		}
+		else if((c>=35)&&(c<47)){
+			return Competence.Hit;
+		}
+		else if((c>=47)&&(c<53)){
+			return Competence.Soin;
+		}
+		else if((c>=53)&&(c<58)){
+			return Competence.Kamikaze;
+		}
+		else if((c>=58)&&(c<64)){
+			return Competence.AutoDestruction;
+		}
+		else if((c>=64)&&(c<67)){
+			return Competence.Volvie;
+		}
+		else if((c>=67)&&(c<69)){
+			return Competence.Stun;
+		}
+		else if ((c>=68)&&(c<75)){
+			return Competence.AugDef;
+		}
+		else if ((c>=75)&&(c<80)){
+			return Competence.DimDef;
+		}
+		else if ((c>=80)&&(c<83)){
+			return Competence.Protect;
+		}
+		else if ((c>=83)&&(c<88)){
+			return Competence.Contrer;
+		}
+		else if ((c>=88)&&(c<94)){
+			return Competence.Poison;
+		}
+		else if ((c>=94)&&(c<100)){
+			return Competence.Boost;
+		}
+		else{
+			return null;
+		}
+	}
+	
+	public void bb(){
+		
+	}
+	//TODO : Appeler popCompetence à chaque tick de jeu pour faire pop des competence aléatoirement sur la map. Methode à modifier pour ne pas écraser qqch qui existe déjà :/
+	public void popCompetence(){
+		//System.out.println("popCompetence() appelée");
+		Random rnd = new Random(); //Initialisation du générateur de nombre aléatoire avec le temps comme seed
+		int choix = rnd.nextInt(100); // Random sur 100 pour le choix de la compètence
+		Competence c1 = choixC(choix);
+		int choixI = 0;
+		int choixJ = 0;
+		do{//Permet de ne pas écraser autre chose lors de l'insertion des compétences dans la map.
+			choixI = rnd.nextInt(total_width);
+			choixJ = rnd.nextInt(total_height);
+		}while((!this.getCase(choixI, choixJ).getContenu().isVide())&&(!this.getCase(choixI, choixJ).getContenu().isCompetences()));
+		Competences cs1 = new Competences(c1); //Déclaration de la liste des compétences
+		//if(this.getCase(choixI, choixI).is){
+			
+		//}
+		if(this.getCase(choixI, choixJ).getContenu().isCompetences()){ //Si la case contenait déjà des compétences
+			cs1 = (Competences) this.getCase(choixI, choixJ).getContenu(); //On récupère les compétences
+			cs1.addCompetence(c1);//On ajoute la nouvelle
+		}
+		Case case1 = new Case(choixI,choixJ,cs1); //On met ça dans une case
+		this.editCase(case1);//On met la case dans la map
+		
+		choix = rnd.nextInt(100);
+		Competence c2 = choixC(choix);
+		do{//Permet de ne pas écraser autre chose lors de l'insertion des compétences dans la map.
+			choixI = rnd.nextInt(total_width);
+			choixJ = rnd.nextInt(total_height);
+		}while((!this.getCase(choixI, choixJ).getContenu().isVide())&&(!this.getCase(choixI, choixJ).getContenu().isCompetences()));
+		Competences cs2 = new Competences(c2); //Déclaration de la liste des compétences
+		if(this.getCase(choixI, choixJ).getContenu().isCompetences()){ //Si la case contenait déjà des compétences
+			cs2 = (Competences) this.getCase(choixI, choixJ).getContenu(); //On récupère les compétences
+			cs2.addCompetence(c2);//On ajoute la nouvelle
+		}
+		Case case2 = new Case(choixI,choixJ,cs2);
+		this.editCase(case2);
+		
+		choix = rnd.nextInt(100);
+		Competence c3 = choixC(choix);
+		do{//Permet de ne pas écraser autre chose lors de l'insertion des compétences dans la map.
+			choixI = rnd.nextInt(total_width);
+			choixJ = rnd.nextInt(total_height);
+		}while((!this.getCase(choixI, choixJ).getContenu().isVide())&&(!this.getCase(choixI, choixJ).getContenu().isCompetences()));
+		Competences cs3 = new Competences(c3); //Déclaration de la liste des compétences
+		if(this.getCase(choixI, choixJ).getContenu().isCompetences()){ //Si la case contenait déjà des compétences
+			cs3 = (Competences) this.getCase(choixI, choixJ).getContenu(); //On récupère les compétences
+			cs3.addCompetence(c3);//On ajoute la nouvelle
+		}
+		Case case3 = new Case(choixI,choixJ,cs3);
+		this.editCase(case3);
 	}
 
 	public void setWidth(int width) {

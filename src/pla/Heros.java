@@ -71,9 +71,14 @@ public class Heros extends Perso{
 	}
 
 	public void pickUp(Competences c) {
+		System.out.println("Oh, j'ai qqch à ramasser !");
 		List<Competence> l = c.getLc();
 		for (Competence tmp : l){
 			inventaire.add(tmp);
+		}
+		System.out.println("Inventaire : ");
+		for(Competence cc : inventaire){
+			System.out.println(cc.toString());
 		}
 	}
 
