@@ -63,5 +63,48 @@ public class Competences extends Observables {
 			}
 		}
 	}
+	public String getPic() {
+		switch (this.getLc().get(0)) {
+		case AugDef:
+			return "AugDef.png";
+		case AutoDestruction:
+			return "AutoDestruction.png";
+		case Boost:
+			return "bolt.png";
+		case Contrer:
+			return "Contrer.png";
+		case DimDef:
+			return "DimDef.png";
+		case Etoile:
+			return "Etoile.png";
+		case Hit:
+			return "Hit.png";
+		case Kamikaze:
+			return "Kamikaze.png";
+		case MoveAttack:
+			return "MoveAttack.png";
+		case MoveDef:
+			return "MoveDef.png";
+		case MoveRamasse:
+			return "MoveRamasse.png";
+		case Ou:
+			return "Ou.png";
+		case Poison:
+			return "Poison.png";
+		case Protect:
+			return "Protect.png";
+		case Soin:
+			return "Soin.png";
+		case Stun:
+			return "Stun.png";
+		case Sup:
+			return "Sup.png";
+		case Volvie:
+			return "Volvie.png";
+		default:
+			System.out.println("Skill pic error");
+			return null;
+		}
+	}
 
 }

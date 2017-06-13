@@ -19,7 +19,7 @@ public class _RPanel extends JPanel {
 	String Jo = "/home/ferreira/Bureau/POO/PLA/Resources/";
 	String Paul= "home/doublean/git/PLA/Resources/";
 	String Shoo=null;
-	String Path = Jo;
+	String Path = Najwa;
 	
 	/**
 	 * 
