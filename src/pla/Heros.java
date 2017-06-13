@@ -12,12 +12,14 @@ public class Heros extends Perso{
     List<Competence> inventaire = new ArrayList<Competence>();
     int equipe;
     int pdv;
+    int PointAction;
 
     public Heros() {
         x = 0;
         y = 0;
         pdv = 300;
         equipe = 1;
+        PointAction = 20;
         initHeros();
     }
     
@@ -26,6 +28,7 @@ public class Heros extends Perso{
         this.y = y;
         initHeros();
         pdv = 300;
+        PointAction = 20;
       this.equipe = equipe;
      }
     
@@ -122,8 +125,38 @@ public class Heros extends Perso{
 	}
 
 	public void destructionHeros() {
-		// TODO Auto-generated method stub
-		
+		if(pdv<=0){
+			Map map = GameModel.map;
+			List<Competence> listC = this.inventaire;
+			Competences lComp = new Competences();
+			for(int i = 0; i < listC.size(); i++){
+				lComp.addCompetence(listC.get(0));
+				listC.remove(0);
+		    }
+			Case c = new Case(x, y, lComp);
+			map.editCase(c);
+			Case h=null;
+			if(equipe==1){
+				int i = 23;
+				Case tmp = map.getCase(3, i);
+				while(!tmp.getContenu().isVide()){
+					h = new Case(3, i,this);
+					i--;
+					tmp = map.getCase(3, i);
+				}
+			}
+			else{
+				int i = 0;
+				Case tmp = map.getCase(37, i);
+				while(!tmp.getContenu().isVide()){
+					h = new Case(37, i,this);
+					i++;
+					tmp = map.getCase(37, i);
+				}
+			}
+			pdv = 300;
+			map.editCase(h);
+		}
 	}
 
 	@Override
