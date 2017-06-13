@@ -226,6 +226,7 @@ public class GameModel {
 		else if(situation == 4){
 			Game.game.tourDe1 = true;
 			Game.game.PhaseAction = false;
+			situation = 0;
 		}
 		situation++;
 		m_game.returnFocus();
