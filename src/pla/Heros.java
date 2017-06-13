@@ -12,14 +12,17 @@ public class Heros extends Perso{
     List<Competence> inventaire = new ArrayList<Competence>();
     int equipe;
     int pdv;
-    int PointAction;
+    int pointAction;
+    int maxPointAction = 15;
+	public int coupCreationRobot = 2;
+	public int coupDeplacementHeros = 1;
 
     public Heros() {
         x = 0;
         y = 0;
         pdv = 300;
         equipe = 1;
-        PointAction = 20;
+        pointAction = 20;
         initHeros();
     }
     
@@ -28,7 +31,7 @@ public class Heros extends Perso{
         this.y = y;
         initHeros();
         pdv = 300;
-        PointAction = 20;
+        pointAction = 0;
       this.equipe = equipe;
      }
     
