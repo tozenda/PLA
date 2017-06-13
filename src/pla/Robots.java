@@ -6,7 +6,6 @@ import java.util.Random;
 
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
-import java.io.Reader;
 import java.math.*;
 
 @SuppressWarnings("unused")
@@ -29,7 +28,7 @@ public class Robots extends Perso{
 	public Robots(int i,int j, int equipe){
 		this.i = i;
 		this.j = j;
-//		this.a=a;
+		//this.a=a;
 		this.equipe = equipe;
 		protection = false;
 		contre = false;
@@ -42,11 +41,11 @@ public class Robots extends Perso{
 	public Robots(int i,int j, int equipe, String s){
 		this.i = i;
 		this.j = j;
-		// this.a = Reader.read(s);
+		//this.a = Reader.read(s);
 		this.a = null;
-       // Reader parser = new Reader(System.in);
+        Reader parser = new Reader(System.in);
         try {
-                //this.a=parser.read(s);
+               this.a=parser.read(s);
         } catch (ParseException e) {
                 e.printStackTrace();
         }
@@ -97,17 +96,17 @@ public class Robots extends Perso{
 	
 	private Observables contenu(String dir){
 		if(dir == "N"){
-			return Game.game.m_model.map.getCase(i, j-1).getContenu();
+			return GameModel.map.getCase(i, j-1).getContenu();
 		}
 		else if(dir == "S"){
-			return Game.game.m_model.map.getCase(i, j+1).getContenu();
+			return GameModel.map.getCase(i, j+1).getContenu();
 
 		}
 		else if(dir == "E"){
-			return Game.game.m_model.map.getCase(i+1, j).getContenu();
+			return GameModel.map.getCase(i+1, j).getContenu();
 		}
 		else if(dir == "W"){
-			return Game.game.m_model.map.getCase(i-1,j).getContenu();
+			return GameModel.map.getCase(i-1,j).getContenu();
 		}
 		else{
 			return null;
@@ -286,7 +285,7 @@ public class Robots extends Perso{
 	public void move(Case c) {
 		
 
-		Map map = Game.game.m_model.map;
+		Map map = GameModel.map;
 		
 		int resX = (int) Math.sqrt(Math.pow(di-i, 2));
 		int resY = (int) Math.sqrt(Math.pow(dj-j, 2));
@@ -358,7 +357,7 @@ public class Robots extends Perso{
 	 *	sinon on renvoie 0 pour indiquer que le robot ne peut attaquer personne
 	 */
 	public int attack(){
-		Map map = Game.game.m_model.map;
+		Map map = GameModel.map;
 		
 		for(int k = i-1; k<= i+1; k++){
 			for(int l = j-1; l<=j+1; l++){
@@ -412,7 +411,7 @@ public class Robots extends Perso{
 	
 	//inflige 30 degats, recupere 10 pdv
 	public int voleVie(){
-		Map map = Game.game.m_model.map;
+		Map map = GameModel.map;
 		
 		for(int k = i-1; k<= i+1; k++){
 			for(int l = j-1; l<=j+1; l++){
@@ -465,7 +464,7 @@ public class Robots extends Perso{
 	 * Le robot s'autodÃ©truit et inflige 25 dÃ©gats sur les 8 cases autour de lui
 	 */
 	public int autoDestruction(){
-		Map map = Game.game.m_model.map;
+		Map map = GameModel.map;
 		int res = 0;
 		if(this.pdv < 35){
 			for(int k = i-1; k<= i+1; k++){
@@ -500,7 +499,7 @@ public class Robots extends Perso{
 	 * 
 	 */
 	public int kamikaze(){
-		Map map = Game.game.m_model.map;
+		Map map = GameModel.map;
 		
 		if(this.pdv < 35){
 			for(int k = i-1; k<= i+1; k++){
@@ -533,7 +532,7 @@ public class Robots extends Perso{
 	 * Immobilise un adversaire au tour suivant, 40% de chance de rÃ©ussite de base
 	 */
 	public int stun(){
-		Map map = Game.game.m_model.map;
+		Map map = GameModel.map;
 		
 		for(int k = i-1; k<= i+1; k++){
 			for(int l = j-1; l<=j+1; l++){
@@ -568,7 +567,7 @@ public class Robots extends Perso{
 	 * Diminue pDefense du robot adverse le plus proche, 50% de rÃ©ussite de base
 	 */
 	public int dimDef(){
-		Map map = Game.game.m_model.map;
+		Map map = GameModel.map;
 		
 		for(int k = i-1; k<= i+1; k++){
 			for(int l = j-1; l<=j+1; l++){
@@ -627,7 +626,7 @@ public class Robots extends Perso{
 	 * Tente d'empoisonner le robot le plus proche, 60% de chance de rÃ©ussir
 	 */
 	public int poison(){
-		Map map = Game.game.m_model.map;
+		Map map = GameModel.map;
 		
 		if(this.pdv < 35){
 			for(int k = i-1; k<= i+1; k++){
@@ -665,7 +664,7 @@ public class Robots extends Perso{
 		int min = 30;
 		int min_i = 0, min_j = 0;
 		int tmp = 0;
-		Map map = Game.game.m_model.map;
+		Map map = GameModel.map;
 		
 		for(int k = 0; k<map.getHeight(); k++){
 			for(int l = 0; l<map.getWidth(); l++){
@@ -705,7 +704,7 @@ public class Robots extends Perso{
 		int min = 30;
 		int min_i = 0, min_j = 0;
 		int tmp = 0;
-		Map map = Game.game.m_model.map;
+		Map map = GameModel.map;
 		
 		//recherche d'ennemie
 		for(int k = 0; k<map.getHeight(); k++){
@@ -745,7 +744,7 @@ public class Robots extends Perso{
 		int min = 30;
 		int min_i = 0, min_j = 0;
 		int tmp = 0;
-		Map map = Game.game.m_model.map;
+		Map map = GameModel.map;
 		
 		for(int k = 0; k<map.getHeight(); k++){
 			for(int l = 0; l<map.getWidth(); l++){
@@ -776,7 +775,7 @@ public class Robots extends Perso{
 	 * Des qu'il le trouve se dÃ©place vers celui ci
 	 */
 	public int moveHeros(){
-		Map map = Game.game.m_model.map;
+		Map map = GameModel.map;
 		
 		for(int k = 0; k<map.getHeight(); k++){
 			for(int l = 0; l<map.getWidth(); l++){
@@ -853,7 +852,7 @@ public class Robots extends Perso{
 	 */
 	public void destructionRobot(){
 		if(pdv<=0){
-			Map map = Game.game.m_model.map;
+			Map map = GameModel.map;
 			Competences listC = null;
 			listC.recupListCompetence(this.a);
 			Case c = new Case(i, j, listC);
@@ -1082,14 +1081,14 @@ public class Robots extends Perso{
 		return null;
 	}
 	
-	/*supprime les compétences utilisées pour créer un robot de l'inventaire*/
+	/*supprime les compï¿½tences utilisï¿½es pour crï¿½er un robot de l'inventaire*/
 	public void supCompInventaire(Heros h){
 		List<Competence> inventaire = new ArrayList<Competence>();
 		inventaire = h.inventaire;
 		Competences aSuppr = new Competences();
 		aSuppr.recupListCompetence(this.a);
 		for(Competence c : aSuppr.getLc()){
-			/*test si la competence est présente dans l'inventaire et est différente d'un constructeur*/
+			/*test si la competence est prï¿½sente dans l'inventaire et est diffï¿½rente d'un constructeur*/
 			if (!((c==Competence.Ou)||(c==Competence.Sup)||(c==Competence.Etoile))){
 				if (inventaire.contains(c)){
 					inventaire.remove(c);

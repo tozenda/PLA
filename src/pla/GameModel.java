@@ -12,10 +12,11 @@ import java.util.List;
 public class GameModel {
 
 	static Game m_game;
-	Map map;
+	static Map map;
 	Heros heros1;
 	Heros heros2;
-	List <Robots> robot = new LinkedList<Robots>();
+	//List <Robots> robot = new LinkedList<Robots>();
+	Robots robot;
 	Case currentCase = null;
 	public static int situation = 1;
 	/* 1 = Choix1 
@@ -34,10 +35,10 @@ public class GameModel {
 		Case ch2 = new Case(heros2.getX(), heros2.getY(), heros2);
 		map.editCase(ch1);
 		map.editCase(ch2);
-		/*robot = new Robots(4, 4, 1); // robot en 3,3 de l equipe 1
+		robot = new Robots(4, 4, 1); // robot en 3,3 de l equipe 1
 		Case r = new Case(robot.i, robot.j, robot);
 		map.editCase(r);
-		robot.editDest(29,18);*/
+		robot.editDest(29,18);
 	}
 	private boolean Labelmodified = false;
 
@@ -101,9 +102,9 @@ public class GameModel {
 			dy = currentY;
 		}
 		
-		System.out.println(mvt);
+		//System.out.println(mvt);
 		int currentLocation = map.getHeroLocation(currentX, currentY);
-		System.out.println("Map actuelle : "+ currentLocation);
+		//System.out.println("Map actuelle : "+ currentLocation);
 		// remplacer par switch
 		if (mvt == KeyEvent.VK_LEFT && map.getLocation() != 3) {
 			map.decLocation();
@@ -127,7 +128,7 @@ public class GameModel {
 					map.decLocation();
 					map.decLocation();
 					dy = (currentY - 1);
-					System.out.println("Location " + map.getLocation());
+					//System.out.println("Location " + map.getLocation());
 				} else if (currentY != 0) {
 					dy = (currentY - 1);
 				}
@@ -138,7 +139,7 @@ public class GameModel {
 				if (currentX % map.getWidth() == 0 && currentX != 0) {
 					map.decLocation();
 					dx = (currentX - 1);
-					System.out.println("Location " + map.getLocation());
+					//System.out.println("Location " + map.getLocation());
 				} else if (currentX != 0) {
 					dx = (currentX - 1);
 				}
@@ -189,9 +190,9 @@ public class GameModel {
 					map.editCase(h);
 				}
 				
-				System.out.println("Je déplace en (" + dx + ";" + dy + ")");
+				//System.out.println("Je déplace en (" + dx + ";" + dy + ")");
 			} else if (map.getCase(dx, dy).getContenu().isCompetences()) {
-				System.out.println("else");
+				//System.out.println("else");
 				if((Game.game.tourDe1)&&(!Game.game.PhaseAction)){
 					heros1.pickUp((Competences) map.getCase(dx, dy).getContenu());
 					heros1.move(dx - currentX, dy - currentY);

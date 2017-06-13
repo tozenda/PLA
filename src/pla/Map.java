@@ -48,8 +48,6 @@ public class Map {
 		elements[19][37] = new Case(37,19,new Obstacles());
 		
 		elements[18][28] = new Case(37,19,new Obstacles());
-				
-		elements[0][0] = new Case(0,0,new Heros());
 		
 		Competences c1 = new Competences();
 		
