@@ -205,3 +205,19 @@ Définition des Objectifs de la journée :
 * Spawn des compétences
 * Ramassage des C par les robots
 * Mise en place de le mécanique de jeu (alternance des phases et tour) (cet objectif peut être ajusté à demain)
+
+#### Après-midi
+
+Codage du jeu...
+
+### Jour 9 (Mardi 13/06)
+
+Codage du jeu...
+
+Définition des objectifs pour le lendemain (DEADLINE pour jeu V1 demain soir):
+
+* Pause (break)
+* Affichage inventaire
+* Timer fin de periode choix Héros
+* Modif des robots
+* Information sur les étapes (où on en est, temps restant...)
