@@ -39,7 +39,7 @@ public class Game {
 	    m_controller = new GameController(this, m_model);
 	    createWindow();
 	    System.out.println("Fenetre cr�e");
-	
+	    
 
 	    // create the main window and the periodic timer
 	    // to drive the overall clock of the simulation.
@@ -90,10 +90,10 @@ public class Game {
 		    m_controller.step(now);
 		    long elapsed = now - m_lastRepaint;
 		    if (elapsed > REPAINT_DELAY) {
-		    	/*if(cmpt == 3){
-		    		m_model.robot.move(new Case());
+		    	if(cmpt == 3){
+		    		m_model.robot.move(new Case(29,18,new Vide()));
 		    		cmpt=0;
-		    	}*/
+		    	}
 		    	if(cmpt2 == 20){
 		    		m_model.map.popCompetence();
 		    		cmpt2 = 0;
@@ -103,16 +103,6 @@ public class Game {
 		      tick = tmp / 10.0;
 		      m_elapsed = 0;
 		      m_nTicks = 0;
-		      String txt = "Tick=" + tick + "ms";
-		      while (txt.length()<15)
-		        txt += " ";
-		      txt = txt + m_fps + " fps   ";
-		      while (txt.length()<25)
-		        txt += " ";
-		      if (m_msg != null)
-		        txt += m_msg;
-		      //m_text.setText(txt);
-		      //m_text.repaint();
 		      m_view.repaint();
 		      m_lastRepaint = now;
 		      cmpt++;

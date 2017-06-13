@@ -81,6 +81,10 @@ public class GameView extends JPanel {
 		}
 		return jtf;
 	}
+	
+	public String getTextField(){
+		return jtf.getText();
+	}
 
 	private MiniMap setMinimap() {
 		sideg.gridx = 0;
@@ -305,7 +309,7 @@ public class GameView extends JPanel {
 			}
 			Create_Robot.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					GameModel.Create_Robot();
+					//GameModel.Create_Robot();
 
 				}
 			});
@@ -476,7 +480,7 @@ public class GameView extends JPanel {
 		 * Factx=m_model.map.getLocation()%2;
 		 * Facty=(m_model.map.getLocation()/2)+1;
 		 */
-		switch (m_model.map.getLocation()) {
+		switch (GameModel.map.getLocation()) {
 		case (2):
 			Factx = 2;
 			Facty = 1;
@@ -542,29 +546,29 @@ public class GameView extends JPanel {
 		draw(g, "Bande.png", 0, 0, 0, 0);
 		g.setColor(Color.BLACK);
 		// Vertical
-		for (int i = (m_model.map.getLocation() - 1) * nbrCaseX; i <= m_model.map.getLocation()
-				* m_model.map.getWidth(); i++) {
-			g.drawLine((i % m_model.map.getWidth() + 1) * tailleCase, 0, (i % m_model.map.getWidth() + 1) * tailleCase,
+		for (int i = (GameModel.map.getLocation() - 1) * nbrCaseX; i <= GameModel.map.getLocation()
+				* GameModel.map.getWidth(); i++) {
+			g.drawLine((i % GameModel.map.getWidth() + 1) * tailleCase, 0, (i % GameModel.map.getWidth() + 1) * tailleCase,
 					480);
 		}
 		// Horizontal
-		for (int i = (m_model.map.getLocation() - 1) * nbrCaseY; i <= m_model.map.getLocation()
-				* m_model.map.getHeight(); i++) {
-			g.drawLine(0, (i % m_model.map.getHeight() + 1) * tailleCase, 800,
-					(i % m_model.map.getHeight() + 1) * tailleCase);
+		for (int i = (GameModel.map.getLocation() - 1) * nbrCaseY; i <= GameModel.map.getLocation()
+				* GameModel.map.getHeight(); i++) {
+			g.drawLine(0, (i % GameModel.map.getHeight() + 1) * tailleCase, 800,
+					(i % GameModel.map.getHeight() + 1) * tailleCase);
 		}
 
 		for (int i = 0; i < nbrCaseX; i++) {
 			for (int j = 0; j < nbrCaseY; j++) {
 				setFactXY();
-				Case c = m_model.map.getCase(((Factx - 1) * nbrCaseX) + i, (Facty - 1) * nbrCaseY + j);
+				Case c = GameModel.map.getCase(((Factx - 1) * nbrCaseX) + i, (Facty - 1) * nbrCaseY + j);
 				Observables obs = c.getContenu();
 				if (obs.isObstacles()) {
 
 					try {
 						iObstacle = ImageIO.read(new File(Path + "obstacl.png"));
-						g.drawImage(iObstacle, (i % m_model.map.getWidth()) * tailleCase + 1,
-								(j % m_model.map.getHeight()) * tailleCase + 1,45,45, this);
+						g.drawImage(iObstacle, (i % GameModel.map.getWidth()) * tailleCase + 1,
+								(j % GameModel.map.getHeight()) * tailleCase + 1,45,45, this);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -572,8 +576,8 @@ public class GameView extends JPanel {
 				} else if (obs.isHeros()) {
 					try {
 						iHero = ImageIO.read(new File(Path + "hero.png"));
-						g.drawImage(iHero, (i % m_model.map.getWidth()) * tailleCase + 1,
-								(j % m_model.map.getHeight()) * tailleCase + 1, 39, 39, this);
+						g.drawImage(iHero, (i % GameModel.map.getWidth()) * tailleCase + 1,
+								(j % GameModel.map.getHeight()) * tailleCase + 1, 39, 39, this);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -581,21 +585,21 @@ public class GameView extends JPanel {
 				} else if (obs.isBase()) {
 					try {
 						iBase = ImageIO.read(new File(Path + obs.getPic()));
-						g.drawImage(iBase, (i % m_model.map.getWidth()) * tailleCase + 1,
-								(j % m_model.map.getHeight()) * tailleCase + 1, 50, 50, this);
+						g.drawImage(iBase, (i % GameModel.map.getWidth()) * tailleCase + 1,
+								(j % GameModel.map.getHeight()) * tailleCase + 1, 50, 50, this);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				} else if (obs.isRobot()) {
 					g.setColor(Color.cyan);
-					g.fillRect((i % m_model.map.getWidth()) * tailleCase + 1,
-							(j % m_model.map.getHeight()) * tailleCase + 1, tailleCase - 1, tailleCase - 1);
+					g.fillRect((i % GameModel.map.getWidth()) * tailleCase + 1,
+							(j % GameModel.map.getHeight()) * tailleCase + 1, tailleCase - 1, tailleCase - 1);
 				} else if (obs.isCompetences()) {
 					try {
 						iSkill = ImageIO.read(new File(Path + obs.getPic()));
-						g.drawImage(iSkill, (i % m_model.map.getWidth()) * tailleCase + 1,
-								(j % m_model.map.getHeight()) * tailleCase + 1, 39, 39, this);
+						g.drawImage(iSkill, (i % GameModel.map.getWidth()) * tailleCase + 1,
+								(j % GameModel.map.getHeight()) * tailleCase + 1, 39, 39, this);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

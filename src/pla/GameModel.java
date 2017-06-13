@@ -15,7 +15,7 @@ public class GameModel {
 	static Map map;
 	Heros heros1;
 	Heros heros2;
-	//List <Robots> robot = new LinkedList<Robots>();
+	List <Robots> robot_list = new LinkedList<Robots>();
 	Robots robot;
 	Case currentCase = null;
 	public static int situation = 1;
@@ -38,7 +38,7 @@ public class GameModel {
 		robot = new Robots(4, 4, 1); // robot en 3,3 de l equipe 1
 		Case r = new Case(robot.i, robot.j, robot);
 		map.editCase(r);
-		robot.editDest(29,18);
+		//robot.editDest(29,18);
 	}
 	private boolean Labelmodified = false;
 
@@ -238,8 +238,43 @@ public class GameModel {
 		m_game.returnFocus();
 	}
 
-	public static void Create_Robot() {
+	public void Create_Robot() {
 		System.out.println("Create Robot");
+		String com = "";
+		if((Game.game.tourDe1)&&(!Game.game.PhaseAction)){
+			com = m_game.m_view.getTextField();
+			this.robot_list.add(new Robots(heros1.getX(),heros1.getY(),1,com));
+		}
+		else if((!Game.game.tourDe1)&&(!Game.game.PhaseAction)){
+			com = m_game.m_view.getTextField();
+			if(GameModel.map.getCase(heros2.getX()+1,heros2.getY()).getContenu().isVide()){
+				this.robot_list.add(new Robots(heros2.getX()+1,heros2.getY(),2,com));
+			}
+			else if(GameModel.map.getCase(heros2.getX(),heros2.getY()+1).getContenu().isVide()){
+				this.robot_list.add(new Robots(heros2.getX(),heros2.getY()+1,2,com));
+			}
+			else if(GameModel.map.getCase(heros2.getX()-1,heros2.getY()).getContenu().isVide()){
+				this.robot_list.add(new Robots(heros2.getX()-1,heros2.getY(),2,com));
+			}
+			else if(GameModel.map.getCase(heros2.getX(),heros2.getY()-1).getContenu().isVide()){
+				this.robot_list.add(new Robots(heros2.getX(),heros2.getY()-1,2,com));
+			}
+			else if(GameModel.map.getCase(heros2.getX()+1,heros2.getY()+1).getContenu().isVide()){
+				this.robot_list.add(new Robots(heros2.getX()+1,heros2.getY()+1,2,com));
+			}
+			else if(GameModel.map.getCase(heros2.getX()+1,heros2.getY()-1).getContenu().isVide()){
+				this.robot_list.add(new Robots(heros2.getX()+1,heros2.getY()-1,2,com));
+			}
+			else if(GameModel.map.getCase(heros2.getX()-1,heros2.getY()+1).getContenu().isVide()){
+				this.robot_list.add(new Robots(heros2.getX()-1,heros2.getY()+1,2,com));
+			}
+			else if(GameModel.map.getCase(heros2.getX()-1,heros2.getY()-1).getContenu().isVide()){
+				this.robot_list.add(new Robots(heros2.getX()-1,heros2.getY()-1,2,com));
+			}
+			else{
+				
+			}
+		}
 		m_game.returnFocus();
 	}
 }

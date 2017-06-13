@@ -46,7 +46,7 @@ public class Robots extends Perso{
         Reader parser = new Reader(System.in);
         try {
                this.a=parser.read(s);
-        } catch (ParseException e) {
+        } catch (pla.ParseException e) {
                 e.printStackTrace();
         }
 		this.equipe = equipe;
@@ -100,7 +100,6 @@ public class Robots extends Perso{
 		}
 		else if(dir == "S"){
 			return GameModel.map.getCase(i, j+1).getContenu();
-
 		}
 		else if(dir == "E"){
 			return GameModel.map.getCase(i+1, j).getContenu();
@@ -283,72 +282,74 @@ public class Robots extends Perso{
 	}
 
 	public void move(Case c) {
-		
-
+		di = c.getX();
+		dj = c.getY();
 		Map map = GameModel.map;
-		
-		int resX = (int) Math.sqrt(Math.pow(di-i, 2));
-		int resY = (int) Math.sqrt(Math.pow(dj-j, 2));
-		if(((i!=di)||(j!=dj))&&(!faceALaMerde)){
-			if(resX>resY){
-				if(i-di>0){
-					if((contenu("W").isVide())||(contenu("W").isCompetences())){
-						if(contenu("W").isCompetences()){
-							pickUp( (Competences) contenu("W"));
+		if(Game.game.PhaseAction){
+			int resX = (int) Math.sqrt(Math.pow(di-i, 2));
+			int resY = (int) Math.sqrt(Math.pow(dj-j, 2));
+			if(((i!=di)||(j!=dj))&&(!faceALaMerde)){
+				if(resX>resY){
+					if(i-di>0){
+						if((contenu("W").isVide())||(contenu("W").isCompetences())){
+							if(contenu("W").isCompetences()){
+								pickUp( (Competences) contenu("W"));
+							}
+							NSEW(map,"W");
 						}
-						NSEW(map,"W");
+						else{
+							faceALaMerde = true;
+							dir = "W";
+							moveObs(map);
+						}
 					}
 					else{
-						faceALaMerde = true;
-						dir = "W";
-						moveObs(map);
+						if((contenu("E").isVide())||(contenu("E").isCompetences())){
+							if(contenu("E").isCompetences()){
+								pickUp( (Competences) contenu("E"));
+							}
+							NSEW(map,"E");
+						}
+						else{
+							faceALaMerde = true;
+							dir = "E";
+							moveObs(map);					}
 					}
 				}
 				else{
-					if((contenu("E").isVide())||(contenu("E").isCompetences())){
-						if(contenu("E").isCompetences()){
-							pickUp( (Competences) contenu("E"));
+					if(j-dj>0){
+						if((contenu("N").isVide())||(contenu("N").isCompetences())){
+							if(contenu("N").isCompetences()){
+								pickUp( (Competences) contenu("N"));
+							}
+							NSEW(map,"N");
 						}
-						NSEW(map,"E");
-					}
+						else{
+							faceALaMerde = true;
+							dir = "N";
+							moveObs(map);					}
+						}
 					else{
-						faceALaMerde = true;
-						dir = "E";
-						moveObs(map);					}
+						if((contenu("S").isVide())||(contenu("S").isCompetences())){
+							if(contenu("S").isCompetences()){
+								pickUp( (Competences) contenu("S"));
+							}
+							NSEW(map,"S");
+						}
+						else{
+							faceALaMerde = true;
+							dir = "S";
+							moveObs(map);					}
+						}
+					}
 				}
-			}
 			else{
-				if(j-dj>0){
-					if((contenu("N").isVide())||(contenu("N").isCompetences())){
-						if(contenu("N").isCompetences()){
-							pickUp( (Competences) contenu("N"));
-						}
-						NSEW(map,"N");
-					}
-					else{
-						faceALaMerde = true;
-						dir = "N";
-						moveObs(map);					}
-					}
-				else{
-					if((contenu("S").isVide())||(contenu("S").isCompetences())){
-						if(contenu("S").isCompetences()){
-							pickUp( (Competences) contenu("S"));
-						}
-						NSEW(map,"S");
-					}
-					else{
-						faceALaMerde = true;
-						dir = "S";
-						moveObs(map);					}
-					}
+				if((i!=di)||(j!=dj)){
+					moveObs(map);
 				}
-			}
-		else{
-			if((i!=di)||(j!=dj)){
-				moveObs(map);
 			}
 		}
+		
 	}
 
 	/*Action d'attaque d'un robot
