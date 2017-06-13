@@ -787,10 +787,14 @@ public class Robots extends Perso{
 				Game.game.m_model.heros1.inventaire.add(tmp);
 			}
 			else if(this.equipe == 2){
-				Game.game.m_model.heros2.inventaire.add(tmp);
+				//Game.game.m_model.heros2.inventaire.add(tmp);
 			}
 		}
 		c.getLc().clear();
+		System.out.println("Inventaire du heros");
+		for(Competence l1 : Game.game.m_model.heros1.inventaire){
+			System.out.println(l1.toString());
+		}
 	}
 	
 	public void editDest(int di, int dj){

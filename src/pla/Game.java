@@ -29,6 +29,7 @@ public class Game {
 	long m_lastTick;
 	int m_nTicks;
 	int cmpt=0;
+	int cmpt2=0;
 	
 	public Game() {
 		m_model = new GameModel(this);
@@ -90,6 +91,10 @@ public class Game {
 		    		m_model.robot.move(new Case());
 		    		cmpt=0;
 		    	}
+		    	if(cmpt2 == 20){
+		    		m_model.map.popCompetence();
+		    		cmpt2 = 0;
+		    	}
 		      double tick = (double) m_elapsed / (double) m_nTicks;
 		      long tmp = (long) (tick * 10.0);
 		      tick = tmp / 10.0;
@@ -108,6 +113,7 @@ public class Game {
 		      m_view.repaint();
 		      m_lastRepaint = now;
 		      cmpt++;
+		      cmpt2++;
 		    }
 		    
 		  }
