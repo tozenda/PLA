@@ -30,6 +30,8 @@ public class Game {
 	int m_nTicks;
 	int cmpt=0;
 	int cmpt2=0;
+	public boolean tourDe1 = true;
+	public boolean PhaseAction=false;
 	
 	public Game() {
 		Sound.bgmusic.loop();
@@ -88,10 +90,10 @@ public class Game {
 		    m_controller.step(now);
 		    long elapsed = now - m_lastRepaint;
 		    if (elapsed > REPAINT_DELAY) {
-		    	if(cmpt == 3){
+		    	/*if(cmpt == 3){
 		    		m_model.robot.move(new Case());
 		    		cmpt=0;
-		    	}
+		    	}*/
 		    	if(cmpt2 == 20){
 		    		m_model.map.popCompetence();
 		    		cmpt2 = 0;

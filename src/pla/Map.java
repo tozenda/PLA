@@ -72,14 +72,14 @@ public class Map {
 		
 		elements[6][17] = new Case(17,6,c2);
 		
-		addBase(19, 0,2);
-		addBase(18, 0,2);
-		addBase(19, 1,2);
-		addBase(18, 1,2);
-		addBase(0, 10,1);
-		addBase(1, 11,1);
-		addBase(0, 11,1);
-		addBase(1, 10,1);
+		addBase(38, 0,2);
+		addBase(39, 0,2);
+		addBase(38, 1,2);
+		addBase(39, 1,2);
+		addBase(0, 22,1);
+		addBase(1, 22,1);
+		addBase(0, 23,1);
+		addBase(1, 23,1);
 
 	}
 

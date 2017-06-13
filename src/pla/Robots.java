@@ -830,7 +830,7 @@ public class Robots extends Perso{
 				Game.game.m_model.heros1.inventaire.add(tmp);
 			}
 			else if(this.equipe == 2){
-				//Game.game.m_model.heros2.inventaire.add(tmp);
+				Game.game.m_model.heros2.inventaire.add(tmp);
 			}
 		}
 		c.getLc().clear();
@@ -1080,6 +1080,28 @@ public class Robots extends Perso{
 	public String getDescription() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	/*supprime les compétences utilisées pour créer un robot de l'inventaire*/
+	public void supCompInventaire(Heros h){
+		List<Competence> inventaire = new ArrayList<Competence>();
+		inventaire = h.inventaire;
+		Competences aSuppr = new Competences();
+		aSuppr.recupListCompetence(this.a);
+		for(Competence c : aSuppr.getLc()){
+			/*test si la competence est présente dans l'inventaire et est différente d'un constructeur*/
+			if (!((c==Competence.Ou)||(c==Competence.Sup)||(c==Competence.Etoile))){
+				if (inventaire.contains(c)){
+					inventaire.remove(c);
+				}
+				else{
+					System.out.println("Nice try but NOPE !!");
+					break;
+				}
+			}
+			
+		}
+		
 	}
 	
 }

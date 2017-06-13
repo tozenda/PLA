@@ -1,6 +1,8 @@
 package pla;
 
 import java.awt.event.KeyEvent;
+import java.util.LinkedList;
+import java.util.List;
 
 //import java.util.Iterator;
 //import java.util.LinkedList;
@@ -12,20 +14,30 @@ public class GameModel {
 	static Game m_game;
 	Map map;
 	Heros heros1;
-	Robots robot;
+	Heros heros2;
+	List <Robots> robot = new LinkedList<Robots>();
 	Case currentCase = null;
+	public static int situation = 1;
+	/* 1 = Choix1 
+	 * 2 = Action1
+	 * 3 = Choix2
+	 * 4 = Action2
+	 */
+
 
 	GameModel(Game game) {
 		m_game = game;
 		map = new Map();
-		heros1 = new Heros(0, 0, 1);// 1ere coord -> Ligne et 2nd coord 6>
-									// Colonne de l equipe 1
-		Case c = new Case(heros1.getX(), heros1.getY(), heros1);
-		map.editCase(c);
-		robot = new Robots(4, 4, 1); // robot en 3,3 de l equipe 1
+		heros1 = new Heros(2,23,1);
+		heros2 = new Heros(37,2,2);
+		Case ch1 = new Case(heros1.getX(), heros1.getY(), heros1);
+		Case ch2 = new Case(heros2.getX(), heros2.getY(), heros2);
+		map.editCase(ch1);
+		map.editCase(ch2);
+		/*robot = new Robots(4, 4, 1); // robot en 3,3 de l equipe 1
 		Case r = new Case(robot.i, robot.j, robot);
 		map.editCase(r);
-		robot.editDest(29,18);
+		robot.editDest(29,18);*/
 	}
 	private boolean Labelmodified = false;
 
@@ -48,7 +60,6 @@ public class GameModel {
 
 	long count = 0;
 	long sum = 0;
-	public Object heros2;
 
 	private long op(long i) {
 		return i + i * i;
@@ -72,11 +83,24 @@ public class GameModel {
 		overhead();
 	}
 
-	void heroMove(int mvt) {
-		int currentX = heros1.getX();
-		int currentY = heros1.getY();
-		int dx = currentX;
-		int dy = currentY;
+	void heroMove(int mvt){ 
+		int currentX = 0;
+		int currentY = 0;
+		int dx = 0;
+		int dy = 0;
+		if((Game.game.tourDe1)&&(!Game.game.PhaseAction)){
+			currentX = heros1.getX();
+			currentY = heros1.getY();
+			dx = currentX;
+			dy = currentY;
+		}
+		else if ((!Game.game.tourDe1)&&(!Game.game.PhaseAction)){
+			currentX = heros2.getX();
+			currentY = heros2.getY();
+			dx = currentX;
+			dy = currentY;
+		}
+		
 		System.out.println(mvt);
 		int currentLocation = map.getHeroLocation(currentX, currentY);
 		System.out.println("Map actuelle : "+ currentLocation);
@@ -95,76 +119,116 @@ public class GameModel {
 		if (mvt == KeyEvent.VK_RIGHT && map.getLocation() != 4 && map.getLocation() != 2) {
 			map.incLocation();
 		}
-		if (mvt == 'z') {
-			map.setLocation(map.getHeroLocation(currentX, currentY));
+		if(!Game.game.PhaseAction){
+			if (mvt == 'z') {
+				map.setLocation(map.getHeroLocation(currentX, currentY));
 
-			if (currentY % map.getHeight() == 0 && currentY != 0) {
-				map.decLocation();
-				map.decLocation();
-				dy = (currentY - 1);
-				System.out.println("Location " + map.getLocation());
-			} else if (currentY != 0) {
-				dy = (currentY - 1);
-			}
+				if (currentY % map.getHeight() == 0 && currentY != 0) {
+					map.decLocation();
+					map.decLocation();
+					dy = (currentY - 1);
+					System.out.println("Location " + map.getLocation());
+				} else if (currentY != 0) {
+					dy = (currentY - 1);
+				}
 
-		} else if (mvt == 'q') {
-			map.setLocation(map.getHeroLocation(currentX, currentY));
+			} else if (mvt == 'q') {
+				map.setLocation(map.getHeroLocation(currentX, currentY));
 
-			if (currentX % map.getWidth() == 0 && currentX != 0) {
-				map.decLocation();
-				dx = (currentX - 1);
-				System.out.println("Location " + map.getLocation());
-			} else if (currentX != 0) {
-				dx = (currentX - 1);
-			}
-		} else if (mvt == 's') {
-			map.setLocation(map.getHeroLocation(currentX, currentY));
+				if (currentX % map.getWidth() == 0 && currentX != 0) {
+					map.decLocation();
+					dx = (currentX - 1);
+					System.out.println("Location " + map.getLocation());
+				} else if (currentX != 0) {
+					dx = (currentX - 1);
+				}
+			} else if (mvt == 's') {
+				map.setLocation(map.getHeroLocation(currentX, currentY));
 
-			if ((currentY % map.getHeight() == map.getHeight() - 1)&&currentY!=23) {
-				map.incLocation();
-				map.incLocation();
-			}
-			
-			if (currentY!=23){
-				dy = (currentY + 1);
-			}
-		} else if (mvt == 'd') {
-			map.setLocation(map.getHeroLocation(currentX, currentY));
+				if ((currentY % map.getHeight() == map.getHeight() - 1)&&currentY!=23) {
+					map.incLocation();
+					map.incLocation();
+				}
+				
+				if (currentY!=23){
+					dy = (currentY + 1);
+				}
+			} else if (mvt == 'd') {
+				map.setLocation(map.getHeroLocation(currentX, currentY));
 
-			if (currentX % map.getWidth() == 19&&currentX!=39) {
-				map.incLocation();
+				if (currentX % map.getWidth() == 19&&currentX!=39) {
+					map.incLocation();
 
-				/*
-				 * } if(currentX<map.getWidth()-1){ dx = (currentX +1);
-				 */
+					/*
+					 * } if(currentX<map.getWidth()-1){ dx = (currentX +1);
+					 */
+				}
+				 if (currentX!=39){
+					dx = (currentX + 1);
+				}
 			}
-			 if (currentX!=39){
-				dx = (currentX + 1);
+			System.out.println("all ok");
+			if (map.getCase(dx, dy).getContenu().isVide()) {
+				System.out.println("vide");
+				if((Game.game.tourDe1)&&(!Game.game.PhaseAction)){
+					heros1.move(dx - currentX, dy - currentY);
+				}
+				else if((!Game.game.tourDe1)&&(!Game.game.PhaseAction)){
+					heros2.move(dx - currentX, dy - currentY);
+				}
+				Case v = new Case(currentX, currentY, new Vide());
+				Case h;
+				if((Game.game.tourDe1)&&(!Game.game.PhaseAction)){
+					h = new Case(dx, dy, heros1);
+					map.editCase(v);
+					map.editCase(h);
+				}
+				else if((!Game.game.tourDe1)&&(!Game.game.PhaseAction)){
+					h = new Case(dx, dy, heros2);
+					map.editCase(v);
+					map.editCase(h);
+				}
+				
+				System.out.println("Je déplace en (" + dx + ";" + dy + ")");
+			} else if (map.getCase(dx, dy).getContenu().isCompetences()) {
+				System.out.println("else");
+				if((Game.game.tourDe1)&&(!Game.game.PhaseAction)){
+					heros1.pickUp((Competences) map.getCase(dx, dy).getContenu());
+					heros1.move(dx - currentX, dy - currentY);
+				}
+				else if((!Game.game.tourDe1)&&(!Game.game.PhaseAction)){
+					heros2.pickUp((Competences) map.getCase(dx, dy).getContenu());
+					heros2.move(dx - currentX, dy - currentY);
+				}
+				Case v = new Case(currentX, currentY, new Vide());
+				Case h = new Case(dx, dy, heros1);
+				map.editCase(v);
+				map.editCase(h);
+				// GameView.Please();
 			}
-		}
-		System.out.println("all ok");
-		if (map.getCase(dx, dy).getContenu().isVide()) {
-			System.out.println("vide");
-			heros1.move(dx - currentX, dy - currentY);
-			Case v = new Case(currentX, currentY, new Vide());
-			Case h = new Case(dx, dy, heros1);
-			map.editCase(v);
-			map.editCase(h);
-			System.out.println("Je déplace en (" + dx + ";" + dy + ")");
-		} else if (map.getCase(dx, dy).getContenu().isCompetences()) {
-			System.out.println("else");
-			heros1.pickUp((Competences) map.getCase(dx, dy).getContenu());
-			heros1.move(dx - currentX, dy - currentY);
-			Case v = new Case(currentX, currentY, new Vide());
-			Case h = new Case(dx, dy, heros1);
-			map.editCase(v);
-			map.editCase(h);
-			// GameView.Please();
 		}
 	}
-
+	
 	public static void Tour() {
 		System.out.println("Tour");
+		if(situation == 1){
+			Game.game.tourDe1 = true;
+			Game.game.PhaseAction = true;
+		}
+		else if(situation == 2){
+			Game.game.tourDe1 = false;
+			Game.game.PhaseAction = false;
+		}
+		else if(situation == 3){
+			Game.game.tourDe1 = false;
+			Game.game.PhaseAction = true;
+		}
+		else if(situation == 4){
+			Game.game.tourDe1 = true;
+			Game.game.PhaseAction = false;
+			situation = 0;
+		}
+		situation++;
 		m_game.returnFocus();
 	}
 
