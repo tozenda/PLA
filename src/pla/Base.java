@@ -44,4 +44,10 @@ public class Base extends Actifs{
 	public boolean isRobot() {
 		return false;
 	}
+
+	@Override
+	public String getPic() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -11,10 +11,13 @@ public class Heros extends Perso{
     private Image image;
     List<Competence> inventaire = new ArrayList<Competence>();
     int equipe;
+    int pdv;
 
     public Heros() {
         x = 0;
         y = 0;
+        pdv = 300;
+        equipe = 1;
         initHeros();
     }
     
@@ -22,6 +25,7 @@ public class Heros extends Perso{
         this.x = x;
         this.y = y;
         initHeros();
+        pdv = 300;
       this.equipe = equipe;
      }
     
@@ -115,5 +119,16 @@ public class Heros extends Perso{
 
 	public boolean isRobot() {
 		return false;
+	}
+
+	public void destructionHeros() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getPic() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

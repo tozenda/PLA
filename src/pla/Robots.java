@@ -3,6 +3,10 @@ package pla;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
+
+import java.io.Reader;
 import java.math.*;
 
 @SuppressWarnings("unused")
@@ -26,6 +30,26 @@ public class Robots extends Perso{
 		this.i = i;
 		this.j = j;
 //		this.a=a;
+		this.equipe = equipe;
+		protection = false;
+		contre = false;
+		poison = 0;
+		stun = false;
+		boostDegat = false;
+		choixOu = true;
+	}
+	
+	public Robots(int i,int j, int equipe, String s){
+		this.i = i;
+		this.j = j;
+		// this.a = Reader.read(s);
+		this.a = null;
+       // Reader parser = new Reader(System.in);
+        try {
+                //this.a=parser.read(s);
+        } catch (ParseException e) {
+                e.printStackTrace();
+        }
 		this.equipe = equipe;
 		protection = false;
 		contre = false;
@@ -342,8 +366,16 @@ public class Robots extends Perso{
 					Case c = map.getCase(k, l);
 					Observables obs = c.getContenu();
 					
-					// TODO : est ce qu un robot peut attaquer un héros ? 
-					
+					if(obs.isHeros()){
+						Heros h = (Heros) obs;
+						if(h.equipe != this.equipe){
+							double p = Math.random();		
+							if(p > 0.07+h.defend()){
+								h.pdv -= 35;
+								h.destructionHeros();
+							}
+						}
+					}
 					if(obs.isRobot()){
 						Robots r2 = (Robots) obs;
 						if(r2.equipe != this.equipe){
@@ -388,8 +420,17 @@ public class Robots extends Perso{
 					Case c = map.getCase(k, l);
 					Observables obs = c.getContenu();
 					
-					// TODO : est ce qu un robot peut attaquer un héros ? 
-					
+					if(obs.isHeros()){
+						Heros h = (Heros) obs;
+						if(h.equipe != this.equipe){
+							double p = Math.random();		
+							if(p > 0.07+h.defend()){
+								h.pdv -= 30;
+								this.soin();
+								h.destructionHeros();
+							}
+						}
+					}
 					if(obs.isRobot()){
 						Robots r2 = (Robots) obs;
 						if(r2.equipe != this.equipe){
@@ -646,7 +687,7 @@ public class Robots extends Perso{
 		}
 		if(min!=30){
 			Case c = map.getCase(min_i, min_j);
-			//move(c); //TODO
+			move(c);
 			// le robot se rend sur la derniere case sauvegard
 			return 1;
 		}
@@ -808,15 +849,19 @@ public class Robots extends Perso{
 	}
 	
 	/*
-	 * regarde se le robot est tué, si oui le supprime TODO
+	 * regarde se le robot est tué, si oui le supprime
 	 */
 	public void destructionRobot(){
 		if(pdv<=0){
 			Map map = Game.game.m_model.map;
-			Case c = new Case(i, j, new Vide());
+			Competences listC = null;
+			listC.recupListCompetence(this.a);
+			Case c = new Case(i, j, listC);
 			map.editCase(c);
 		}
 	}
+	
+
 	/*Méthode évaluant l'arbre
 	 * Il parcourt l'arbre noeud par noeud et éxécute l'action de chaque noeud
 	 * Remet à 0 l invulnérabilité, et le contre
@@ -891,7 +936,7 @@ public class Robots extends Perso{
 					this.eval(n.filsDroit);
 					break;
 				case Sup:
-					if (isPossible(n.filsGauche) == 0){ //TODO cr�er cas impossible pour chaque fonction
+					if (isPossible(n.filsGauche) == 0){
 						this.eval(n.filsDroit);
 					}
 					else{
@@ -1009,7 +1054,7 @@ public class Robots extends Perso{
 				if(isPossible(n.filsGauche)==1){
 					return 1;
 				}
-				if (isPossible(n.filsDroit) == 1){ //TODO cr�er cas impossible pour chaque fonction
+				if (isPossible(n.filsDroit) == 1){
 					return 1;
 				}
 				else{
@@ -1023,6 +1068,34 @@ public class Robots extends Perso{
 				return 1;
 		}
 		return 1;
+	}
+
+	@Override
+	public String getPic() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/*supprime les comp�tences utilis�es pour cr�er un robot de l'inventaire*/
+	public void supCompInventaire(Heros h){
+		List<Competence> inventaire = new ArrayList<Competence>();
+		inventaire = h.inventaire;
+		Competences aSuppr = new Competences();
+		aSuppr.recupListCompetence(this.a);
+		for(Competence c : aSuppr.getLc()){
+			/*test si la competence est pr�sente dans l'inventaire et est diff�rente d'un constructeur*/
+			if (!((c==Competence.Ou)||(c==Competence.Sup)||(c==Competence.Etoile))){
+				if (inventaire.contains(c)){
+					inventaire.remove(c);
+				}
+				else{
+					System.out.println("Nice try but NOPE !!");
+					break;
+				}
+			}
+			
+		}
+		
 	}
 	
 }
