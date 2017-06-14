@@ -826,15 +826,15 @@ public class Robots extends Perso{
 		List<Competence> l = c.getLc();
 		for (Competence tmp : l){
 			if(this.equipe == 1){
-				Game.game.m_model.heros1.inventaire.add(tmp);
+				GameModel.heros1.inventaire.add(tmp);
 			}
 			else if(this.equipe == 2){
-				Game.game.m_model.heros2.inventaire.add(tmp);
+				GameModel.heros2.inventaire.add(tmp);
 			}
 		}
 		c.getLc().clear();
 		System.out.println("Inventaire du heros");
-		for(Competence l1 : Game.game.m_model.heros1.inventaire){
+		for(Competence l1 : GameModel.heros1.inventaire){
 			System.out.println(l1.toString());
 		}
 	}
@@ -946,9 +946,9 @@ public class Robots extends Perso{
 						}
 						break;
 					case Etoile:
-	//					while(tour==this.equipe){
+						while(GameModel.situation==2*this.equipe){
 							eval(n.filsDroit);
-	//					}
+						}
 						break;
 					case Ou:
 						if(choixOu){
