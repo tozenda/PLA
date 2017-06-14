@@ -20,7 +20,9 @@ public class _RProgressBar extends JProgressBar{
     private static final String DISABLED_PERCENT_STRING = " --- ";
 
     private static final Color gradientEndingColor = Color.PINK;
-    private static final Color borderColor = Color.yellow;
+    @SuppressWarnings("unused")
+	private static final Color borderColor = Color.yellow;
+    @SuppressWarnings("unused")
     private static final Color disabledBorderColor = Color.blue;    
 
     private static final Composite transparent = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.45f);

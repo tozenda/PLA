@@ -214,8 +214,6 @@ public class GameModel {
 			}
 		}
 
-		//System.out.println(mvt);
-		int currentLocation = map.getHeroLocation(currentX, currentY);
 		//System.out.println("Map actuelle : "+ currentLocation);
 		// remplacer par switch
 		if (mvt == KeyEvent.VK_LEFT && map.getLocation() != 3) {
@@ -446,8 +444,10 @@ public class GameModel {
 	public static void Create_Robot(){
 		System.out.println("Create Robot");
 		String com = "";
-		if(getCurrentCase().getContenu().isRobot()){
-			modifier_Robot();
+		if(getCurrentCase()!=null){
+			if(getCurrentCase().getContenu().isRobot()){
+				modifier_Robot();
+			}
 		}
 		else{
 			if((Game.game.tourDe1)&&(!Game.game.PhaseAction)){
