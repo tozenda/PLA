@@ -13,7 +13,7 @@ public class Heros extends Perso{
     int equipe;
     int pdv;
     int pointAction;
-    int maxPointAction = 15;
+    int maxPointAction = 1000;
 	public int coupCreationRobot = 2;
 	public int coupDeplacementHeros = 1;
 
@@ -22,7 +22,7 @@ public class Heros extends Perso{
         y = 0;
         pdv = 300;
         equipe = 1;
-        pointAction = 20;
+        pointAction = maxPointAction;
         initHeros();
     }
     
@@ -31,7 +31,7 @@ public class Heros extends Perso{
         this.y = y;
         initHeros();
         pdv = 300;
-        pointAction = 0;
+        pointAction = maxPointAction;
       this.equipe = equipe;
      }
     
@@ -172,5 +172,10 @@ public class Heros extends Perso{
 	public String getDescription() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public void updatePointAction(int value){ //La valeur en positif/negatif à ajouter aux pda
+		pointAction += value; 
+		Game.game.m_view.setPointAction(true);
 	}
 }

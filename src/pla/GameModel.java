@@ -136,7 +136,7 @@ public class GameModel {
 				currentY = heros1.getY();
 				dx = currentX;
 				dy = currentY;
-				heros1.pointAction -= 1;
+				heros1.updatePointAction(-10);
 			}
 			else{
 				System.out.println("Pas assez de PA pour se déplacer !");
@@ -148,7 +148,7 @@ public class GameModel {
 				currentY = heros2.getY();
 				dx = currentX;
 				dy = currentY;
-				heros2.pointAction -= 1;
+				heros2.updatePointAction(-10);
 			}
 			else{
 				System.out.println("Pas assez de PA pour se déplacer !");
@@ -173,7 +173,7 @@ public class GameModel {
 		if (mvt == KeyEvent.VK_RIGHT && map.getLocation() != 4 && map.getLocation() != 2) {
 			map.incLocation();
 		}
-		if(!Game.game.PhaseAction){
+		if((!Game.game.PhaseAction)&&(((Game.game.tourDe1)&&(heros1.pointAction>0))||((!Game.game.tourDe1)&&(heros2.pointAction>0)))){
 			if (mvt == 'z') {
 				map.setLocation(map.getHeroLocation(currentX, currentY));
 
