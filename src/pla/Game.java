@@ -97,7 +97,7 @@ public class Game {
 	  static final int REPAINT_DELAY = (int) (1000.0 / 24.0);
 	  
 	  private void majRobot(){
-		  if(PhaseAction){
+		  if(PhaseAction && m_nTicks==1){
 	    		for(Robots r : GameModel.robot_list){
 	    			if(tourDe1){
 	    				if(r.equipe==1){
