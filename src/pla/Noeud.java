@@ -11,7 +11,7 @@ public class Noeud {
 	public ArrayList<Noeud> Liste=new ArrayList<Noeud>();
 	
 	public Noeud(){
-		this.action = null;
+		this.action = Competence.MoveRamasse;
 		this.filsGauche = null;
 		this.filsDroit = null;
 		this.numero = 0;

@@ -48,6 +48,7 @@ public class Robots extends Perso{
                this.a=parser.read(s);
         } catch (pla.ParseException e) {
                 e.printStackTrace();
+                this.a=new Noeud();
         }
 		this.equipe = equipe;
 		protection = false;
