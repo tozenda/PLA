@@ -1,12 +1,8 @@
 package pla;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
-
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
-
-import java.math.*;
 
 @SuppressWarnings("unused")
 public class Robots extends Perso{
@@ -827,18 +823,30 @@ public class Robots extends Perso{
 		List<Competence> l = c.getLc();
 		for (Competence tmp : l){
 			if(this.equipe == 1){
-				GameModel.heros1.inventaire.add(tmp);
+				if (Game.game.m_model.heros1.inventaire.containsKey(tmp)){
+					Game.game.m_model.heros1.inventaire.put(tmp,Game.game.m_model.heros1.inventaire.get(tmp)+1);
+				}
+				else{
+					Game.game.m_model.heros1.inventaire.put(tmp,1);
+				}
+				
 			}
 			else if(this.equipe == 2){
-				GameModel.heros2.inventaire.add(tmp);
+				if (Game.game.m_model.heros2.inventaire.containsKey(tmp)){
+					Game.game.m_model.heros2.inventaire.put(tmp,Game.game.m_model.heros2.inventaire.get(tmp)+1);
+				}
+				else{
+					Game.game.m_model.heros2.inventaire.put(tmp,1);
+				}
 			}
 		}
 		c.getLc().clear();
 		System.out.println("Inventaire du heros");
-		for(Competence l1 : GameModel.heros1.inventaire){
-			System.out.println(l1.toString());
+		for(HashMap.Entry<Competence, Integer> e : Game.game.m_model.heros1.inventaire.entrySet()){
+			System.out.println(e.getKey().toString());
 		}
 	}
+
 
 	public void editDest(int di, int dj){
 		//Map map = Game.game.m_model.map;
@@ -1088,14 +1096,15 @@ public class Robots extends Perso{
 
 	/*supprime les comp�tences utilis�es pour cr�er un robot de l'inventaire*/
 	public void supCompInventaire(Heros h){
-		List<Competence> inventaire = new ArrayList<Competence>();
+		HashMap<Competence,Integer> inventaire = new HashMap<Competence,Integer>();
 		inventaire = h.inventaire;
+
 		Competences aSuppr = new Competences();
 		aSuppr.recupListCompetence(this.a);
 		for(Competence c : aSuppr.getLc()){
-			/*test si la competence est pr�sente dans l'inventaire et est diff�rente d'un constructeur*/
+			/*test si la competence est pr sente dans l'inventaire et est diff rente d'un constructeur*/
 			if (!((c==Competence.Ou)||(c==Competence.Sup)||(c==Competence.Etoile))){
-				if (inventaire.contains(c)){
+				if (inventaire.containsKey(c)){
 					inventaire.remove(c);
 				}
 				else{
@@ -1107,6 +1116,7 @@ public class Robots extends Perso{
 		}
 
 	}
+
 	public static void main(String[] args) {
 		Robots r1 = new Robots(3, 3, 1, "(H)");
 		Robots r2 = new Robots(3, 4, 1, "(S)");

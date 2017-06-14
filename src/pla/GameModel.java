@@ -17,12 +17,12 @@ import javax.imageio.ImageIO;
 public class GameModel {
 	
 	String Thomas="/home/tozenda/COURS/RICM3/S6/PLA/PLA/Resources/";
-	String Najwa ="Resources/";
+	static String Najwa ="Resources/";
 	String Anouar = "Resources/";
 	String Jo = "/home/ferreira/Bureau/POO/PLA/Resources/";
 	String Paul= "home/doublean/git/PLA/Resources/";
 	static String Shoo="/Users/fathinsyuhadaabubakar/Documents/gitclean/PLA/Resources/";
-	static String Path = Shoo;
+	static String Path = Najwa;
 
 	static Game m_game;
 	static Map map;
@@ -53,6 +53,11 @@ public class GameModel {
 	private Animation walkBack = new Animation(walkingBack, 1);
 	private Animation animation;
 	private static BufferedImage iHero=null;
+
+	Heros currentHero = heros1;
+	public Heros getCurrentHero(){
+		return heros1;
+	}
 
 	
 	private static BufferedImage spriteSheet;

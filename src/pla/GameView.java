@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -13,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -64,7 +64,10 @@ public class GameView extends JPanel {
 	String Jo = "/home/ferreira/Bureau/POO/PLA/Resources/";
 	String Paul = "home/doublean/git/PLA/Resources/";
 	String Shoo = "/Users/fathinsyuhadaabubakar/Documents/gitclean/PLA/Resources/";
-	String Path = Shoo;
+	String Path = Najwa;
+	JTextArea textArea = new JTextArea(5, 5);
+	JScrollPane scrollableTextArea = new JScrollPane(textArea);
+
 
 	GridBagConstraints gc = new GridBagConstraints();
 	GridBagConstraints sideg = new GridBagConstraints();
@@ -178,13 +181,34 @@ public class GameView extends JPanel {
 		sideg.gridx = 0;
 		sideg.gridy = 1;
 		sideg.gridheight = 2;
+		String s = "";
+		HashMap<Competence, Integer> lc = m_model.getCurrentHero().getInventaire();
+		Competences l = new Competences();
 
-		JTextArea textArea = new JTextArea(5, 5);
-		JScrollPane scrollableTextArea = new JScrollPane(textArea);
+		// m_model.getCurrentHero().pickUp(l);
+		HashMap<Competence, Integer> inv = m_model.getCurrentHero().getInventaire();
+		for (HashMap.Entry<Competence, Integer> e : m_model.getCurrentHero().getInventaire().entrySet()) {
 
+			if (s == null) {
+				s = "" + e.getKey() + "(" + e.getValue() + ")";
+			} else {
+				s = s + "\n" + "" + e.getKey() + "(" + e.getValue() + ")";
+			}
+		}
+		
+		
+		if (s != null) {
+			System.out.println("nuuuuuuuuuuuuuuuuuuuuulllllllllllllllllll");
+			textArea.setText(s);
+		}
+		textArea.setText(""+s);
+		System.out.println("Here's What I got : " + s);
+		
+		//textArea.setEditable(false);
 		scrollableTextArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		return scrollableTextArea;
 	}
+
 
 	public _RProgressBar setBarBase() {
 		if (Base_HealthBar == null) {
@@ -519,6 +543,7 @@ public class GameView extends JPanel {
 		 */
 		if (m_model.getLabelmodified()) {
 			setInfo();
+			setInventory();
 			m_model.setLabelmodified(false);
 		}
 		int nbrCaseX = 20;
