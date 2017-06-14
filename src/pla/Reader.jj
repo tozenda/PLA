@@ -1,6 +1,6 @@
 options { 
     DEBUG_PARSER=false; 
-    STATIC=true; 
+    STATIC=false; 
 } 
  
 PARSER_BEGIN(Reader) 

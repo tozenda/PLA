@@ -94,10 +94,10 @@ public class GameView extends JPanel {
 			Image[i++] = ImageIO.read(new File(Path + "Stun.png"));
 			Image[i++] = ImageIO.read(new File(Path + "Sup.png"));
 			Image[i++] = ImageIO.read(new File(Path + "Volvie.png"));
-			Image[i++] = ImageIO.read(new File(Path + "Obstacl.png"));
+			Image[i++] = ImageIO.read(new File(Path + "obstacl.png"));
 			Image[i++] = ImageIO.read(new File(Path + "Bande.png"));
-			Image[i++] = ImageIO.read(new File(Path + "Logo.png"));
-			Image[i++] = ImageIO.read(new File(Path + "Robot.png"));
+			Image[i++] = ImageIO.read(new File(Path + "logo.png"));
+			Image[i++] = ImageIO.read(new File(Path + "robot.png"));
 			Image[i++] = ImageIO.read(new File(Path + "map.png"));
 			Image[i++] = ImageIO.read(new File(Path + "barrier.png"));
 			Image[i++] = ImageIO.read(new File(Path + "base.png"));

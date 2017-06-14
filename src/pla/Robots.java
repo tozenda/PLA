@@ -91,16 +91,16 @@ public class Robots extends Perso{
 	}
 
 	private Observables contenu(String dir){
-		if(dir == "N" && i<GameModel.map.getTotalWidth() && j<GameModel.map.getTotalHeight()){
+		if(dir == "N" && i<GameModel.map.getTotalWidth() && j>0){
 			return GameModel.map.getCase(i, j-1).getContenu();
 		}
-		else if(dir == "S" && i<GameModel.map.getTotalWidth() && j<GameModel.map.getTotalHeight()){
+		else if(dir == "S" && i<GameModel.map.getTotalWidth() && j<GameModel.map.getTotalHeight()-1){
 			return GameModel.map.getCase(i, j+1).getContenu();
 		}
-		else if(dir == "E" && i<GameModel.map.getTotalWidth() && j<GameModel.map.getTotalHeight()){
+		else if(dir == "E" && i<GameModel.map.getTotalWidth()-1 && j<GameModel.map.getTotalHeight()){
 			return GameModel.map.getCase(i+1, j).getContenu();
 		}
-		else if(dir == "W" && i<GameModel.map.getTotalWidth() && j<GameModel.map.getTotalHeight()){
+		else if(dir == "W" && i>0 && j<GameModel.map.getTotalHeight()){
 			return GameModel.map.getCase(i-1,j).getContenu();
 		}
 		else{
