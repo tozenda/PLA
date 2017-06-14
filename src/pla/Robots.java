@@ -12,6 +12,8 @@ public class Robots extends Perso{
 	int pDefense = 0;
 	int pAttaque;
 	Noeud a;
+	Noeud courant;
+	Noeud etoile;
 	int equipe;
 	boolean stun;
 	boolean protection;
@@ -52,6 +54,8 @@ public class Robots extends Perso{
 		stun = false;
 		boostDegat = false;
 		choixOu = true;
+		this.courant = this.a;
+		this.etoile = null;
 	}
 
 	public String toString() {
@@ -679,7 +683,7 @@ public class Robots extends Perso{
 		Map map = GameModel.map;
 		int min = map.getHeight()+map.getWidth();
 		int min_i = 0, min_j = 0;
-		int tmp = 0;
+		int tmp = min;
 
 
 		for(int k = 0; k<map.getTotalWidth(); k++){
@@ -720,7 +724,7 @@ public class Robots extends Perso{
 		Map map = GameModel.map;
 		int min = map.getTotalHeight()+map.getTotalWidth();
 		int min_i = 0, min_j = 0;
-		int tmp = 0;
+		int tmp = min;
 
 		//recherche d'ennemie
 		for(int k = 0; k<map.getTotalWidth(); k++){
@@ -766,7 +770,7 @@ public class Robots extends Perso{
 		Map map = GameModel.map;
 		int min = map.getTotalHeight()+map.getTotalWidth();
 		int min_i = 0, min_j = 0;
-		int tmp = 0;
+		int tmp = min;
 
 		for(int k = 0; k<map.getTotalWidth(); k++){
 			for(int l = 0; l<map.getTotalHeight(); l++){
@@ -917,86 +921,88 @@ public class Robots extends Perso{
 				switch(c){
 					case Hit:
 						this.attack();
-						this.eval(n.filsDroit);
+						this.courant = courant.filsDroit;
 						break;
 					case Protect:
 						this.protection();
-						this.eval(n.filsDroit);
+						this.courant = courant.filsDroit;
 						break;
 					case Soin:
 						this.soin();
-						this.eval(n.filsDroit);
+						this.courant = courant.filsDroit;
 						break;
 					case Kamikaze:
 						this.kamikaze();
-						this.eval(n.filsDroit);
+						this.courant = courant.filsDroit;
 						break;
 					case Volvie:
 						this.voleVie();
-						this.eval(n.filsDroit);
+						this.courant = courant.filsDroit;
 						break;
 					case Stun:
 						this.stun();
-						this.eval(n.filsDroit);
+						this.courant = courant.filsDroit;
 						break;
 					case AugDef:
 						this.augDef();
-						this.eval(n.filsDroit);
+						this.courant = courant.filsDroit;
 						break;
 					case DimDef:
 						this.dimDef();
-						this.eval(n.filsDroit);
+						this.courant = courant.filsDroit;
 						break;
 					case Contrer:
 						this.contre();
-						this.eval(n.filsDroit);
+						this.courant = courant.filsDroit;
 						break;
 					case Poison:
 						this.poison();
-						this.eval(n.filsDroit);
+						this.courant = courant.filsDroit;
 						break;
 					case Boost:
 						this.boostAttack();
-						this.eval(n.filsDroit);
+						this.courant = courant.filsDroit;
 						break;
 					case MoveRamasse:
 						this.moveRamasse();
-						this.eval(n.filsDroit);
+						this.courant = courant.filsDroit;
 						break;
 					case MoveAttack:
 						this.moveAttack();
-						this.eval(n.filsDroit);
+						this.courant = courant.filsDroit;
 						break;
 					case MoveDef:
 						this.moveDef();
-						this.eval(n.filsDroit);
+						this.courant = courant.filsDroit;
 						break;
 					case Sup:
 						if (isPossible(n.filsGauche) == 0){
-							this.eval(n.filsDroit);
+							this.courant = courant.filsDroit;
 						}
 						else{
-							this.eval(n.filsGauche);
+							this.courant = courant.filsGauche;
 						}
 						break;
 					case Etoile:
-						while(GameModel.situation==2*this.equipe){
-							eval(n.filsDroit);
-						}
+						this.etoile = n;
+						
 						break;
 					case Ou:
 						if(choixOu){
-							eval(n.filsGauche);
+							this.courant = courant.filsGauche;
 						}
 						else{
-							eval(n.filsDroit);
+							this.courant = courant.filsDroit;
 						}
 						break;
-				default:
-					break;
+					default:
+						break;
 				}
 				stun = false;
 			}
+		}
+		if(this.etoile!=null){
+			this.courant = etoile;
 		}
 	}
 
