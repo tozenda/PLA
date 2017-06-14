@@ -6,7 +6,8 @@ public class Base extends Actifs{
 	
 	private int x;
     private int y;
-    private Image image;
+    @SuppressWarnings("unused")
+	private Image image;
     public int pdv;
     int equipe;
     

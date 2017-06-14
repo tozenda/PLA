@@ -102,10 +102,4 @@ public class Noeud {
 		        return Competence.MoveRamasse;
 		  }
 	}
-
-	/* on construit un arbre de test*/
-	public static void main(String[] args){
-		Noeud n = new Noeud(Competence.Hit, 1);
-		Competence c = Symb_to_Comp("H");
-	}
 }

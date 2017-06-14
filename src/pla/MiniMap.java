@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+@SuppressWarnings("unused")
 public class MiniMap extends JLabel {
 	/**
 	 * 

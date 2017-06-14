@@ -5,6 +5,7 @@ import java.util.Random;
 
 import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
+@SuppressWarnings("unused")
 public class Map {
 	private int width = 20;
 	private int height = 12;
