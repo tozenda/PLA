@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-@SuppressWarnings("unused")
 public class Robots extends Perso{
 
 	int i,j;
@@ -388,6 +387,23 @@ public class Robots extends Perso{
 								}
 								r2.pdv -= 35;
 								r2.destructionRobot();
+							}
+							return 1;
+						}
+					}
+					
+					if(obs.isBase()){
+						Base b = (Base) obs;
+						if(b.equipe != this.equipe){
+							double p = Math.random();
+							if(p > 0.05){
+								//5% de chance de rater son attaque
+								if(boostDegat){
+									b.pdv -= 10;
+									boostDegat = false;
+								}
+								b.pdv -= 35;
+								b.destructionBase();
 							}
 							return 1;
 						}
@@ -823,26 +839,26 @@ public class Robots extends Perso{
 		List<Competence> l = c.getLc();
 		for (Competence tmp : l){
 			if(this.equipe == 1){
-				if (Game.game.m_model.heros1.inventaire.containsKey(tmp)){
-					Game.game.m_model.heros1.inventaire.put(tmp,Game.game.m_model.heros1.inventaire.get(tmp)+1);
+				if (GameModel.heros1.inventaire.containsKey(tmp)){
+					GameModel.heros1.inventaire.put(tmp,GameModel.heros1.inventaire.get(tmp)+1);
 				}
 				else{
-					Game.game.m_model.heros1.inventaire.put(tmp,1);
+					GameModel.heros1.inventaire.put(tmp,1);
 				}
 				
 			}
 			else if(this.equipe == 2){
-				if (Game.game.m_model.heros2.inventaire.containsKey(tmp)){
-					Game.game.m_model.heros2.inventaire.put(tmp,Game.game.m_model.heros2.inventaire.get(tmp)+1);
+				if (GameModel.heros2.inventaire.containsKey(tmp)){
+					GameModel.heros2.inventaire.put(tmp,GameModel.heros2.inventaire.get(tmp)+1);
 				}
 				else{
-					Game.game.m_model.heros2.inventaire.put(tmp,1);
+					GameModel.heros2.inventaire.put(tmp,1);
 				}
 			}
 		}
 		c.getLc().clear();
 		System.out.println("Inventaire du heros");
-		for(HashMap.Entry<Competence, Integer> e : Game.game.m_model.heros1.inventaire.entrySet()){
+		for(HashMap.Entry<Competence, Integer> e : GameModel.heros1.inventaire.entrySet()){
 			System.out.println(e.getKey().toString());
 		}
 	}
