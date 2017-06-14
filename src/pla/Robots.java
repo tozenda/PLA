@@ -94,16 +94,16 @@ public class Robots extends Perso{
 	}
 
 	private Observables contenu(String dir){
-		if(dir == "N" && i<GameModel.map.getTotalWidth() && j>0){
+		if(dir == "N"){
 			return GameModel.map.getCase(i, j-1).getContenu();
 		}
-		else if(dir == "S" && i<GameModel.map.getTotalWidth() && j<GameModel.map.getTotalHeight()-1){
+		else if(dir == "S"){
 			return GameModel.map.getCase(i, j+1).getContenu();
 		}
-		else if(dir == "E" && i<GameModel.map.getTotalWidth()-1 && j<GameModel.map.getTotalHeight()){
+		else if(dir == "E"){
 			return GameModel.map.getCase(i+1, j).getContenu();
 		}
-		else if(dir == "W" && i>0 && j<GameModel.map.getTotalHeight()){
+		else if(dir == "W"){
 			return GameModel.map.getCase(i-1,j).getContenu();
 		}
 		else{
@@ -207,7 +207,7 @@ public class Robots extends Perso{
 				NSEW(map,"E");
 			}
 			else{
-				if((contenu("S").isVide())||(contenu("S").isCompetences())||((contenu("N").isVide())||(contenu("N").isCompetences()))){
+				if(((j<map.getTotalHeight()-1)&&(contenu("S").isVide())||(contenu("S").isCompetences()))||(((j>0)&&(contenu("N").isVide())||(contenu("N").isCompetences())))){
 					if((j<5)&&(contenu("S").isCompetences()||contenu("S").isVide())){
 						if(contenu("S").isCompetences()){
 							pickUp( (Competences) contenu("S"));
@@ -247,7 +247,7 @@ public class Robots extends Perso{
 				NSEW(map,"W");
 			}
 			else{
-				if((contenu("S").isVide())||(contenu("S").isCompetences())||(contenu("N").isVide())||(contenu("N").isCompetences())){
+				if(((j<map.getTotalHeight()-1)&&(contenu("S").isVide())||(contenu("S").isCompetences()))||(((j>0)&&(contenu("N").isVide())||(contenu("N").isCompetences())))){
 					if((j<5)&&(contenu("S").isCompetences()||contenu("S").isVide())){
 						if(contenu("S").isCompetences()){
 							pickUp( (Competences) contenu("S"));

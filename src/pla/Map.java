@@ -33,6 +33,15 @@ public class Map {
 				elements[i][j] = c;
 			}
 		}
+		
+		for(int w=0;w<total_width;w++){
+			elements[0][w] = new Case(w,0,new Obstacles());
+			elements[total_height-1][w] = new Case(w,total_height-1,new Obstacles());
+		}
+		for(int h=0;h<total_height;h++){
+			elements[h][0] = new Case(0,h,new Obstacles());
+			elements[h][total_width-1] = new Case(total_width-1,h,new Obstacles());
+		}
 		elements[9][19] = new Case(9,19,new Obstacles());
 		elements[9][18] = new Case(9,18,new Obstacles());
 		elements[9][17] = new Case(9,17,new Obstacles());
