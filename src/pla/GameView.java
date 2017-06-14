@@ -337,11 +337,11 @@ public class GameView extends JPanel {
 			// info = new JLabel(s);
 
 		}
-		if (m_model.getCurrentCase() != null) {
+		if (GameModel.getCurrentCase() != null) {
 			String s = "<html> <font color='rgb(255, 0, 0)'><br/>PDV: </font>"
-					+ m_model.getCurrentCase().getContenu().getPointdeVie();
+					+ GameModel.getCurrentCase().getContenu().getPointdeVie();
 
-			switch (m_model.getCurrentCase().getContenu().toString()) {
+			switch (GameModel.getCurrentCase().getContenu().toString()) {
 
 			case ("H"):
 				info.setIcon(new ImageIcon(new ImageIcon(Path + "hero.png").getImage().getScaledInstance(50, 50,
@@ -370,7 +370,6 @@ public class GameView extends JPanel {
 						+ "<br/>This is a robot <br/>A stupid one.</html>";
 				break;
 			case ("Vide"):
-
 				info.setIcon(new ImageIcon(new ImageIcon(Path + "base.png").getImage().getScaledInstance(1, 1,
 						java.awt.Image.SCALE_SMOOTH)));
 				s = "<html><font color='rgb(213, 178, 94)'>Emptiness</font>" + s
@@ -381,11 +380,11 @@ public class GameView extends JPanel {
 				// <span style\"color: red\">" + message + "</span>
 
 			default:
-				info.setIcon(new ImageIcon(new ImageIcon(Path + m_model.getCurrentCase().getContenu().getPic())
+				info.setIcon(new ImageIcon(new ImageIcon(Path + GameModel.getCurrentCase().getContenu().getPic())
 						.getImage().getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH)));
 
-				s = "<html><font color='rgb(31, 178, 163)'>" + m_model.getCurrentCase().getContenu().toString()
-						+ "</font>" + "<br/>" + m_model.getCurrentCase().getContenu().getDescription();
+				s = "<html><font color='rgb(31, 178, 163)'>" + GameModel.getCurrentCase().getContenu().toString()
+						+ "</font>" + "<br/>" + GameModel.getCurrentCase().getContenu().getDescription();
 				break;
 
 			}
