@@ -11,7 +11,7 @@ public abstract class Observables {
 	public int getPointdeVie(){
 		return 0;
 	}
-	public abstract String getPic();
+	public abstract int getPic();
 	public abstract String getDescription();
 
 	

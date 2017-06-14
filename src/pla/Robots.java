@@ -1108,9 +1108,8 @@ public class Robots extends Perso{
 	}
 
 	@Override
-	public String getPic() {
-		// TODO Auto-generated method stub
-		return null;
+	public int getPic() {
+		return 20;
 	}
 
 	@Override
