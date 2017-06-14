@@ -439,6 +439,7 @@ public class GameModel {
 				System.out.println("Pas assez de point d'actions");
 			}
 		}
+		m_game.returnFocus();
 	}
 
 	public static void Create_Robot(){
@@ -569,5 +570,6 @@ public class GameModel {
 				}
 			}
 		}
+		m_game.returnFocus();
 	}
 }
