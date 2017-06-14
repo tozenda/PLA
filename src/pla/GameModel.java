@@ -313,44 +313,44 @@ public class GameModel {
 						heros1.pointAction -= heros1.coupCreationRobot;
 					}
 				}
-				if(heros1.getY()+1<map.getTotalHeight()){
-					else if(GameModel.map.getCase(heros1.getX(),heros1.getY()+1).getContenu().isVide()){
+				else if(heros1.getY()+1<map.getTotalHeight()){
+					if(GameModel.map.getCase(heros1.getX(),heros1.getY()+1).getContenu().isVide()){
 						robot_list.add(new Robots(heros1.getX(),heros1.getY()+1,1,com));
 						heros1.pointAction -= heros1.coupCreationRobot;
 					}
 				}
-				if(heros1.getX()>0){
-					else if(GameModel.map.getCase(heros1.getX()-1,heros1.getY()).getContenu().isVide()){
+				else if(heros1.getX()>0){
+					if(GameModel.map.getCase(heros1.getX()-1,heros1.getY()).getContenu().isVide()){
 						robot_list.add(new Robots(heros1.getX()-1,heros1.getY(),1,com));
 						heros1.pointAction -= heros1.coupCreationRobot;
 					}
 				}
-				if(heros1.getY()>0){
-					else if(GameModel.map.getCase(heros1.getX(),heros1.getY()-1).getContenu().isVide()){
+				else if(heros1.getY()>0){
+					if(GameModel.map.getCase(heros1.getX(),heros1.getY()-1).getContenu().isVide()){
 						robot_list.add(new Robots(heros1.getX(),heros1.getY()-1,1,com));
 						heros1.pointAction -= heros1.coupCreationRobot;
 					}
 				}
-				if(heros1.getY()+1<map.getTotalHeight() && heros1.getX()+1<map.getTotalWidth()){
-					else if(GameModel.map.getCase(heros1.getX()+1,heros1.getY()+1).getContenu().isVide()){
+				else if(heros1.getY()+1<map.getTotalHeight() && heros1.getX()+1<map.getTotalWidth()){
+					if(GameModel.map.getCase(heros1.getX()+1,heros1.getY()+1).getContenu().isVide()){
 						robot_list.add(new Robots(heros1.getX()+1,heros1.getY()+1,1,com));
 						heros1.pointAction -= heros1.coupCreationRobot;
 					}
 				}
-				if(heros1.getY()>0 && heros1.getX()+1<map.getTotalWidth()){
-					else if(GameModel.map.getCase(heros1.getX()+1,heros1.getY()-1).getContenu().isVide()){
+				else if(heros1.getY()>0 && heros1.getX()+1<map.getTotalWidth()){
+					if(GameModel.map.getCase(heros1.getX()+1,heros1.getY()-1).getContenu().isVide()){
 						robot_list.add(new Robots(heros1.getX()+1,heros1.getY()-1,1,com));
 						heros1.pointAction -= heros1.coupCreationRobot;
 					}
 				}
-				if(heros1.getY()+1<map.getTotalHeight() && heros1.getX()>0){
-					else if(GameModel.map.getCase(heros1.getX()-1,heros1.getY()+1).getContenu().isVide()){
+				else if(heros1.getY()+1<map.getTotalHeight() && heros1.getX()>0){
+					if(GameModel.map.getCase(heros1.getX()-1,heros1.getY()+1).getContenu().isVide()){
 						robot_list.add(new Robots(heros1.getX()-1,heros1.getY()+1,1,com));
 						heros1.pointAction -= heros1.coupCreationRobot;
 					}
 				}
-				if(heros1.getY()>0 && heros1.getX()>0){
-					else if(GameModel.map.getCase(heros1.getX()-1,heros1.getY()-1).getContenu().isVide()){
+				else if(heros1.getY()>0 && heros1.getX()>0){
+					if(GameModel.map.getCase(heros1.getX()-1,heros1.getY()-1).getContenu().isVide()){
 						robot_list.add(new Robots(heros1.getX()-1,heros1.getY()-1,1,com));
 						heros1.pointAction -= heros1.coupCreationRobot;
 					}
@@ -372,44 +372,44 @@ public class GameModel {
 						heros2.pointAction -= heros2.coupCreationRobot;
 					}
 				}
-				if(heros1.getY()+1<map.getTotalHeight()){
-					else if(GameModel.map.getCase(heros2.getX(),heros2.getY()+1).getContenu().isVide()){
+				else if(heros1.getY()+1<map.getTotalHeight()){
+					if(GameModel.map.getCase(heros2.getX(),heros2.getY()+1).getContenu().isVide()){
 						robot_list.add(new Robots(heros2.getX(),heros2.getY()+1,2,com));
 						heros2.pointAction -= heros2.coupCreationRobot;
 					}
 				}
-				if(heros1.getX()>0){
-					else if(GameModel.map.getCase(heros2.getX()-1,heros2.getY()).getContenu().isVide()){
+				else if(heros1.getX()>0){
+					if(GameModel.map.getCase(heros2.getX()-1,heros2.getY()).getContenu().isVide()){
 						robot_list.add(new Robots(heros2.getX()-1,heros2.getY(),2,com));
 						heros2.pointAction -= heros2.coupCreationRobot;
 					}
 				}
-				if(heros1.getY()>0){
-					else if(GameModel.map.getCase(heros2.getX(),heros2.getY()-1).getContenu().isVide()){
+				else if(heros1.getY()>0){
+					if(GameModel.map.getCase(heros2.getX(),heros2.getY()-1).getContenu().isVide()){
 						robot_list.add(new Robots(heros2.getX(),heros2.getY()-1,2,com));
 						heros2.pointAction -= heros2.coupCreationRobot;
 					}
 				}
-				if(heros1.getY()+1<map.getTotalHeight() && heros1.getX()+1<map.getTotalWidth()){
-					else if(GameModel.map.getCase(heros2.getX()+1,heros2.getY()+1).getContenu().isVide()){
+				else if(heros1.getY()+1<map.getTotalHeight() && heros1.getX()+1<map.getTotalWidth()){
+					if(GameModel.map.getCase(heros2.getX()+1,heros2.getY()+1).getContenu().isVide()){
 						robot_list.add(new Robots(heros2.getX()+1,heros2.getY()+1,2,com));
 						heros2.pointAction -= heros2.coupCreationRobot;
 					}
 				}
-				if(heros1.getY()>0 && heros1.getX()+1<map.getTotalWidth()){
-					else if(GameModel.map.getCase(heros2.getX()+1,heros2.getY()-1).getContenu().isVide()){
+				else if(heros1.getY()>0 && heros1.getX()+1<map.getTotalWidth()){
+					if(GameModel.map.getCase(heros2.getX()+1,heros2.getY()-1).getContenu().isVide()){
 						robot_list.add(new Robots(heros2.getX()+1,heros2.getY()-1,2,com));
 						heros2.pointAction -= heros2.coupCreationRobot;
 					}
 				}
-				if(heros1.getY()+1<map.getTotalHeight() && heros1.getX()>0){
-					else if(GameModel.map.getCase(heros2.getX()-1,heros2.getY()+1).getContenu().isVide()){
+				else if(heros1.getY()+1<map.getTotalHeight() && heros1.getX()>0){
+					if(GameModel.map.getCase(heros2.getX()-1,heros2.getY()+1).getContenu().isVide()){
 						robot_list.add(new Robots(heros2.getX()-1,heros2.getY()+1,2,com));
 						heros2.pointAction -= heros2.coupCreationRobot;
 					}
 				}
-				if(heros1.getY()>0 && heros1.getX()>0){
-					else if(GameModel.map.getCase(heros2.getX()-1,heros2.getY()-1).getContenu().isVide()){
+				else if(heros1.getY()>0 && heros1.getX()>0){
+					if(GameModel.map.getCase(heros2.getX()-1,heros2.getY()-1).getContenu().isVide()){
 						robot_list.add(new Robots(heros2.getX()-1,heros2.getY()-1,2,com));
 						heros2.pointAction -= heros2.coupCreationRobot;
 					}
