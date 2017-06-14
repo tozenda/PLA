@@ -37,6 +37,10 @@ public class Heros extends Perso{
       this.equipe = equipe;
      }
     
+    public int getPointdeVie(){
+    	return pdv;
+    }
+    
     private void initHeros() {
         
         ImageIcon ii = new ImageIcon("../img/hero.png");

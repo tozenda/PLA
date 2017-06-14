@@ -69,4 +69,8 @@ public int getEquipe(){
 			map.editCase(c);
 		}
 	}
+	
+	public int getPointdeVie(){
+		return pdv;
+	}
 }

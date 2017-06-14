@@ -58,6 +58,9 @@ public class Robots extends Perso{
 		return "R";
 	}
 
+	public int getPointdeVie(){
+		return pdv;
+	}
 
 	public void NSEW(Map map,String dir){
 		if(dir == "N"){
@@ -358,7 +361,7 @@ public class Robots extends Perso{
 
 		for(int k = i-1; k<= i+1; k++){
 			for(int l = j-1; l<=j+1; l++){
-				if(0<=k && k<map.getWidth() && 0<=l&& l<map.getHeight()){
+				if((0<=k) && (k<map.getWidth()) && (0<=l) && (l<map.getHeight())){
 					Case c = map.getCase(k, l);
 					Observables obs = c.getContenu();
 
@@ -1137,16 +1140,4 @@ public class Robots extends Perso{
 		}
 
 	}
-
-	public static void main(String[] args) {
-		Robots r1 = new Robots(3, 3, 1, "(H)");
-		Robots r2 = new Robots(3, 4, 1, "(S)");
-		r2.pdv = 70;
-		r1.pdv = 30;
-		r1.attack();
-		System.out.println(r2.pdv);
-		r1.eval(r1.a);
-		System.out.println(r2.pdv);
-	}
-
 }
