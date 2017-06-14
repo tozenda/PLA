@@ -52,6 +52,7 @@ public class GameView extends JPanel {
 	private JLabel info = null;
 	private BufferedImage iHero = null;
 	private BufferedImage iObstacle = null;
+	@SuppressWarnings("unused")
 	private BufferedImage iTree = null;
 	private BufferedImage iBase = null;
 	private BufferedImage iSkill = null;

@@ -15,7 +15,7 @@ import javax.imageio.ImageIO;
 
 //classe permettant d'interagir entre l'affichage et notre structure de données
 public class GameModel {
-	
+
 	String Thomas="/home/tozenda/COURS/RICM3/S6/PLA/PLA/Resources/";
 	static String Najwa ="Resources/";
 	String Anouar = "Resources/";
@@ -41,15 +41,15 @@ public class GameModel {
 	*/
 	private int Factx = 1;
 	private int Facty = 1;
-	
 
-	private BufferedImage[] walkingLeft = {getSprite(0, 1), getSprite(1, 1), getSprite(2, 1)}; 
+
+	private BufferedImage[] walkingLeft = {getSprite(0, 1), getSprite(1, 1), getSprite(2, 1)};
 	private Animation walkLeft = new Animation(walkingLeft, 1);
-	private BufferedImage[] walkingRight = {getSprite(0, 2), getSprite(1, 2), getSprite(2, 2)}; 
+	private BufferedImage[] walkingRight = {getSprite(0, 2), getSprite(1, 2), getSprite(2, 2)};
 	private Animation walkRight = new Animation(walkingRight, 1);
 	private BufferedImage[] walkingFront = {getSprite(0, 0), getSprite(1, 0), getSprite(2, 0)}; // Gets the upper left images of sprite sheet
 	private Animation walkFront = new Animation(walkingFront, 1);
-	private BufferedImage[] walkingBack = {getSprite(0, 3), getSprite(1, 3), getSprite(2, 3)}; 
+	private BufferedImage[] walkingBack = {getSprite(0, 3), getSprite(1, 3), getSprite(2, 3)};
 	private Animation walkBack = new Animation(walkingBack, 1);
 	private Animation animation;
 	private static BufferedImage iHero=null;
@@ -59,10 +59,10 @@ public class GameModel {
 		return heros1;
 	}
 
-	
+
 	private static BufferedImage spriteSheet;
     private static final int TILE_SIZE = 32;
-    
+
 //loadImage
     public static BufferedImage loadSprite(String file) {
 
@@ -214,8 +214,6 @@ public class GameModel {
 			}
 		}
 
-		//System.out.println(mvt);
-		int currentLocation = map.getHeroLocation(currentX, currentY);
 		//System.out.println("Map actuelle : "+ currentLocation);
 		// remplacer par switch
 		if (mvt == KeyEvent.VK_LEFT && map.getLocation() != 3) {
@@ -447,8 +445,9 @@ public class GameModel {
 		System.out.println("Create Robot");
 		String com = "";
 		if(getCurrentCase()!=null){
-		if(getCurrentCase().getContenu().isRobot()){
-			modifier_Robot();
+			if(getCurrentCase().getContenu().isRobot()){
+				modifier_Robot();
+			}
 		}
 		}
 		else{

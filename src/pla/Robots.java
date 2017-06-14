@@ -737,12 +737,18 @@ public class Robots extends Perso{
 						}
 					}
 				}
+				if(obs.isBase()){
+					Base b = (Base) obs;
+					if(this.equipe != b.equipe){
+						tmp = Math.abs(k-i)+Math.abs(l-j);
+						if(tmp<min){
+							min = tmp;
+							min_i = k;
+							min_j = l;
+						}
+					}
+				}
 			}
-		}
-
-		//Cas ou il trouve pas d'ennemie il attaque la base
-		if(min==30){
-			//attaquer base ennemie
 		}
 		Case c = map.getCase(min_i, min_j);
 		move(c);
