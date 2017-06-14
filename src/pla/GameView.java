@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -25,6 +26,8 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultHighlighter;
 
 public class GameView extends JPanel {
 
@@ -117,6 +120,8 @@ public class GameView extends JPanel {
 			sideg.gridheight = 1;
 			sideg.anchor = GridBagConstraints.CENTER;
 			sideg.fill = GridBagConstraints.HORIZONTAL;
+			jtf.setFont(setFont(12f));
+			jtf.setBackground(Color.gray.brighter());
 		}
 		return jtf;
 	}
@@ -131,7 +136,6 @@ public class GameView extends JPanel {
 		sideg.gridwidth = 1;
 		sideg.gridheight = 2;
 		sideg.anchor = GridBagConstraints.PAGE_END;
-		// sideg.fill=sideg.anchor=GridBagConstraints.
 		sideg.fill = GridBagConstraints.BOTH;
 
 		MiniMap minimap = new MiniMap("Heyxkjcnvfkj");
@@ -220,7 +224,7 @@ public class GameView extends JPanel {
 	public JScrollPane setInventory() {
 		if (scrollableTextArea == null){
 			sideg.gridx = 0;
-			textArea = new JTextArea(1,1);
+			textArea = new JTextArea(2,2);
 			scrollableTextArea = new JScrollPane(textArea);
 		sideg.gridy = 1;
 		sideg.gridheight = 1;
@@ -232,6 +236,10 @@ public class GameView extends JPanel {
 		scrollableTextArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		
 		}
+		
+	
+        
+    
 		String Inventory = "\n         Inventaire vide \n";
 		String s =null ;
 		
@@ -245,14 +253,18 @@ public class GameView extends JPanel {
 		}
 
 		if (s != null) {
+			try {
+				textArea.getHighlighter().addHighlight(0,	56, (new DefaultHighlighter.DefaultHighlightPainter(Gold)));
+			} catch (BadLocationException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			textArea.setText(s);
 		}else{
 			textArea.setText(Inventory);
 		}
-	
 		System.out.println("Here's What I got : " + s);
 
-		
 		return scrollableTextArea;
 	}
 
