@@ -63,8 +63,8 @@ public class GameView extends JPanel {
 	String Anouar = "Resources/";
 	String Jo = "/home/ferreira/Bureau/POO/PLA/Resources/";
 	String Paul = "home/doublean/git/PLA/Resources/";
-	String Shoo = null;
-	String Path = Thomas;
+	String Shoo = "/Users/fathinsyuhadaabubakar/Documents/gitclean/PLA/Resources/";
+	String Path = Shoo;
 
 	GridBagConstraints gc = new GridBagConstraints();
 	GridBagConstraints sideg = new GridBagConstraints();
@@ -558,14 +558,28 @@ public class GameView extends JPanel {
 						e.printStackTrace();
 					}
 				} else if (obs.isHeros()) {
-					try {
+					if(m_model.getImage() == null)
+					{
+						try {
+							iHero = ImageIO.read(new File(Path + "front.png"));
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						g.drawImage(iHero, (i % GameModel.map.getWidth()) * tailleCase + 1,
+								(j % GameModel.map.getHeight()) * tailleCase + 1, 39, 39, this);
+					}
+					
+					g.drawImage(m_model.getImage(), (i % GameModel.map.getWidth()) * tailleCase + 1,
+							(j % GameModel.map.getHeight()) * tailleCase + 1, 39, 39, this);
+					/*try {
 						iHero = ImageIO.read(new File(Path + "hero.png"));
 						g.drawImage(iHero, (i % GameModel.map.getWidth()) * tailleCase + 1,
 								(j % GameModel.map.getHeight()) * tailleCase + 1, 39, 39, this);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}
+					}*/
 				} else if (obs.isBase()) {
 					try {
 						iBase = ImageIO.read(new File(Path + obs.getPic()));
