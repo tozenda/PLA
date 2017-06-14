@@ -449,7 +449,6 @@ public class GameModel {
 				modifier_Robot();
 			}
 		}
-		}
 		else{
 			if((Game.game.tourDe1)&&(!Game.game.PhaseAction)){
 				if(heros1.pointAction>=2){

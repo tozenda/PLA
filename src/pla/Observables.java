@@ -8,8 +8,7 @@ public abstract class Observables {
 	public abstract boolean isHeros();
 	public abstract boolean isBase();
 	public abstract boolean isRobot();
-	public int getPointdeVie() {
-		// TODO Auto-generated method stub
+	public int getPointdeVie(){
 		return 0;
 	}
 	public abstract String getPic();
