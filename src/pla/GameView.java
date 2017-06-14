@@ -67,8 +67,8 @@ public class GameView extends JPanel {
 	String Paul = "home/doublean/git/PLA/Resources/";
 	String Shoo = "/Users/fathinsyuhadaabubakar/Documents/gitclean/PLA/Resources/";
 	String Path = Najwa;
-	JTextArea textArea = new JTextArea();
-	JScrollPane scrollableTextArea = new JScrollPane(textArea);
+	JTextArea textArea = null;
+	JScrollPane scrollableTextArea =null;
 
 	GridBagConstraints gc = new GridBagConstraints();
 	GridBagConstraints sideg = new GridBagConstraints();
@@ -218,15 +218,23 @@ public class GameView extends JPanel {
 	}
 
 	public JScrollPane setInventory() {
-		sideg.gridx = 0;
+		if (scrollableTextArea == null){
+			sideg.gridx = 0;
+			textArea = new JTextArea(1,1);
+			scrollableTextArea = new JScrollPane(textArea);
 		sideg.gridy = 1;
 		sideg.gridheight = 1;
-		String s = "";
-		HashMap<Competence, Integer> lc = m_model.getCurrentHero().getInventaire();
-		Competences l = new Competences();
-
-		// m_model.getCurrentHero().pickUp(l);
-		HashMap<Competence, Integer> inv = m_model.getCurrentHero().getInventaire();
+		scrollableTextArea.setMaximumSize(new Dimension(140,100));
+		scrollableTextArea.setMinimumSize(new Dimension(140,100));
+		textArea.setEditable(false);
+		textArea.setFont(setFont(12f));
+		textArea.setForeground(Color.black);
+		scrollableTextArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		
+		}
+		String Inventory = "\n         Inventaire vide \n";
+		String s =null ;
+		
 		for (HashMap.Entry<Competence, Integer> e : m_model.getCurrentHero().getInventaire().entrySet()) {
 
 			if (s == null) {
@@ -238,12 +246,13 @@ public class GameView extends JPanel {
 
 		if (s != null) {
 			textArea.setText(s);
+		}else{
+			textArea.setText(Inventory);
 		}
-		textArea.setText("" + s);
+	
 		System.out.println("Here's What I got : " + s);
 
-		// textArea.setEditable(false);
-		scrollableTextArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		
 		return scrollableTextArea;
 	}
 
