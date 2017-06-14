@@ -65,7 +65,7 @@ public class GameView extends JPanel {
 	String Paul = "home/doublean/git/PLA/Resources/";
 	String Shoo = "/Users/fathinsyuhadaabubakar/Documents/gitclean/PLA/Resources/";
 	String Path = Najwa;
-	JTextArea textArea = new JTextArea(5, 5);
+	JTextArea textArea = new JTextArea();
 	JScrollPane scrollableTextArea = new JScrollPane(textArea);
 
 
@@ -76,30 +76,35 @@ public class GameView extends JPanel {
 		if (jtf == null) {
 			jtf = new JTextField();
 			sideg.gridx = 0;
-			sideg.gridy = 7;
+			sideg.gridy = 2;
+			sideg.gridwidth = 3;
 			sideg.gridheight = 1;
-			sideg.anchor = GridBagConstraints.PAGE_END;
-			sideg.fill = GridBagConstraints.HORIZONTAL;
+			sideg.anchor = GridBagConstraints.CENTER;
+sideg.fill = GridBagConstraints.HORIZONTAL;
 		}
 		return jtf;
 	}
 
-	public String getTextField(){
+	public String getTextField() {
 		return jtf.getText();
 	}
 
 	private MiniMap setMinimap() {
-		sideg.gridx = 0;
-		sideg.gridy = 4;
+		sideg.gridx = 1;
+		sideg.gridy = 5;
 		sideg.gridwidth = 1;
-		sideg.anchor = GridBagConstraints.CENTER;
+		sideg.gridheight = 2;
+		sideg.anchor = GridBagConstraints.PAGE_END;
 		// sideg.fill=sideg.anchor=GridBagConstraints.
 		sideg.fill = GridBagConstraints.BOTH;
+
 
 		MiniMap minimap = new MiniMap("Heyxkjcnvfkj");
 		Border border = minimap.getBorder();
 		Border margin = new EmptyBorder(10, 10, 10, 10);
-		minimap.setPreferredSize(new Dimension(140, 250));
+		minimap.setMaximumSize(new Dimension(140, 140));
+		minimap.setMinimumSize(new Dimension(140, 140));
+
 		minimap.setBorder(new CompoundBorder(border, margin));
 
 		minimap.setBackground(Color.RED);
@@ -153,9 +158,9 @@ public class GameView extends JPanel {
 			sideg.ipady = sideg.anchor = GridBagConstraints.FIRST_LINE_START;
 			// sideg.insets = new Insets(2,2,2,2);
 			/* weightx définit le nombre de cases en abscisse */
-			sideg.weightx = 2;
+			sideg.weightx = 3;
 			/* weightx définit le nombre de cases en ordonnée */
-			sideg.weighty = 8;
+sideg.weighty = 8;
 
 		}
 		return side;
@@ -180,7 +185,7 @@ public class GameView extends JPanel {
 	public JScrollPane setInventory() {
 		sideg.gridx = 0;
 		sideg.gridy = 1;
-		sideg.gridheight = 2;
+		sideg.gridheight = 1;
 		String s = "";
 		HashMap<Competence, Integer> lc = m_model.getCurrentHero().getInventaire();
 		Competences l = new Competences();
@@ -198,7 +203,6 @@ public class GameView extends JPanel {
 		
 		
 		if (s != null) {
-			System.out.println("nuuuuuuuuuuuuuuuuuuuuulllllllllllllllllll");
 			textArea.setText(s);
 		}
 		textArea.setText(""+s);
@@ -316,6 +320,7 @@ public class GameView extends JPanel {
 		if (Create_Robot == null) {
 			sideg.gridx = 0;
 			sideg.gridy = 0;
+			sideg.gridwidth=3;
 
 			Create_Robot = new _RButtonB("Create Robot");
 			Create_Robot.setForeground(Color.WHITE);
@@ -352,9 +357,13 @@ public class GameView extends JPanel {
 			info.setFont(setFont(12f));
 			sideg.gridx = 0;
 			sideg.gridy = 3;
+			sideg.gridwidth = 3;
 			sideg.gridheight = 1;
-			sideg.fill = GridBagConstraints.BOTH;
+			sideg.fill = GridBagConstraints.PAGE_END;
 			info.setPreferredSize(new Dimension(140, 150));
+			info.setMaximumSize(new Dimension(140, 140));
+			info.setMinimumSize(new Dimension(140, 140));
+
 			// String s = "Line1 Line2 <br/> Line3";
 
 			// jLabel1.setText (sText);
