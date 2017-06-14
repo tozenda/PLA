@@ -48,11 +48,11 @@ public int getEquipe(){
 	}
 
 	@Override
-	public String getPic() {
+	public int getPic() {
 		if (getEquipe()==1){
-			return "Base1.png";
+			return 24;
 		}
-		return "Base2.png";
+		return 25;
 	}
 
 	@Override

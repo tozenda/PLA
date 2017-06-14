@@ -12,7 +12,7 @@ public abstract class Observables {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	public abstract String getPic();
+	public abstract int getPic();
 	public abstract String getDescription();
 
 	

@@ -31,9 +31,8 @@ public class Obstacles extends Observables{
 	}
 
 	@Override
-	public String getPic() {
-		// TODO Auto-generated method stub
-		return null;
+	public int getPic() {
+		return 17;
 	}
 
 	@Override

@@ -55,6 +55,7 @@ public class GameView extends JPanel {
 	private BufferedImage iTree = null;
 	private BufferedImage iBase = null;
 	private BufferedImage iSkill = null;
+	private BufferedImage Image[] = new BufferedImage[100];
 
 	BufferedImage iRobot_settings = null;
 	Color Gold = new Color(229, 186, 27);
@@ -68,9 +69,43 @@ public class GameView extends JPanel {
 	JTextArea textArea = new JTextArea();
 	JScrollPane scrollableTextArea = new JScrollPane(textArea);
 
-
 	GridBagConstraints gc = new GridBagConstraints();
 	GridBagConstraints sideg = new GridBagConstraints();
+
+	public void load() {
+		try {
+			int i = 0;
+			Image[i] = ImageIO.read(new File(Path + "AugDef.png"));
+			Image[i++] = ImageIO.read(new File(Path + "AutoDestruction.png"));
+			Image[i++] = ImageIO.read(new File(Path + "Boost.png"));
+			Image[i++] = ImageIO.read(new File(Path + "Contrer.png"));
+			Image[i++] = ImageIO.read(new File(Path + "DimDef.png"));
+			Image[i++] = ImageIO.read(new File(Path + "Etoile.png"));
+			Image[i++] = ImageIO.read(new File(Path + "Hit.png"));
+			Image[i++] = ImageIO.read(new File(Path + "Kamikaze.png"));
+			Image[i++] = ImageIO.read(new File(Path + "MoveAttack.png"));
+			Image[i++] = ImageIO.read(new File(Path + "MoveDef.png"));
+			Image[i++] = ImageIO.read(new File(Path + "MoveRamasse.png"));
+			Image[i++] = ImageIO.read(new File(Path + "Ou.png"));
+			Image[i++] = ImageIO.read(new File(Path + "Poison.png"));
+			Image[i++] = ImageIO.read(new File(Path + "Protect.png"));
+			Image[i++] = ImageIO.read(new File(Path + "Soin.png"));
+			Image[i++] = ImageIO.read(new File(Path + "Stun.png"));
+			Image[i++] = ImageIO.read(new File(Path + "Sup.png"));
+			Image[i++] = ImageIO.read(new File(Path + "Volvie.png"));
+			Image[i++] = ImageIO.read(new File(Path + "Obstacl.png"));
+			Image[i++] = ImageIO.read(new File(Path + "Bande.png"));
+			Image[i++] = ImageIO.read(new File(Path + "Logo.png"));
+			Image[i++] = ImageIO.read(new File(Path + "Robot.png"));
+			Image[i++] = ImageIO.read(new File(Path + "map.png"));
+			Image[i++] = ImageIO.read(new File(Path + "barrier.png"));
+			Image[i++] = ImageIO.read(new File(Path + "base.png"));
+			Image[i++] = ImageIO.read(new File(Path + "Base1.png"));
+			Image[i++] = ImageIO.read(new File(Path + "Base2.png"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	private JTextField setTextField() {
 		if (jtf == null) {
@@ -80,7 +115,7 @@ public class GameView extends JPanel {
 			sideg.gridwidth = 3;
 			sideg.gridheight = 1;
 			sideg.anchor = GridBagConstraints.CENTER;
-sideg.fill = GridBagConstraints.HORIZONTAL;
+			sideg.fill = GridBagConstraints.HORIZONTAL;
 		}
 		return jtf;
 	}
@@ -97,7 +132,6 @@ sideg.fill = GridBagConstraints.HORIZONTAL;
 		sideg.anchor = GridBagConstraints.PAGE_END;
 		// sideg.fill=sideg.anchor=GridBagConstraints.
 		sideg.fill = GridBagConstraints.BOTH;
-
 
 		MiniMap minimap = new MiniMap("Heyxkjcnvfkj");
 		Border border = minimap.getBorder();
@@ -160,7 +194,7 @@ sideg.fill = GridBagConstraints.HORIZONTAL;
 			/* weightx définit le nombre de cases en abscisse */
 			sideg.weightx = 3;
 			/* weightx définit le nombre de cases en ordonnée */
-sideg.weighty = 8;
+			sideg.weighty = 8;
 
 		}
 		return side;
@@ -200,19 +234,17 @@ sideg.weighty = 8;
 				s = s + "\n" + "" + e.getKey() + "(" + e.getValue() + ")";
 			}
 		}
-		
-		
+
 		if (s != null) {
 			textArea.setText(s);
 		}
-		textArea.setText(""+s);
+		textArea.setText("" + s);
 		System.out.println("Here's What I got : " + s);
-		
-		//textArea.setEditable(false);
+
+		// textArea.setEditable(false);
 		scrollableTextArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		return scrollableTextArea;
 	}
-
 
 	public _RProgressBar setBarBase() {
 		if (Base_HealthBar == null) {
@@ -320,7 +352,7 @@ sideg.weighty = 8;
 		if (Create_Robot == null) {
 			sideg.gridx = 0;
 			sideg.gridy = 0;
-			sideg.gridwidth=3;
+			sideg.gridwidth = 3;
 
 			Create_Robot = new _RButtonB("Create Robot");
 			Create_Robot.setForeground(Color.WHITE);
@@ -353,11 +385,11 @@ sideg.weighty = 8;
 					new ImageIcon(Path + "map.png").getImage().getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH)));
 			Border border = info.getBorder();
 			Border margin = new EmptyBorder(10, 10, 10, 10);
-			info.setBorder(new CompoundBorder(border, margin));
+			//info.setBorder(new CompoundBorder(border, margin));
 			info.setFont(setFont(12f));
 			sideg.gridx = 0;
 			sideg.gridy = 3;
-			sideg.gridwidth = 3;
+			sideg.gridwidth = 2;
 			sideg.gridheight = 1;
 			sideg.fill = GridBagConstraints.PAGE_END;
 			info.setPreferredSize(new Dimension(140, 150));
@@ -408,12 +440,12 @@ sideg.weighty = 8;
 				s = "<html><font color='rgb(213, 178, 94)'>Emptiness</font>" + s
 						+ "<br/>Nah, there's nothing<br/> here <br/> Drugs I guess?</html>";
 				break;
-				// TODO
+			// TODO
 
-				// <span style\"color: red\">" + message + "</span>
+			// <span style\"color: red\">" + message + "</span>
 
 			default:
-				info.setIcon(new ImageIcon(new ImageIcon(Path + GameModel.getCurrentCase().getContenu().getPic())
+				info.setIcon(new ImageIcon(new ImageIcon(Image[GameModel.getCurrentCase().getContenu().getPic()])
 						.getImage().getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH)));
 
 				s = "<html><font color='rgb(31, 178, 163)'>" + GameModel.getCurrentCase().getContenu().toString()
@@ -457,30 +489,29 @@ sideg.weighty = 8;
 	}
 
 	public JProgressBar setPointAction(boolean GameBegan) {
-		int pda=1000;
-		int max=0;
-		if(GameBegan){
-			if(Game.game.tourDe1){
+		int pda = 1000;
+		int max = 0;
+		if (GameBegan) {
+			if (Game.game.tourDe1) {
 				max = GameModel.heros1.maxPointAction;
 				pda = GameModel.heros1.pointAction;
 			}
-			if(!Game.game.tourDe1){
+			if (!Game.game.tourDe1) {
 				max = GameModel.heros2.maxPointAction;
 				pda = GameModel.heros2.pointAction;
 			}
 		}
 		if (PointAction == null) {
 			PointAction = new JProgressBar();
-			PointAction.setString(pda+"/"+max);
+			PointAction.setString(pda + "/" + max);
 			PointAction.setStringPainted(true);
 			PointAction.setValue(pda);
 			PointAction.setMaximum(max);
 			PointAction.setBackground(Color.ORANGE);
 			gc.gridx = 3;
 			gc.gridy = 1;
-		}
-		else{
-			PointAction.setString(pda+"/"+max);
+		} else {
+			PointAction.setString(pda + "/" + max);
 			PointAction.setStringPainted(true);
 			PointAction.setValue(pda);
 			PointAction.setMaximum(max);
@@ -492,6 +523,7 @@ sideg.weighty = 8;
 		super(true);
 		m_game = game;
 		m_model = model;
+		load();
 		this.setLayout(new BorderLayout());
 		this.add(build(), java.awt.BorderLayout.SOUTH);
 		this.add(build(), java.awt.BorderLayout.EAST);
@@ -564,8 +596,8 @@ sideg.weighty = 8;
 		// Vertical
 		for (int i = (GameModel.map.getLocation() - 1) * nbrCaseX; i <= GameModel.map.getLocation()
 				* GameModel.map.getWidth(); i++) {
-			g.drawLine((i % GameModel.map.getWidth() + 1) * tailleCase, 0, (i % GameModel.map.getWidth() + 1) * tailleCase,
-					480);
+			g.drawLine((i % GameModel.map.getWidth() + 1) * tailleCase, 0,
+					(i % GameModel.map.getWidth() + 1) * tailleCase, 480);
 		}
 		// Horizontal
 		for (int i = (GameModel.map.getLocation() - 1) * nbrCaseY; i <= GameModel.map.getLocation()
@@ -581,65 +613,23 @@ sideg.weighty = 8;
 				int Facty = m_model.getFacty();
 				Case c = GameModel.map.getCase(((Factx - 1) * nbrCaseX) + i, (Facty - 1) * nbrCaseY + j);
 				Observables obs = c.getContenu();
-				if (obs.isObstacles()) {
+				if (obs.isHeros()) {
+					if (m_model.getImage() == null) {
 
-					try {
-						iObstacle = ImageIO.read(new File(Path + "obstacl.png"));
-						g.drawImage(iObstacle, (i % GameModel.map.getWidth()) * tailleCase + 1,
-								(j % GameModel.map.getHeight()) * tailleCase + 1,45,45, this);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				} else if (obs.isHeros()) {
-					if(m_model.getImage() == null)
-					{
-						try {
-							iHero = ImageIO.read(new File(Path + "front.png"));
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						g.drawImage(iHero, (i % GameModel.map.getWidth()) * tailleCase + 1,
+						g.drawImage(Image[obs.getPic()], (i % GameModel.map.getWidth()) * tailleCase + 1,
 								(j % GameModel.map.getHeight()) * tailleCase + 1, 39, 39, this);
 					}
-					
+
 					g.drawImage(m_model.getImage(), (i % GameModel.map.getWidth()) * tailleCase + 1,
 							(j % GameModel.map.getHeight()) * tailleCase + 1, 39, 39, this);
-					/*try {
-						iHero = ImageIO.read(new File(Path + "hero.png"));
-						g.drawImage(iHero, (i % GameModel.map.getWidth()) * tailleCase + 1,
-								(j % GameModel.map.getHeight()) * tailleCase + 1, 39, 39, this);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}*/
-				} else if (obs.isBase()) {
-					try {
-						iBase = ImageIO.read(new File(Path + obs.getPic()));
-						g.drawImage(iBase, (i % GameModel.map.getWidth()) * tailleCase + 1,
-								(j % GameModel.map.getHeight()) * tailleCase + 1, 50, 50, this);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				} else if (obs.isRobot()) {
-					g.setColor(Color.cyan);
-					g.fillRect((i % GameModel.map.getWidth()) * tailleCase + 1,
-							(j % GameModel.map.getHeight()) * tailleCase + 1, tailleCase - 1, tailleCase - 1);
-				} else if (obs.isCompetences()) {
-					try {
-						iSkill = ImageIO.read(new File(Path + obs.getPic()));
-						g.drawImage(iSkill, (i % GameModel.map.getWidth()) * tailleCase + 1,
-								(j % GameModel.map.getHeight()) * tailleCase + 1, 39, 39, this);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+
+				} else if (obs.isVide()) {
+					g.setColor(Color.white);
 
 				} else {
+					g.drawImage(Image[obs.getPic()], (i % GameModel.map.getWidth()) * tailleCase + 1,
+							(j % GameModel.map.getHeight()) * tailleCase + 1, 39, 39, this);
 
-					g.setColor(Color.white);
 				}
 			}
 		}
