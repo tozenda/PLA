@@ -46,7 +46,7 @@ public class Game {
 	public boolean PhaseAction=false;
 	
 	public Game() {
-		Sound.bgmusic.loop();
+		//Sound.bgmusic.loop();
 		m_model = new GameModel(this);
 	    m_controller = new GameController(this, m_model);
 	    createWindow();

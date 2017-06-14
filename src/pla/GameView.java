@@ -111,7 +111,7 @@ public class GameView extends JPanel {
 			setPanel().add(setBarBase(), gc);
 			setPanel().add(setEBarBase(), gc);
 			setPanel().add(setNPointAction(), gc);
-			setPanel().add(setPointAction(), gc);
+			setPanel().add(setPointAction(false), gc);
 			setPanel().add(setBreak(), gc);
 			setPanel().add(setTour(), gc);
 			return setPanel();
@@ -423,16 +423,34 @@ public class GameView extends JPanel {
 		return NPointAction;
 	}
 
-	public JProgressBar setPointAction() {
+	public JProgressBar setPointAction(boolean GameBegan) {
+		int pda=1000;
+		int max=0;
+		if(GameBegan){
+			if(Game.game.tourDe1){
+				max = GameModel.heros1.maxPointAction;
+				pda = GameModel.heros1.pointAction;
+			}
+			if(!Game.game.tourDe1){
+				max = GameModel.heros2.maxPointAction;
+				pda = GameModel.heros2.pointAction;
+			}
+		}
 		if (PointAction == null) {
 			PointAction = new JProgressBar();
-			PointAction.setString("0/1000");
+			PointAction.setString(pda+"/"+max);
 			PointAction.setStringPainted(true);
-			PointAction.setValue(500);
-			PointAction.setMaximum(1000);
+			PointAction.setValue(pda);
+			PointAction.setMaximum(max);
 			PointAction.setBackground(Color.ORANGE);
 			gc.gridx = 3;
 			gc.gridy = 1;
+		}
+		else{
+			PointAction.setString(pda+"/"+max);
+			PointAction.setStringPainted(true);
+			PointAction.setValue(pda);
+			PointAction.setMaximum(max);
 		}
 		return PointAction;
 	}
@@ -506,7 +524,6 @@ public class GameView extends JPanel {
 		int nbrCaseX = 20;
 		int nbrCaseY = 12;
 		computeFPS();
-
 		// Quadrillage de la map
 		draw(g, "Bande.png", 0, 0, 0, 0);
 		g.setColor(Color.BLACK);
