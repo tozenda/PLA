@@ -82,7 +82,8 @@ public class GameView extends JPanel {
 	}
 
 	public String getTextField(){
-		return jtf.getText();
+		String com = jtf.getText();
+		return com;
 	}
 
 	private MiniMap setMinimap() {

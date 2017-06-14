@@ -371,8 +371,10 @@ public class GameModel {
 	public static void Create_Robot(){
 		System.out.println("Create Robot");
 		String com = "";
+		if(getCurrentCase()!=null){
 		if(getCurrentCase().getContenu().isRobot()){
 			modifier_Robot();
+		}
 		}
 		else{
 			if((Game.game.tourDe1)&&(!Game.game.PhaseAction)){
