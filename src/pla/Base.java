@@ -7,13 +7,13 @@ public class Base extends Actifs{
 	private int x;
     private int y;
     private Image image;
-    private int pdv;
+    public int pdv;
     int equipe;
     
 	public Base(int x, int y, int equipe){
 		this.x = x;
 		this.y = y;
-		pdv = 50;
+		pdv = 150;
 		this.equipe = equipe;
 	}
 	
@@ -59,5 +59,13 @@ public int getEquipe(){
 	public String getDescription() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public void destructionBase() {
+		Map map = GameModel.map;
+		if(pdv<=0){
+			Case c = new Case(x, y, new Vide());
+			map.editCase(c);
+		}
 	}
 }

@@ -27,25 +27,26 @@ public class MiniMap extends JLabel {
 
 	public void paintComponent(Graphics g) {
 		super.paintComponents(g);
-		int tailleCase = 4;
-
+		int tailleCase =4;
+		Observables obs;
 		// Vertical
 		for (int i = 0; i < 24; i++) {
 			for (int j = 0; j < 40; j++) {
-				if (map.getCase(j, i).getContenu().isBase()) {
+				obs = map.getCase(j, i).getContenu();
+				if (obs.isBase()) {
 					g.setColor(Color.ORANGE);
-				} else if (map.getCase(j, i).getContenu().isCompetences()) {
+				} else if (obs.isCompetences()) {
 					g.setColor(Color.GRAY);
-				} else if (map.getCase(j, i).getContenu().isHeros()) {
+				} else if (obs.isHeros()) {
 					g.setColor(Color.BLUE);
-				} else if (map.getCase(j, i).getContenu().isRobot()) {
+				} else if (obs.isRobot()) {
 					g.setColor(Color.cyan);
-				} else if (map.getCase(j, i).getContenu().isVide()) {
+				} else if (obs.isVide()) {
 					g.setColor(Color.GREEN.darker().darker());
-				} else if (map.getCase(j, i).getContenu().isObstacles()) {
+				} else if (obs.isObstacles()) {
 					g.setColor(Color.DARK_GRAY);
 				}
-				g.fillRect((j % 42) * tailleCase, (i % 42) * tailleCase, tailleCase, tailleCase);
+				g.fillRect((j ) * tailleCase, (i) * tailleCase, tailleCase, tailleCase);
 			}
 		}
 

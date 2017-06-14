@@ -1,8 +1,13 @@
 package pla;
 
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 //import java.util.Iterator;
 //import java.util.LinkedList;
@@ -10,6 +15,14 @@ import java.util.List;
 
 //classe permettant d'interagir entre l'affichage et notre structure de données
 public class GameModel {
+	
+	String Thomas="/home/tozenda/COURS/RICM3/S6/PLA/PLA/Resources/";
+	static String Najwa ="Resources/";
+	String Anouar = "Resources/";
+	String Jo = "/home/ferreira/Bureau/POO/PLA/Resources/";
+	String Paul= "home/doublean/git/PLA/Resources/";
+	static String Shoo="/Users/fathinsyuhadaabubakar/Documents/gitclean/PLA/Resources/";
+	static String Path = Najwa;
 
 	static Game m_game;
 	static Map map;
@@ -28,6 +41,50 @@ public class GameModel {
 	*/
 	private int Factx = 1;
 	private int Facty = 1;
+	
+
+	private BufferedImage[] walkingLeft = {getSprite(0, 1), getSprite(1, 1), getSprite(2, 1)}; 
+	private Animation walkLeft = new Animation(walkingLeft, 1);
+	private BufferedImage[] walkingRight = {getSprite(0, 2), getSprite(1, 2), getSprite(2, 2)}; 
+	private Animation walkRight = new Animation(walkingRight, 1);
+	private BufferedImage[] walkingFront = {getSprite(0, 0), getSprite(1, 0), getSprite(2, 0)}; // Gets the upper left images of sprite sheet
+	private Animation walkFront = new Animation(walkingFront, 1);
+	private BufferedImage[] walkingBack = {getSprite(0, 3), getSprite(1, 3), getSprite(2, 3)}; 
+	private Animation walkBack = new Animation(walkingBack, 1);
+	private Animation animation;
+	private static BufferedImage iHero=null;
+
+	Heros currentHero = heros1;
+	public Heros getCurrentHero(){
+		return heros1;
+	}
+
+	
+	private static BufferedImage spriteSheet;
+    private static final int TILE_SIZE = 32;
+    
+//loadImage
+    public static BufferedImage loadSprite(String file) {
+
+        BufferedImage sprite = null;
+
+        try {
+            sprite = ImageIO.read(new File(Path + file));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return sprite;
+    }
+
+    public static BufferedImage getSprite(int xGrid, int yGrid) {
+
+        if (spriteSheet == null) {
+            spriteSheet = loadSprite("s1.png");
+        }
+
+        return spriteSheet.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+    }
 
 	public int getFactx(){
 		return Factx;
@@ -178,6 +235,10 @@ public class GameModel {
 		if((!Game.game.PhaseAction)&&(((Game.game.tourDe1)&&(heros1.pointAction>0))||((!Game.game.tourDe1)&&(heros2.pointAction>0)))){
 			if (mvt == 'z') {
 				map.setLocation(map.getHeroLocation(currentX, currentY));
+				animation = walkBack;
+				iHero=animation.getSprite();
+			    animation.start();
+			    animation.update();
 
 				if (currentY % map.getHeight() == 0 && currentY != 0) {
 					map.decLocation();
@@ -190,7 +251,10 @@ public class GameModel {
 
 			} else if (mvt == 'q') {
 				map.setLocation(map.getHeroLocation(currentX, currentY));
-
+				animation = walkLeft;
+				iHero=animation.getSprite();
+			    animation.start();
+			    animation.update();
 				if (currentX % map.getWidth() == 0 && currentX != 0) {
 					map.decLocation();
 					dx = (currentX - 1);
@@ -200,7 +264,10 @@ public class GameModel {
 				}
 			} else if (mvt == 's') {
 				map.setLocation(map.getHeroLocation(currentX, currentY));
-
+				animation = walkFront;
+				iHero=animation.getSprite();
+			    animation.start();
+			    animation.update();
 				if ((currentY % map.getHeight() == map.getHeight() - 1)&&currentY!=23) {
 					map.incLocation();
 					map.incLocation();
@@ -211,7 +278,10 @@ public class GameModel {
 				}
 			} else if (mvt == 'd') {
 				map.setLocation(map.getHeroLocation(currentX, currentY));
-
+				animation = walkRight;
+				iHero=animation.getSprite();
+			    animation.start();
+			    animation.update();
 				if (currentX % map.getWidth() == 19&&currentX!=39) {
 					map.incLocation();
 
@@ -265,6 +335,11 @@ public class GameModel {
 		}
 	}
 
+
+	public BufferedImage getImage()
+	{
+		return iHero;
+	}
 	/* 1 = Choix1
 	* 2 = Action1
 	* 3 = Choix2

@@ -106,8 +106,9 @@ public class Competences extends Observables {
 	}
 
 	public String getPic() {
-		switch (this.getLc().get(0)) {
+		switch( this.getLc().get(0)){
 		case AugDef:
+			System.out.println(this.getLc().get(0));
 			return "AugDef.png";
 		case AutoDestruction:
 			return "AutoDestruction.png";

@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -13,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -63,8 +63,11 @@ public class GameView extends JPanel {
 	String Anouar = "Resources/";
 	String Jo = "/home/ferreira/Bureau/POO/PLA/Resources/";
 	String Paul = "home/doublean/git/PLA/Resources/";
-	String Shoo = null;
-	String Path = Thomas;
+	String Shoo = "/Users/fathinsyuhadaabubakar/Documents/gitclean/PLA/Resources/";
+	String Path = Najwa;
+	JTextArea textArea = new JTextArea(5, 5);
+	JScrollPane scrollableTextArea = new JScrollPane(textArea);
+
 
 	GridBagConstraints gc = new GridBagConstraints();
 	GridBagConstraints sideg = new GridBagConstraints();
@@ -179,13 +182,34 @@ public class GameView extends JPanel {
 		sideg.gridx = 0;
 		sideg.gridy = 1;
 		sideg.gridheight = 2;
+		String s = "";
+		HashMap<Competence, Integer> lc = m_model.getCurrentHero().getInventaire();
+		Competences l = new Competences();
 
-		JTextArea textArea = new JTextArea(5, 5);
-		JScrollPane scrollableTextArea = new JScrollPane(textArea);
+		// m_model.getCurrentHero().pickUp(l);
+		HashMap<Competence, Integer> inv = m_model.getCurrentHero().getInventaire();
+		for (HashMap.Entry<Competence, Integer> e : m_model.getCurrentHero().getInventaire().entrySet()) {
 
+			if (s == null) {
+				s = "" + e.getKey() + "(" + e.getValue() + ")";
+			} else {
+				s = s + "\n" + "" + e.getKey() + "(" + e.getValue() + ")";
+			}
+		}
+		
+		
+		if (s != null) {
+			System.out.println("nuuuuuuuuuuuuuuuuuuuuulllllllllllllllllll");
+			textArea.setText(s);
+		}
+		textArea.setText(""+s);
+		System.out.println("Here's What I got : " + s);
+		
+		//textArea.setEditable(false);
 		scrollableTextArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		return scrollableTextArea;
 	}
+
 
 	public _RProgressBar setBarBase() {
 		if (Base_HealthBar == null) {
@@ -520,6 +544,7 @@ public class GameView extends JPanel {
 		 */
 		if (m_model.getLabelmodified()) {
 			setInfo();
+			setInventory();
 			m_model.setLabelmodified(false);
 		}
 		int nbrCaseX = 20;
@@ -559,14 +584,28 @@ public class GameView extends JPanel {
 						e.printStackTrace();
 					}
 				} else if (obs.isHeros()) {
-					try {
+					if(m_model.getImage() == null)
+					{
+						try {
+							iHero = ImageIO.read(new File(Path + "front.png"));
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						g.drawImage(iHero, (i % GameModel.map.getWidth()) * tailleCase + 1,
+								(j % GameModel.map.getHeight()) * tailleCase + 1, 39, 39, this);
+					}
+					
+					g.drawImage(m_model.getImage(), (i % GameModel.map.getWidth()) * tailleCase + 1,
+							(j % GameModel.map.getHeight()) * tailleCase + 1, 39, 39, this);
+					/*try {
 						iHero = ImageIO.read(new File(Path + "hero.png"));
 						g.drawImage(iHero, (i % GameModel.map.getWidth()) * tailleCase + 1,
 								(j % GameModel.map.getHeight()) * tailleCase + 1, 39, 39, this);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}
+					}*/
 				} else if (obs.isBase()) {
 					try {
 						iBase = ImageIO.read(new File(Path + obs.getPic()));

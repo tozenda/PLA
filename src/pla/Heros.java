@@ -9,7 +9,7 @@ public class Heros extends Perso{
     private int x;
     private int y;
     private Image image;
-    List<Competence> inventaire = new ArrayList<Competence>();
+    HashMap<Competence, Integer> inventaire = new HashMap<Competence,Integer>() ;
     int equipe;
     int pdv;
     int pointAction;
@@ -23,8 +23,10 @@ public class Heros extends Perso{
         pdv = 300;
         equipe = 1;
         pointAction = maxPointAction;
+        inventaire = new HashMap<Competence,Integer>();
         initHeros();
     }
+    
     
     public Heros(int x, int y, int equipe) {
         this.x = x;
@@ -80,13 +82,23 @@ public class Heros extends Perso{
 		System.out.println("Oh, j'ai qqch à ramasser !");
 		List<Competence> l = c.getLc();
 		for (Competence tmp : l){
-			inventaire.add(tmp);
+			if(!inventaire.containsKey(tmp)){
+				inventaire.put(tmp, 1);
+			}
+			else {
+				inventaire.replace(tmp, (inventaire.get(tmp)+1));
+				
+			}
 		}
-		System.out.println("Inventaire : ");
+		for (HashMap.Entry<Competence,Integer> e : inventaire.entrySet()){
+			System.out.println(e.getKey().toString());
+		}
+		/*System.out.println("Inventaire : ");
 		for(Competence cc : inventaire){
 			System.out.println(cc.toString());
-		}
+		}*/
 	}
+
 
 	public boolean isVide() {
 		return false;
@@ -107,13 +119,14 @@ public class Heros extends Perso{
 		this.image = image;
 	}
 
-	public List<Competence> getInventaire() {
+	public HashMap<Competence,Integer> getInventaire() {
 		return inventaire;
 	}
 
-	public void setInventaire(List<Competence> inventaire) {
+	public void setInventaire(HashMap<Competence,Integer> inventaire) {
 		this.inventaire = inventaire;
 	}
+
 
 	public boolean isHeros() {
 		return true;
@@ -130,12 +143,15 @@ public class Heros extends Perso{
 	public void destructionHeros() {
 		if(pdv<=0){
 			Map map = GameModel.map;
-			List<Competence> listC = this.inventaire;
+			HashMap listC = this.inventaire;
 			Competences lComp = new Competences();
-			for(int i = 0; i < listC.size(); i++){
-				lComp.addCompetence(listC.get(0));
-				listC.remove(0);
-		    }
+			for (HashMap.Entry<Competence,Integer> e : inventaire.entrySet()) {
+				for(int i=e.getValue();i!=0;i--){
+					lComp.addCompetence(e.getKey());
+				}
+				listC.remove(e.getKey());
+				}
+			
 			Case c = new Case(x, y, lComp);
 			map.editCase(c);
 			Case h=null;
@@ -161,6 +177,7 @@ public class Heros extends Perso{
 			map.editCase(h);
 		}
 	}
+
 
 	@Override
 	public String getPic() {
