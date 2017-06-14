@@ -365,7 +365,7 @@ public class Robots extends Perso{
 
 		for(int k = i-1; k<= i+1; k++){
 			for(int l = j-1; l<=j+1; l++){
-				if((0<=k) && (k<map.getWidth()) && (0<=l) && (l<map.getHeight())){
+				if((k>=0) && (k<map.getTotalWidth()) && (l>=0) && (l<map.getTotalHeight())){
 					Case c = map.getCase(k, l);
 					Observables obs = c.getContenu();
 
