@@ -126,6 +126,40 @@ public class Map {
 		Case c = new Case(i, j, base);
 		elements[j][i] = c;
 	}
+	
+	public int getTotalHealthBase1(){
+		int h=0;
+		if(getCase(1,21).getContenu().isBase()){
+			h += getCase(1,21).getContenu().getPointdeVie();
+		}
+		if(getCase(2,21).getContenu().isBase()){
+			h += getCase(2,21).getContenu().getPointdeVie();
+		}
+		if(getCase(1,22).getContenu().isBase()){
+			h += getCase(1,21).getContenu().getPointdeVie();
+		}
+		if(getCase(2,22).getContenu().isBase()){
+			h += getCase(1,21).getContenu().getPointdeVie();
+		}
+		return h;
+	}
+	
+	public int getTotalHealthBase2(){
+		int h=0;
+		if(getCase(37,1).getContenu().isBase()){
+			h += getCase(37,1).getContenu().getPointdeVie();
+		}
+		if(getCase(37,2).getContenu().isBase()){
+			h += getCase(37,2).getContenu().getPointdeVie();
+		}
+		if(getCase(1,22).getContenu().isBase()){
+			h += getCase(38,1).getContenu().getPointdeVie();
+		}
+		if(getCase(2,22).getContenu().isBase()){
+			h += getCase(38,2).getContenu().getPointdeVie();
+		}
+		return h;
+	}
 
 	public int getWidth() {
 		return width;

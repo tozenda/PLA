@@ -291,16 +291,17 @@ public class GameView extends JPanel {
 		return scrollableTextArea;
 	}
 
-	public _RProgressBar setBarBase() {
+	public _RProgressBar setBarBase() {//TODO
 		if (Base_HealthBar == null) {
 			gc.gridx = 2;
 			gc.gridy = 0;
 			gc.gridheight = 1;
 			System.out.println("bar base");
 			Base_HealthBar = new _RProgressBar();
-			Base_HealthBar.setString("0/1000");
+			int total_healthB1 = GameModel.map.getTotalHealthBase1();
+			Base_HealthBar.setString(total_healthB1+"/1000");
 			Base_HealthBar.setStringPainted(true);
-			Base_HealthBar.setValue(700);
+			Base_HealthBar.setValue(total_healthB1);
 			Base_HealthBar.setMaximum(1000);
 			Base_HealthBar.setBackground(Color.darkGray);
 			Base_HealthBar.setVisible(true);
@@ -308,17 +309,18 @@ public class GameView extends JPanel {
 		return Base_HealthBar;
 	}
 
-	public JProgressBar setEBarBase() {
+	public JProgressBar setEBarBase() {//TODO
 		if (EBase_HealthBar == null) {
 
 			gc.gridx = 2;
 			gc.gridy = 1;
 			gc.gridheight = 1;
 			EBase_HealthBar = new JProgressBar();
-			EBase_HealthBar.setString("0/1000");
+			int total_healthB2 = GameModel.map.getTotalHealthBase2();
+			EBase_HealthBar.setString(total_healthB2 +"/1000");
 			EBase_HealthBar.setStringPainted(true);
-			EBase_HealthBar.setValue(500);
-			EBase_HealthBar.setMaximum(500);
+			EBase_HealthBar.setValue(total_healthB2 );
+			EBase_HealthBar.setMaximum(1000);
 			EBase_HealthBar.setBackground(Color.CYAN);
 			EBase_HealthBar.setVisible(true);
 		}

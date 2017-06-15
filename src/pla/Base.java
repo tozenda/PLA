@@ -14,7 +14,7 @@ public class Base extends Actifs{
 	public Base(int x, int y, int equipe){
 		this.x = x;
 		this.y = y;
-		pdv = 150;
+		pdv = 250;
 		this.equipe = equipe;
 	}
 	

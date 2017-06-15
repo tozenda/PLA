@@ -468,7 +468,7 @@ public class GameModel {
 		if(!Game.game.pause){
 			System.out.println("Create Robot");
 			String com = "";
-			if(getCurrentCase()!=null){
+			if((getCurrentCase()!=null)&&(getCurrentCase().getContenu().isRobot())){
 				if(getCurrentCase().getContenu().isRobot()){
 					modifier_Robot();
 				}
