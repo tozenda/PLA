@@ -35,13 +35,15 @@ public class Game {
 	String m_msg;
 	long m_elapsed;
 	long m_lastRepaint;
-	long m_lastTick;
+	long m_lastTick=System.currentTimeMillis()-4;
 	int m_nTicks;
 	int cmpt=0;
 	int cmpt2=0;
 	long debutPhaseAction;
 	long DureePhaseAction = 10000;
 	long tempsEcoulePhaseAction;
+	long DureePhaseChoix = 60000;
+	long tempsEcoulePhaseChoix;
 	public boolean tourDe1 = true;
 	public boolean PhaseAction=false;
 	
@@ -121,8 +123,18 @@ public class Game {
 		 // System.out.println(m_frame.getFocusOwner());
 		    long now = System.currentTimeMillis();
 		    m_elapsed += (now - m_lastTick);
-		    tempsEcoulePhaseAction += (now - m_lastTick);
+		    if(PhaseAction){
+		    	tempsEcoulePhaseAction += (now - m_lastTick);
+		    }
+		    if(!PhaseAction){
+		    	tempsEcoulePhaseChoix += (now - m_lastTick);
+		    }
 		    if((PhaseAction)&&(tempsEcoulePhaseAction>DureePhaseAction)){
+		    	tempsEcoulePhaseChoix = 0;
+		    	GameModel.Tour();
+		    }
+		    if((!(PhaseAction))&&(tempsEcoulePhaseChoix>DureePhaseChoix)){
+		    	tempsEcoulePhaseAction = 0;
 		    	GameModel.Tour();
 		    }
 		    m_lastTick = now;
