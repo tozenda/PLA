@@ -59,6 +59,7 @@ public class GameView extends JPanel {
 	private BufferedImage iTree = null;
 	private BufferedImage iBase = null;
 	private BufferedImage iSkill = null;
+	private String player = "Let's play";
 	private BufferedImage Image[] = new BufferedImage[100];
 	private BufferedImage Map[] = new BufferedImage[4];
 
@@ -368,16 +369,29 @@ public class GameView extends JPanel {
 	}
 
 	public JLabel setPlayer() {
-		joueur1 = new JLabel("Joueur1");
-		joueur1.setFont(setFont(18f));
+		if (joueur1 ==null){
+			joueur1 = new JLabel();
+			joueur1.setFont(setFont(18f));
 		joueur1.setForeground(Color.white);
 		gc.gridheight = 1;
 		gc.gridx = 1;
 		gc.gridy = 0;
 		System.out.println("Player");
-		// j.add(joueur1, gc);
+		
+		}
+		else{	switch(Game.game.getState()){
+		case(1): player = "Joueur 1";
+		break;
+		case(3):player = "Joueur 2";
+		break;
+		default :
+			player = "Phase d'action";
+		}}
+		joueur1.setText(player);
 		return joueur1;
 	}
+
+
 
 	public _RButtonB setBreak() {
 		if (Break == null) {
@@ -600,7 +614,6 @@ public class GameView extends JPanel {
 			m_npaints = 0;
 		}
 		m_game.setFPS(m_fps, "npaints=" + m_npaints);
-		// System.out.println("npaints="+m_npaints);
 		m_npaints++;
 	}
 
@@ -630,6 +643,7 @@ public class GameView extends JPanel {
 		 * On réaffiche le JLabel info (right click) après modification
 		 *
 		 */
+		setPlayer();
 		if (m_model.getLabelmodified()) {
 			setInfo();
 			setInventory();
@@ -641,20 +655,6 @@ public class GameView extends JPanel {
 		// Quadrillage de la map
 		draw(g, "Bande.png", 0, 0, 0, 0);
 		g.drawImage(Map[GameModel.map.getLocation()-1], 0, 0, this);
-		g.setColor(Color.BLACK);
-		// Vertical
-		for (int i = (GameModel.map.getLocation() - 1) * nbrCaseX; i <= GameModel.map.getLocation()
-				* GameModel.map.getWidth(); i++) {
-			g.drawLine((i % GameModel.map.getWidth() + 1) * tailleCase, 0,
-					(i % GameModel.map.getWidth() + 1) * tailleCase, 480);
-		}
-		// Horizontal
-		for (int i = (GameModel.map.getLocation() - 1) * nbrCaseY; i <= GameModel.map.getLocation()
-				* GameModel.map.getHeight(); i++) {
-			g.drawLine(0, (i % GameModel.map.getHeight() + 1) * tailleCase, 800,
-					(i % GameModel.map.getHeight() + 1) * tailleCase);
-		}
-
 		for (int i = 0; i < nbrCaseX; i++) {
 			for (int j = 0; j < nbrCaseY; j++) {
 				m_model.setFactXY();
