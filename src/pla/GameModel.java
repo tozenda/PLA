@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -384,6 +385,17 @@ public class GameModel {
 		}*/
 		Game.game.pause = !Game.game.pause; 
 		m_game.returnFocus();
+	}
+	
+	public static void supprimerRobotList(){
+		Iterator<Robots> itR = robot_list.iterator();
+		while (itR.hasNext()) {
+		    Robots r = itR.next();
+			if(r.pdv<=0){
+				itR.remove();
+				break;
+			}
+		}
 	}
 
 	/*
