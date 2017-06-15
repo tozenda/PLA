@@ -163,22 +163,22 @@ public class Heros extends Perso{
 			map.editCase(c);
 			Case h=null;
 			if(equipe==1){
-				int i = 22;
+				int i = 21;
 				Case tmp = map.getCase(3, i);
 				while(!tmp.getContenu().isVide()){
-					h = new Case(3, i,this);
 					i--;
 					tmp = map.getCase(3, i);
 				}
+				h = new Case(3, i,this);
 			}
 			else{
-				int i = 1;
-				Case tmp = map.getCase(37, i);
+				int i = 2;
+				Case tmp = map.getCase(36, i);
 				while(!tmp.getContenu().isVide()){
-					h = new Case(37, i,this);
 					i++;
-					tmp = map.getCase(37, i);
+					tmp = map.getCase(36, i);
 				}
+				h = new Case(36, i,this);
 			}
 			pdv = 300;
 			this.x = h.getX();

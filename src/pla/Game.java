@@ -125,18 +125,18 @@ public class Game {
 		    m_elapsed += (now-timeElapsedBreak - m_lastTick);
 		    if(!pause){
 		    	if(PhaseAction){
+		    		tempsEcoulePhaseChoix = 0;
 		    		tempsEcoulePhaseAction += (now-timeElapsedBreak - m_lastTick);
 		    	}
 		    	else{
+		    		tempsEcoulePhaseAction = 0;
 		    		tempsEcoulePhaseChoix += (now-timeElapsedBreak - m_lastTick);
 		    	}
 		    }
 		    if((PhaseAction)&&(tempsEcoulePhaseAction>DureePhaseAction)){
-		    	tempsEcoulePhaseAction = 0;
 		    	GameModel.Tour();
 		    }
 		    if((!(PhaseAction))&&(tempsEcoulePhaseChoix>DureePhaseChoix)){
-		    	tempsEcoulePhaseChoix = 0;
 		    	GameModel.Tour();
 		    }
 		    m_lastTick = now;
