@@ -113,7 +113,7 @@ public class Game {
 		debutPhaseAction = System.currentTimeMillis();
 	}
 
-	static final int REPAINT_DELAY = (int) (1000.0 / 20.0);
+	static final int REPAINT_DELAY = (int) (1000.0 / 24.0);
 
 	private void majRobot(){
 		  if(PhaseAction&&(!pause)&&m_nTicks==1){
