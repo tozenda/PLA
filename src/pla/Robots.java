@@ -697,6 +697,7 @@ public class Robots extends Perso{
 									double p = Math.random();
 									if(p > 0.3 && r2.poison<3){
 										r2.poison = 3;
+										r2.destructionRobot();
 										return 1;
 										}
 									}
