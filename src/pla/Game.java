@@ -116,27 +116,26 @@ public class Game {
 	static final int REPAINT_DELAY = (int) (1000.0 / 24.0);
 
 	private void majRobot(){
-		  if(PhaseAction&&(!pause)&&m_nTicks==1){
-			  Iterator<Robots> iter = GameModel.robot_list.iterator();
-
-			  while (iter.hasNext()) {
-				  	Robots r = iter.next();
-//	    			if(m_nTicks==1){
-//	    				r.courant = r.a;
-//	    			}
-	    			if(tourDe1){
-	    				if(r.equipe==1){
-	    					r.eval(r.courant);
-	    				}
-	    			}
-	    			else if(!tourDe1){
-	    				if(r.equipe!=1){
-	    					r.eval(r.courant);
-	    				}
-	    			}
-			  	}
-	    }
-	  }
+		if(PhaseAction){
+			if(!pause){
+				System.out.println("m_nTicks : " + m_nTicks);
+				Iterator<Robots> iter = GameModel.robot_list.iterator();
+				while (iter.hasNext()) {
+					Robots r = iter.next();
+					if(tourDe1){
+						if(r.equipe==1){
+							r.eval(r.courant);
+						}
+					}
+					else if(!tourDe1){
+						if(r.equipe!=1){
+							r.eval(r.courant);
+						}
+					}
+				}
+			}
+		}
+	}
 
 	// affichage des ticks de raffraichissement + fps
 	private void tick() {
@@ -164,7 +163,11 @@ public class Game {
 		m_controller.step(now);
 		long elapsed = (now - timeElapsedBreak) - m_lastRepaint;
 		if (elapsed > 2*REPAINT_DELAY) {
-			majRobot();
+			if(cmpt >= 5){
+				majRobot();
+				cmpt = 0;
+			}
+			//majRobot();
 			if ((cmpt2 == 20) && (!pause)) {
 				if (PhaseAction) {
 					GameModel.map.popCompetence();
@@ -178,9 +181,9 @@ public class Game {
 			m_nTicks = 0;
 			m_view.repaint();
 			m_lastRepaint = now;
-			cmpt++;
 			if (!pause) {
 				cmpt2++;
+				cmpt++;
 			}
 		}
 	}
