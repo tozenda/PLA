@@ -22,6 +22,7 @@ import javax.swing.Timer;
 public class Game {
 
 	static Game game;
+
 	public static void main(String[] args) {
 		game = new Game();
 	}
@@ -31,75 +32,90 @@ public class Game {
 	Timer m_timer;
 	GameModel m_model;
 	GameController m_controller;
-	//JLabel m_text;
+	// JLabel m_text;
 	int m_fps;
 	String m_msg;
 	long m_elapsed;
 	long m_lastRepaint;
-	long m_lastTick=System.currentTimeMillis()-4;
+	long m_lastTick = System.currentTimeMillis() - 4;
 	int m_nTicks;
-	int cmpt=0;
-	int cmpt2=0;
+	int cmpt = 0;
+	int cmpt2 = 0;
 	long debutPhaseAction;
 	long DureePhaseAction = 10000;
 	long tempsEcoulePhaseAction;
 	long DureePhaseChoix = 60000;
 	long tempsEcoulePhaseChoix;
 	public boolean tourDe1 = true;
-	public boolean PhaseAction=false;
+	public boolean PhaseAction = false;
 	public boolean pause = false;
-	public Game() {
-		//Sound.bgmusic.loop();
-		m_model = new GameModel(this);
-	    m_controller = new GameController(this, m_model);
-	    createWindow();
-	    System.out.println("Fenetre cr�e");
 
-
-	    // create the main window and the periodic timer
-	    // to drive the overall clock of the simulation.
-
-	    createTimer();
+	public int getState() {
+		if (tourDe1 == true) {
+			if (PhaseAction == false) {
+				return 1;
+			}
+			return 2;
+		} else {
+			if (PhaseAction == false) {
+				return 3;
+			}
+			return 4;
+		}
 	}
-	public void returnFocus(){
+
+	public Game() {
+		Sound.bgmusic.loop();
+		m_model = new GameModel(this);
+		m_controller = new GameController(this, m_model);
+		createWindow();
+		System.out.println("Fenetre cr�e");
+
+		// create the main window and the periodic timer
+		// to drive the overall clock of the simulation.
+
+		createTimer();
+	}
+
+	public void returnFocus() {
 		m_view.requestFocus();
 	}
 
 	private void createWindow() {
 
 		// creation QUE de la fenetre
-	    m_frame = new JFrame();
-	    m_frame.setTitle("Mighty Retarded Robot");
-	    m_frame.setSize(980, 590);
-	    m_frame.setResizable(false);
-	    // gestion de l'affichage affichage
-	    m_view = new GameView(this, m_model, m_controller);
-	    m_frame.add(m_view, BorderLayout.CENTER);
-	    m_frame.setVisible(true);
 
+		m_frame = new JFrame();
+		m_frame.setTitle("Mighty Retarded Robot");
+		m_frame.setSize(980, 590);
+		m_frame.setResizable(false);
+		// gestion de l'affichage affichage
+		m_view = new GameView(this, m_model, m_controller);
+		m_frame.add(m_view, BorderLayout.CENTER);
+		m_frame.setVisible(true);
 
-	    //permet de fermer la fenetre et arréter l'appli
-	    m_frame.addWindowListener(new WindowListener());
-	  }
+		// permet de fermer la fenetre et arréter l'appli
+		m_frame.addWindowListener(new WindowListener());
+	}
 
-	  private void createTimer() {
-	    int tick = 1; // milliseconds
-	    m_timer = new Timer(tick, new ActionListener() {
-	      public void actionPerformed(ActionEvent evt) {
-	        tick();
-	      }
-	    });
-	    m_timer.start();
-	  }
+	private void createTimer() {
+		int tick = 1; // milliseconds
+		m_timer = new Timer(tick, new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				tick();
+			}
+		});
+		m_timer.start();
+	}
 
-	  public void compteurActionBegin(){
-		  tempsEcoulePhaseAction = 0;
-		  debutPhaseAction = System.currentTimeMillis();
-	  }
+	public void compteurActionBegin() {
+		tempsEcoulePhaseAction = 0;
+		debutPhaseAction = System.currentTimeMillis();
+	}
 
-	  static final int REPAINT_DELAY = (int) (1000.0 / 12.0);
+	static final int REPAINT_DELAY = (int) (1000.0 / 24.0);
 
-	  private void majRobot(){
+	private void majRobot(){
 		  if(PhaseAction&&(!pause)&&m_nTicks==1){
 			  Iterator<Robots> iter = GameModel.robot_list.iterator();
 
@@ -122,68 +138,66 @@ public class Game {
 	    }
 	  }
 
-	  // affichage des ticks de raffraichissement + fps
-	  private void tick() {
-		 // System.out.println(m_frame.getFocusOwner());
-		    long now = System.currentTimeMillis();
-		    m_elapsed += (now-timeElapsedBreak - m_lastTick);
-		    if(!pause){
-		    	if(PhaseAction){
-		    		tempsEcoulePhaseChoix = 0;
-		    		tempsEcoulePhaseAction += (now-timeElapsedBreak - m_lastTick);
-		    	}
-		    	else{
-		    		tempsEcoulePhaseAction = 0;
-		    		tempsEcoulePhaseChoix += (now-timeElapsedBreak - m_lastTick);
-		    	}
-		    }
-		    if((PhaseAction)&&(tempsEcoulePhaseAction>DureePhaseAction)){
-		    	GameModel.Tour();
-		    }
-		    if((!(PhaseAction))&&(tempsEcoulePhaseChoix>DureePhaseChoix)){
-		    	GameModel.Tour();
-		    }
-		    m_lastTick = now;
-		    m_nTicks++;
-		    m_model.step(now);
-		    m_controller.step(now);
-		    long elapsed = (now-timeElapsedBreak) - m_lastRepaint;
-		    if (elapsed > REPAINT_DELAY) {
-		    	majRobot();
-		    	if((cmpt2 == 20)&&(!pause)){
-		    		if(PhaseAction){
-		    			GameModel.map.popCompetence();
-		    		}
-		    		cmpt2 = 0;
-		    	}
-		      double tick = (double) m_elapsed / (double) m_nTicks;
-		      long tmp = (long) (tick * 10.0);
-		      tick = tmp / 10.0;
-		      m_elapsed = 0;
-		      m_nTicks = 0;
-		      m_view.repaint();
-		      m_lastRepaint = now;
-		      cmpt++;
-		      if(!pause){
-		    	  cmpt2++;
-		      }
-		    }
-		 }
+	// affichage des ticks de raffraichissement + fps
+	private void tick() {
+		// System.out.println(m_frame.getFocusOwner());
+		long now = System.currentTimeMillis();
+		m_elapsed += (now - timeElapsedBreak - m_lastTick);
+		if (!pause) {
+			if (PhaseAction) {
+				tempsEcoulePhaseChoix = 0;
+				tempsEcoulePhaseAction += (now - timeElapsedBreak - m_lastTick);
+			} else {
+				tempsEcoulePhaseAction = 0;
+				tempsEcoulePhaseChoix += (now - timeElapsedBreak - m_lastTick);
+			}
+		}
+		if ((PhaseAction) && (tempsEcoulePhaseAction > DureePhaseAction)) {
+			GameModel.Tour();
+		}
+		if ((!(PhaseAction)) && (tempsEcoulePhaseChoix > DureePhaseChoix)) {
+			GameModel.Tour();
+		}
+		m_lastTick = now;
+		m_nTicks++;
+		m_model.step(now);
+		m_controller.step(now);
+		long elapsed = (now - timeElapsedBreak) - m_lastRepaint;
+		if (elapsed > REPAINT_DELAY) {
+			majRobot();
+			if ((cmpt2 == 20) && (!pause)) {
+				if (PhaseAction) {
+					GameModel.map.popCompetence();
+				}
+				cmpt2 = 0;
+			}
+			double tick = (double) m_elapsed / (double) m_nTicks;
+			long tmp = (long) (tick * 10.0);
+			tick = tmp / 10.0;
+			m_elapsed = 0;
+			m_nTicks = 0;
+			m_view.repaint();
+			m_lastRepaint = now;
+			cmpt++;
+			if (!pause) {
+				cmpt2++;
+			}
+		}
+	}
 
+	long timeBeginBreak;
+	long timeElapsedBreak;
 
-	  long timeBeginBreak;
-	  long timeElapsedBreak;
+	public void breakTimer() {
+		timeBeginBreak = System.currentTimeMillis();
+	}
 
-	  public void breakTimer(){
-		  timeBeginBreak = System.currentTimeMillis();
-	  }
+	public void endBreak() {
+		timeElapsedBreak = System.currentTimeMillis() - timeBeginBreak;
+	}
 
-	  public void endBreak(){
-		  timeElapsedBreak = System.currentTimeMillis() - timeBeginBreak;
-	  }
-
-	  public void setFPS(int fps, String msg) {
-		    m_fps = fps;
-		    m_msg = msg;
-	  }
+	public void setFPS(int fps, String msg) {
+		m_fps = fps;
+		m_msg = msg;
+	}
 }

@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 
 //import java.util.Iterator;
 //import java.util.LinkedList;
@@ -45,6 +46,7 @@ public class GameModel {
 	private boolean Labelmodified = false;
 	long count = 0;
 	long sum = 0;
+	static int compteurBreak = 0;
 
 
 	private BufferedImage[] walkingLeft = {getSprite(0, 1), getSprite(1, 1), getSprite(2, 1)};
@@ -218,6 +220,7 @@ public class GameModel {
 			}
 			else{
 				System.out.println("Pas assez de PA pour se déplacer !");
+				JOptionPane.showMessageDialog(null,"Vous n'avez plus de PA");
 			}
 		}
 		else if ((!Game.game.tourDe1)&&(!Game.game.PhaseAction)&&(!Game.game.pause)){
@@ -510,6 +513,10 @@ public class GameModel {
 			Game.game.endBreak();
 		}*/
 		Game.game.pause = !Game.game.pause; 
+		if(compteurBreak ==0){
+			JOptionPane.showMessageDialog(null,"Pause || \nRappuyez sur le même bouton pour reprendre :D");
+			compteurBreak = (compteurBreak + 1)%2;
+		}
 		m_game.returnFocus();
 	}
 	

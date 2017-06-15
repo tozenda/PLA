@@ -39,6 +39,7 @@ public class GameView extends JPanel {
 	int m_npaints;
 	int m_fps;
 	int tailleCase = 40;
+	int count = 0;
 	private _RPanel jp = null;
 	private JPanel side = null;
 	private _RButtonB Create_Robot = null;
@@ -46,22 +47,16 @@ public class GameView extends JPanel {
 	private _RButtonB Tour = null;
 	private JTextField jtf = null;
 	private JProgressBar Hero_HealthBar = null;
-	private _RProgressBar Base_HealthBar = null;
+	private JProgressBar Base_HealthBar = null;
 	private JProgressBar EBase_HealthBar = null;
 	private JProgressBar PointAction = null;
 	private JLabel logo = null;
 	private JLabel joueur1 = null;
 	private JLabel NPointAction = null;
 	private JLabel info = null;
-	private BufferedImage iHero = null;
-	private BufferedImage iObstacle = null;
-	@SuppressWarnings("unused")
-	private BufferedImage iTree = null;
-	private BufferedImage iBase = null;
-	private BufferedImage iSkill = null;
+	private String player = "Let's play";
 	private BufferedImage Image[] = new BufferedImage[100];
 	private BufferedImage Map[] = new BufferedImage[4];
-
 
 	BufferedImage iRobot_settings = null;
 	Color Gold = new Color(229, 186, 27);
@@ -73,7 +68,7 @@ public class GameView extends JPanel {
 	String Shoo = "/Users/fathinsyuhadaabubakar/Documents/gitclean/PLA/Resources/";
 	String Path = Najwa;
 	JTextArea textArea = null;
-	JScrollPane scrollableTextArea =null;
+	JScrollPane scrollableTextArea = null;
 
 	GridBagConstraints gc = new GridBagConstraints();
 	GridBagConstraints sideg = new GridBagConstraints();
@@ -100,7 +95,6 @@ public class GameView extends JPanel {
 			Image[i++] = ImageIO.read(new File(Path + "Sup.png"));
 			Image[i++] = ImageIO.read(new File(Path + "Volvie.png"));
 			Image[i++] = ImageIO.read(new File(Path + "obstacl.png"));
-			//Image[i++] = ImageIO.read(new File(Path + "Bande.png"));
 			Image[i++] = ImageIO.read(new File(Path + "logo.png"));
 			Image[i++] = ImageIO.read(new File(Path + "robot.png"));
 			Image[i++] = ImageIO.read(new File(Path + "map.png"));
@@ -109,11 +103,13 @@ public class GameView extends JPanel {
 			Image[i++] = ImageIO.read(new File(Path + "Base1.png"));
 			Image[i++] = ImageIO.read(new File(Path + "Base2.png"));
 			Image[i++] = ImageIO.read(new File(Path + "front.png"));
+			Image[i++] = ImageIO.read(new File(Path + "kitkat.png"));
+			Image[i++] = ImageIO.read(new File(Path + "tour.png"));
 			Map[0] = ImageIO.read(new File(Path + "11.png"));
 			Map[1] = ImageIO.read(new File(Path + "12.png"));
 			Map[2] = ImageIO.read(new File(Path + "21.png"));
 			Map[3] = ImageIO.read(new File(Path + "22.png"));
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -128,7 +124,7 @@ public class GameView extends JPanel {
 			sideg.gridheight = 1;
 			sideg.anchor = GridBagConstraints.CENTER;
 			sideg.fill = GridBagConstraints.HORIZONTAL;
-			//jtf.setFont(setFont(12f));
+			// jtf.setFont(setFont(12f));
 			jtf.setBackground(Color.gray.brighter());
 		}
 		return jtf;
@@ -213,46 +209,46 @@ public class GameView extends JPanel {
 		return side;
 	}
 
-	public JProgressBar setBarHero() {
+
+	public JProgressBar setBarHero() {// TODO
 		if (Hero_HealthBar == null) {
 			gc.gridx = 1;
 			gc.gridy = 1;
 			gc.gridheight = 1;
 			System.out.println("Bar hero");
 			Hero_HealthBar = new JProgressBar();
-			Hero_HealthBar.setString("0/1000");
+			Hero_HealthBar.setString("PDV Hero 0/1000");
 			Hero_HealthBar.setStringPainted(true);
 			Hero_HealthBar.setValue(500);
 			Hero_HealthBar.setMaximum(1000);
-			Hero_HealthBar.setBackground(new Color(216, 40, 82));
+			Hero_HealthBar.setFont(setFont(14f));
+			Hero_HealthBar.setBackground(Color.white);
+			Hero_HealthBar.setForeground(new Color(216, 40, 82));
 		}
 		return Hero_HealthBar;
 	}
 
 	public JScrollPane setInventory() {
-		if (scrollableTextArea == null){
+		if (scrollableTextArea == null) {
 			sideg.gridx = 0;
-			textArea = new JTextArea(2,2);
+			textArea = new JTextArea(2, 2);
 			scrollableTextArea = new JScrollPane(textArea);
-		sideg.gridy = 1;
-		sideg.gridheight = 1;
-		scrollableTextArea.setMaximumSize(new Dimension(140,100));
-		scrollableTextArea.setMinimumSize(new Dimension(140,100));
-		textArea.setEditable(false);
-		textArea.setFont(setFont(12f));
-		textArea.setForeground(Color.black);
-		scrollableTextArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		
+			sideg.gridy = 1;
+			sideg.gridheight = 1;
+			scrollableTextArea.setMaximumSize(new Dimension(140, 100));
+			scrollableTextArea.setMinimumSize(new Dimension(140, 100));
+			textArea.setEditable(false);
+			textArea.setFont(setFont(12f));
+			textArea.setForeground(Color.black);
+			scrollableTextArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
 		}
-		
-	
-        
-    
+
 		String Inventory = "\n         Inventaire vide \n";
-		String s =null ;
-		
-		if (Game.game != null){
-			if(Game.game.tourDe1){
+		String s = null;
+
+		if (Game.game != null) {
+			if (Game.game.tourDe1) {
 				for (HashMap.Entry<Competence, Integer> e : GameModel.heros1.getInventaire().entrySet()) {
 
 					if (s == null) {
@@ -262,8 +258,8 @@ public class GameView extends JPanel {
 					}
 				}
 			}
-			
-			else{
+
+			else {
 				for (HashMap.Entry<Competence, Integer> e : GameModel.heros2.getInventaire().entrySet()) {
 
 					if (s == null) {
@@ -277,13 +273,13 @@ public class GameView extends JPanel {
 
 		if (s != null) {
 			try {
-				textArea.getHighlighter().addHighlight(0,	56, (new DefaultHighlighter.DefaultHighlightPainter(Gold)));
+				textArea.getHighlighter().addHighlight(0, 56, (new DefaultHighlighter.DefaultHighlightPainter(Gold)));
 			} catch (BadLocationException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			textArea.setText(s);
-		}else{
+		} else {
 			textArea.setText(Inventory);
 		}
 		System.out.println("Here's What I got : " + s);
@@ -291,15 +287,16 @@ public class GameView extends JPanel {
 		return scrollableTextArea;
 	}
 
-	public _RProgressBar setBarBase() {//TODO
+	public JProgressBar setBarBase() {// TODO
 		if (Base_HealthBar == null) {
 			gc.gridx = 2;
 			gc.gridy = 0;
 			gc.gridheight = 1;
 			System.out.println("bar base");
-			Base_HealthBar = new _RProgressBar();
+			Base_HealthBar = new JProgressBar();
 			int total_healthB1 = GameModel.map.getTotalHealthBase1();
-			Base_HealthBar.setString(total_healthB1+"/1000");
+			Base_HealthBar.setString("Pdv Base :" + total_healthB1 + "/1000");
+			Base_HealthBar.setForeground(Color.gray);
 			Base_HealthBar.setStringPainted(true);
 			Base_HealthBar.setValue(total_healthB1);
 			Base_HealthBar.setMaximum(1000);
@@ -309,7 +306,7 @@ public class GameView extends JPanel {
 		return Base_HealthBar;
 	}
 
-	public JProgressBar setEBarBase() {//TODO
+	public JProgressBar setEBarBase() {// TODO
 		if (EBase_HealthBar == null) {
 
 			gc.gridx = 2;
@@ -317,9 +314,9 @@ public class GameView extends JPanel {
 			gc.gridheight = 1;
 			EBase_HealthBar = new JProgressBar();
 			int total_healthB2 = GameModel.map.getTotalHealthBase2();
-			EBase_HealthBar.setString(total_healthB2 +"/1000");
+			EBase_HealthBar.setString(total_healthB2 + "/1000");
 			EBase_HealthBar.setStringPainted(true);
-			EBase_HealthBar.setValue(total_healthB2 );
+			EBase_HealthBar.setValue(total_healthB2);
 			EBase_HealthBar.setMaximum(1000);
 			EBase_HealthBar.setBackground(Color.CYAN);
 			EBase_HealthBar.setVisible(true);
@@ -368,14 +365,28 @@ public class GameView extends JPanel {
 	}
 
 	public JLabel setPlayer() {
-		joueur1 = new JLabel("Joueur1");
-		joueur1.setFont(setFont(18f));
-		joueur1.setForeground(Color.white);
-		gc.gridheight = 1;
-		gc.gridx = 1;
-		gc.gridy = 0;
-		System.out.println("Player");
-		// j.add(joueur1, gc);
+		if (joueur1 == null) {
+			joueur1 = new JLabel();
+			joueur1.setFont(setFont(18f));
+			joueur1.setForeground(Color.white);
+			gc.gridheight = 1;
+			gc.gridx = 1;
+			gc.gridy = 0;
+			System.out.println("Player");
+
+		} else {
+			switch (Game.game.getState()) {
+			case (1):
+				player = "Joueur 1";
+				break;
+			case (3):
+				player = "Joueur 2";
+				break;
+			default:
+				player = "Phase d'action";
+			}
+		}
+		joueur1.setText(player);
 		return joueur1;
 	}
 
@@ -385,6 +396,11 @@ public class GameView extends JPanel {
 			gc.gridy = 1;
 			gc.gridheight = 1;
 			Break = new _RButtonB("Have a kitkat");
+			Break.setForeground(Color.WHITE);
+			Break.setFont(setFont(12f));
+			Break.setColors(new Color(250, 27, 47), Color.CYAN.darker());
+			Break.setIcon(new ImageIcon(
+					new ImageIcon(Image[27]).getImage().getScaledInstance(30, 20, java.awt.Image.SCALE_SMOOTH)));
 			Break.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					GameModel.breakk();
@@ -400,10 +416,8 @@ public class GameView extends JPanel {
 			sideg.gridx = 0;
 			sideg.gridy = 0;
 			sideg.gridwidth = 3;
-
 			Create_Robot = new _RButtonB("Create Robot");
 			Create_Robot.setForeground(Color.WHITE);
-			// Font font2 = new Font("American Typewriter", Font.PLAIN, 12);
 			Create_Robot.setFont(setFont(16f));
 			Create_Robot.setColors(new Color(2, 27, 47), Gold);
 			try {
@@ -432,7 +446,7 @@ public class GameView extends JPanel {
 					new ImageIcon(Path + "map.png").getImage().getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH)));
 			Border border = info.getBorder();
 			Border margin = new EmptyBorder(10, 10, 10, 10);
-			//info.setBorder(new CompoundBorder(border, margin));
+			// info.setBorder(new CompoundBorder(border, margin));
 			info.setFont(setFont(12f));
 			sideg.gridx = 0;
 			sideg.gridy = 3;
@@ -517,19 +531,26 @@ public class GameView extends JPanel {
 			gc.gridy = 0;
 			Tour = new _RButtonB("Tour");
 			System.out.println("tour");
+			Tour.setForeground(Color.WHITE);
+			Tour.setFont(setFont(12f));
+			Tour.setColors(Color.CYAN.darker(), new Color(47, 27, 250));
+			Tour.setIcon(new ImageIcon(
+					new ImageIcon(Image[27]).getImage().getScaledInstance(30, 20, java.awt.Image.SCALE_SMOOTH)));
 			Tour.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					GameModel.Tour();
 				}
 			});
 		}
-		System.out.println("Break");
+		System.out.println("Tour");
 		return Tour;
 	}
 
 	public JLabel setNPointAction() {
 		if (NPointAction == null) {
-			NPointAction = new JLabel("Points d'action");
+			NPointAction = new JLabel("Points d'action : ");
+			NPointAction.setFont(setFont(12f));
+			NPointAction.setForeground(Color.WHITE);
 			gc.gridx = 3;
 			gc.gridy = 0;
 		}
@@ -555,7 +576,9 @@ public class GameView extends JPanel {
 			PointAction.setStringPainted(true);
 			PointAction.setValue(pda);
 			PointAction.setMaximum(max);
-			PointAction.setBackground(Color.ORANGE);
+			PointAction.setForeground(Color.ORANGE);
+			PointAction.setFont(setFont(14f));
+			PointAction.setBackground(Color.white);
 			gc.gridx = 3;
 			gc.gridy = 1;
 		} else {
@@ -600,61 +623,32 @@ public class GameView extends JPanel {
 			m_npaints = 0;
 		}
 		m_game.setFPS(m_fps, "npaints=" + m_npaints);
-		// System.out.println("npaints="+m_npaints);
 		m_npaints++;
-	}
-
-	/*
-	 * Dessine une image en x,y. S est le nom de l'image. L'image doit être dans
-	 * le fichier "resources"
-	 */
-	private void draw(Graphics g, String s, int x, int y, int resizedX, int resizedY) {
-		BufferedImage iPic;
-		try {
-			iPic = ImageIO.read(new File(Path + s));
-			if (resizedX == 0 || resizedY == 0) {
-				g.drawImage(iPic, x, y, this);
-			} else {
-				g.drawImage(iPic, x, y, resizedX, resizedY, this);
-			}
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
 	}
 
 	// pour afficher des objets sur notre fenêtre
 	public void paintComponent(Graphics g) {
+		setPlayer();
 		/*
 		 * On réaffiche le JLabel info (right click) après modification
 		 *
 		 */
+
 		if (m_model.getLabelmodified()) {
 			setInfo();
-			setInventory();
 			m_model.setLabelmodified(false);
+		}
+		if (count == 30) {
+			setInventory();
+			count = 0;
+		} else {
+			count++;
 		}
 		int nbrCaseX = 20;
 		int nbrCaseY = 12;
 		computeFPS();
 		// Quadrillage de la map
-		draw(g, "Bande.png", 0, 0, 0, 0);
-		g.drawImage(Map[GameModel.map.getLocation()-1], 0, 0, this);
-		g.setColor(Color.BLACK);
-		// Vertical
-		for (int i = (GameModel.map.getLocation() - 1) * nbrCaseX; i <= GameModel.map.getLocation()
-				* GameModel.map.getWidth(); i++) {
-			g.drawLine((i % GameModel.map.getWidth() + 1) * tailleCase, 0,
-					(i % GameModel.map.getWidth() + 1) * tailleCase, 480);
-		}
-		// Horizontal
-		for (int i = (GameModel.map.getLocation() - 1) * nbrCaseY; i <= GameModel.map.getLocation()
-				* GameModel.map.getHeight(); i++) {
-			g.drawLine(0, (i % GameModel.map.getHeight() + 1) * tailleCase, 800,
-					(i % GameModel.map.getHeight() + 1) * tailleCase);
-		}
-
+		g.drawImage(Map[GameModel.map.getLocation() - 1], 0, 0, this);
 		for (int i = 0; i < nbrCaseX; i++) {
 			for (int j = 0; j < nbrCaseY; j++) {
 				m_model.setFactXY();
@@ -672,13 +666,11 @@ public class GameView extends JPanel {
 					g.drawImage(m_model.getImage(), (i % GameModel.map.getWidth()) * tailleCase + 1,
 							(j % GameModel.map.getHeight()) * tailleCase + 1, 39, 39, this);
 
-				} else if (obs.isObstacles()){
-				}
-				 else if (obs.isVide()) {
+				} else if (obs.isObstacles()) {
+				} else if (obs.isVide()) {
 					g.setColor(Color.white);
 
-				}
-				else {
+				} else {
 					g.drawImage(Image[obs.getPic()], (i % GameModel.map.getWidth()) * tailleCase + 1,
 							(j % GameModel.map.getHeight()) * tailleCase + 1, 39, 39, this);
 
