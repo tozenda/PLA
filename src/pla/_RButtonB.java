@@ -39,12 +39,14 @@ class _RButtonB extends JButton {
 		super(text);
 	}
 
+	// Mise à jour de l'interface utilisateur
 	@Override
 	public void updateUI() {
 		super.updateUI();
+		//Si true le rectangle dans lequel est contenu le bouton va être colorié
 		setContentAreaFilled(false);
+		//Petit rectangle autoure du texte quand on arme
 		setFocusPainted(false);
-		setBackground(new Color(250, 250, 250));
 		initShape();
 	}
 
@@ -62,6 +64,7 @@ class _RButtonB extends JButton {
 	@Override
 	protected void paintComponent(Graphics g) {
 		initShape();
+		//Cast pour pouvoir utliser les fonctions anticrénelage
 		Graphics2D g2 = (Graphics2D) g.create();
 		// specify whether you want objects to be rendered as quickly as
 		// possible
@@ -71,9 +74,9 @@ class _RButtonB extends JButton {
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		if (getModel().isArmed()) {
 			// Couleur au clic
-			if (Color_Armed2 == null)
+			if (Color_Armed2 == null)//Sans dégradé
 				g2.setColor(Color_Armed);
-			else {
+			else {//avec dégradé
 				g2.setPaint(new GradientPaint(
 
 						new Point(0, 0), Color_Armed, new Point(0, getHeight()), Color_Armed2));
@@ -146,7 +149,11 @@ class _RButtonB extends JButton {
 	@Override
 	public boolean contains(int x, int y) {
 		// Détection clic dans le bouton
-
+		/*Equivalent
+		 * if (shape==null){
+			return false;
+		}
+		return shape.contains(x,y);*/
 		return shape == null ? false : shape.contains(x, y);
 	}
 }

@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 
 //import java.util.Iterator;
 //import java.util.LinkedList;
@@ -218,6 +219,7 @@ public class GameModel {
 			}
 			else{
 				System.out.println("Pas assez de PA pour se déplacer !");
+				JOptionPane.showMessageDialog(null,"Vous n'avez plus de PA");
 			}
 		}
 		else if ((!Game.game.tourDe1)&&(!Game.game.PhaseAction)&&(!Game.game.pause)){
