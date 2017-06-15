@@ -3,6 +3,7 @@ package pla;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Iterator;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -96,14 +97,17 @@ public class Game {
 		  debutPhaseAction = System.currentTimeMillis();
 	  }
 
-	  static final int REPAINT_DELAY = (int) (1000.0 / 24.0);
+	  static final int REPAINT_DELAY = (int) (1000.0 / 12.0);
 
 	  private void majRobot(){
-		  if(PhaseAction&&(!pause)){
-	    		for(Robots r : GameModel.robot_list){
-	    			if(m_nTicks==1){
-	    				r.courant = r.a;
-	    			}
+		  if(PhaseAction&&(!pause)&&m_nTicks==1){
+			  Iterator<Robots> iter = GameModel.robot_list.iterator();
+
+			  while (iter.hasNext()) {
+				  	Robots r = iter.next();
+//	    			if(m_nTicks==1){
+//	    				r.courant = r.a;
+//	    			}
 	    			if(tourDe1){
 	    				if(r.equipe==1){
 	    					r.eval(r.courant);
@@ -114,8 +118,8 @@ public class Game {
 	    					r.eval(r.courant);
 	    				}
 	    			}
-	    		}
-	    	}
+			  	}
+	    }
 	  }
 
 	  // affichage des ticks de raffraichissement + fps

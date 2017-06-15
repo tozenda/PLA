@@ -1031,22 +1031,26 @@ public class Robots extends Perso{
 									}
 									break;
 									case Etoile:
-									this.etoile = n;
-
+									this.etoile = n.filsDroit;
+									eval(courant.filsDroit);
 									break;
 									case Ou:
 									if(choixOu){
+										choixOu=false;
 										this.courant = courant.filsGauche;
+										
 									}
 									else{
+										choixOu=true;
 										this.courant = courant.filsDroit;
+										
 									}
+									eval(courant);
 									break;
 									default:
 									break;
 								}
 								stun = false;
-								eval(courant);
 							}
 						}
 						if(this.etoile!=null){
