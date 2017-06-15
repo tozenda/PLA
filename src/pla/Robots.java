@@ -1011,11 +1011,9 @@ public class Robots extends Perso{
 					case Sup:
 						if (isPossible(n.filsGauche) == 0){
 							this.courant = courant.filsDroit;
-							eval(courant);
 						}
 						else{
 							this.courant = courant.filsGauche;
-							eval(courant);
 						}
 						break;
 					case Etoile:
@@ -1034,6 +1032,7 @@ public class Robots extends Perso{
 						break;
 				}
 				stun = false;
+				eval(courant);
 			}
 		}
 		if(this.etoile!=null){
