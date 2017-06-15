@@ -106,6 +106,7 @@ public class GameView extends JPanel {
 			Image[i++] = ImageIO.read(new File(Path + "base.png"));
 			Image[i++] = ImageIO.read(new File(Path + "Base1.png"));
 			Image[i++] = ImageIO.read(new File(Path + "Base2.png"));
+			Image[i++] = ImageIO.read(new File(Path + "front.png"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -120,7 +121,7 @@ public class GameView extends JPanel {
 			sideg.gridheight = 1;
 			sideg.anchor = GridBagConstraints.CENTER;
 			sideg.fill = GridBagConstraints.HORIZONTAL;
-			jtf.setFont(setFont(12f));
+			//jtf.setFont(setFont(12f));
 			jtf.setBackground(Color.gray.brighter());
 		}
 		return jtf;
