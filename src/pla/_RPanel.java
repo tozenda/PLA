@@ -20,6 +20,7 @@ public class _RPanel extends JPanel {
 	String Shoo=null;
 	String Path = Najwa;
 	
+	
 	/**
 	 * 
 	 */
