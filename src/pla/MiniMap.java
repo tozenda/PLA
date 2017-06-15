@@ -12,9 +12,8 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("unused")
 public class MiniMap extends JLabel {
-	/**
-	 * 
-	 */
+	
+	//La minimap est un JLabel modifié
 	private static final long serialVersionUID = 1L;
 	Map map = new Map();
 
@@ -30,7 +29,10 @@ public class MiniMap extends JLabel {
 		super.paintComponents(g);
 		int tailleCase =3;
 		Observables obs;
-		// Vertical
+		/*On parcourt la map.
+		 * à chaque observable croisé on dessine un carré de telle ou telle couleur 
+		 * d'une taille définie dans la variable tailleCase.
+		 */
 		for (int i = 0; i < 24; i++) {
 			for (int j = 0; j < 40; j++) {
 				obs = map.getCase(j, i).getContenu();
