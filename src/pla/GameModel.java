@@ -46,6 +46,7 @@ public class GameModel {
 	private boolean Labelmodified = false;
 	long count = 0;
 	long sum = 0;
+	static int compteurBreak = 0;
 
 
 	private BufferedImage[] walkingLeft = {getSprite(0, 1), getSprite(1, 1), getSprite(2, 1)};
@@ -512,6 +513,10 @@ public class GameModel {
 			Game.game.endBreak();
 		}*/
 		Game.game.pause = !Game.game.pause; 
+		if(compteurBreak ==0){
+			JOptionPane.showMessageDialog(null,"Pause || \nRappuyez sur le même bouton pour reprendre :D");
+			compteurBreak = (compteurBreak + 1)%2;
+		}
 		m_game.returnFocus();
 	}
 	

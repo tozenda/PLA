@@ -542,7 +542,7 @@ public class GameView extends JPanel {
 				}
 			});
 		}
-		System.out.println("Break");
+		System.out.println("Tour");
 		return Tour;
 	}
 
