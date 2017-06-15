@@ -39,7 +39,7 @@ public class GameView extends JPanel {
 	int m_npaints;
 	int m_fps;
 	int tailleCase = 40;
-	int count = 0 ;
+	int count = 0;
 	private _RPanel jp = null;
 	private JPanel side = null;
 	private _RButtonB Create_Robot = null;
@@ -95,7 +95,6 @@ public class GameView extends JPanel {
 			Image[i++] = ImageIO.read(new File(Path + "Sup.png"));
 			Image[i++] = ImageIO.read(new File(Path + "Volvie.png"));
 			Image[i++] = ImageIO.read(new File(Path + "obstacl.png"));
-			// Image[i++] = ImageIO.read(new File(Path + "Bande.png"));
 			Image[i++] = ImageIO.read(new File(Path + "logo.png"));
 			Image[i++] = ImageIO.read(new File(Path + "robot.png"));
 			Image[i++] = ImageIO.read(new File(Path + "map.png"));
@@ -104,6 +103,8 @@ public class GameView extends JPanel {
 			Image[i++] = ImageIO.read(new File(Path + "Base1.png"));
 			Image[i++] = ImageIO.read(new File(Path + "Base2.png"));
 			Image[i++] = ImageIO.read(new File(Path + "front.png"));
+			Image[i++] = ImageIO.read(new File(Path + "kitkat.png"));
+			Image[i++] = ImageIO.read(new File(Path + "tour.png"));
 			Map[0] = ImageIO.read(new File(Path + "11.png"));
 			Map[1] = ImageIO.read(new File(Path + "12.png"));
 			Map[2] = ImageIO.read(new File(Path + "21.png"));
@@ -208,7 +209,8 @@ public class GameView extends JPanel {
 		return side;
 	}
 
-	public JProgressBar setBarHero() {//TODO
+
+	public JProgressBar setBarHero() {// TODO
 		if (Hero_HealthBar == null) {
 			gc.gridx = 1;
 			gc.gridy = 1;
@@ -394,6 +396,11 @@ public class GameView extends JPanel {
 			gc.gridy = 1;
 			gc.gridheight = 1;
 			Break = new _RButtonB("Have a kitkat");
+			Break.setForeground(Color.WHITE);
+			Break.setFont(setFont(12f));
+			Break.setColors(new Color(250, 27, 47), Color.CYAN.darker());
+			Break.setIcon(new ImageIcon(
+					new ImageIcon(Image[27]).getImage().getScaledInstance(30, 20, java.awt.Image.SCALE_SMOOTH)));
 			Break.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					GameModel.breakk();
@@ -524,6 +531,11 @@ public class GameView extends JPanel {
 			gc.gridy = 0;
 			Tour = new _RButtonB("Tour");
 			System.out.println("tour");
+			Tour.setForeground(Color.WHITE);
+			Tour.setFont(setFont(12f));
+			Tour.setColors(Color.CYAN.darker(), new Color(47, 27, 250));
+			Tour.setIcon(new ImageIcon(
+					new ImageIcon(Image[27]).getImage().getScaledInstance(30, 20, java.awt.Image.SCALE_SMOOTH)));
 			Tour.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					GameModel.Tour();
@@ -536,7 +548,9 @@ public class GameView extends JPanel {
 
 	public JLabel setNPointAction() {
 		if (NPointAction == null) {
-			NPointAction = new JLabel("Points d'action");
+			NPointAction = new JLabel("Points d'action : ");
+			NPointAction.setFont(setFont(12f));
+			NPointAction.setForeground(Color.WHITE);
 			gc.gridx = 3;
 			gc.gridy = 0;
 		}
@@ -611,24 +625,25 @@ public class GameView extends JPanel {
 		m_game.setFPS(m_fps, "npaints=" + m_npaints);
 		m_npaints++;
 	}
-	
+
 	// pour afficher des objets sur notre fenêtre
 	public void paintComponent(Graphics g) {
-			setPlayer();
-			/*
+		setPlayer();
+		/*
 		 * On réaffiche le JLabel info (right click) après modification
 		 *
 		 */
-	
+
 		if (m_model.getLabelmodified()) {
 			setInfo();
 			m_model.setLabelmodified(false);
 		}
-		if(count == 30){
+		if (count == 30) {
 			setInventory();
-			count=0;
+			count = 0;
+		} else {
+			count++;
 		}
-		else{count++;}
 		int nbrCaseX = 20;
 		int nbrCaseY = 12;
 		computeFPS();
