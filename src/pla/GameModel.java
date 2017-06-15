@@ -378,6 +378,14 @@ public class GameModel {
 		System.out.println("Break");
 		m_game.returnFocus();
 	}
+	
+	public static void supprimerRobotList(){
+		for(Robots r : GameModel.robot_list){
+			if(r.pdv<=0){
+				robot_list.remove(r);
+			}
+		}
+	}
 
 	/*
 	* Tente de modifier un robot, si erreur de parser, alors on ne modifie pas le robot
