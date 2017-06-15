@@ -185,7 +185,7 @@ public class Heros extends Perso{
 
 	@Override
 	public int getPic() {
-		return 1;
+		return 26;
 	}
 
 	@Override
