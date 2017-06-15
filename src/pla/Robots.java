@@ -653,7 +653,7 @@ public class Robots extends Perso{
 	 */
 	public int protection(){
 		double p = Math.random();
-		if(p > 0.0-this.defend()){
+		if(p > 0.85-this.defend()){
 			protection = true;
 		}
 		return 1;
