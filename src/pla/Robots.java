@@ -45,6 +45,35 @@ public class Robots extends Perso{
                 e.printStackTrace();
                 this.a=new Noeud();
         }
+        Competences CaseCtmp = new Competences();
+        CaseCtmp.recupListCompetence(this.a);
+        int val;
+		if(equipe==1){
+			for (Competence tmp : CaseCtmp.getLc()){
+				if((!((tmp==Competence.Ou)||(tmp==Competence.Sup)||(tmp==Competence.Etoile)))){
+					val = GameModel.heros1.inventaire.get(tmp);
+					if(val==1){
+						GameModel.heros1.inventaire.remove(tmp);
+					}
+					else{
+						GameModel.heros1.inventaire.put(tmp, val-1);
+					}
+				}
+			}
+		}
+		else{
+			for (Competence tmp : CaseCtmp.getLc()){
+				if((!((tmp==Competence.Ou)||(tmp==Competence.Sup)||(tmp==Competence.Etoile)))){
+					val = GameModel.heros2.inventaire.get(tmp);
+					if(val==1){
+						GameModel.heros2.inventaire.remove(tmp);
+					}
+					else{
+						GameModel.heros2.inventaire.put(tmp, val-1);
+					}
+				}
+			}
+		}
 		this.equipe = equipe;
 		protection = false;
 		contre = false;
@@ -1136,8 +1165,6 @@ public class Robots extends Perso{
 					break;
 				}
 			}
-
 		}
-
 	}
 }

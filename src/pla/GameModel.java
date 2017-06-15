@@ -41,6 +41,9 @@ public class GameModel {
 	*/
 	private int Factx = 1;
 	private int Facty = 1;
+	private boolean Labelmodified = false;
+	long count = 0;
+	long sum = 0;
 
 
 	private BufferedImage[] walkingLeft = {getSprite(0, 1), getSprite(1, 1), getSprite(2, 1)};
@@ -140,7 +143,6 @@ public class GameModel {
 		map.editCase(r);
 		//robot.editDest(29,18);
 	}
-	private boolean Labelmodified = false;
 
 	public boolean getLabelmodified(){
 		return Labelmodified;
@@ -158,9 +160,6 @@ public class GameModel {
 	static Case getCurrentCase() {
 		return currentCase;
 	}
-
-	long count = 0;
-	long sum = 0;
 
 	private long op(long i) {
 		return i + i * i;
@@ -372,6 +371,7 @@ public class GameModel {
 	}
 
 	public static void breakk() {
+		//TODO
 		System.out.println("Break");
 		m_game.returnFocus();
 	}
@@ -503,7 +503,6 @@ public class GameModel {
 						}
 					}
 					else{
-						//TODO : Faire une popup qui indique que le robot ne peut être généré faute de place...
 					}
 				}
 				else{
