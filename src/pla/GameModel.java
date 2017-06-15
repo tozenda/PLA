@@ -57,13 +57,22 @@ public class GameModel {
 	private Animation walkBack = new Animation(walkingBack, 1);
 	private Animation animation;
 	private static BufferedImage iHero=null;
+	
+	private BufferedImage[] walkingLeft1 = {getSprite2(0, 1), getSprite2(1, 1), getSprite2(2, 1)};
+	private Animation walkLeft1 = new Animation(walkingLeft1, 1);
+	private BufferedImage[] walkingRight1 = {getSprite2(0, 2), getSprite2(1, 2), getSprite2(2, 2)};
+	private Animation walkRight1 = new Animation(walkingRight1, 1);
+	private BufferedImage[] walkingFront1 = {getSprite2(0, 0), getSprite2(1, 0), getSprite2(2, 0)}; // Gets the upper left images of sprite sheet
+	private Animation walkFront1 = new Animation(walkingFront1, 1);
+	private BufferedImage[] walkingBack1 = {getSprite2(0, 3), getSprite2(1, 3), getSprite2(2, 3)};
+	private Animation walkBack1 = new Animation(walkingBack1, 1);
 
 	Heros currentHero = heros1;
 	public Heros getCurrentHero(){
 		return heros1;
 	}
 
-
+	private static BufferedImage spriteSheet2;
 	private static BufferedImage spriteSheet;
     private static final int TILE_SIZE = 32;
 
@@ -88,6 +97,16 @@ public class GameModel {
         }
 
         return spriteSheet.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+    }
+    
+    public static BufferedImage getSprite2(int xGrid, int yGrid) {
+
+        
+		if (spriteSheet2 == null) {
+            spriteSheet2 = loadSprite("s2.png");
+        }
+
+        return spriteSheet2.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE);
     }
 
 	public int getFactx(){
@@ -230,13 +249,16 @@ public class GameModel {
 		if (mvt == KeyEvent.VK_RIGHT && map.getLocation() != 4 && map.getLocation() != 2) {
 			map.incLocation();
 		}
-		if((!Game.game.PhaseAction)&&(((Game.game.tourDe1)&&(heros1.pointAction>0))||((!Game.game.tourDe1)&&(heros2.pointAction>0)))){
+		if((!Game.game.PhaseAction)&&((Game.game.tourDe1)&&(heros1.pointAction>0))){
+			currentHero = heros1;
 			if (mvt == 'z') {
 				map.setLocation(map.getHeroLocation(currentX, currentY));
 				animation = walkBack;
 				iHero=animation.getSprite();
 			    animation.start();
 			    animation.update();
+			    animation.stop();
+			    
 
 				if (currentY % map.getHeight() == 0 && currentY != 0) {
 					map.decLocation();
@@ -294,20 +316,20 @@ public class GameModel {
 			//System.out.println("all ok");
 			if (map.getCase(dx, dy).getContenu().isVide()) {
 				System.out.println("vide");
-				if((Game.game.tourDe1)&&(!Game.game.PhaseAction)&&(!Game.game.pause)){
+				if((Game.game.tourDe1)&&(!Game.game.PhaseAction)){
 					heros1.move(dx - currentX, dy - currentY);
 				}
-				else if((!Game.game.tourDe1)&&(!Game.game.PhaseAction)&&(!Game.game.pause)){
+				else if((!Game.game.tourDe1)&&(!Game.game.PhaseAction)){
 					heros2.move(dx - currentX, dy - currentY);
 				}
 				Case v = new Case(currentX, currentY, new Vide());
 				Case h;
-				if((Game.game.tourDe1)&&(!Game.game.PhaseAction)&&(!Game.game.pause)){
+				if((Game.game.tourDe1)&&(!Game.game.PhaseAction)){
 					h = new Case(dx, dy, heros1);
 					map.editCase(v);
 					map.editCase(h);
 				}
-				else if((!Game.game.tourDe1)&&(!Game.game.PhaseAction)&&(!Game.game.pause)){
+				else if((!Game.game.tourDe1)&&(!Game.game.PhaseAction)){
 					h = new Case(dx, dy, heros2);
 					map.editCase(v);
 					map.editCase(h);
@@ -316,11 +338,115 @@ public class GameModel {
 				//System.out.println("Je déplace en (" + dx + ";" + dy + ")");
 			} else if (map.getCase(dx, dy).getContenu().isCompetences()) {
 				//System.out.println("else");
-				if((Game.game.tourDe1)&&(!Game.game.PhaseAction)&&(!Game.game.pause)){
+				if((Game.game.tourDe1)&&(!Game.game.PhaseAction)){
 					heros1.pickUp((Competences) map.getCase(dx, dy).getContenu());
 					heros1.move(dx - currentX, dy - currentY);
 				}
-				else if((!Game.game.tourDe1)&&(!Game.game.PhaseAction)&&(!Game.game.pause)){
+				else if((!Game.game.tourDe1)&&(!Game.game.PhaseAction)){
+					heros2.pickUp((Competences) map.getCase(dx, dy).getContenu());
+					heros2.move(dx - currentX, dy - currentY);
+				}
+				Case v = new Case(currentX, currentY, new Vide());
+				Case h = new Case(dx, dy, heros1);
+				map.editCase(v);
+				map.editCase(h);
+				// GameView.Please();
+			}
+		}
+		else if((!Game.game.PhaseAction)&&((!Game.game.tourDe1)&&(heros2.pointAction>0)))
+		{
+			currentHero = heros2;
+			if (mvt == 'z') {
+				System.out.println("pink");
+				map.setLocation(map.getHeroLocation(currentX, currentY));
+				animation = walkBack1;
+				iHero=animation.getSprite();
+			    animation.start();
+			    animation.update();
+
+				if (currentY % map.getHeight() == 0 && currentY != 0) {
+					map.decLocation();
+					map.decLocation();
+					dy = (currentY - 1);
+					//System.out.println("Location " + map.getLocation());
+				} else if (currentY != 0) {
+					dy = (currentY - 1);
+				}
+
+			} else if (mvt == 'q') {
+				map.setLocation(map.getHeroLocation(currentX, currentY));
+				animation = walkLeft1;
+				iHero=animation.getSprite();
+			    animation.start();
+			    animation.update();
+				if (currentX % map.getWidth() == 0 && currentX != 0) {
+					map.decLocation();
+					dx = (currentX - 1);
+					//System.out.println("Location " + map.getLocation());
+				} else if (currentX != 0) {
+					dx = (currentX - 1);
+				}
+			} else if (mvt == 's') {
+				map.setLocation(map.getHeroLocation(currentX, currentY));
+				animation = walkFront1;
+				iHero=animation.getSprite();
+			    animation.start();
+			    animation.update();
+				if ((currentY % map.getHeight() == map.getHeight() - 1)&&currentY!=23) {
+					map.incLocation();
+					map.incLocation();
+				}
+
+				if (currentY!=23){
+					dy = (currentY + 1);
+				}
+			} else if (mvt == 'd') {
+				map.setLocation(map.getHeroLocation(currentX, currentY));
+				animation = walkRight1;
+				iHero=animation.getSprite();
+			    animation.start();
+			    animation.update();
+				if (currentX % map.getWidth() == 19&&currentX!=39) {
+					map.incLocation();
+
+					/*
+					* } if(currentX<map.getWidth()-1){ dx = (currentX +1);
+					*/
+				}
+				if (currentX!=39){
+					dx = (currentX + 1);
+				}
+			}
+			//System.out.println("all ok");
+			if (map.getCase(dx, dy).getContenu().isVide()) {
+				System.out.println("vide");
+				if((Game.game.tourDe1)&&(!Game.game.PhaseAction)){
+					heros1.move(dx - currentX, dy - currentY);
+				}
+				else if((!Game.game.tourDe1)&&(!Game.game.PhaseAction)){
+					heros2.move(dx - currentX, dy - currentY);
+				}
+				Case v = new Case(currentX, currentY, new Vide());
+				Case h;
+				if((Game.game.tourDe1)&&(!Game.game.PhaseAction)){
+					h = new Case(dx, dy, heros1);
+					map.editCase(v);
+					map.editCase(h);
+				}
+				else if((!Game.game.tourDe1)&&(!Game.game.PhaseAction)){
+					h = new Case(dx, dy, heros2);
+					map.editCase(v);
+					map.editCase(h);
+				}
+
+				//System.out.println("Je déplace en (" + dx + ";" + dy + ")");
+			} else if (map.getCase(dx, dy).getContenu().isCompetences()) {
+				//System.out.println("else");
+				if((Game.game.tourDe1)&&(!Game.game.PhaseAction)){
+					heros1.pickUp((Competences) map.getCase(dx, dy).getContenu());
+					heros1.move(dx - currentX, dy - currentY);
+				}
+				else if((!Game.game.tourDe1)&&(!Game.game.PhaseAction)){
 					heros2.pickUp((Competences) map.getCase(dx, dy).getContenu());
 					heros2.move(dx - currentX, dy - currentY);
 				}
