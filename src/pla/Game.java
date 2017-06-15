@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -115,6 +117,7 @@ public class Game {
 
 	static final int REPAINT_DELAY = (int) (1000.0 / 24.0);
 
+	
 	private void majRobot(){
 		if(PhaseAction){
 			if(!pause){
@@ -133,6 +136,8 @@ public class Game {
 						}
 					}
 				}
+				GameModel.robot_list.removeAll(GameModel.toRemove);
+				
 			}
 		}
 	}
@@ -164,6 +169,9 @@ public class Game {
 		long elapsed = (now - timeElapsedBreak) - m_lastRepaint;
 		if (elapsed > 2*REPAINT_DELAY) {
 			if(cmpt >= 5){
+				if(m_model.partie()!=0){
+					System.out.println("VICTOIRE DU JOUEUR "+m_model.partie());
+				}
 				majRobot();
 				cmpt = 0;
 			}
