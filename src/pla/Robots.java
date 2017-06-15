@@ -635,7 +635,7 @@ public class Robots extends Perso{
 						Robots r2 = (Robots) obs;
 						if(r2.equipe != this.equipe){
 							double p = Math.random();
-							if(p > 0.5+r2.defend()){
+							if(p > 0.5+r2.defend() && r2.pDefense>0){
 								//Si non esquive du robot adverse, pdefense -=1
 								r2.pDefense -= 1;
 							}
