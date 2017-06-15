@@ -43,6 +43,10 @@ public class Heros extends Perso{
     	return pdv;
     }
     
+    public int getEquipe(){
+    	return equipe;
+    }
+    
     private void initHeros() {
         
         ImageIcon ii = new ImageIcon("../img/hero.png");

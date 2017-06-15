@@ -1173,7 +1173,12 @@ public class Robots extends Perso{
 
 				@Override
 				public int getPic() {
-					return 20;
+					if(equipe==1){
+						return 20;
+					}
+					else{
+						return 29;
+					}
 				}
 
 				@Override

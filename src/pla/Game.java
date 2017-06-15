@@ -9,14 +9,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
-/*
- * TODO :
- * - Pause (break)
- * - Affichage inventaire
- * - Timer fin de periode choix Héros
- * - Modif des robots
- * - Information sur les étapes (où on en est, temps restant...)
- */
 
 @SuppressWarnings("unused")
 public class Game {

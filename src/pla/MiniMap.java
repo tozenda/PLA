@@ -41,9 +41,21 @@ public class MiniMap extends JLabel {
 				} else if (obs.isCompetences()) {
 					g.setColor(Color.GRAY);
 				} else if (obs.isHeros()) {
-					g.setColor(Color.BLUE);
+					Heros h = (Heros) obs;
+					if(h.getEquipe()==1){
+						g.setColor(Color.BLUE.darker());
+					}
+					else{
+						g.setColor(Color.RED);
+					}
 				} else if (obs.isRobot()) {
-					g.setColor(Color.cyan);
+					Robots r = (Robots) obs;
+					if(r.equipe==1){
+						g.setColor(Color.BLUE);
+					}
+					else{
+						g.setColor(Color.RED.brighter());
+					}
 				} else if (obs.isVide()) {
 					g.setColor(Color.GREEN.darker().darker());
 				} else if (obs.isObstacles()) {
