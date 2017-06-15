@@ -118,31 +118,31 @@ public class Competences extends Observables {
 		case DimDef:
 			return 4;
 		case Etoile:
-			return 4;
-		case Hit:
 			return 5;
-		case Kamikaze:
+		case Hit:
 			return 6;
-		case MoveAttack:
+		case Kamikaze:
 			return 7;
-		case MoveDef:
+		case MoveAttack:
 			return 8;
-		case MoveRamasse:
+		case MoveDef:
 			return 9;
-		case Ou:
+		case MoveRamasse:
 			return 10;
-		case Poison:
+		case Ou:
 			return 11;
-		case Protect:
+		case Poison:
 			return 12;
-		case Soin:
+		case Protect:
 			return 13;
-		case Stun:
+		case Soin:
 			return 14;
-		case Sup:
+		case Stun:
 			return 15;
-		case Volvie:
+		case Sup:
 			return 16;
+		case Volvie:
+			return 17;
 		default:
 			System.out.println("Skill pic error");
 			return -1;
