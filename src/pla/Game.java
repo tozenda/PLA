@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 /*
@@ -171,6 +172,7 @@ public class Game {
 			if(cmpt >= 5){
 				if(m_model.partie()!=0){
 					System.out.println("VICTOIRE DU JOUEUR "+m_model.partie());
+					JOptionPane.showMessageDialog(null,"Victoire du joueur "+m_model.partie());
 				}
 				majRobot();
 				cmpt = 0;

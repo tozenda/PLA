@@ -533,6 +533,7 @@ public class GameModel {
 		}
 		m_game.returnFocus();
 	}
+	
 
 	/*
 	* Tente de modifier un robot, si erreur de parser, alors on ne modifie pas le robot
