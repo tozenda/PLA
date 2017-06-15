@@ -12,6 +12,8 @@ public class Robots extends Perso{
 	int pDefense = 0;
 	int pAttaque;
 	Noeud a;
+	Noeud courant;
+	Noeud etoile;
 	int equipe;
 	boolean stun;
 	boolean protection;
@@ -81,6 +83,8 @@ public class Robots extends Perso{
 		stun = false;
 		boostDegat = false;
 		choixOu = true;
+		this.courant = this.a;
+		this.etoile = null;
 	}
 
 	public String toString() {
@@ -379,6 +383,9 @@ public class Robots extends Perso{
 		}
 
 	}
+	
+	
+	//TODO k+l<i+j+2
 
 	/*Action d'attaque d'un robot
 	 *	regarde si y a un robot à 1 case de lui :
@@ -461,7 +468,7 @@ public class Robots extends Perso{
 
 		for(int k = i-1; k<= i+1; k++){
 			for(int l = j-1; l<=j+1; l++){
-				if(0<=k && k<40 && 0<=l&& l<24){
+				if((k>=0) && (k<map.getTotalWidth()) && (l>=0) && (l<map.getTotalHeight())){
 					Case c = map.getCase(k, l);
 					Observables obs = c.getContenu();
 
@@ -515,7 +522,7 @@ public class Robots extends Perso{
 		if(this.pdv < 35){
 			for(int k = i-1; k<= i+1; k++){
 				for(int l = j-1; l<=j+1; l++){
-					if(0<=k && k<map.getWidth() && 0<=l&& l<map.getHeight()){
+					if((k>=0) && (k<map.getTotalWidth()) && (l>=0) && (l<map.getTotalHeight())){
 
 						Case c = map.getCase(k, l);
 						Observables obs = c.getContenu();
@@ -552,7 +559,7 @@ public class Robots extends Perso{
 		if(this.pdv < 35){
 			for(int k = i-1; k<= i+1; k++){
 				for(int l = j-1; l<=j+1; l++){
-					if(0<=k && k<map.getWidth() && 0<=l&& l<map.getHeight()){
+					if((k>=0) && (k<map.getTotalWidth()) && (l>=0) && (l<map.getTotalHeight())){
 
 						Case c = map.getCase(k, l);
 						Observables obs = c.getContenu();
@@ -585,7 +592,7 @@ public class Robots extends Perso{
 
 		for(int k = i-1; k<= i+1; k++){
 			for(int l = j-1; l<=j+1; l++){
-				if(0<=k && k<map.getWidth() && 0<=l&& l<map.getHeight() && k+l<i+j+2){
+				if((k>=0) && (k<map.getTotalWidth()) && (l>=0) && (l<map.getTotalHeight())){
 					Case c = map.getCase(k, l);
 					Observables obs = c.getContenu();
 
@@ -620,7 +627,7 @@ public class Robots extends Perso{
 
 		for(int k = i-1; k<= i+1; k++){
 			for(int l = j-1; l<=j+1; l++){
-				if(0<=k && k<40 && 0<=l&& l<24){
+				if((k>=0) && (k<map.getTotalWidth()) && (l>=0) && (l<map.getTotalHeight())){
 					Case c = map.getCase(k, l);
 					Observables obs = c.getContenu();
 
@@ -679,7 +686,7 @@ public class Robots extends Perso{
 
 		for(int k = i-1; k<= i+1; k++){
 			for(int l = j-1; l<=j+1; l++){
-				if(0<=k && k<40 && 0<=l&& l<24){
+				if((k>=0) && (k<map.getTotalWidth()) && (l>=0) && (l<map.getTotalHeight())){
 
 					Case c = map.getCase(k, l);
 					Observables obs = c.getContenu();
@@ -708,7 +715,7 @@ public class Robots extends Perso{
 		Map map = GameModel.map;
 		int min = map.getHeight()+map.getWidth();
 		int min_i = 0, min_j = 0;
-		int tmp = 0;
+		int tmp = min;
 
 
 		for(int k = 0; k<map.getTotalWidth(); k++){
@@ -749,7 +756,7 @@ public class Robots extends Perso{
 		Map map = GameModel.map;
 		int min = map.getTotalHeight()+map.getTotalWidth();
 		int min_i = 0, min_j = 0;
-		int tmp = 0;
+		int tmp = min;
 
 		//recherche d'ennemie
 		for(int k = 0; k<map.getTotalWidth(); k++){
@@ -795,7 +802,7 @@ public class Robots extends Perso{
 		Map map = GameModel.map;
 		int min = map.getTotalHeight()+map.getTotalWidth();
 		int min_i = 0, min_j = 0;
-		int tmp = 0;
+		int tmp = min;
 
 		for(int k = 0; k<map.getTotalWidth(); k++){
 			for(int l = 0; l<map.getTotalHeight(); l++){
@@ -946,86 +953,90 @@ public class Robots extends Perso{
 				switch(c){
 					case Hit:
 						this.attack();
-						this.eval(n.filsDroit);
+						this.courant = courant.filsDroit;
 						break;
 					case Protect:
 						this.protection();
-						this.eval(n.filsDroit);
+						this.courant = courant.filsDroit;
 						break;
 					case Soin:
 						this.soin();
-						this.eval(n.filsDroit);
+						this.courant = courant.filsDroit;
 						break;
 					case Kamikaze:
 						this.kamikaze();
-						this.eval(n.filsDroit);
+						this.courant = courant.filsDroit;
 						break;
 					case Volvie:
 						this.voleVie();
-						this.eval(n.filsDroit);
+						this.courant = courant.filsDroit;
 						break;
 					case Stun:
 						this.stun();
-						this.eval(n.filsDroit);
+						this.courant = courant.filsDroit;
 						break;
 					case AugDef:
 						this.augDef();
-						this.eval(n.filsDroit);
+						this.courant = courant.filsDroit;
 						break;
 					case DimDef:
 						this.dimDef();
-						this.eval(n.filsDroit);
+						this.courant = courant.filsDroit;
 						break;
 					case Contrer:
 						this.contre();
-						this.eval(n.filsDroit);
+						this.courant = courant.filsDroit;
 						break;
 					case Poison:
 						this.poison();
-						this.eval(n.filsDroit);
+						this.courant = courant.filsDroit;
 						break;
 					case Boost:
 						this.boostAttack();
-						this.eval(n.filsDroit);
+						this.courant = courant.filsDroit;
 						break;
 					case MoveRamasse:
 						this.moveRamasse();
-						this.eval(n.filsDroit);
+						this.courant = courant.filsDroit;
 						break;
 					case MoveAttack:
 						this.moveAttack();
-						this.eval(n.filsDroit);
+						this.courant = courant.filsDroit;
 						break;
 					case MoveDef:
 						this.moveDef();
-						this.eval(n.filsDroit);
+						this.courant = courant.filsDroit;
 						break;
 					case Sup:
 						if (isPossible(n.filsGauche) == 0){
-							this.eval(n.filsDroit);
+							this.courant = courant.filsDroit;
+							eval(courant);
 						}
 						else{
-							this.eval(n.filsGauche);
+							this.courant = courant.filsGauche;
+							eval(courant);
 						}
 						break;
 					case Etoile:
-						while(GameModel.situation==2*this.equipe){
-							eval(n.filsDroit);
-						}
+						this.etoile = n;
+						
 						break;
 					case Ou:
 						if(choixOu){
-							eval(n.filsGauche);
+							this.courant = courant.filsGauche;
 						}
 						else{
-							eval(n.filsDroit);
+							this.courant = courant.filsDroit;
 						}
 						break;
-				default:
-					break;
+					default:
+						break;
 				}
 				stun = false;
 			}
+		}
+		if(this.etoile!=null){
+			this.courant = etoile;
 		}
 	}
 
@@ -1036,104 +1047,109 @@ public class Robots extends Perso{
 	 * si l'un d'elle renvoie 0, alors on peut pas réaliser cette arbre
 	 */
 	private int isPossible(Noeud n) {
-		Competence c = n.action;
-		switch(c){
-			case Hit:
-				if(this.attack()==1){
+		if(n!=null){
+			Competence c = n.action;
+			switch(c){
+				case Hit:
+					if(this.attack()==1){
+						isPossible(n.filsDroit);
+					}
+					else{return 0;}
+					break;
+				case Protect:
+					if(this.protection()==1){
 					isPossible(n.filsDroit);
-				}
-				else{return 0;}
-				break;
-			case Protect:
-				if(this.protection()==1){
-				isPossible(n.filsDroit);
-				}
-				else{
-					return 0;
-				}
-			case Kamikaze:
-				if(this.kamikaze()==1){
-				isPossible(n.filsDroit);
-				}
-				else{
-					return 0;
-				}
-			case AutoDestruction:
-				if(this.autoDestruction()==1){
-				isPossible(n.filsDroit);
-				}
-				else{
-					return 0;
-				}
-			case Contrer:
-				if(this.contre()==1){
-				isPossible(n.filsDroit);
-				}
-				else{
-					return 0;
-				}
-			case AugDef:
-				isPossible(n.filsDroit);
-			case DimDef:
-				isPossible(n.filsDroit);
-			case Boost:
-				isPossible(n.filsDroit);
-			case Soin:
-				isPossible(n.filsDroit);
-			case Poison:
-				if(this.poison()==1){
-				isPossible(n.filsDroit);
-				}
-				else{
-					return 0;
-				}
-			case Stun:
-				if(this.stun()==1){
-				isPossible(n.filsDroit);
-				}
-				else{
-					return 0;
-				}
-			case Volvie:
-				if(this.voleVie()==1){
-				isPossible(n.filsDroit);
-				}
-				else{
-					return 0;
-				}
-			case MoveRamasse:
-				if(this.moveRamasse()==1){
+					}
+					else{
+						return 0;
+					}
+				case Kamikaze:
+					if(this.kamikaze()==1){
 					isPossible(n.filsDroit);
-				}
-				else{return 0;}
-			case MoveAttack:
-				if(this.moveAttack()==1){
+					}
+					else{
+						return 0;
+					}
+				case AutoDestruction:
+					if(this.autoDestruction()==1){
 					isPossible(n.filsDroit);
-				}
-				else{return 0;}
-			case MoveDef:
-				if(this.moveDef()==1){
+					}
+					else{
+						return 0;
+					}
+				case Contrer:
+					if(this.contre()==1){
 					isPossible(n.filsDroit);
-				}
-				else{return 0;}
-			case Sup:
-				if(isPossible(n.filsGauche)==1){
+					}
+					else{
+						return 0;
+					}
+				case AugDef:
+					isPossible(n.filsDroit);
+				case DimDef:
+					isPossible(n.filsDroit);
+				case Boost:
+					isPossible(n.filsDroit);
+				case Soin:
+					isPossible(n.filsDroit);
+				case Poison:
+					if(this.poison()==1){
+					isPossible(n.filsDroit);
+					}
+					else{
+						return 0;
+					}
+				case Stun:
+					if(this.stun()==1){
+					isPossible(n.filsDroit);
+					}
+					else{
+						return 0;
+					}
+				case Volvie:
+					if(this.voleVie()==1){
+					isPossible(n.filsDroit);
+					}
+					else{
+						return 0;
+					}
+				case MoveRamasse:
+					if(this.moveRamasse()==1){
+						isPossible(n.filsDroit);
+					}
+					else{return 0;}
+				case MoveAttack:
+					if(this.moveAttack()==1){
+						isPossible(n.filsDroit);
+					}
+					else{return 0;}
+				case MoveDef:
+					if(this.moveDef()==1){
+						isPossible(n.filsDroit);
+					}
+					else{return 0;}
+				case Sup:
+					if(isPossible(n.filsGauche)==1){
+						return 1;
+					}
+					if (isPossible(n.filsDroit) == 1){
+						return 1;
+					}
+					else{
+						return 0;
+					}
+				case Etoile:
 					return 1;
-				}
-				if (isPossible(n.filsDroit) == 1){
+				case Ou:
 					return 1;
-				}
-				else{
-					return 0;
-				}
-			case Etoile:
-				return 1;
-			case Ou:
-				return 1;
-			default:
-				return 1;
+				default:
+					return 1;
+			}
+			return 1;
 		}
-		return 1;
+		else{
+			return 1;
+		}
 	}
 
 	@Override

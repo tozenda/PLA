@@ -349,6 +349,9 @@ public class GameModel {
 			Game.game.compteurActionBegin();
 			Game.game.tourDe1 = true;
 			Game.game.PhaseAction = true;
+			for(Robots r : GameModel.robot_list){
+				r.courant = r.a;
+			}
 		}
 		else if(situation == 2){
 			heros2.pointAction = heros2.maxPointAction;
