@@ -32,7 +32,7 @@ public class Obstacles extends Observables{
 
 	@Override
 	public int getPic() {
-		return 17;
+		return 18;
 	}
 
 	@Override
