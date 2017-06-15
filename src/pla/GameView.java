@@ -47,7 +47,7 @@ public class GameView extends JPanel {
 	private _RButtonB Tour = null;
 	private JTextField jtf = null;
 	private JProgressBar Hero_HealthBar = null;
-	private _RProgressBar Base_HealthBar = null;
+	private JProgressBar Base_HealthBar = null;
 	private JProgressBar EBase_HealthBar = null;
 	private JProgressBar PointAction = null;
 	private JLabel logo = null;
@@ -208,18 +208,20 @@ public class GameView extends JPanel {
 		return side;
 	}
 
-	public JProgressBar setBarHero() {
+	public JProgressBar setBarHero() {//TODO
 		if (Hero_HealthBar == null) {
 			gc.gridx = 1;
 			gc.gridy = 1;
 			gc.gridheight = 1;
 			System.out.println("Bar hero");
 			Hero_HealthBar = new JProgressBar();
-			Hero_HealthBar.setString("0/1000");
+			Hero_HealthBar.setString("PDV Hero 0/1000");
 			Hero_HealthBar.setStringPainted(true);
 			Hero_HealthBar.setValue(500);
 			Hero_HealthBar.setMaximum(1000);
-			Hero_HealthBar.setBackground(new Color(216, 40, 82));
+			Hero_HealthBar.setFont(setFont(14f));
+			Hero_HealthBar.setBackground(Color.white);
+			Hero_HealthBar.setForeground(new Color(216, 40, 82));
 		}
 		return Hero_HealthBar;
 	}
@@ -283,15 +285,16 @@ public class GameView extends JPanel {
 		return scrollableTextArea;
 	}
 
-	public _RProgressBar setBarBase() {// TODO
+	public JProgressBar setBarBase() {// TODO
 		if (Base_HealthBar == null) {
 			gc.gridx = 2;
 			gc.gridy = 0;
 			gc.gridheight = 1;
 			System.out.println("bar base");
-			Base_HealthBar = new _RProgressBar();
+			Base_HealthBar = new JProgressBar();
 			int total_healthB1 = GameModel.map.getTotalHealthBase1();
-			Base_HealthBar.setString(total_healthB1 + "/1000");
+			Base_HealthBar.setString("Pdv Base :" + total_healthB1 + "/1000");
+			Base_HealthBar.setForeground(Color.gray);
 			Base_HealthBar.setStringPainted(true);
 			Base_HealthBar.setValue(total_healthB1);
 			Base_HealthBar.setMaximum(1000);
@@ -559,7 +562,9 @@ public class GameView extends JPanel {
 			PointAction.setStringPainted(true);
 			PointAction.setValue(pda);
 			PointAction.setMaximum(max);
-			PointAction.setBackground(Color.ORANGE);
+			PointAction.setForeground(Color.ORANGE);
+			PointAction.setFont(setFont(14f));
+			PointAction.setBackground(Color.white);
 			gc.gridx = 3;
 			gc.gridy = 1;
 		} else {
@@ -609,11 +614,12 @@ public class GameView extends JPanel {
 	
 	// pour afficher des objets sur notre fenêtre
 	public void paintComponent(Graphics g) {
-		/*
+			setPlayer();
+			/*
 		 * On réaffiche le JLabel info (right click) après modification
 		 *
 		 */
-		setPlayer();
+	
 		if (m_model.getLabelmodified()) {
 			setInfo();
 			m_model.setLabelmodified(false);
