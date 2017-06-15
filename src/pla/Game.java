@@ -65,7 +65,7 @@ public class Game {
 	}
 
 	public Game() {
-		Sound.bgmusic.loop();
+//		Sound.bgmusic.loop();
 		m_model = new GameModel(this);
 		m_controller = new GameController(this, m_model);
 		createWindow();
@@ -113,7 +113,7 @@ public class Game {
 		debutPhaseAction = System.currentTimeMillis();
 	}
 
-	static final int REPAINT_DELAY = (int) (1000.0 / 24.0);
+	static final int REPAINT_DELAY = (int) (1000.0 / 20.0);
 
 	private void majRobot(){
 		  if(PhaseAction&&(!pause)&&m_nTicks==1){
@@ -163,7 +163,7 @@ public class Game {
 		m_model.step(now);
 		m_controller.step(now);
 		long elapsed = (now - timeElapsedBreak) - m_lastRepaint;
-		if (elapsed > REPAINT_DELAY) {
+		if (elapsed > 2*REPAINT_DELAY) {
 			majRobot();
 			if ((cmpt2 == 20) && (!pause)) {
 				if (PhaseAction) {
