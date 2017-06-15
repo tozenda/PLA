@@ -244,12 +244,27 @@ public class GameView extends JPanel {
 		String Inventory = "\n         Inventaire vide \n";
 		String s =null ;
 		
-		for (HashMap.Entry<Competence, Integer> e : m_model.getCurrentHero().getInventaire().entrySet()) {
+		if (Game.game != null){
+			if(Game.game.tourDe1){
+				for (HashMap.Entry<Competence, Integer> e : GameModel.heros1.getInventaire().entrySet()) {
 
-			if (s == null) {
-				s = "" + e.getKey() + "(" + e.getValue() + ")";
-			} else {
-				s = s + "\n" + "" + e.getKey() + "(" + e.getValue() + ")";
+					if (s == null) {
+						s = "" + e.getKey() + "(" + e.getValue() + ")";
+					} else {
+						s = s + "\n" + "" + e.getKey() + "(" + e.getValue() + ")";
+					}
+				}
+			}
+			
+			else{
+				for (HashMap.Entry<Competence, Integer> e : GameModel.heros2.getInventaire().entrySet()) {
+
+					if (s == null) {
+						s = "" + e.getKey() + "(" + e.getValue() + ")";
+					} else {
+						s = s + "\n" + "" + e.getKey() + "(" + e.getValue() + ")";
+					}
+				}
 			}
 		}
 
@@ -482,6 +497,7 @@ public class GameView extends JPanel {
 			info.setFont(setFont(12f));
 
 		}
+		GameModel.currentCase = null;
 		return info;
 	}
 

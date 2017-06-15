@@ -14,7 +14,7 @@ public class Heros extends Perso{
     int pdv;
     int pointAction;
     int maxPointAction = 1000;
-	public int coupCreationRobot = 2;
+	public int coupCreationRobot = 20;
 	public int coupDeplacementHeros = 1;
 
     public Heros() {
@@ -23,7 +23,7 @@ public class Heros extends Perso{
         pdv = 300;
         equipe = 1;
         pointAction = maxPointAction;
-        inventaire = new HashMap<Competence,Integer>();
+        inventaire.put(Competence.MoveRamasse, 10);
         initHeros();
     }
     
@@ -33,6 +33,7 @@ public class Heros extends Perso{
         this.y = y;
         initHeros();
         pdv = 300;
+        inventaire.put(Competence.MoveRamasse, 10);
         pointAction = maxPointAction;
       this.equipe = equipe;
      }
