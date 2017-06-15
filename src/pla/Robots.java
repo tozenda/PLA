@@ -981,9 +981,11 @@ public class Robots extends Perso{
 					case Sup:
 						if (isPossible(n.filsGauche) == 0){
 							this.courant = courant.filsDroit;
+							eval(courant);
 						}
 						else{
 							this.courant = courant.filsGauche;
+							eval(courant);
 						}
 						break;
 					case Etoile:
@@ -1016,104 +1018,109 @@ public class Robots extends Perso{
 	 * si l'un d'elle renvoie 0, alors on peut pas réaliser cette arbre
 	 */
 	private int isPossible(Noeud n) {
-		Competence c = n.action;
-		switch(c){
-			case Hit:
-				if(this.attack()==1){
+		if(n!=null){
+			Competence c = n.action;
+			switch(c){
+				case Hit:
+					if(this.attack()==1){
+						isPossible(n.filsDroit);
+					}
+					else{return 0;}
+					break;
+				case Protect:
+					if(this.protection()==1){
 					isPossible(n.filsDroit);
-				}
-				else{return 0;}
-				break;
-			case Protect:
-				if(this.protection()==1){
-				isPossible(n.filsDroit);
-				}
-				else{
-					return 0;
-				}
-			case Kamikaze:
-				if(this.kamikaze()==1){
-				isPossible(n.filsDroit);
-				}
-				else{
-					return 0;
-				}
-			case AutoDestruction:
-				if(this.autoDestruction()==1){
-				isPossible(n.filsDroit);
-				}
-				else{
-					return 0;
-				}
-			case Contrer:
-				if(this.contre()==1){
-				isPossible(n.filsDroit);
-				}
-				else{
-					return 0;
-				}
-			case AugDef:
-				isPossible(n.filsDroit);
-			case DimDef:
-				isPossible(n.filsDroit);
-			case Boost:
-				isPossible(n.filsDroit);
-			case Soin:
-				isPossible(n.filsDroit);
-			case Poison:
-				if(this.poison()==1){
-				isPossible(n.filsDroit);
-				}
-				else{
-					return 0;
-				}
-			case Stun:
-				if(this.stun()==1){
-				isPossible(n.filsDroit);
-				}
-				else{
-					return 0;
-				}
-			case Volvie:
-				if(this.voleVie()==1){
-				isPossible(n.filsDroit);
-				}
-				else{
-					return 0;
-				}
-			case MoveRamasse:
-				if(this.moveRamasse()==1){
+					}
+					else{
+						return 0;
+					}
+				case Kamikaze:
+					if(this.kamikaze()==1){
 					isPossible(n.filsDroit);
-				}
-				else{return 0;}
-			case MoveAttack:
-				if(this.moveAttack()==1){
+					}
+					else{
+						return 0;
+					}
+				case AutoDestruction:
+					if(this.autoDestruction()==1){
 					isPossible(n.filsDroit);
-				}
-				else{return 0;}
-			case MoveDef:
-				if(this.moveDef()==1){
+					}
+					else{
+						return 0;
+					}
+				case Contrer:
+					if(this.contre()==1){
 					isPossible(n.filsDroit);
-				}
-				else{return 0;}
-			case Sup:
-				if(isPossible(n.filsGauche)==1){
+					}
+					else{
+						return 0;
+					}
+				case AugDef:
+					isPossible(n.filsDroit);
+				case DimDef:
+					isPossible(n.filsDroit);
+				case Boost:
+					isPossible(n.filsDroit);
+				case Soin:
+					isPossible(n.filsDroit);
+				case Poison:
+					if(this.poison()==1){
+					isPossible(n.filsDroit);
+					}
+					else{
+						return 0;
+					}
+				case Stun:
+					if(this.stun()==1){
+					isPossible(n.filsDroit);
+					}
+					else{
+						return 0;
+					}
+				case Volvie:
+					if(this.voleVie()==1){
+					isPossible(n.filsDroit);
+					}
+					else{
+						return 0;
+					}
+				case MoveRamasse:
+					if(this.moveRamasse()==1){
+						isPossible(n.filsDroit);
+					}
+					else{return 0;}
+				case MoveAttack:
+					if(this.moveAttack()==1){
+						isPossible(n.filsDroit);
+					}
+					else{return 0;}
+				case MoveDef:
+					if(this.moveDef()==1){
+						isPossible(n.filsDroit);
+					}
+					else{return 0;}
+				case Sup:
+					if(isPossible(n.filsGauche)==1){
+						return 1;
+					}
+					if (isPossible(n.filsDroit) == 1){
+						return 1;
+					}
+					else{
+						return 0;
+					}
+				case Etoile:
 					return 1;
-				}
-				if (isPossible(n.filsDroit) == 1){
+				case Ou:
 					return 1;
-				}
-				else{
-					return 0;
-				}
-			case Etoile:
-				return 1;
-			case Ou:
-				return 1;
-			default:
-				return 1;
+				default:
+					return 1;
+			}
+			return 1;
 		}
-		return 1;
+		else{
+			return 1;
+		}
 	}
 
 	@Override
