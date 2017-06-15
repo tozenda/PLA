@@ -317,7 +317,7 @@ public class Robots extends Perso{
 		di = c.getX();
 		dj = c.getY();
 		Map map = GameModel.map;
-		if(Game.game.PhaseAction){
+		if((Game.game.PhaseAction)&&(!Game.game.pause)){
 			int resX = (int) Math.sqrt(Math.pow(di-i, 2));
 			int resY = (int) Math.sqrt(Math.pow(dj-j, 2));
 			if(((i!=di)||(j!=dj))&&(!faceALaMerde)){
@@ -938,105 +938,107 @@ public class Robots extends Perso{
 	 * Tick de poison
 	 */
 	public void eval(Noeud n){
-		if((GameModel.situation==1&&this.equipe==1) || (GameModel.situation==3&&this.equipe==2)){
-			protection = false;
-			contre = false;
-		}
-		if(poison>0){
-			pdv -= 15;
-			poison--;
-			destructionRobot();
-		}
-		if(n!=null){
-			if(!stun){
-				Competence c = n.action;
-				switch(c){
-					case Hit:
-						this.attack();
-						this.courant = courant.filsDroit;
-						break;
-					case Protect:
-						this.protection();
-						this.courant = courant.filsDroit;
-						break;
-					case Soin:
-						this.soin();
-						this.courant = courant.filsDroit;
-						break;
-					case Kamikaze:
-						this.kamikaze();
-						this.courant = courant.filsDroit;
-						break;
-					case Volvie:
-						this.voleVie();
-						this.courant = courant.filsDroit;
-						break;
-					case Stun:
-						this.stun();
-						this.courant = courant.filsDroit;
-						break;
-					case AugDef:
-						this.augDef();
-						this.courant = courant.filsDroit;
-						break;
-					case DimDef:
-						this.dimDef();
-						this.courant = courant.filsDroit;
-						break;
-					case Contrer:
-						this.contre();
-						this.courant = courant.filsDroit;
-						break;
-					case Poison:
-						this.poison();
-						this.courant = courant.filsDroit;
-						break;
-					case Boost:
-						this.boostAttack();
-						this.courant = courant.filsDroit;
-						break;
-					case MoveRamasse:
-						this.moveRamasse();
-						this.courant = courant.filsDroit;
-						break;
-					case MoveAttack:
-						this.moveAttack();
-						this.courant = courant.filsDroit;
-						break;
-					case MoveDef:
-						this.moveDef();
-						this.courant = courant.filsDroit;
-						break;
-					case Sup:
-						if (isPossible(n.filsGauche) == 0){
-							this.courant = courant.filsDroit;
-							eval(courant);
-						}
-						else{
-							this.courant = courant.filsGauche;
-							eval(courant);
-						}
-						break;
-					case Etoile:
-						this.etoile = n;
-						
-						break;
-					case Ou:
-						if(choixOu){
-							this.courant = courant.filsGauche;
-						}
-						else{
-							this.courant = courant.filsDroit;
-						}
-						break;
-					default:
-						break;
-				}
-				stun = false;
+		if(!Game.game.pause){
+			if((GameModel.situation==1&&this.equipe==1) || (GameModel.situation==3&&this.equipe==2)){
+				protection = false;
+				contre = false;
 			}
-		}
-		if(this.etoile!=null){
-			this.courant = etoile;
+			if(poison>0){
+				pdv -= 15;
+				poison--;
+				destructionRobot();
+			}
+			if(n!=null){
+				if(!stun){
+					Competence c = n.action;
+					switch(c){
+						case Hit:
+							this.attack();
+							this.courant = courant.filsDroit;
+							break;
+						case Protect:
+							this.protection();
+							this.courant = courant.filsDroit;
+							break;
+						case Soin:
+							this.soin();
+							this.courant = courant.filsDroit;
+							break;
+						case Kamikaze:
+							this.kamikaze();
+							this.courant = courant.filsDroit;
+							break;
+						case Volvie:
+							this.voleVie();
+							this.courant = courant.filsDroit;
+							break;
+						case Stun:
+							this.stun();
+							this.courant = courant.filsDroit;
+							break;
+						case AugDef:
+							this.augDef();
+							this.courant = courant.filsDroit;
+							break;
+						case DimDef:
+							this.dimDef();
+							this.courant = courant.filsDroit;
+							break;
+						case Contrer:
+							this.contre();
+							this.courant = courant.filsDroit;
+							break;
+						case Poison:
+							this.poison();
+							this.courant = courant.filsDroit;
+							break;
+						case Boost:
+							this.boostAttack();
+							this.courant = courant.filsDroit;
+							break;
+						case MoveRamasse:
+							this.moveRamasse();
+							this.courant = courant.filsDroit;
+							break;
+						case MoveAttack:
+							this.moveAttack();
+							this.courant = courant.filsDroit;
+							break;
+						case MoveDef:
+							this.moveDef();
+							this.courant = courant.filsDroit;
+							break;
+						case Sup:
+							if (isPossible(n.filsGauche) == 0){
+								this.courant = courant.filsDroit;
+								eval(courant);
+							}
+							else{
+								this.courant = courant.filsGauche;
+								eval(courant);
+							}
+							break;
+						case Etoile:
+							this.etoile = n;
+							
+							break;
+						case Ou:
+							if(choixOu){
+								this.courant = courant.filsGauche;
+							}
+							else{
+								this.courant = courant.filsDroit;
+							}
+							break;
+						default:
+							break;
+					}
+					stun = false;
+				}
+			}
+			if(this.etoile!=null){
+				this.courant = etoile;
+			}
 		}
 	}
 
