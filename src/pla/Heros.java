@@ -185,6 +185,8 @@ public class Heros extends Perso{
 				h = new Case(36, i,this);
 			}
 			pdv = 300;
+			Competence tmp = Competence.MoveRamasse;
+			inventaire.put(tmp , 1);
 			this.x = h.getX();
 			this.y = h.getY();
 		}

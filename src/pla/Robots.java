@@ -938,7 +938,7 @@ public class Robots extends Perso{
 						listC.recupListCompetence(this.a);
 						Case c = new Case(i, j, listC);
 						map.editCase(c);
-						GameModel.supprimerRobotList();
+						GameModel.toRemove.add(this);
 					}
 				}
 

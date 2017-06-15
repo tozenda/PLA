@@ -4,7 +4,6 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,6 +30,7 @@ public class GameModel {
 	static Heros heros1;
 	static Heros heros2;
 	static List <Robots> robot_list = new LinkedList<Robots>();
+	static List<Robots> toRemove = new LinkedList<Robots>();
 	Robots robot;
 	static Case currentCase = null;
 	public static int situation = 1;
@@ -203,6 +203,20 @@ public class GameModel {
 	*/
 	void step(long now) {
 		overhead();
+	}
+	
+	int partie(){
+		if(!map.getCase(1, 21).getContenu().isBase() && !map.getCase(2, 21).getContenu().isBase() 
+				&& !map.getCase(2, 22).getContenu().isBase() && !map.getCase(2, 22).getContenu().isBase()){
+			return 1;
+		}
+		else if(!map.getCase(37, 1).getContenu().isBase() && !map.getCase(37, 2).getContenu().isBase() 
+				&& !map.getCase(38, 1).getContenu().isBase() && !map.getCase(38, 2).getContenu().isBase()){
+			return 2;
+		}
+		else{
+			return 0;
+		}
 	}
 
 	void heroMove(int mvt){
@@ -520,16 +534,6 @@ public class GameModel {
 		m_game.returnFocus();
 	}
 	
-	public static void supprimerRobotList(){
-		Iterator<Robots> itR = robot_list.iterator();
-		while (itR.hasNext()) {
-		    Robots r = itR.next();
-			if(r.pdv<=0){
-				itR.remove();
-				break;
-			}
-		}
-	}
 
 	/*
 	* Tente de modifier un robot, si erreur de parser, alors on ne modifie pas le robot
