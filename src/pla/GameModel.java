@@ -131,9 +131,9 @@ public class GameModel {
 	GameModel(Game game) {
 		m_game = game;
 		map = new Map();
-		heros1 = new Heros(2,22,1);
+		heros1 = new Heros(3,20,1);
 		heros1.pointAction = heros1.maxPointAction;
-		heros2 = new Heros(36,2,2);
+		heros2 = new Heros(36,3,2);
 		heros2.pointAction = heros2.maxPointAction;
 		Case ch1 = new Case(heros1.getX(), heros1.getY(), heros1);
 		Case ch2 = new Case(heros2.getX(), heros2.getY(), heros2);
