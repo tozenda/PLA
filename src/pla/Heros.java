@@ -1,6 +1,7 @@
 package pla;
 import java.awt.Image;
 import java.util.*;
+import java.util.Map.Entry;
 
 import javax.swing.ImageIcon;
 
@@ -150,18 +151,19 @@ public class Heros extends Perso{
 			Map map = GameModel.map;
 			HashMap<Competence, Integer> listC = this.inventaire;
 			Competences lComp = new Competences();
-			for (HashMap.Entry<Competence,Integer> e : inventaire.entrySet()) {
-				for(int i=e.getValue();i!=0;i--){
-					lComp.addCompetence(e.getKey());
-				}
-				listC.remove(e.getKey());
-				}
-			
+			Iterator<Entry<Competence, Integer>> it = listC.entrySet().iterator();
+			while (it.hasNext())
+			{
+			   Entry<Competence, Integer> item = it.next();
+			   lComp.addCompetence(item.getKey());
+			   it.remove();
+			}
+
 			Case c = new Case(x, y, lComp);
 			map.editCase(c);
 			Case h=null;
 			if(equipe==1){
-				int i = 23;
+				int i = 22;
 				Case tmp = map.getCase(3, i);
 				while(!tmp.getContenu().isVide()){
 					h = new Case(3, i,this);
@@ -170,7 +172,7 @@ public class Heros extends Perso{
 				}
 			}
 			else{
-				int i = 0;
+				int i = 1;
 				Case tmp = map.getCase(37, i);
 				while(!tmp.getContenu().isVide()){
 					h = new Case(37, i,this);
@@ -179,7 +181,8 @@ public class Heros extends Perso{
 				}
 			}
 			pdv = 300;
-			map.editCase(h);
+			this.x = h.getX();
+			this.y = h.getY();
 		}
 	}
 

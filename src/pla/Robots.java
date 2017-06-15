@@ -695,8 +695,8 @@ public class Robots extends Perso{
 						Robots r2 = (Robots) obs;
 						if(this.equipe != r2.equipe){
 							double p = Math.random();
-							if(p > 0.0){
-								r2.poison += 3;
+							if(p > 0.3 && r2.poison<3){
+								r2.poison = 3;
 								return 1;
 							}
 						}
@@ -768,6 +768,17 @@ public class Robots extends Perso{
 				if(obs.isRobot()){
 					Robots r2 = (Robots) obs;
 					if(this.equipe != r2.equipe){
+						tmp = Math.abs(k-i)+Math.abs(l-j);
+						if(tmp<min){
+							min = tmp;
+							min_i = k;
+							min_j = l;
+						}
+					}
+				}
+				if(obs.isHeros()){
+					Heros h = (Heros) obs;
+					if(this.equipe != h.equipe){
 						tmp = Math.abs(k-i)+Math.abs(l-j);
 						if(tmp<min){
 							min = tmp;
