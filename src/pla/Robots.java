@@ -354,6 +354,9 @@ public class Robots extends Perso{
 		}
 
 	}
+	
+	
+	//TODO k+l<i+j+2
 
 	/*Action d'attaque d'un robot
 	 *	regarde si y a un robot à 1 case de lui :
@@ -436,7 +439,7 @@ public class Robots extends Perso{
 
 		for(int k = i-1; k<= i+1; k++){
 			for(int l = j-1; l<=j+1; l++){
-				if(0<=k && k<40 && 0<=l&& l<24){
+				if((k>=0) && (k<map.getTotalWidth()) && (l>=0) && (l<map.getTotalHeight())){
 					Case c = map.getCase(k, l);
 					Observables obs = c.getContenu();
 
@@ -490,7 +493,7 @@ public class Robots extends Perso{
 		if(this.pdv < 35){
 			for(int k = i-1; k<= i+1; k++){
 				for(int l = j-1; l<=j+1; l++){
-					if(0<=k && k<map.getWidth() && 0<=l&& l<map.getHeight()){
+					if((k>=0) && (k<map.getTotalWidth()) && (l>=0) && (l<map.getTotalHeight())){
 
 						Case c = map.getCase(k, l);
 						Observables obs = c.getContenu();
@@ -527,7 +530,7 @@ public class Robots extends Perso{
 		if(this.pdv < 35){
 			for(int k = i-1; k<= i+1; k++){
 				for(int l = j-1; l<=j+1; l++){
-					if(0<=k && k<map.getWidth() && 0<=l&& l<map.getHeight()){
+					if((k>=0) && (k<map.getTotalWidth()) && (l>=0) && (l<map.getTotalHeight())){
 
 						Case c = map.getCase(k, l);
 						Observables obs = c.getContenu();
@@ -560,7 +563,7 @@ public class Robots extends Perso{
 
 		for(int k = i-1; k<= i+1; k++){
 			for(int l = j-1; l<=j+1; l++){
-				if(0<=k && k<map.getWidth() && 0<=l&& l<map.getHeight() && k+l<i+j+2){
+				if((k>=0) && (k<map.getTotalWidth()) && (l>=0) && (l<map.getTotalHeight())){
 					Case c = map.getCase(k, l);
 					Observables obs = c.getContenu();
 
@@ -595,7 +598,7 @@ public class Robots extends Perso{
 
 		for(int k = i-1; k<= i+1; k++){
 			for(int l = j-1; l<=j+1; l++){
-				if(0<=k && k<40 && 0<=l&& l<24){
+				if((k>=0) && (k<map.getTotalWidth()) && (l>=0) && (l<map.getTotalHeight())){
 					Case c = map.getCase(k, l);
 					Observables obs = c.getContenu();
 
@@ -654,7 +657,7 @@ public class Robots extends Perso{
 
 		for(int k = i-1; k<= i+1; k++){
 			for(int l = j-1; l<=j+1; l++){
-				if(0<=k && k<40 && 0<=l&& l<24){
+				if((k>=0) && (k<map.getTotalWidth()) && (l>=0) && (l<map.getTotalHeight())){
 
 					Case c = map.getCase(k, l);
 					Observables obs = c.getContenu();

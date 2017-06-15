@@ -147,7 +147,7 @@ public class Heros extends Perso{
 	public void destructionHeros() {
 		if(pdv<=0){
 			Map map = GameModel.map;
-			HashMap listC = this.inventaire;
+			HashMap<Competence, Integer> listC = this.inventaire;
 			Competences lComp = new Competences();
 			for (HashMap.Entry<Competence,Integer> e : inventaire.entrySet()) {
 				for(int i=e.getValue();i!=0;i--){
