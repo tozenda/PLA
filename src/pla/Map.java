@@ -23,13 +23,6 @@ public class Map {
 				// System.out.println("ligne : "+i+" colonnes : "+j);
 				v = new Vide();
 				c = new Case(i, j, v);
-				if ((j == 2) && (i < 6) || (j == 30) && (i < 2)) {// j is the
-																	// colomn &&
-																	// i is the
-																	// line
-					Obstacles o = new Obstacles();
-					c = new Case(j, i, o);
-				}
 				elements[i][j] = c;
 			}
 		}
@@ -42,23 +35,60 @@ public class Map {
 			elements[h][0] = new Case(0,h,new Obstacles());
 			elements[h][total_width-1] = new Case(total_width-1,h,new Obstacles());
 		}
-		elements[9][19] = new Case(9,19,new Obstacles());
-		elements[9][18] = new Case(9,18,new Obstacles());
-		elements[9][17] = new Case(9,17,new Obstacles());
-		elements[9][16] = new Case(9,16,new Obstacles());
+		elements[4][6] = new Case(4,6,new Obstacles());
+		elements[4][12] = new Case(4,12,new Obstacles());
+		elements[4][13] = new Case(4,13,new Obstacles());
+		elements[10][12] = new Case(10,12,new Obstacles());
+		elements[10][13] = new Case(10,13,new Obstacles());
+		elements[10][14] = new Case(10,14,new Obstacles());
+		elements[10][19] = new Case(10,19,new Obstacles());
+		elements[10][4] = new Case(10,4,new Obstacles());
+		elements[8][17] = new Case(8,17,new Obstacles());
+		elements[12][8] = new Case(12,8,new Obstacles());
+		elements[12][9] = new Case(12,9,new Obstacles());
+		elements[13][8] = new Case(13,8,new Obstacles());
+		elements[13][9] = new Case(13,9,new Obstacles());
+		elements[14][8] = new Case(14,8,new Obstacles());
+		elements[14][9] = new Case(14,9,new Obstacles());
+		elements[15][8] = new Case(15,8,new Obstacles());
+		elements[15][9] = new Case(15,9,new Obstacles());
+		elements[16][8] = new Case(16,8,new Obstacles());
+		elements[16][9] = new Case(16,9,new Obstacles());
+		elements[17][8] = new Case(17,8,new Obstacles());
+		elements[17][9] = new Case(17,9,new Obstacles());
+		elements[17][11] = new Case(17,11,new Obstacles());
+		elements[20][13] = new Case(20,13,new Obstacles());
+		elements[20][14] = new Case(20,14,new Obstacles());
+		elements[15][15] = new Case(15,15,new Obstacles());
+		elements[15][19] = new Case(15,19,new Obstacles());
 		
-		elements[9][10] = new Case(9,10,new Obstacles());
-		elements[10][10] = new Case(10,10,new Obstacles());
-		elements[11][10] = new Case(11,10,new Obstacles());
-		
-		elements[23][37] = new Case(37,23,new Obstacles());
-		elements[22][37] = new Case(37,22,new Obstacles());
-		elements[21][37] = new Case(37,21,new Obstacles());
-		elements[20][37] = new Case(37,20,new Obstacles());
-		elements[19][37] = new Case(37,19,new Obstacles());
-		
-		elements[18][28] = new Case(37,19,new Obstacles());
-		
+		elements[18][21] = new Case(18,21,new Obstacles());
+		elements[18][22] = new Case(18,22,new Obstacles());
+		elements[18][25] = new Case(18,25,new Obstacles());
+		elements[18][26] = new Case(18,26,new Obstacles());
+		elements[19][28] = new Case(19,28,new Obstacles());
+		elements[19][29] = new Case(19,29,new Obstacles());
+		elements[19][31] = new Case(19,31,new Obstacles());
+		elements[19][32] = new Case(19,32,new Obstacles());
+		elements[19][33] = new Case(19,33,new Obstacles());
+		elements[17][28] = new Case(17,28,new Obstacles());
+		elements[17][29] = new Case(17,29,new Obstacles());
+		elements[17][31] = new Case(17,31,new Obstacles());
+		elements[17][32] = new Case(17,32,new Obstacles());
+		elements[17][33] = new Case(17,33,new Obstacles());
+		elements[13][28] = new Case(13,28,new Obstacles());
+		elements[13][29] = new Case(13,29,new Obstacles());
+		elements[13][31] = new Case(13,31,new Obstacles());
+		elements[13][32] = new Case(13,32,new Obstacles());
+		elements[13][33] = new Case(13,33,new Obstacles());
+		elements[12][25] = new Case(12,25,new Obstacles());
+		elements[12][26] = new Case(12,26,new Obstacles());
+		elements[10][25] = new Case(10,25,new Obstacles());
+		elements[10][26] = new Case(10,26,new Obstacles());
+		elements[7][25] = new Case(7,25,new Obstacles());
+		elements[7][26] = new Case(7,26,new Obstacles());
+		elements[7][32] = new Case(7,32,new Obstacles());
+		elements[3][32] = new Case(3,32,new Obstacles());
 		Competences c1 = new Competences();
 		
 		LinkedList<Competence> lc = new LinkedList <Competence>();
@@ -80,14 +110,14 @@ public class Map {
 		
 		elements[6][17] = new Case(17,6,c2);
 		
-		addBase(38, 0,2);
-		addBase(39, 0,2);
+		addBase(37, 1,2);
 		addBase(38, 1,2);
-		addBase(39, 1,2);
-		addBase(0, 22,1);
+		addBase(37, 2,2);
+		addBase(38, 2,2);
+		addBase(1, 21,1);
+		addBase(2, 21,1);
 		addBase(1, 22,1);
-		addBase(0, 23,1);
-		addBase(1, 23,1);
+		addBase(2, 22,1);
 
 	}
 

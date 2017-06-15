@@ -60,6 +60,8 @@ public class GameView extends JPanel {
 	private BufferedImage iBase = null;
 	private BufferedImage iSkill = null;
 	private BufferedImage Image[] = new BufferedImage[100];
+	private BufferedImage Map[] = new BufferedImage[4];
+
 
 	BufferedImage iRobot_settings = null;
 	Color Gold = new Color(229, 186, 27);
@@ -107,6 +109,11 @@ public class GameView extends JPanel {
 			Image[i++] = ImageIO.read(new File(Path + "Base1.png"));
 			Image[i++] = ImageIO.read(new File(Path + "Base2.png"));
 			Image[i++] = ImageIO.read(new File(Path + "front.png"));
+			Map[0] = ImageIO.read(new File(Path + "11.png"));
+			Map[1] = ImageIO.read(new File(Path + "12.png"));
+			Map[2] = ImageIO.read(new File(Path + "21.png"));
+			Map[3] = ImageIO.read(new File(Path + "22.png"));
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -631,6 +638,7 @@ public class GameView extends JPanel {
 		computeFPS();
 		// Quadrillage de la map
 		draw(g, "Bande.png", 0, 0, 0, 0);
+		g.drawImage(Map[GameModel.map.getLocation()-1], 0, 0, this);
 		g.setColor(Color.BLACK);
 		// Vertical
 		for (int i = (GameModel.map.getLocation() - 1) * nbrCaseX; i <= GameModel.map.getLocation()
@@ -662,10 +670,13 @@ public class GameView extends JPanel {
 					g.drawImage(m_model.getImage(), (i % GameModel.map.getWidth()) * tailleCase + 1,
 							(j % GameModel.map.getHeight()) * tailleCase + 1, 39, 39, this);
 
-				} else if (obs.isVide()) {
+				} else if (obs.isObstacles()){
+				}
+				 else if (obs.isVide()) {
 					g.setColor(Color.white);
 
-				} else {
+				}
+				else {
 					g.drawImage(Image[obs.getPic()], (i % GameModel.map.getWidth()) * tailleCase + 1,
 							(j % GameModel.map.getHeight()) * tailleCase + 1, 39, 39, this);
 
