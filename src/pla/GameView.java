@@ -46,7 +46,7 @@ public class GameView extends JPanel {
 	private _RButtonB Break = null;
 	private _RButtonB Tour = null;
 	private JTextField jtf = null;
-	private JProgressBar Hero_HealthBar = null;
+	private JProgressBar Hero_HealthBar = null; //TODO
 	private JProgressBar Base_HealthBar = null;
 	private JProgressBar EBase_HealthBar = null;
 	private JProgressBar PointAction = null;
@@ -159,7 +159,7 @@ public class GameView extends JPanel {
 		if (jp == null) {
 			setPanel().add(setLogo(), gc);
 			setPanel().add(setPlayer(), gc);
-			setPanel().add(setBarHero(), gc);
+			setPanel().add(setBarHero(false), gc);
 			setPanel().add(setBarBase(), gc);
 			setPanel().add(setEBarBase(), gc);
 			setPanel().add(setNPointAction(), gc);
@@ -211,20 +211,36 @@ public class GameView extends JPanel {
 	}
 
 
-	public JProgressBar setBarHero() {// TODO
+	public JProgressBar setBarHero(boolean GameBegan) {// TODO : à debuguer
+		int vie = 0;
+		int maxVie = 300;
+		if (GameBegan) {
+			if (Game.game.tourDe1) {
+				vie = GameModel.heros1.pdv;
+			}
+			if (!Game.game.tourDe1) {
+				vie = GameModel.heros2.pdv;
+			}
+		}
 		if (Hero_HealthBar == null) {
 			gc.gridx = 1;
 			gc.gridy = 1;
 			gc.gridheight = 1;
 			System.out.println("Bar hero");
 			Hero_HealthBar = new JProgressBar();
-			Hero_HealthBar.setString("PDV Hero 0/1000");
+			Hero_HealthBar.setString("PDV Hero 300/300");
 			Hero_HealthBar.setStringPainted(true);
-			Hero_HealthBar.setValue(500);
-			Hero_HealthBar.setMaximum(1000);
+			Hero_HealthBar.setValue(300);
+			Hero_HealthBar.setMaximum(300);
 			Hero_HealthBar.setFont(setFont(14f));
 			Hero_HealthBar.setBackground(Color.white);
 			Hero_HealthBar.setForeground(new Color(216, 40, 82));
+		}
+		else{
+			Hero_HealthBar.setString(vie + "/" + maxVie);
+			Hero_HealthBar.setStringPainted(true);
+			Hero_HealthBar.setValue(vie);
+			Hero_HealthBar.setMaximum(maxVie);
 		}
 		return Hero_HealthBar;
 	}

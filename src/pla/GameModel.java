@@ -40,6 +40,7 @@ public class GameModel {
 	* 2 = Action1
 	* 3 = Choix2
 	* 4 = Action2
+
 	*/
 	private int Factx = 1;
 	private int Facty = 1;

@@ -208,4 +208,9 @@ public class Heros extends Perso{
 		pointAction += value; 
 		Game.game.m_view.setPointAction(true);
 	}
+	
+	public void updatePointDeVie(int value){
+		pdv += value;
+		Game.game.m_view.setBarHero(true);
+	}
 }
