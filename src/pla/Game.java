@@ -37,7 +37,7 @@ public class Game {
 	int cmpt = 0;
 	int cmpt2 = 0;
 	long debutPhaseAction;
-	long DureePhaseAction = 10000;
+	long DureePhaseAction = 100000;
 	long tempsEcoulePhaseAction;
 	long DureePhaseChoix = 60000;
 	long tempsEcoulePhaseChoix;
