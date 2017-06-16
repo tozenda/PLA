@@ -406,7 +406,7 @@ public class Robots extends Perso{
 									if(h.equipe != this.equipe){
 										double p = Math.random();
 										if(p > 0.07+h.defend()){
-											h.updatePointDeVie(-35);
+											h.updatePointDeVie(-10);
 											h.destructionHeros();
 										}
 									}
@@ -415,16 +415,16 @@ public class Robots extends Perso{
 									Robots r2 = (Robots) obs;
 									if(r2.equipe != this.equipe){
 										if(r2.contre){
-											pdv -= 15;
+											pdv -= 10;
 										}
 										double p = Math.random();
 										if(p > 0.05+r2.defend() && !r2.protection){
 											//Si non esquive du robot adverse
 											if(boostDegat){
-												r2.pdv -= 10;
+												r2.pdv -= 5;
 												boostDegat = false;
 											}
-											r2.pdv -= 35;
+											r2.pdv -= 10;
 											r2.destructionRobot();
 										}
 										return 1;
@@ -438,10 +438,10 @@ public class Robots extends Perso{
 										if(p > 0.05){
 											//5% de chance de rater son attaque
 											if(boostDegat){
-												b.pdv -= 10;
+												b.pdv -= 5;
 												boostDegat = false;
 											}
-											b.pdv -= 35;
+											b.pdv -= 10;
 											b.destructionBase();
 										}
 										return 1;
@@ -477,7 +477,7 @@ public class Robots extends Perso{
 									if(h.equipe != this.equipe){
 										double p = Math.random();
 										if(p > 0.07+h.defend()){
-											h.updatePointDeVie(-30);
+											h.updatePointDeVie(-5);
 											this.soin();
 											h.destructionHeros();
 										}
@@ -489,7 +489,7 @@ public class Robots extends Perso{
 										double p = Math.random();
 										if(p > 0.05+r2.defend() && !r2.protection){
 											//Si non esquive du robot adverse
-											r2.pdv -= 30;
+											r2.pdv -= 5;
 											this.soin();
 											r2.destructionRobot();
 										}
@@ -505,7 +505,7 @@ public class Robots extends Perso{
 				//recupere 10 pv si inférieur à 90
 				public int soin(){
 					if(this.pdv <= 90){
-						this.pdv +=10;
+						this.pdv +=5;
 						return 1;
 					}
 					else{
@@ -519,7 +519,7 @@ public class Robots extends Perso{
 				public int autoDestruction(){
 					Map map = GameModel.map;
 					int res = 0;
-					if(this.pdv < 35){
+					if(this.pdv < 40){
 						for(int k = i-1; k<= i+1; k++){
 							for(int l = j-1; l<=j+1; l++){
 								if((k>=0) && (k<map.getTotalWidth()) && (l>=0) && (l<map.getTotalHeight())){
@@ -556,7 +556,7 @@ public class Robots extends Perso{
 				public int kamikaze(){
 					Map map = GameModel.map;
 
-					if(this.pdv < 35){
+					if(this.pdv < 40){
 						for(int k = i-1; k<= i+1; k++){
 							for(int l = j-1; l<=j+1; l++){
 								if((k>=0) && (k<map.getTotalWidth()) && (l>=0) && (l<map.getTotalHeight())){
@@ -956,7 +956,7 @@ public class Robots extends Perso{
 							contre = false;
 						}
 						if(poison>0){
-							pdv -= 15;
+							pdv -= 5;
 							poison--;
 							destructionRobot();
 						}
