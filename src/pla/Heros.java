@@ -43,6 +43,10 @@ public class Heros extends Perso{
     	return pdv;
     }
     
+    public int getEquipe(){
+    	return equipe;
+    }
+    
     private void initHeros() {
         
         ImageIcon ii = new ImageIcon("../img/hero.png");
@@ -203,5 +207,10 @@ public class Heros extends Perso{
 	public void updatePointAction(int value){ //La valeur en positif/negatif à ajouter aux pda
 		pointAction += value; 
 		Game.game.m_view.setPointAction(true);
+	}
+	
+	public void updatePointDeVie(int value){
+		pdv += value;
+		Game.game.m_view.setBarHero(true);
 	}
 }
