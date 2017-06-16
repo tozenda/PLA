@@ -406,7 +406,7 @@ public class Robots extends Perso{
 									if(h.equipe != this.equipe){
 										double p = Math.random();
 										if(p > 0.07+h.defend()){
-											h.pdv -= 35;
+											h.updatePointDeVie(-35);
 											h.destructionHeros();
 										}
 									}
@@ -477,7 +477,7 @@ public class Robots extends Perso{
 									if(h.equipe != this.equipe){
 										double p = Math.random();
 										if(p > 0.07+h.defend()){
-											h.pdv -= 30;
+											h.updatePointDeVie(-30);
 											this.soin();
 											h.destructionHeros();
 										}
