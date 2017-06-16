@@ -59,7 +59,8 @@ public class GameModel {
 	private BufferedImage[] walkingBack = {getSprite(0, 3), getSprite(1, 3), getSprite(2, 3)};
 	private Animation walkBack = new Animation(walkingBack, 1);
 	private Animation animation;
-	private static BufferedImage iHero=null;
+	private static BufferedImage iHero1=null;
+	private static BufferedImage iHero2=null;
 	
 	private BufferedImage[] walkingLeft1 = {getSprite2(0, 1), getSprite2(1, 1), getSprite2(2, 1)};
 	private Animation walkLeft1 = new Animation(walkingLeft1, 1);
@@ -71,8 +72,14 @@ public class GameModel {
 	private Animation walkBack1 = new Animation(walkingBack1, 1);
 
 	Heros currentHero = heros1;
+	
 	public Heros getCurrentHero(){
-		return heros1;
+		if(situation <3){
+			return heros1;
+		}
+		else{
+			return heros2;
+		}
 	}
 
 	private static BufferedImage spriteSheet2;
@@ -272,7 +279,7 @@ public class GameModel {
 			if (mvt == 'z') {
 				map.setLocation(map.getHeroLocation(currentX, currentY));
 				animation = walkBack;
-				iHero=animation.getSprite();
+				iHero1=animation.getSprite();
 			    animation.start();
 			    animation.update();
 			    animation.stop();
@@ -290,7 +297,7 @@ public class GameModel {
 			} else if (mvt == 'q') {
 				map.setLocation(map.getHeroLocation(currentX, currentY));
 				animation = walkLeft;
-				iHero=animation.getSprite();
+				iHero1=animation.getSprite();
 			    animation.start();
 			    animation.update();
 				if (currentX % map.getWidth() == 0 && currentX != 0) {
@@ -303,7 +310,7 @@ public class GameModel {
 			} else if (mvt == 's') {
 				map.setLocation(map.getHeroLocation(currentX, currentY));
 				animation = walkFront;
-				iHero=animation.getSprite();
+				iHero1=animation.getSprite();
 			    animation.start();
 			    animation.update();
 				if ((currentY % map.getHeight() == map.getHeight() - 1)&&currentY!=23) {
@@ -317,7 +324,7 @@ public class GameModel {
 			} else if (mvt == 'd') {
 				map.setLocation(map.getHeroLocation(currentX, currentY));
 				animation = walkRight;
-				iHero=animation.getSprite();
+				iHero1=animation.getSprite();
 			    animation.start();
 			    animation.update();
 				if (currentX % map.getWidth() == 19&&currentX!=39) {
@@ -378,7 +385,7 @@ public class GameModel {
 				System.out.println("pink");
 				map.setLocation(map.getHeroLocation(currentX, currentY));
 				animation = walkBack1;
-				iHero=animation.getSprite();
+				iHero2=animation.getSprite();
 			    animation.start();
 			    animation.update();
 
@@ -394,7 +401,7 @@ public class GameModel {
 			} else if (mvt == 'q') {
 				map.setLocation(map.getHeroLocation(currentX, currentY));
 				animation = walkLeft1;
-				iHero=animation.getSprite();
+				iHero2=animation.getSprite();
 			    animation.start();
 			    animation.update();
 				if (currentX % map.getWidth() == 0 && currentX != 0) {
@@ -407,7 +414,7 @@ public class GameModel {
 			} else if (mvt == 's') {
 				map.setLocation(map.getHeroLocation(currentX, currentY));
 				animation = walkFront1;
-				iHero=animation.getSprite();
+				iHero2=animation.getSprite();
 			    animation.start();
 			    animation.update();
 				if ((currentY % map.getHeight() == map.getHeight() - 1)&&currentY!=23) {
@@ -421,7 +428,7 @@ public class GameModel {
 			} else if (mvt == 'd') {
 				map.setLocation(map.getHeroLocation(currentX, currentY));
 				animation = walkRight1;
-				iHero=animation.getSprite();
+				iHero2=animation.getSprite();
 			    animation.start();
 			    animation.update();
 				if (currentX % map.getWidth() == 19&&currentX!=39) {
@@ -478,9 +485,15 @@ public class GameModel {
 	}
 
 
-	public BufferedImage getImage()
+	public BufferedImage getImage(int i)
 	{
-		return iHero;
+		if(i==1){
+			return iHero1;
+		}
+		else{
+			return iHero2;
+		}
+		
 	}
 	/* 1 = Choix1
 	* 2 = Action1

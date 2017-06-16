@@ -674,13 +674,14 @@ public class GameView extends JPanel {
 				Case c = GameModel.map.getCase(((Factx - 1) * nbrCaseX) + i, (Facty - 1) * nbrCaseY + j);
 				Observables obs = c.getContenu();
 				if (obs.isHeros()) {
-					if (m_model.getImage() == null) {
+					Heros h = (Heros) obs;
+					if (m_model.getImage(h.equipe) == null) {
 
 						g.drawImage(Image[obs.getPic()], (i % GameModel.map.getWidth()) * tailleCase + 1,
 								(j % GameModel.map.getHeight()) * tailleCase + 1, 39, 39, this);
 					}
 
-					g.drawImage(m_model.getImage(), (i % GameModel.map.getWidth()) * tailleCase + 1,
+					g.drawImage(m_model.getImage(h.equipe), (i % GameModel.map.getWidth()) * tailleCase + 1,
 							(j % GameModel.map.getHeight()) * tailleCase + 1, 39, 39, this);
 
 				} else if (obs.isObstacles()) {
