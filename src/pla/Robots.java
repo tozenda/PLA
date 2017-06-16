@@ -1053,8 +1053,10 @@ public class Robots extends Perso{
 								stun = false;
 							}
 						}
-						if(this.etoile!=null){
-							this.courant = etoile;
+						if(n==null){
+							if(this.etoile!=null){
+								this.courant = etoile;
+							}
 						}
 					}
 				}
