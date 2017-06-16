@@ -626,57 +626,66 @@ public class GameModel {
 			}
 			else{
 				if((Game.game.tourDe1)&&(!Game.game.PhaseAction)){
-					if(heros1.pointAction>=2){
+					if(heros1.pointAction>=20){
 						com = m_game.m_view.getTextField();
-						if(heros1.getX()+1<map.getTotalWidth()){
-							if(GameModel.map.getCase(heros1.getX()+1,heros1.getY()).getContenu().isVide()){
-								robot_list.add(new Robots(heros1.getX()+1,heros1.getY(),1,com));
+						/*if((heros1.getX()+1<map.getTotalWidth())&&(GameModel.map.getCase(heros1.getX()+1,heros1.getY()).getContenu().isVide())){
+								Robots r = new Robots(heros1.getX()+1,heros1.getY(),1,com);
+								Case c = new Case(heros1.getX()+1,heros1.getY(),r);
+								map.editCase(c);
+								robot_list.add(r);
 								heros1.pointAction -= heros1.coupCreationRobot;
-							}
 						}
-						else if(heros1.getY()+1<map.getTotalHeight()){
-							if(GameModel.map.getCase(heros1.getX(),heros1.getY()+1).getContenu().isVide()){
-								robot_list.add(new Robots(heros1.getX(),heros1.getY()+1,1,com));
+						else if((heros1.getY()+1<map.getTotalHeight())&&(GameModel.map.getCase(heros1.getX(),heros1.getY()+1).getContenu().isVide())){
+								Robots r = new Robots(heros1.getX(),heros1.getY()+1,1,com);
+								Case c = new Case(heros1.getX(),heros1.getY()+1,r);
+								map.editCase(c);
+								robot_list.add(r);
 								heros1.pointAction -= heros1.coupCreationRobot;
-							}
 						}
-						else if(heros1.getX()>0){
-							if(GameModel.map.getCase(heros1.getX()-1,heros1.getY()).getContenu().isVide()){
-								robot_list.add(new Robots(heros1.getX()-1,heros1.getY(),1,com));
+						else if((heros1.getX()>0)&&(GameModel.map.getCase(heros1.getX()-1,heros1.getY()).getContenu().isVide())){
+								Robots r = new Robots(heros1.getX()-1,heros1.getY(),1,com);
+								Case c = new Case(heros1.getX()-1,heros1.getY(),r);
+								map.editCase(c);
+								robot_list.add(r);
 								heros1.pointAction -= heros1.coupCreationRobot;
-							}
 						}
-						else if(heros1.getY()>0){
-							if(GameModel.map.getCase(heros1.getX(),heros1.getY()-1).getContenu().isVide()){
-								robot_list.add(new Robots(heros1.getX(),heros1.getY()-1,1,com));
+						else if((heros1.getY()>0)&&(GameModel.map.getCase(heros1.getX(),heros1.getY()-1).getContenu().isVide())){
+								Robots r = new Robots(heros1.getX(),heros1.getY()-1,1,com);
+								Case c = new Case(heros1.getX(),heros1.getY()-1,r);
+								map.editCase(c);
+								robot_list.add(r);
 								heros1.pointAction -= heros1.coupCreationRobot;
-							}
+						}*/
+						if((heros1.getY()+1<map.getTotalHeight() && heros1.getX()+1<map.getTotalWidth())&&(GameModel.map.getCase(heros1.getX()+1,heros1.getY()+1).getContenu().isVide())){
+								Robots r = new Robots(heros1.getX()+1,heros1.getY()+1,1,com);
+								Case c = new Case(heros1.getX()+1,heros1.getY()+1,r);
+								map.editCase(c);
+								robot_list.add(r);
+								heros1.pointAction -= heros1.coupCreationRobot;
 						}
-						else if(heros1.getY()+1<map.getTotalHeight() && heros1.getX()+1<map.getTotalWidth()){
-							if(GameModel.map.getCase(heros1.getX()+1,heros1.getY()+1).getContenu().isVide()){
-								robot_list.add(new Robots(heros1.getX()+1,heros1.getY()+1,1,com));
+						else if((heros1.getY()>0 && heros1.getX()+1<map.getTotalWidth())&&(GameModel.map.getCase(heros1.getX()+1,heros1.getY()-1).getContenu().isVide())){
+								Robots r = new Robots(heros1.getX()+1,heros1.getY()-1,1,com);
+								Case c = new Case(heros1.getX()+1,heros1.getY()-1,r);
+								map.editCase(c);
+								robot_list.add(r);
 								heros1.pointAction -= heros1.coupCreationRobot;
-							}
 						}
-						else if(heros1.getY()>0 && heros1.getX()+1<map.getTotalWidth()){
-							if(GameModel.map.getCase(heros1.getX()+1,heros1.getY()-1).getContenu().isVide()){
-								robot_list.add(new Robots(heros1.getX()+1,heros1.getY()-1,1,com));
+						else if((heros1.getY()+1<map.getTotalHeight() && heros1.getX()>0)&&(GameModel.map.getCase(heros1.getX()-1,heros1.getY()+1).getContenu().isVide())){
+								Robots r = new Robots(heros1.getX()-1,heros1.getY()+1,1,com);
+								Case c = new Case(heros1.getX()-1,heros1.getY()+1,r);
+								map.editCase(c);
+								robot_list.add(r);
 								heros1.pointAction -= heros1.coupCreationRobot;
-							}
 						}
-						else if(heros1.getY()+1<map.getTotalHeight() && heros1.getX()>0){
-							if(GameModel.map.getCase(heros1.getX()-1,heros1.getY()+1).getContenu().isVide()){
-								robot_list.add(new Robots(heros1.getX()-1,heros1.getY()+1,1,com));
+						else if((heros1.getY()>0 && heros1.getX()>0)&&(GameModel.map.getCase(heros1.getX()-1,heros1.getY()-1).getContenu().isVide())){
+								Robots r = new Robots(heros1.getX()-1,heros1.getY()-1,1,com);
+								Case c = new Case(heros1.getX()-1,heros1.getY()-1,r);
+								map.editCase(c);
+								robot_list.add(r);
 								heros1.pointAction -= heros1.coupCreationRobot;
-							}
-						}
-						else if(heros1.getY()>0 && heros1.getX()>0){
-							if(GameModel.map.getCase(heros1.getX()-1,heros1.getY()-1).getContenu().isVide()){
-								robot_list.add(new Robots(heros1.getX()-1,heros1.getY()-1,1,com));
-								heros1.pointAction -= heros1.coupCreationRobot;
-							}
 						}
 						else{
+							JOptionPane.showMessageDialog(null,"Génération du robot impossible, aucune place autour du héros");
 						}
 					}
 					else{
@@ -686,56 +695,71 @@ public class GameModel {
 				else if((!Game.game.tourDe1)&&(!Game.game.PhaseAction)){
 					if(heros2.pointAction>=2){
 						com = m_game.m_view.getTextField();
-						if(heros1.getX()+1<map.getTotalWidth()){
-							if(GameModel.map.getCase(heros2.getX()+1,heros2.getY()).getContenu().isVide()){
-								robot_list.add(new Robots(heros2.getX()+1,heros2.getY(),2,com));
+						/*if((heros1.getX()+1<map.getTotalWidth())&&(GameModel.map.getCase(heros2.getX()+1,heros2.getY()).getContenu().isVide())){
+								Robots r = new Robots(heros2.getX()+1,heros2.getY(),1,com);
+								Case c = new Case(r.i,r.j,r);
+								map.editCase(c);
+								robot_list.add(r);
 								heros2.pointAction -= heros2.coupCreationRobot;
 							}
 						}
 						else if(heros1.getY()+1<map.getTotalHeight()){
 							if(GameModel.map.getCase(heros2.getX(),heros2.getY()+1).getContenu().isVide()){
-								robot_list.add(new Robots(heros2.getX(),heros2.getY()+1,2,com));
+								Robots r = new Robots(heros2.getX(),heros2.getY()+1,1,com);
+								Case c = new Case(r.i,r.j,r);
+								map.editCase(c);
+								robot_list.add(r);
 								heros2.pointAction -= heros2.coupCreationRobot;
 							}
 						}
 						else if(heros1.getX()>0){
 							if(GameModel.map.getCase(heros2.getX()-1,heros2.getY()).getContenu().isVide()){
-								robot_list.add(new Robots(heros2.getX()-1,heros2.getY(),2,com));
+								Robots r = new Robots(heros2.getX()-1,heros2.getY(),1,com);
+								Case c = new Case(r.i,r.j,r);
+								map.editCase(c);
+								robot_list.add(r);
 								heros2.pointAction -= heros2.coupCreationRobot;
 							}
 						}
 						else if(heros1.getY()>0){
 							if(GameModel.map.getCase(heros2.getX(),heros2.getY()-1).getContenu().isVide()){
-								robot_list.add(new Robots(heros2.getX(),heros2.getY()-1,2,com));
+								Robots r = new Robots(heros2.getX(),heros2.getY()-1,1,com);
+								Case c = new Case(r.i,r.j,r);
+								map.editCase(c);
+								robot_list.add(r);
 								heros2.pointAction -= heros2.coupCreationRobot;
 							}
+						}*/
+						if ((heros2.getY()+1<map.getTotalHeight() && heros2.getX()+1<map.getTotalWidth())&&(GameModel.map.getCase(heros2.getX()+1,heros2.getY()+1).getContenu().isVide())){
+								Robots r = new Robots(heros2.getX()+1,heros2.getY()+1,2,com);
+								Case c = new Case(r.i,r.j,r);
+								map.editCase(c);
+								robot_list.add(r);
+								heros2.pointAction -= heros2.coupCreationRobot;
 						}
-						else if(heros1.getY()+1<map.getTotalHeight() && heros1.getX()+1<map.getTotalWidth()){
-							if(GameModel.map.getCase(heros2.getX()+1,heros2.getY()+1).getContenu().isVide()){
-								robot_list.add(new Robots(heros2.getX()+1,heros2.getY()+1,2,com));
+						else if((heros2.getY()>0 && heros2.getX()+1<map.getTotalWidth())&&(GameModel.map.getCase(heros2.getX()+1,heros2.getY()-1).getContenu().isVide())){
+								Robots r = new Robots(heros2.getX()+1,heros2.getY()-1,2,com);
+								Case c = new Case(r.i,r.j,r);
+								map.editCase(c);
+								robot_list.add(r);
 								heros2.pointAction -= heros2.coupCreationRobot;
-							}
 						}
-						else if(heros1.getY()>0 && heros1.getX()+1<map.getTotalWidth()){
-							if(GameModel.map.getCase(heros2.getX()+1,heros2.getY()-1).getContenu().isVide()){
-								robot_list.add(new Robots(heros2.getX()+1,heros2.getY()-1,2,com));
+						else if((heros2.getY()+1<map.getTotalHeight() && heros2.getX()>0)&&(GameModel.map.getCase(heros2.getX()-1,heros2.getY()+1).getContenu().isVide())){
+								Robots r = new Robots(heros2.getX()-1,heros2.getY()+1,2,com);
+								Case c = new Case(r.i,r.j,r);
+								map.editCase(c);
+								robot_list.add(r);
 								heros2.pointAction -= heros2.coupCreationRobot;
-							}
 						}
-						else if(heros1.getY()+1<map.getTotalHeight() && heros1.getX()>0){
-							if(GameModel.map.getCase(heros2.getX()-1,heros2.getY()+1).getContenu().isVide()){
-								robot_list.add(new Robots(heros2.getX()-1,heros2.getY()+1,2,com));
+						else if((heros2.getY()>0 && heros2.getX()>0)&&(GameModel.map.getCase(heros2.getX()-1,heros2.getY()-1).getContenu().isVide())){
+								Robots r = new Robots(heros2.getX()-1,heros2.getY()-1,2,com);
+								Case c = new Case(r.i,r.j,r);
+								map.editCase(c);
+								robot_list.add(r);
 								heros2.pointAction -= heros2.coupCreationRobot;
-							}
-						}
-						else if(heros1.getY()>0 && heros1.getX()>0){
-							if(GameModel.map.getCase(heros2.getX()-1,heros2.getY()-1).getContenu().isVide()){
-								robot_list.add(new Robots(heros2.getX()-1,heros2.getY()-1,2,com));
-								heros2.pointAction -= heros2.coupCreationRobot;
-							}
 						}
 						else{
-							//TODO : Faire une popup qui indique que le robot ne peut être généré faute de place...
+							JOptionPane.showMessageDialog(null,"Génération du robot impossible, aucune place autour du héros");
 						}
 					}
 					else{

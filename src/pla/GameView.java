@@ -158,7 +158,7 @@ public class GameView extends JPanel {
 	private JPanel build() {
 		if (jp == null) {
 			setPanel().add(setLogo(), gc);
-			setPanel().add(setPlayer(), gc);
+			setPanel().add(setPlayer(false), gc);
 			setPanel().add(setBarHero(false), gc);
 			setPanel().add(setBarBase(), gc);
 			setPanel().add(setEBarBase(), gc);
@@ -299,7 +299,7 @@ public class GameView extends JPanel {
 		} else {
 			textArea.setText(Inventory);
 		}
-		System.out.println("Here's What I got : " + s);
+		//System.out.println("Here's What I got : " + s);
 
 		return scrollableTextArea;
 	}
@@ -381,7 +381,7 @@ public class GameView extends JPanel {
 		return font;
 	}
 
-	public JLabel setPlayer() {
+	public JLabel setPlayer(boolean gameBegan) {
 		if (joueur1 == null) {
 			joueur1 = new JLabel();
 			joueur1.setFont(setFont(18f));
@@ -392,15 +392,17 @@ public class GameView extends JPanel {
 			System.out.println("Player");
 
 		} else {
-			switch (Game.game.getState()) {
-			case (1):
-				player = "Joueur 1";
-				break;
-			case (3):
-				player = "Joueur 2";
-				break;
-			default:
-				player = "Phase d'action";
+			if(gameBegan){
+				switch (Game.game.getState()) {
+				case (1):
+					player = "Joueur 1";
+					break;
+				case (3):
+					player = "Joueur 2";
+					break;
+				default:
+					player = "Phase d'action";
+				}
 			}
 		}
 		joueur1.setText(player);
@@ -645,7 +647,7 @@ public class GameView extends JPanel {
 
 	// pour afficher des objets sur notre fenêtre
 	public void paintComponent(Graphics g) {
-		setPlayer();
+		setPlayer(true);
 		/*
 		 * On réaffiche le JLabel info (right click) après modification
 		 *

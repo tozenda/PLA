@@ -161,6 +161,7 @@ public class Game {
 		m_controller.step(now);
 		long elapsed = (now - timeElapsedBreak) - m_lastRepaint;
 		if (elapsed > 2*REPAINT_DELAY) {
+			
 			if(cmpt >= 5){
 				if(m_model.partie()!=0){
 					System.out.println("VICTOIRE DU JOUEUR "+m_model.partie());

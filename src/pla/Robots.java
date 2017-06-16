@@ -175,7 +175,7 @@ public class Robots extends Perso{
 					}
 					else{
 						r = rnd.nextBoolean();
-						if((r)&&((contenu("E").isVide())||(contenu("E").isCompetences()))){
+						if((i<=di)&&((contenu("E").isVide())||(contenu("E").isCompetences()))){
 							if(contenu("E").isCompetences()){
 								pickUp( (Competences) contenu("E"));
 							}
@@ -215,7 +215,7 @@ public class Robots extends Perso{
 					}
 					else{
 						r = rnd.nextBoolean();
-						if((r)&&(contenu("E").isCompetences()||contenu("E").isVide())){
+						if((i<=di)&&(contenu("E").isCompetences()||contenu("E").isVide())){
 							if(contenu("E").isCompetences()){
 								pickUp( (Competences) contenu("E"));
 							}
@@ -255,7 +255,7 @@ public class Robots extends Perso{
 					}
 					else{
 						r = rnd.nextBoolean();
-						if((r)&&(contenu("S").isCompetences()||contenu("S").isVide())){
+						if((j<=dj)&&(contenu("S").isCompetences()||contenu("S").isVide())){
 							if(contenu("S").isCompetences()){
 								pickUp( (Competences) contenu("S"));
 							}
@@ -295,7 +295,7 @@ public class Robots extends Perso{
 					}
 					else{
 						r = rnd.nextBoolean();
-						if((r)&&(contenu("S").isCompetences()||contenu("S").isVide())){
+						if((dj>=j)&&(contenu("S").isCompetences()||contenu("S").isVide())){
 							if(contenu("S").isCompetences()){
 								pickUp( (Competences) contenu("S"));
 							}
