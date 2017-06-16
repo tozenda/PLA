@@ -216,11 +216,11 @@ public class GameModel {
 	int partie(){
 		if(!map.getCase(1, 21).getContenu().isBase() && !map.getCase(2, 21).getContenu().isBase() 
 				&& !map.getCase(2, 22).getContenu().isBase() && !map.getCase(2, 22).getContenu().isBase()){
-			return 1;
+			return 2;
 		}
 		else if(!map.getCase(37, 1).getContenu().isBase() && !map.getCase(37, 2).getContenu().isBase() 
 				&& !map.getCase(38, 1).getContenu().isBase() && !map.getCase(38, 2).getContenu().isBase()){
-			return 2;
+			return 1;
 		}
 		else{
 			return 0;
